@@ -49,7 +49,6 @@
 #include "citra_qt/debugger/graphics/graphics_vertex_shader.h"
 #include "citra_qt/debugger/ipc/recorder.h"
 #include "citra_qt/debugger/lle_service_modules.h"
-#include "citra_qt/debugger/profiler.h"
 #include "citra_qt/debugger/registers.h"
 #include "citra_qt/debugger/wait_tree.h"
 #include "citra_qt/discord.h"
@@ -483,12 +482,6 @@ void GMainWindow::InitializeDebugWidgets() {
 
     QMenu* debug_menu = ui->menu_View_Debugging;
 
-#if MICROPROFILE_ENABLED
-    microProfileDialog = new MicroProfileDialog(this);
-    microProfileDialog->hide();
-    debug_menu->addAction(microProfileDialog->toggleViewAction());
-#endif
-
     registersWidget = new RegistersWidget(system, this);
     addDockWidget(Qt::RightDockWidgetArea, registersWidget);
     registersWidget->hide();
@@ -772,10 +765,6 @@ void GMainWindow::RestoreUIState() {
     restoreGeometry(UISettings::values.geometry);
     restoreState(UISettings::values.state);
     render_window->restoreGeometry(UISettings::values.renderwindow_geometry);
-#if MICROPROFILE_ENABLED
-    microProfileDialog->restoreGeometry(UISettings::values.microprofile_geometry);
-    microProfileDialog->setVisible(UISettings::values.microprofile_visible.GetValue());
-#endif
 
     game_list->LoadInterfaceLayout();
 
@@ -3492,10 +3481,6 @@ void GMainWindow::UpdateUISettings() {
         UISettings::values.renderwindow_geometry = render_window->saveGeometry();
     }
     UISettings::values.state = saveState();
-#if MICROPROFILE_ENABLED
-    UISettings::values.microprofile_geometry = microProfileDialog->saveGeometry();
-    UISettings::values.microprofile_visible = microProfileDialog->isVisible();
-#endif
     UISettings::values.single_window_mode = ui->action_Single_Window_Mode->isChecked();
     UISettings::values.fullscreen = ui->action_Fullscreen->isChecked();
     UISettings::values.display_titlebar = ui->action_Display_Dock_Widget_Headers->isChecked();
@@ -3609,8 +3594,6 @@ static Qt::HighDpiScaleFactorRoundingPolicy GetHighDpiRoundingPolicy() {
 
 int main(int argc, char* argv[]) {
     Common::DetachedTasks detached_tasks;
-    MicroProfileOnThreadCreate("Frontend");
-    SCOPE_EXIT({ MicroProfileShutdown(); });
 
     // Init settings params
     QCoreApplication::setOrganizationName(QStringLiteral("Citra team"));
