@@ -78,6 +78,7 @@
 #include "common/memory_detect.h"
 #include "common/scm_rev.h"
 #include "common/scope_exit.h"
+#include "common/string_util.h"
 #if CITRA_ARCH(x86_64)
 #include "common/x64/cpu_detect.h"
 #endif
