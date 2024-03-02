@@ -77,6 +77,10 @@ add_library(video_core STATIC
     shader/generator/shader_gen.h
     shader/generator/shader_uniforms.cpp
     shader/generator/shader_uniforms.h
+    shader/generator/spv_fs_shader_gen.cpp
+    shader/generator/spv_fs_shader_gen.h
+    shader/generator/spv_shader_gen.h
+    shader/generator/spv_shader_gen.cpp
     shader/shader.cpp
     shader/shader.h
     shader/shader_interpreter.cpp

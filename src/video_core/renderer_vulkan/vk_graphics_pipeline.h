@@ -160,7 +160,7 @@ struct Shader : public Common::AsyncHandle {
 
     vk::ShaderModule module;
     vk::Device device;
-    std::string program;
+    std::vector<u32> program;
 };
 
 class GraphicsPipeline : public Common::AsyncHandle {

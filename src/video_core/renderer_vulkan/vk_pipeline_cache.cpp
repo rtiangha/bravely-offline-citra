@@ -19,6 +19,7 @@
 #include "video_core/shader/generator/glsl_fs_shader_gen.h"
 #include "video_core/shader/generator/glsl_shader_gen.h"
 #include "video_core/shader/generator/spv_fs_shader_gen.h"
+#include "video_core/shader/generator/spv_shader_gen.h"
 
 using namespace Pica::Shader::Generator;
 using Pica::Shader::FSConfig;
@@ -404,21 +405,37 @@ bool PipelineCache::UseProgrammableVertexShader(const Pica::RegsInternal& regs,
 
     auto [it, new_config] = programmable_vertex_map.try_emplace(config);
     if (new_config) {
-        auto program = GLSL::GenerateVertexShader(setup, config, true);
-        if (program.empty()) {
-            LOG_ERROR(Render_Vulkan, "Failed to retrieve programmable vertex shader");
-            programmable_vertex_map[config] = nullptr;
-            return false;
+        const bool use_spirv = Settings::values.spirv_shader_gen.GetValue();
+        const vk::Device device = instance.GetDevice();
+
+        std::vector<u32> code;
+
+        // Disabled for programmable shaders for now
+        if (use_spirv && false) {
+            // Directly generate SPIRV
+            code = SPIRV::GenerateVertexShader(setup, config, profile);
+        } else {
+            // Generate GLSL
+            const std::string program = GLSL::GenerateVertexShader(setup, config, true);
+            if (program.empty()) {
+                LOG_ERROR(Render_Vulkan, "Failed to retrieve programmable vertex shader");
+                programmable_vertex_map[config] = nullptr;
+                return false;
+            }
+            // Compile GLSL to SPIRV
+            code = CompileGLSLtoSPIRV(program, vk::ShaderStageFlagBits::eVertex, device);
         }
 
-        auto [iter, new_program] = programmable_vertex_cache.try_emplace(program, instance);
+        const u64 code_hash = Common::ComputeHash64(std::as_bytes(std::span(code)));
+
+        auto [iter, new_program] = programmable_vertex_cache.try_emplace(code_hash, instance);
         auto& shader = iter->second;
 
+        // Queue worker thread to create shader module
         if (new_program) {
-            shader.program = std::move(program);
-            const vk::Device device = instance.GetDevice();
+            shader.program = std::move(code);
             workers.QueueWork([device, &shader] {
-                shader.module = Compile(shader.program, vk::ShaderStageFlagBits::eVertex, device);
+                shader.module = CompileSPV(shader.program, device);
                 shader.MarkDone();
             });
         }
