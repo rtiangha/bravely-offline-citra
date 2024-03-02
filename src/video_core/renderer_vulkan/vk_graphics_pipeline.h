@@ -152,6 +152,7 @@ struct PipelineInfo {
 struct Shader : public Common::AsyncHandle {
     explicit Shader(const Instance& instance);
     explicit Shader(const Instance& instance, vk::ShaderStageFlagBits stage, std::string code);
+    explicit Shader(const Instance& instance, std::span<const u32> code);
     ~Shader();
 
     [[nodiscard]] vk::ShaderModule Handle() const noexcept {
