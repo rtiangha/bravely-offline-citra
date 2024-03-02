@@ -6,6 +6,8 @@
 
 #include <sirit/sirit.h>
 
+#include "common/unique_function.h"
+
 namespace Pica {
 struct ShaderSetup;
 }
@@ -35,39 +37,90 @@ struct VectorIds {
 class VertexModule : public Sirit::Module {
 
 public:
-    explicit VertexModule(const PicaVSConfig& config, const Profile& profile);
+    explicit VertexModule();
     ~VertexModule();
 
-    /// Emits SPIR-V bytecode corresponding to the provided pica vertex configuration
-    void Generate();
-
 private:
+    template <bool global = true>
+    [[nodiscard]] Id DefineVar(Id type, spv::StorageClass storage_class) {
+        const Id pointer_type_id{TypePointer(storage_class, type)};
+        return global ? AddGlobalVariable(pointer_type_id, storage_class)
+                      : AddLocalVariable(pointer_type_id, storage_class);
+    }
+
+    /// Defines an input variable
+    [[nodiscard]] Id DefineInput(Id type, u32 location) {
+        const Id input_id{DefineVar(type, spv::StorageClass::Input)};
+        Decorate(input_id, spv::Decoration::Location, location);
+        return input_id;
+    }
+
+    /// Defines an output variable
+    [[nodiscard]] Id DefineOutput(Id type, u32 location) {
+        const Id output_id{DefineVar(type, spv::StorageClass::Output)};
+        Decorate(output_id, spv::Decoration::Location, location);
+        return output_id;
+    }
+
     void DefineArithmeticTypes();
     void DefineEntryPoint();
     void DefineInterface();
 
-private:
-    const PicaVSConfig& config;
-    const Profile& profile;
+public:
+    struct EmitterIDs {
+        Id void_id{};
+        Id bool_id{};
+        Id f32_id{};
+        Id i32_id{};
+        Id u32_id{};
 
-    Id void_id{};
-    Id bool_id{};
-    Id f32_id{};
-    Id i32_id{};
-    Id u32_id{};
+        VectorIds vec_ids{};
+        VectorIds ivec_ids{};
+        VectorIds uvec_ids{};
+        VectorIds bvec_ids{};
 
-    VectorIds vec_ids{};
-    VectorIds ivec_ids{};
-    VectorIds uvec_ids{};
-    VectorIds bvec_ids{};
+        // Input vertex attributes
+        Id vert_in_position_id{};
+        Id vert_in_color_id{};
+        Id vert_in_texcoord0_id{};
+        Id vert_in_texcoord1_id{};
+        Id vert_in_texcoord2_id{};
+        Id vert_in_texcoord0_w_id{};
+        Id vert_in_normquat_id{};
+        Id vert_in_view_id{};
+
+        // Output vertex attributes
+        Id vert_out_color_id{};
+        Id vert_out_texcoord0_id{};
+        Id vert_out_texcoord1_id{};
+        Id vert_out_texcoord2_id{};
+        Id vert_out_texcoord0_w_id{};
+        Id vert_out_normquat_id{};
+        Id vert_out_view_id{};
+
+        // Built-ins
+        Id gl_position;
+    } ids;
+
+    /// Generate code using the provided SPIRV emitter context
+    void Generate(Common::UniqueFunction<void, Sirit::Module&, const EmitterIDs&> proc);
+
+    /// Emits SPIR-V bytecode corresponding to the provided pica vertex configuration
+    void Generate(const PicaVSConfig& config, const Profile& profile);
 };
+
+/**
+ * Generates the SPIRV vertex shader program source code that accepts vertices from software shader
+ * and directly passes them to the fragment shader.
+ * @returns SPIRV shader assembly; empty on failure
+ */
+std::vector<u32> GenerateTrivialVertexShader(bool use_clip_planes);
 
 /**
  * Generates the SPIRV vertex shader program source code for the given VS program
  * @param config ShaderCacheKey object generated for the current Pica state, used for the shader
  *               configuration (NOTE: Use state in this struct only, not the Pica registers!)
- * @param separable_shader generates shader that can be used for separate shader object
- * @returns String of the shader source code; empty on failure
+ * @returns SPIRV shader assembly; empty on failure
  */
 std::vector<u32> GenerateVertexShader(const Pica::ShaderSetup& setup, const PicaVSConfig& config,
                                       const Profile& profile);

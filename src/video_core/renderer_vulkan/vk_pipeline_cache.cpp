@@ -89,8 +89,7 @@ PipelineCache::PipelineCache(const Instance& instance_, Scheduler& scheduler_,
                                DescriptorSetProvider{instance, pool, TEXTURE_BINDINGS},
                                DescriptorSetProvider{instance, pool, SHADOW_BINDINGS}},
       trivial_vertex_shader{
-          instance, vk::ShaderStageFlagBits::eVertex,
-          GLSL::GenerateTrivialVertexShader(instance.IsShaderClipDistanceSupported(), true)} {
+          instance, SPIRV::GenerateTrivialVertexShader(instance.IsShaderClipDistanceSupported())} {
     profile = Pica::Shader::Profile{
         .has_separable_shaders = true,
         .has_clip_planes = instance.IsShaderClipDistanceSupported(),
