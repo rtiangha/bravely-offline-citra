@@ -5,14 +5,11 @@
 
 #include "video_core/pica/regs_rasterizer.h"
 #include "video_core/shader/generator/shader_gen.h"
-// #include "video_core/shader/generator/spv_shader_decompiler.h"
 #include "video_core/shader/generator/spv_shader_gen.h"
 
 using VSOutputAttributes = Pica::RasterizerRegs::VSOutputAttributes;
 
 namespace Pica::Shader::Generator::SPIRV {
-
-constexpr u32 SPIRV_VERSION_1_3 = 0x00010300;
 
 VertexModule::VertexModule() : Sirit::Module{SPIRV_VERSION_1_3} {
     DefineArithmeticTypes();

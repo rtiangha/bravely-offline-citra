@@ -6,6 +6,7 @@
 
 #include <sirit/sirit.h>
 
+#include "common/common_types.h"
 #include "common/unique_function.h"
 
 namespace Pica {
@@ -14,6 +15,7 @@ struct ShaderSetup;
 
 namespace Pica::Shader {
 struct VSConfig;
+struct FSConfig;
 struct Profile;
 } // namespace Pica::Shader
 
@@ -24,6 +26,8 @@ struct PicaVSConfig;
 namespace Pica::Shader::Generator::SPIRV {
 
 using Sirit::Id;
+
+constexpr u32 SPIRV_VERSION_1_3 = 0x00010300;
 
 struct VectorIds {
     /// Returns the type id of the vector with the provided size

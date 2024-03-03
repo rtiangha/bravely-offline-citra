@@ -12,11 +12,6 @@
 #include "video_core/pica/regs_framebuffer.h"
 #include "video_core/pica/regs_texturing.h"
 
-namespace Pica::Shader {
-struct FSConfig;
-struct Profile;
-} // namespace Pica::Shader
-
 namespace Pica::Shader::Generator::SPIRV {
 
 using Sirit::Id;
