@@ -65,36 +65,34 @@ void VertexModule::DefineInterface() {
 
     // Inputs
     ids.vert_in_position_id =
-        Name(DefineInput(ids.vec_ids.Get(4), ATTRIBUTE_POSITION), "vert_in_position_id");
-    ids.vert_in_color_id =
-        Name(DefineInput(ids.vec_ids.Get(4), ATTRIBUTE_COLOR), "vert_in_color_id");
+        Name(DefineInput(ids.vec_ids.Get(4), ATTRIBUTE_POSITION), "vert_in_position");
+    ids.vert_in_color_id = Name(DefineInput(ids.vec_ids.Get(4), ATTRIBUTE_COLOR), "vert_in_color");
     ids.vert_in_texcoord0_id =
-        Name(DefineInput(ids.vec_ids.Get(2), ATTRIBUTE_TEXCOORD0), "vert_in_texcoord0_id");
+        Name(DefineInput(ids.vec_ids.Get(2), ATTRIBUTE_TEXCOORD0), "vert_in_texcoord0");
     ids.vert_in_texcoord1_id =
-        Name(DefineInput(ids.vec_ids.Get(2), ATTRIBUTE_TEXCOORD1), "vert_in_texcoord1_id");
+        Name(DefineInput(ids.vec_ids.Get(2), ATTRIBUTE_TEXCOORD1), "vert_in_texcoord1");
     ids.vert_in_texcoord2_id =
-        Name(DefineInput(ids.vec_ids.Get(2), ATTRIBUTE_TEXCOORD2), "vert_in_texcoord2_id");
+        Name(DefineInput(ids.vec_ids.Get(2), ATTRIBUTE_TEXCOORD2), "vert_in_texcoord2");
     ids.vert_in_texcoord0_w_id =
-        Name(DefineInput(ids.f32_id, ATTRIBUTE_TEXCOORD0_W), "vert_in_texcoord0_w_id");
+        Name(DefineInput(ids.f32_id, ATTRIBUTE_TEXCOORD0_W), "vert_in_texcoord0_w");
     ids.vert_in_normquat_id =
-        Name(DefineInput(ids.vec_ids.Get(4), ATTRIBUTE_NORMQUAT), "vert_in_normquat_id");
-    ids.vert_in_view_id = Name(DefineInput(ids.vec_ids.Get(3), ATTRIBUTE_VIEW), "vert_in_view_id");
+        Name(DefineInput(ids.vec_ids.Get(4), ATTRIBUTE_NORMQUAT), "vert_in_normquat");
+    ids.vert_in_view_id = Name(DefineInput(ids.vec_ids.Get(3), ATTRIBUTE_VIEW), "vert_in_view");
 
     // Outputs
     ids.vert_out_color_id =
-        Name(DefineOutput(ids.vec_ids.Get(4), ATTRIBUTE_COLOR), "vert_out_color_id");
+        Name(DefineOutput(ids.vec_ids.Get(4), ATTRIBUTE_COLOR), "vert_out_color");
     ids.vert_out_texcoord0_id =
-        Name(DefineOutput(ids.vec_ids.Get(2), ATTRIBUTE_TEXCOORD0), "vert_out_texcoord0_id");
+        Name(DefineOutput(ids.vec_ids.Get(2), ATTRIBUTE_TEXCOORD0), "vert_out_texcoord0");
     ids.vert_out_texcoord1_id =
-        Name(DefineOutput(ids.vec_ids.Get(2), ATTRIBUTE_TEXCOORD1), "vert_out_texcoord1_id");
+        Name(DefineOutput(ids.vec_ids.Get(2), ATTRIBUTE_TEXCOORD1), "vert_out_texcoord1");
     ids.vert_out_texcoord2_id =
-        Name(DefineOutput(ids.vec_ids.Get(2), ATTRIBUTE_TEXCOORD2), "vert_out_texcoord2_id");
+        Name(DefineOutput(ids.vec_ids.Get(2), ATTRIBUTE_TEXCOORD2), "vert_out_texcoord2");
     ids.vert_out_texcoord0_w_id =
-        Name(DefineOutput(ids.f32_id, ATTRIBUTE_TEXCOORD0_W), "vert_out_texcoord0_w_id");
+        Name(DefineOutput(ids.f32_id, ATTRIBUTE_TEXCOORD0_W), "vert_out_texcoord0_w");
     ids.vert_out_normquat_id =
-        Name(DefineOutput(ids.vec_ids.Get(4), ATTRIBUTE_NORMQUAT), "vert_out_normquat_id");
-    ids.vert_out_view_id =
-        Name(DefineOutput(ids.vec_ids.Get(3), ATTRIBUTE_VIEW), "vert_out_view_id");
+        Name(DefineOutput(ids.vec_ids.Get(4), ATTRIBUTE_NORMQUAT), "vert_out_normquat");
+    ids.vert_out_view_id = Name(DefineOutput(ids.vec_ids.Get(3), ATTRIBUTE_VIEW), "vert_out_view");
 
     // Built-ins
     ids.gl_position = DefineVar(ids.vec_ids.Get(4), spv::StorageClass::Output);
