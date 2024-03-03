@@ -66,6 +66,8 @@ private:
     void DefineEntryPoint();
     void DefineInterface();
 
+    Id WriteFuncSanitizeVertex();
+
 public:
     struct EmitterIDs {
         Id void_id{};
@@ -100,6 +102,9 @@ public:
 
         // Built-ins
         Id gl_position;
+
+        // Functions
+        Id sanitize_vertex;
     } ids;
 
     /// Generate code using the provided SPIRV emitter context
