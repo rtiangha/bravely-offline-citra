@@ -100,8 +100,16 @@ public:
         Id vert_out_normquat_id{};
         Id vert_out_view_id{};
 
+        // Uniforms
+
+        // vs_data
+        Id ptr_vs_data;
+        Id ptr_enable_clip1;
+        Id ptr_clip_coef;
+
         // Built-ins
         Id gl_position;
+        Id gl_clip_distance;
 
         // Functions
         Id sanitize_vertex;

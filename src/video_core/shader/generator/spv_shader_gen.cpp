@@ -49,11 +49,24 @@ void VertexModule::DefineEntryPoint() {
     const Id main_func{OpFunction(TypeVoid(), spv::FunctionControlMask::MaskNone, main_type)};
 
     const Id interface_ids[] = {
-        ids.vert_in_position_id,   ids.vert_in_color_id,        ids.vert_in_texcoord0_id,
-        ids.vert_in_texcoord1_id,  ids.vert_in_texcoord2_id,    ids.vert_in_texcoord0_w_id,
-        ids.vert_in_normquat_id,   ids.vert_in_view_id,         ids.gl_position,
-        ids.vert_out_color_id,     ids.vert_out_texcoord0_id,   ids.vert_out_texcoord1_id,
-        ids.vert_out_texcoord2_id, ids.vert_out_texcoord0_w_id, ids.vert_out_normquat_id,
+        // Inputs
+        ids.vert_in_position_id,
+        ids.vert_in_color_id,
+        ids.vert_in_texcoord0_id,
+        ids.vert_in_texcoord1_id,
+        ids.vert_in_texcoord2_id,
+        ids.vert_in_texcoord0_w_id,
+        ids.vert_in_normquat_id,
+        ids.vert_in_view_id,
+        // Outputs
+        ids.gl_position,
+        ids.gl_clip_distance,
+        ids.vert_out_color_id,
+        ids.vert_out_texcoord0_id,
+        ids.vert_out_texcoord1_id,
+        ids.vert_out_texcoord2_id,
+        ids.vert_out_texcoord0_w_id,
+        ids.vert_out_normquat_id,
         ids.vert_out_view_id,
     };
 
@@ -63,7 +76,7 @@ void VertexModule::DefineEntryPoint() {
 void VertexModule::DefineInterface() {
     // Define interface block
 
-    // Inputs
+    /// Inputs
     ids.vert_in_position_id =
         Name(DefineInput(ids.vec_ids.Get(4), ATTRIBUTE_POSITION), "vert_in_position");
     ids.vert_in_color_id = Name(DefineInput(ids.vec_ids.Get(4), ATTRIBUTE_COLOR), "vert_in_color");
@@ -79,7 +92,7 @@ void VertexModule::DefineInterface() {
         Name(DefineInput(ids.vec_ids.Get(4), ATTRIBUTE_NORMQUAT), "vert_in_normquat");
     ids.vert_in_view_id = Name(DefineInput(ids.vec_ids.Get(3), ATTRIBUTE_VIEW), "vert_in_view");
 
-    // Outputs
+    /// Outputs
     ids.vert_out_color_id =
         Name(DefineOutput(ids.vec_ids.Get(4), ATTRIBUTE_COLOR), "vert_out_color");
     ids.vert_out_texcoord0_id =
@@ -94,9 +107,31 @@ void VertexModule::DefineInterface() {
         Name(DefineOutput(ids.vec_ids.Get(4), ATTRIBUTE_NORMQUAT), "vert_out_normquat");
     ids.vert_out_view_id = Name(DefineOutput(ids.vec_ids.Get(3), ATTRIBUTE_VIEW), "vert_out_view");
 
-    // Built-ins
+    /// Uniforms
+
+    // vs_data
+    const Id type_vs_data = Name(TypeStruct(ids.u32_id, ids.vec_ids.Get(4)), "vs_data");
+    Decorate(type_vs_data, spv::Decoration::Block);
+
+    ids.ptr_vs_data = AddGlobalVariable(TypePointer(spv::StorageClass::Uniform, type_vs_data),
+                                        spv::StorageClass::Uniform);
+
+    Decorate(ids.ptr_vs_data, spv::Decoration::DescriptorSet, 0);
+    Decorate(ids.ptr_vs_data, spv::Decoration::Binding, 1);
+
+    MemberName(type_vs_data, 0, "enable_clip1");
+    MemberName(type_vs_data, 1, "clip_coef");
+
+    MemberDecorate(type_vs_data, 0, spv::Decoration::Offset, 0);
+    MemberDecorate(type_vs_data, 1, spv::Decoration::Offset, 16);
+
+    /// Built-ins
     ids.gl_position = DefineVar(ids.vec_ids.Get(4), spv::StorageClass::Output);
     Decorate(ids.gl_position, spv::Decoration::BuiltIn, spv::BuiltIn::Position);
+
+    ids.gl_clip_distance =
+        DefineVar(TypeArray(ids.f32_id, Constant(ids.u32_id, 2)), spv::StorageClass::Output);
+    Decorate(ids.gl_clip_distance, spv::Decoration::BuiltIn, spv::BuiltIn::ClipDistance);
 }
 
 Id VertexModule::WriteFuncSanitizeVertex() {
@@ -165,6 +200,13 @@ Id VertexModule::WriteFuncSanitizeVertex() {
 
 void VertexModule::Generate(Common::UniqueFunction<void, Sirit::Module&, const EmitterIDs&> proc) {
     AddLabel(OpLabel());
+
+    ids.ptr_enable_clip1 = OpAccessChain(TypePointer(spv::StorageClass::Uniform, ids.u32_id),
+                                         ids.ptr_vs_data, Constant(ids.u32_id, 0));
+
+    ids.ptr_clip_coef = OpAccessChain(TypePointer(spv::StorageClass::Uniform, ids.vec_ids.Get(4)),
+                                      ids.ptr_vs_data, Constant(ids.u32_id, 1));
+
     proc(*this, ids);
     OpReturn();
     OpFunctionEnd();
@@ -178,7 +220,8 @@ void VertexModule::Generate(const PicaVSConfig& config, const Profile& profile) 
 
 std::vector<u32> GenerateTrivialVertexShader(bool use_clip_planes) {
     VertexModule module;
-    module.Generate([](Sirit::Module& code, const VertexModule::EmitterIDs& ids) -> void {
+    module.Generate([use_clip_planes](Sirit::Module& code,
+                                      const VertexModule::EmitterIDs& ids) -> void {
         const Id pos_sanitized =
             code.OpFunctionCall(ids.vec_ids.Get(4), ids.sanitize_vertex,
                                 code.OpLoad(ids.vec_ids.Get(4), ids.vert_in_position_id));
@@ -203,6 +246,47 @@ std::vector<u32> GenerateTrivialVertexShader(bool use_clip_planes) {
         code.OpStore(ids.vert_out_normquat_id,
                      code.OpLoad(ids.vec_ids.Get(4), ids.vert_in_normquat_id));
         code.OpStore(ids.vert_out_view_id, code.OpLoad(ids.vec_ids.Get(3), ids.vert_in_view_id));
+
+        if (use_clip_planes) {
+            code.OpStore(code.OpAccessChain(code.TypePointer(spv::StorageClass::Output, ids.f32_id),
+                                            ids.gl_clip_distance, code.Constant(ids.u32_id, 0)),
+                         neg_z);
+
+            const Id enable_clip1 =
+                code.OpINotEqual(ids.bool_id, code.OpLoad(ids.u32_id, ids.ptr_enable_clip1),
+                                 code.Constant(ids.u32_id, 0));
+
+            {
+                const Id true_label = code.OpLabel();
+                const Id false_label = code.OpLabel();
+                const Id end_label = code.OpLabel();
+
+                code.OpSelectionMerge(end_label, spv::SelectionControlMask::MaskNone);
+                code.OpBranchConditional(enable_clip1, true_label, false_label);
+                {
+                    code.AddLabel(true_label);
+
+                    code.OpStore(
+                        code.OpAccessChain(code.TypePointer(spv::StorageClass::Output, ids.f32_id),
+                                           ids.gl_clip_distance, code.Constant(ids.u32_id, 1)),
+                        code.OpDot(ids.f32_id, code.OpLoad(ids.vec_ids.Get(4), ids.ptr_clip_coef),
+                                   pos_sanitized));
+
+                    code.OpBranch(end_label);
+                }
+                {
+                    code.AddLabel(false_label);
+
+                    code.OpStore(
+                        code.OpAccessChain(code.TypePointer(spv::StorageClass::Output, ids.f32_id),
+                                           ids.gl_clip_distance, code.Constant(ids.u32_id, 1)),
+                        code.ConstantNull(ids.f32_id));
+
+                    code.OpBranch(end_label);
+                }
+                code.AddLabel(end_label);
+            }
+        }
     });
     return module.Assemble();
 }
