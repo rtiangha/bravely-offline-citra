@@ -66,10 +66,11 @@ private:
     void DefineEntryPoint();
     void DefineInterface();
 
-    Id WriteFuncSanitizeVertex();
+    [[nodiscard]] Id WriteFuncSanitizeVertex();
 
 public:
     struct EmitterIDs {
+        /// Types
         Id void_{};
         Id bool_{};
         Id f32{};
@@ -81,7 +82,7 @@ public:
         VectorIds uvec{};
         VectorIds bvec{};
 
-        // Input vertex attributes
+        /// Input vertex attributes
         Id vert_in_position{};
         Id vert_in_color{};
         Id vert_in_texcoord0{};
@@ -91,7 +92,7 @@ public:
         Id vert_in_normquat{};
         Id vert_in_view{};
 
-        // Output vertex attributes
+        /// Output vertex attributes
         Id vert_out_color{};
         Id vert_out_texcoord0{};
         Id vert_out_texcoord1{};
@@ -100,26 +101,23 @@ public:
         Id vert_out_normquat{};
         Id vert_out_view{};
 
-        // Uniforms
+        /// Uniforms
 
         // vs_data
         Id ptr_vs_data;
         Id ptr_enable_clip1;
         Id ptr_clip_coef;
 
-        // Built-ins
+        /// Built-ins
         Id gl_position;
         Id gl_clip_distance;
 
-        // Functions
+        /// Functions
         Id sanitize_vertex;
     } ids;
 
     /// Generate code using the provided SPIRV emitter context
     void Generate(Common::UniqueFunction<void, Sirit::Module&, const EmitterIDs&> proc);
-
-    /// Emits SPIR-V bytecode corresponding to the provided pica vertex configuration
-    void Generate(const PicaVSConfig& config, const Profile& profile);
 };
 
 /**
@@ -129,12 +127,4 @@ public:
  */
 std::vector<u32> GenerateTrivialVertexShader(bool use_clip_planes);
 
-/**
- * Generates the SPIRV vertex shader program source code for the given VS program
- * @param config ShaderCacheKey object generated for the current Pica state, used for the shader
- *               configuration (NOTE: Use state in this struct only, not the Pica registers!)
- * @returns SPIRV shader assembly; empty on failure
- */
-std::vector<u32> GenerateVertexShader(const Pica::ShaderSetup& setup, const PicaVSConfig& config,
-                                      const Profile& profile);
 } // namespace Pica::Shader::Generator::SPIRV

@@ -209,82 +209,68 @@ void VertexModule::Generate(Common::UniqueFunction<void, Sirit::Module&, const E
     OpFunctionEnd();
 }
 
-void VertexModule::Generate(const PicaVSConfig& config, const Profile& profile) {
-    AddLabel(OpLabel());
-    OpReturn();
-    OpFunctionEnd();
-}
-
 std::vector<u32> GenerateTrivialVertexShader(bool use_clip_planes) {
     VertexModule module;
-    module.Generate([use_clip_planes](Sirit::Module& code,
+    module.Generate([use_clip_planes](Sirit::Module& spv,
                                       const VertexModule::EmitterIDs& ids) -> void {
-        const Id pos_sanitized = code.OpFunctionCall(
-            ids.vec.Get(4), ids.sanitize_vertex, code.OpLoad(ids.vec.Get(4), ids.vert_in_position));
+        const Id pos_sanitized = spv.OpFunctionCall(
+            ids.vec.Get(4), ids.sanitize_vertex, spv.OpLoad(ids.vec.Get(4), ids.vert_in_position));
 
         // Negate Z
-        const Id neg_z =
-            code.OpFNegate(ids.f32, code.OpCompositeExtract(ids.f32, pos_sanitized, 2));
-        const Id negated_z = code.OpCompositeInsert(ids.vec.Get(4), neg_z, pos_sanitized, 2);
+        const Id neg_z = spv.OpFNegate(ids.f32, spv.OpCompositeExtract(ids.f32, pos_sanitized, 2));
+        const Id negated_z = spv.OpCompositeInsert(ids.vec.Get(4), neg_z, pos_sanitized, 2);
 
-        code.OpStore(ids.gl_position, negated_z);
+        spv.OpStore(ids.gl_position, negated_z);
 
         // Pass-through
-        code.OpStore(ids.vert_out_color, code.OpLoad(ids.vec.Get(4), ids.vert_in_color));
-        code.OpStore(ids.vert_out_texcoord0, code.OpLoad(ids.vec.Get(2), ids.vert_in_texcoord0));
-        code.OpStore(ids.vert_out_texcoord1, code.OpLoad(ids.vec.Get(2), ids.vert_in_texcoord1));
-        code.OpStore(ids.vert_out_texcoord2, code.OpLoad(ids.vec.Get(2), ids.vert_in_texcoord2));
-        code.OpStore(ids.vert_out_texcoord0_w, code.OpLoad(ids.f32, ids.vert_in_texcoord0_w));
-        code.OpStore(ids.vert_out_normquat, code.OpLoad(ids.vec.Get(4), ids.vert_in_normquat));
-        code.OpStore(ids.vert_out_view, code.OpLoad(ids.vec.Get(3), ids.vert_in_view));
+        spv.OpStore(ids.vert_out_color, spv.OpLoad(ids.vec.Get(4), ids.vert_in_color));
+        spv.OpStore(ids.vert_out_texcoord0, spv.OpLoad(ids.vec.Get(2), ids.vert_in_texcoord0));
+        spv.OpStore(ids.vert_out_texcoord1, spv.OpLoad(ids.vec.Get(2), ids.vert_in_texcoord1));
+        spv.OpStore(ids.vert_out_texcoord2, spv.OpLoad(ids.vec.Get(2), ids.vert_in_texcoord2));
+        spv.OpStore(ids.vert_out_texcoord0_w, spv.OpLoad(ids.f32, ids.vert_in_texcoord0_w));
+        spv.OpStore(ids.vert_out_normquat, spv.OpLoad(ids.vec.Get(4), ids.vert_in_normquat));
+        spv.OpStore(ids.vert_out_view, spv.OpLoad(ids.vec.Get(3), ids.vert_in_view));
 
         if (use_clip_planes) {
-            code.OpStore(code.OpAccessChain(code.TypePointer(spv::StorageClass::Output, ids.f32),
-                                            ids.gl_clip_distance, code.Constant(ids.u32, 0)),
-                         neg_z);
+            spv.OpStore(spv.OpAccessChain(spv.TypePointer(spv::StorageClass::Output, ids.f32),
+                                          ids.gl_clip_distance, spv.Constant(ids.u32, 0)),
+                        neg_z);
 
-            const Id enable_clip1 = code.OpINotEqual(
-                ids.bool_, code.OpLoad(ids.u32, ids.ptr_enable_clip1), code.Constant(ids.u32, 0));
+            const Id enable_clip1 = spv.OpINotEqual(
+                ids.bool_, spv.OpLoad(ids.u32, ids.ptr_enable_clip1), spv.Constant(ids.u32, 0));
 
             {
-                const Id true_label = code.OpLabel();
-                const Id false_label = code.OpLabel();
-                const Id end_label = code.OpLabel();
+                const Id true_label = spv.OpLabel();
+                const Id false_label = spv.OpLabel();
+                const Id end_label = spv.OpLabel();
 
-                code.OpSelectionMerge(end_label, spv::SelectionControlMask::MaskNone);
-                code.OpBranchConditional(enable_clip1, true_label, false_label);
+                spv.OpSelectionMerge(end_label, spv::SelectionControlMask::MaskNone);
+                spv.OpBranchConditional(enable_clip1, true_label, false_label);
                 {
-                    code.AddLabel(true_label);
+                    spv.AddLabel(true_label);
 
-                    code.OpStore(
-                        code.OpAccessChain(code.TypePointer(spv::StorageClass::Output, ids.f32),
-                                           ids.gl_clip_distance, code.Constant(ids.u32, 1)),
-                        code.OpDot(ids.f32, code.OpLoad(ids.vec.Get(4), ids.ptr_clip_coef),
-                                   pos_sanitized));
+                    spv.OpStore(
+                        spv.OpAccessChain(spv.TypePointer(spv::StorageClass::Output, ids.f32),
+                                          ids.gl_clip_distance, spv.Constant(ids.u32, 1)),
+                        spv.OpDot(ids.f32, spv.OpLoad(ids.vec.Get(4), ids.ptr_clip_coef),
+                                  pos_sanitized));
 
-                    code.OpBranch(end_label);
+                    spv.OpBranch(end_label);
                 }
                 {
-                    code.AddLabel(false_label);
+                    spv.AddLabel(false_label);
 
-                    code.OpStore(
-                        code.OpAccessChain(code.TypePointer(spv::StorageClass::Output, ids.f32),
-                                           ids.gl_clip_distance, code.Constant(ids.u32, 1)),
-                        code.ConstantNull(ids.f32));
+                    spv.OpStore(
+                        spv.OpAccessChain(spv.TypePointer(spv::StorageClass::Output, ids.f32),
+                                          ids.gl_clip_distance, spv.Constant(ids.u32, 1)),
+                        spv.ConstantNull(ids.f32));
 
-                    code.OpBranch(end_label);
+                    spv.OpBranch(end_label);
                 }
-                code.AddLabel(end_label);
+                spv.AddLabel(end_label);
             }
         }
     });
-    return module.Assemble();
-}
-
-std::vector<u32> GenerateVertexShader(const ShaderSetup& setup, const PicaVSConfig& config,
-                                      const Profile& profile) {
-    VertexModule module;
-    module.Generate(config, profile);
     return module.Assemble();
 }
 

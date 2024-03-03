@@ -7,6 +7,7 @@
 #include <array>
 #include <sirit/sirit.h>
 
+#include "common/common_types.h"
 #include "spv_shader_gen.h"
 #include "video_core/pica/regs_framebuffer.h"
 #include "video_core/pica/regs_texturing.h"

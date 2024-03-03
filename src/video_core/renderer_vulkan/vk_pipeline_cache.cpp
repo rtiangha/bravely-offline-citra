@@ -409,10 +409,9 @@ bool PipelineCache::UseProgrammableVertexShader(const Pica::RegsInternal& regs,
 
         std::vector<u32> code;
 
-        // Disabled for programmable shaders for now
         if (use_spirv && false) {
-            // Directly generate SPIRV
-            code = SPIRV::GenerateVertexShader(setup, config, profile);
+            // TODO: Generate vertex shader SPIRV from the given VS program
+            // code = SPIRV::GenerateVertexShader(setup, config, profile);
         } else {
             // Generate GLSL
             const std::string program = GLSL::GenerateVertexShader(setup, config, true);
@@ -427,7 +426,7 @@ bool PipelineCache::UseProgrammableVertexShader(const Pica::RegsInternal& regs,
 
         const u64 code_hash = Common::ComputeHash64(std::as_bytes(std::span(code)));
 
-        auto [iter, new_program] = programmable_vertex_cache.try_emplace(code_hash, instance);
+        const auto [iter, new_program] = programmable_vertex_cache.try_emplace(code_hash, instance);
         auto& shader = iter->second;
 
         // Queue worker thread to create shader module
