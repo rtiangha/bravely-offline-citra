@@ -77,10 +77,6 @@ add_library(video_core STATIC
     shader/generator/shader_gen.h
     shader/generator/shader_uniforms.cpp
     shader/generator/shader_uniforms.h
-    shader/generator/spv_fs_shader_gen.cpp
-    shader/generator/spv_fs_shader_gen.h
-    shader/generator/spv_shader_gen.h
-    shader/generator/spv_shader_gen.cpp
     shader/shader.cpp
     shader/shader.h
     shader/shader_interpreter.cpp
@@ -199,6 +195,8 @@ if (ENABLE_VULKAN)
         renderer_vulkan/vk_texture_runtime.h
         shader/generator/spv_fs_shader_gen.cpp
         shader/generator/spv_fs_shader_gen.h
+        shader/generator/spv_shader_gen.h
+        shader/generator/spv_shader_gen.cpp
     )
     target_link_libraries(video_core PRIVATE vulkan-headers vma sirit SPIRV glslang)
 endif()
