@@ -192,7 +192,7 @@ Id VertexModule::WriteFuncSanitizeVertex() {
     return func;
 }
 
-void VertexModule::Generate(Common::UniqueFunction<void, Sirit::Module&, const EmitterIDs&> proc) {
+void VertexModule::Generate(Common::UniqueFunction<void, Sirit::Module&, const ModuleIds&> proc) {
     AddLabel(OpLabel());
 
     ids.ptr_enable_clip1 = OpAccessChain(TypePointer(spv::StorageClass::Uniform, ids.u32),
@@ -209,7 +209,7 @@ void VertexModule::Generate(Common::UniqueFunction<void, Sirit::Module&, const E
 std::vector<u32> GenerateTrivialVertexShader(bool use_clip_planes) {
     VertexModule module;
     module.Generate([use_clip_planes](Sirit::Module& spv,
-                                      const VertexModule::EmitterIDs& ids) -> void {
+                                      const VertexModule::ModuleIds& ids) -> void {
         const Id pos_sanitized = spv.OpFunctionCall(
             ids.vec.Get(4), ids.sanitize_vertex, spv.OpLoad(ids.vec.Get(4), ids.vert_in_position));
 

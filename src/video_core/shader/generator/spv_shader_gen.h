@@ -73,7 +73,7 @@ private:
     [[nodiscard]] Id WriteFuncSanitizeVertex();
 
 public:
-    struct EmitterIDs {
+    struct ModuleIds {
         /// Types
         Id void_{};
         Id bool_{};
@@ -121,7 +121,7 @@ public:
     } ids;
 
     /// Generate code using the provided SPIRV emitter context
-    void Generate(Common::UniqueFunction<void, Sirit::Module&, const EmitterIDs&> proc);
+    void Generate(Common::UniqueFunction<void, Sirit::Module&, const ModuleIds&> proc);
 };
 
 /**
