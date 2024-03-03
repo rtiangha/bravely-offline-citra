@@ -103,12 +103,15 @@ void VertexModule::DefineInterface() {
 
 Id VertexModule::WriteFuncSanitizeVertex() {
     const Id func_type = TypeFunction(ids.vec_ids.Get(4), ids.vec_ids.Get(4));
-    const Id func = Name(OpFunction(ids.vec_ids.Get(4), spv::FunctionControlMask::MaskNone, func_type), "SanitizeVertex");
+    const Id func =
+        Name(OpFunction(ids.vec_ids.Get(4), spv::FunctionControlMask::MaskNone, func_type),
+             "SanitizeVertex");
     const Id arg_pos = OpFunctionParameter(ids.vec_ids.Get(4));
 
     AddLabel(OpLabel());
 
-    const Id result = AddLocalVariable(TypePointer(spv::StorageClass::Function, ids.vec_ids.Get(4)), spv::StorageClass::Function);
+    const Id result = AddLocalVariable(TypePointer(spv::StorageClass::Function, ids.vec_ids.Get(4)),
+                                       spv::StorageClass::Function);
     OpStore(result, arg_pos);
 
     const Id pos_z = OpCompositeExtract(ids.f32_id, arg_pos, 2);
@@ -130,7 +133,8 @@ Id VertexModule::WriteFuncSanitizeVertex() {
         AddLabel(true_label);
 
         // .z = 0.0f;
-        OpStore(result, OpCompositeInsert(ids.vec_ids.Get(4), ConstantNull(ids.f32_id), arg_pos, 2));
+        OpStore(result,
+                OpCompositeInsert(ids.vec_ids.Get(4), ConstantNull(ids.f32_id), arg_pos, 2));
 
         OpBranch(end_label);
         AddLabel(end_label);
@@ -180,13 +184,13 @@ std::vector<u32> GenerateTrivialVertexShader(bool use_clip_planes) {
         const Id pos_sanitized =
             code.OpFunctionCall(ids.vec_ids.Get(4), ids.sanitize_vertex,
                                 code.OpLoad(ids.vec_ids.Get(4), ids.vert_in_position_id));
-        code.OpStore(ids.gl_position, pos_sanitized);
 
         // Negate Z
-        const Id pos_z = code.OpAccessChain(code.TypePointer(spv::StorageClass::Output, ids.f32_id),
-                                            ids.gl_position, code.Constant(ids.u32_id, 2));
+        const Id neg_z =
+            code.OpFNegate(ids.f32_id, code.OpCompositeExtract(ids.f32_id, pos_sanitized, 2));
+        const Id negated_z = code.OpCompositeInsert(ids.vec_ids.Get(4), neg_z, pos_sanitized, 2);
 
-        code.OpStore(pos_z, code.OpFNegate(ids.f32_id, code.OpLoad(ids.f32_id, pos_z)));
+        code.OpStore(ids.gl_position, negated_z);
 
         // Pass-through
         code.OpStore(ids.vert_out_color_id, code.OpLoad(ids.vec_ids.Get(4), ids.vert_in_color_id));
