@@ -70,35 +70,35 @@ private:
 
 public:
     struct EmitterIDs {
-        Id void_id{};
-        Id bool_id{};
-        Id f32_id{};
-        Id i32_id{};
-        Id u32_id{};
+        Id void_{};
+        Id bool_{};
+        Id f32{};
+        Id i32{};
+        Id u32{};
 
-        VectorIds vec_ids{};
-        VectorIds ivec_ids{};
-        VectorIds uvec_ids{};
-        VectorIds bvec_ids{};
+        VectorIds vec{};
+        VectorIds ivec{};
+        VectorIds uvec{};
+        VectorIds bvec{};
 
         // Input vertex attributes
-        Id vert_in_position_id{};
-        Id vert_in_color_id{};
-        Id vert_in_texcoord0_id{};
-        Id vert_in_texcoord1_id{};
-        Id vert_in_texcoord2_id{};
-        Id vert_in_texcoord0_w_id{};
-        Id vert_in_normquat_id{};
-        Id vert_in_view_id{};
+        Id vert_in_position{};
+        Id vert_in_color{};
+        Id vert_in_texcoord0{};
+        Id vert_in_texcoord1{};
+        Id vert_in_texcoord2{};
+        Id vert_in_texcoord0_w{};
+        Id vert_in_normquat{};
+        Id vert_in_view{};
 
         // Output vertex attributes
-        Id vert_out_color_id{};
-        Id vert_out_texcoord0_id{};
-        Id vert_out_texcoord1_id{};
-        Id vert_out_texcoord2_id{};
-        Id vert_out_texcoord0_w_id{};
-        Id vert_out_normquat_id{};
-        Id vert_out_view_id{};
+        Id vert_out_color{};
+        Id vert_out_texcoord0{};
+        Id vert_out_texcoord1{};
+        Id vert_out_texcoord2{};
+        Id vert_out_texcoord0_w{};
+        Id vert_out_normquat{};
+        Id vert_out_view{};
 
         // Uniforms
 
