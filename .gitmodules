@@ -12,7 +12,7 @@
     url = https://github.com/catchorg/Catch2
 [submodule "dynarmic"]
     path = externals/dynarmic
-    url = https://github.com/yuzu-mirror/dynarmic.git 
+    url = https://github.com/rtiangha/dynarmic.git 
 [submodule "xbyak"]
     path = externals/xbyak
     url = https://github.com/herumi/xbyak.git
@@ -42,7 +42,7 @@
     url = https://github.com/arun11299/cpp-jwt.git
 [submodule "teakra"]
     path = externals/teakra
-    url = https://github.com/wwylele/teakra.git
+    url = https://github.com/rtiangha/teakra.git
 [submodule "lodepng"]
     path = externals/lodepng/lodepng
     url = https://github.com/lvandeve/lodepng.git
@@ -89,5 +89,5 @@
     path = externals/libadrenotools
     url = https://github.com/bylaws/libadrenotools
 [submodule "oaknut"]
-	path = externals/oaknut
-	url = https://github.com/yuzu-mirror/oaknut.git
+    path = externals/oaknut
+    url = https://github.com/yuzu-mirror/oaknut.git
