@@ -1,6 +1,6 @@
 [submodule "boost"]
     path = externals/boost
-    url = https://github.com/PabloMK7/ext-boost.git
+    url = https://github.com/GPUCode/ext-boost.git
 [submodule "nihstro"]
     path = externals/nihstro
     url = https://github.com/neobrain/nihstro.git
