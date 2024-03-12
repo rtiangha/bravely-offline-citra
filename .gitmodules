@@ -91,3 +91,6 @@
 [submodule "oaknut"]
     path = externals/oaknut
     url = https://github.com/yuzu-mirror/oaknut.git
+[submodule "externals/teakra-old"]
+    path = externals/teakra-old
+    url = https://github.com/wwylele/teakra.git
