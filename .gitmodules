@@ -1,18 +1,15 @@
 [submodule "boost"]
     path = externals/boost
-    url = https://github.com/citra-emu/ext-boost.git
+    url = https://github.com/PabloMK7/ext-boost.git
 [submodule "nihstro"]
     path = externals/nihstro
     url = https://github.com/neobrain/nihstro.git
-[submodule "soundtouch"]
-    path = externals/soundtouch
-    url = https://github.com/citra-emu/ext-soundtouch.git
 [submodule "catch2"]
     path = externals/catch2
     url = https://github.com/catchorg/Catch2
 [submodule "dynarmic"]
     path = externals/dynarmic
-    url = https://github.com/citra-emu/dynarmic.git
+    url = https://github.com/merryhime/dynarmic.git
 [submodule "xbyak"]
     path = externals/xbyak
     url = https://github.com/herumi/xbyak.git
@@ -30,7 +27,7 @@
     url = https://github.com/benhoyt/inih.git
 [submodule "libressl"]
     path = externals/libressl
-    url = https://github.com/citra-emu/ext-libressl-portable.git
+    url = https://github.com/PabloMK7/ext-libressl-portable.git
 [submodule "libusb"]
     path = externals/libusb/libusb
     url = https://github.com/libusb/libusb.git
