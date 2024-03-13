@@ -55,6 +55,3 @@
 [submodule "sdl2"]
     path = externals/sdl2/SDL
     url = https://github.com/libsdl-org/SDL
-[submodule "externals/soundtouch"]
-    path = externals/soundtouch
-    url = git@github.com:rtiangha/ext-soundtouch.git
