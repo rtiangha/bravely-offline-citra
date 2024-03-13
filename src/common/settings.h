@@ -544,6 +544,9 @@ struct Values {
     Setting<std::string> log_filter{"*:Info", "log_filter"};
     Setting<std::string> log_regex_filter{"", "log_regex_filter"};
 
+    // MMJ Hacks
+    u32 core_ticks_hack;
+
     // Video Dumping
     std::string output_format;
     std::string format_options;

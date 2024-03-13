@@ -147,6 +147,18 @@ void LogSettings() {
     log_setting("Debugging_GdbstubPort", values.gdbstub_port.GetValue());
 }
 
+void SetFMVHack(bool enable) {
+    if (enable) {
+        if (values.use_cpu_jit) {
+            values.core_ticks_hack = 16000;
+        } else {
+            values.core_ticks_hack = 0xFFFF;
+        }
+    } else {
+        values.core_ticks_hack = 0;
+    }
+}
+
 bool IsConfiguringGlobal() {
     return configuring_global;
 }

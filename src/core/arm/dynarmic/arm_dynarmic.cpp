@@ -7,6 +7,7 @@
 #include <dynarmic/interface/optimization_flags.h>
 #include "common/assert.h"
 #include "common/microprofile.h"
+#include "common/settings.h"
 #include "core/arm/dynarmic/arm_dynarmic.h"
 #include "core/arm/dynarmic/arm_dynarmic_cp15.h"
 #include "core/arm/dynarmic/arm_exclusive_monitor.h"
@@ -104,6 +105,7 @@ public:
     }
 
     void AddTicks(std::uint64_t ticks) override {
+        ticks = std::max(ticks, static_cast<u64>(Settings::values.core_ticks_hack));
         parent.GetTimer().AddTicks(ticks);
     }
     std::uint64_t GetTicksRemaining() override {
