@@ -5,7 +5,8 @@ REV_NAME="citra-unified-source-${GITDATE}-${GITREV}"
 COMPAT_LIST='dist/compatibility_list/compatibility_list.json'
 
 pip3 install git-archive-all
-wget -q https://api.citra-emu.org/gamedb -O "${COMPAT_LIST}"
+# wget -q https://api.citra-emu.org/gamedb -O "${COMPAT_LIST}"
+touch -O "${COMPAT_LIST}"
 git describe --abbrev=0 --always HEAD > GIT-COMMIT
 git describe --tags HEAD > GIT-TAG || echo 'unknown' > GIT-TAG
 git archive-all --include "${COMPAT_LIST}" --include GIT-COMMIT --include GIT-TAG --force-submodules artifacts/"${REV_NAME}.tar"
