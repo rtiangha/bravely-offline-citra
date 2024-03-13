@@ -57,4 +57,4 @@
     url = https://github.com/libsdl-org/SDL
 [submodule "externals/soundtouch"]
     path = externals/soundtouch
-    url = https://codeberg.org/soundtouch/soundtouch.git
+    url = git@github.com:rtiangha/ext-soundtouch.git
