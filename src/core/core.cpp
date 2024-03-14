@@ -254,6 +254,111 @@ System::ResultStatus System::SingleStep() {
     return RunLoop(false);
 }
 
+static void LoadOverrides(u64 title_id) {
+    if (title_id == 0x000400000008B400 || title_id == 0x0004000000030600 ||
+        title_id == 0x0004000000030800 || title_id == 0x0004000000030700) {
+        // Mario Kart 7
+        Settings::values.skip_texture_copy = true;
+    }
+
+    const std::array<u64, 10> core_ticks_hack_ids = {
+        0x0004000000030500, // Super Street Fighter IV: 3D Edition
+        0x0004000000032D00, // Super Street Fighter IV: 3D Edition
+        0x0004000000033C00, // Super Street Fighter IV: 3D Edition
+        0x0004000000060200, // Resident Evil: Revelations
+        0x000400000005EE00, // Resident Evil: Revelations
+        0x0004000000035900, // Resident Evil: The Mercenaries 3D
+        0x0004000000038B00, // Resident Evil: The Mercenaries 3D
+        0x00040000000C8100, // Paper Mario: Sticker Star
+        0x00040000000A5E00, // Paper Mario: Sticker Star
+        0x00040000000A5F00, // Paper Mario: Sticker Star
+    };
+    for (auto id : core_ticks_hack_ids) {
+        if (title_id == id) {
+            Settings::SetFMVHack(true);
+            break;
+        }
+    }
+
+    const std::array<u64, 10> accurate_mul_ids = {
+        0x0004000000033400, // The Legend of Zelda: Ocarina of Time 3D
+        0x0004000000033500, // The Legend of Zelda: Ocarina of Time 3D
+        0x0004000000033600, // The Legend of Zelda: Ocarina of Time 3D
+        0x000400000008F800, // The Legend of Zelda: Ocarina of Time 3D
+        0x000400000008F900, // The Legend of Zelda: Ocarina of Time 3D
+        0x00040000001B8F00, // Mario & Luigi: Superstar Saga + Bowsers Minions
+        0x00040000001B9000, // Mario & Luigi: Superstar Saga + Bowsers Minions
+        0x0004000000194B00, // Mario & Luigi: Superstar Saga + Bowsers Minions
+        0x00040000001D1400, // Mario & Luigi: Bowsers Inside Story + Bowser Jrs Journey
+        0x00040000001D1500, // Mario & Luigi: Bowsers Inside Story + Bowser Jrs Journey
+    };
+    for (auto id : accurate_mul_ids) {
+        if (title_id == id) {
+            Settings::values.shaders_accurate_mul = true;
+            break;
+        }
+    }
+
+    const std::array<u64, 12> cpu_limit_ids = {
+        0x000400000007C700, // Mario Tennis Open
+        0x000400000007C800, // Mario Tennis Open
+        0x0004000000064D00, // Mario Tennis Open
+        0x00040000000B9100, // Mario Tennis Open
+        0x00040000000DCD00, // Mario Golf: World Tour
+        0x00040000000A5300, // Mario Golf: World Tour
+        0x00040000000DCE00, // Mario Golf: World Tour
+        0x00040000001CCD00, // The Alliance Alive
+        0x00040000001B4500, // The Alliance Alive
+        0x0004000000120900, // Lord of Magna: Maiden Heaven
+        0x0004000000164300, // Lord of Magna: Maiden Heaven
+        0x000400000008FE00, // 1001 Spikes
+    };
+    for (auto id : cpu_limit_ids) {
+        if (title_id == id) {
+            Settings::values.core_downcount_hack = true;
+            break;
+        }
+    }
+
+    const std::array<u64, 12> fifa_ids = {
+        0x0004000000044700, // FIFA 12
+        0x0004000000047A00, // FIFA 12
+        0x0004000000044800, // FIFA 12
+        0x00040000000A2B00, // FIFA 13
+        0x00040000000A2900, // FIFA 13
+        0x00040000000A3000, // FIFA 13
+        0x00040000000E7900, // FIFA 14
+        0x00040000000DEA00, // FIFA 14
+        0x00040000000E7A00, // FIFA 14
+        0x000400000013C700, // FIFA 15
+        0x000400000013CA00, // FIFA 15
+        0x000400000013CB00, // FIFA 15
+    };
+    for (auto id : fifa_ids) {
+        if (title_id == id) {
+            Settings::values.y2r_event_delay = true;
+            break;
+        }
+    }
+
+    const std::array<u64, 8> slow_draw_ids = {
+        0x0004000000068B00, // Tales of the Abyss
+        0x0004000000061300, // Tales of the Abyss
+        0x000400000004A700, // Pac Man Party 3D
+        0x000400000005D700, // Pac Man Party 3D
+        0x000400000015CB00, // New Atelier Rorona
+        0x000400000018E900, // My Hero Academia
+        0x000400000016AD00, // Dragon Quest Monsters Joker 3
+        0x00040000001ACB00, // Dragon Quest Monsters Joker 3 Professional
+    };
+    for (auto id : slow_draw_ids) {
+        if (title_id == id) {
+            Settings::values.skip_slow_draw = true;
+            break;
+        }
+    }
+}
+
 System::ResultStatus System::Load(Frontend::EmuWindow& emu_window, const std::string& filepath,
                                   Frontend::EmuWindow* secondary_window) {
     FileUtil::SetCurrentRomPath(filepath);
@@ -346,6 +451,9 @@ System::ResultStatus System::Load(Frontend::EmuWindow& emu_window, const std::st
         LOG_ERROR(Core, "Failed to find title id for ROM (Error {})",
                   static_cast<u32>(load_result));
     }
+
+    // load game settings
+    LoadOverrides(title_id);
 
     cheat_engine.LoadCheatFile(title_id);
     cheat_engine.Connect();
