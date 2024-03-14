@@ -546,6 +546,7 @@ struct Values {
 
     // MMJ Hacks
     SwitchableSetting<bool> core_downcount_hack{false, "core_downcount_hack"};
+    bool y2r_event_delay;
     u32 core_ticks_hack;
 
     // Video Dumping

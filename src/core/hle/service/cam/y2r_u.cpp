@@ -8,6 +8,7 @@
 #include "common/common_funcs.h"
 #include "common/logging/log.h"
 #include "common/scope_exit.h"
+#include "common/settings.h"
 #include "core/core.h"
 #include "core/hle/ipc_helpers.h"
 #include "core/hle/kernel/event.h"
@@ -523,6 +524,7 @@ void Y2R_U::StartConversion(Kernel::HLERequestContext& ctx) {
 
     HW::Y2R::PerformConversion(system.Memory(), conversion);
 
+<<<<<<< HEAD
     if (is_busy_conversion) {
         system.CoreTiming().RemoveEvent(completion_signal_event);
     }
@@ -530,6 +532,13 @@ void Y2R_U::StartConversion(Kernel::HLERequestContext& ctx) {
     static constexpr s64 MinY2RDelay = 50000;
     system.CoreTiming().ScheduleEvent(MinY2RDelay, completion_signal_event);
     is_busy_conversion = true;
+=======
+    if (Settings::values.y2r_event_delay) {
+        Core::System::GetInstance().CoreTiming().ScheduleEvent(40000, conversion_delay_event);
+    } else {
+        completion_event->Signal();
+    }
+>>>>>>> 5d5660c97 (y2r hack)
 
     IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
     rb.Push(ResultSuccess);
@@ -712,11 +721,16 @@ Y2R_U::Y2R_U(Core::System& system) : ServiceFramework("y2r:u", 1), system(system
     RegisterHandlers(functions);
 
     completion_event = system.Kernel().CreateEvent(Kernel::ResetType::OneShot, "Y2R:Completed");
+<<<<<<< HEAD
     completion_signal_event =
         system.CoreTiming().RegisterEvent("Y2R Completion Signal Event", [this](uintptr_t, s64) {
             completion_event->Signal();
             is_busy_conversion = false;
         });
+=======
+    conversion_delay_event = Core::System::GetInstance().CoreTiming().RegisterEvent(
+        "Y2R delay", [this](u64, int late) { completion_event->Signal(); });
+>>>>>>> 5d5660c97 (y2r hack)
 }
 
 Y2R_U::~Y2R_U() = default;
