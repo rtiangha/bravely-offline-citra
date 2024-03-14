@@ -6,6 +6,6 @@
 
 namespace GameSettings {
 
-void LoadOverrides(u64 program_id);
+void LoadOverrides(u64 title_id);
 
 } // namespace GameSettings

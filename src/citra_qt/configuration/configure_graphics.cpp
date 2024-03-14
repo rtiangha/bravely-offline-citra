@@ -116,6 +116,7 @@ void ConfigureGraphics::SetConfiguration() {
     ui->toggle_vsync_new->setChecked(Settings::values.use_vsync_new.GetValue());
     ui->spirv_shader_gen->setChecked(Settings::values.spirv_shader_gen.GetValue());
     ui->toggle_async_shaders->setChecked(Settings::values.async_shader_compilation.GetValue());
+    ui->toggle_core_downcount_hack->setChecked(Settings::values.core_downcount_hack.GetValue());
     ui->toggle_async_present->setChecked(Settings::values.async_presentation.GetValue());
 
     if (Settings::IsConfiguringGlobal()) {
@@ -130,6 +131,8 @@ void ConfigureGraphics::ApplyConfiguration() {
                                              ui->physical_device_combo);
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.async_shader_compilation,
                                              ui->toggle_async_shaders, async_shader_compilation);
+    ConfigurationShared::ApplyPerGameSetting(&Settings::values.core_downcount_hack,
+                                             ui->toggle_core_downcount_hack, core_downcount_hack);
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.async_presentation,
                                              ui->toggle_async_present, async_presentation);
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.spirv_shader_gen,
@@ -166,6 +169,8 @@ void ConfigureGraphics::SetupPerGameUI() {
                                          Settings::values.use_vsync_new.UsingGlobal());
         ui->toggle_async_shaders->setEnabled(
             Settings::values.async_shader_compilation.UsingGlobal());
+        ui->toggle_core_downcount_hack->setEnabled(
+            Settings::values.core_downcount_hack.UsingGlobal());
         ui->widget_texture_sampling->setEnabled(Settings::values.texture_sampling.UsingGlobal());
         ui->toggle_async_present->setEnabled(Settings::values.async_presentation.UsingGlobal());
         ui->graphics_api_combo->setEnabled(Settings::values.graphics_api.UsingGlobal());
@@ -199,6 +204,9 @@ void ConfigureGraphics::SetupPerGameUI() {
     ConfigurationShared::SetColoredTristate(ui->toggle_async_shaders,
                                             Settings::values.async_shader_compilation,
                                             async_shader_compilation);
+    ConfigurationShared::SetColoredTristate(ui->toggle_core_downcount_hack,
+                                            Settings::values.core_downcount_hack,
+                                            core_downcount_hack);
     ConfigurationShared::SetColoredTristate(
         ui->toggle_async_present, Settings::values.async_presentation, async_presentation);
     ConfigurationShared::SetColoredTristate(ui->spirv_shader_gen, Settings::values.spirv_shader_gen,

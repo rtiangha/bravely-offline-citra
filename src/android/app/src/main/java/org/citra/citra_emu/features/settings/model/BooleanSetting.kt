@@ -11,6 +11,7 @@ enum class BooleanSetting(
 ) : AbstractBooleanSetting {
     SPIRV_SHADER_GEN("spirv_shader_gen", Settings.SECTION_RENDERER, true),
     ASYNC_SHADERS("async_shader_compilation", Settings.SECTION_RENDERER, false),
+    CORE_DOWNCOUNT_HACK("core_downcount_hack", Settings.SECTION_RENDERER, false),
     PLUGIN_LOADER("plugin_loader", Settings.SECTION_SYSTEM, false),
     ALLOW_PLUGIN_LOADER("allow_plugin_loader", Settings.SECTION_SYSTEM, true),
     SWAP_SCREEN("swap_screen", Settings.SECTION_LAYOUT, false);

@@ -352,6 +352,9 @@ public:
         return false;
     }
 
+    /// Core downcount hack
+    void SetCpuUsageLimit(bool enabled);
+
     /// Applies any changes to settings to this core instance.
     void ApplySettings();
 

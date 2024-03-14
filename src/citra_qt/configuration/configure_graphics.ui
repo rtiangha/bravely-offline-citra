@@ -222,6 +222,16 @@
        </widget>
       </item>
       <item>
+       <widget class="QCheckBox" name="toggle_core_downcount_hack">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When enabled, emulation cpu usage will be limited to a smaller time slice.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Enable Core Downcount Hack</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QCheckBox" name="toggle_async_present">
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Perform presentation on separate threads. Improves performance when using Vulkan in most games.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
