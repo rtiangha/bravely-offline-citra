@@ -414,3 +414,6 @@ if(UNIX)
                 DESTINATION "${CMAKE_INSTALL_PREFIX}/share/man/man6")
     endif()
 endif()
+
+add_link_options($<$<CONFIG:RELEASE>:-s>)
+
