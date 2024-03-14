@@ -1,6 +1,6 @@
 [submodule "boost"]
     path = externals/boost
-    url = https://github.com/PabloMK7/ext-boost.git
+    url = https://github.com/GPUCode/ext-boost.git
 [submodule "nihstro"]
     path = externals/nihstro
     url = https://github.com/neobrain/nihstro.git
@@ -36,7 +36,7 @@
     url = https://github.com/mozilla/cubeb
 [submodule "discord-rpc"]
     path = externals/discord-rpc
-    url = https://github.com/discord/discord-rpc.git
+    url = https://github.com/PabloMK7/discord-rpc.git
 [submodule "cpp-jwt"]
     path = externals/cpp-jwt
     url = https://github.com/arun11299/cpp-jwt.git
