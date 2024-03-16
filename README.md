@@ -1,57 +1,61 @@
-**BEFORE FILING AN ISSUE, READ THE RELEVANT SECTION IN THE [CONTRIBUTING](https://github.com/citra-emu/citra/wiki/Contributing#reporting-issues) FILE!!!**
+# Custom Citra for Bravely Offline
 
-# Citra
+This is a custom build of Citra to be used with the [Bravely Offline](https://github.com/osm70/bravely-offline) server/client program.
 
-[![GitHub Actions Build Status](https://github.com/citra-emu/citra/workflows/citra-ci/badge.svg)](https://github.com/citra-emu/citra/actions)
-[![Bitrise CI Build Status](https://app.bitrise.io/app/4ccd8e5720f0d13b/status.svg?token=H32TmbCwxb3OQ-M66KbAyw&branch=master)](https://app.bitrise.io/app/4ccd8e5720f0d13b)
-[![Discord](https://img.shields.io/discord/220740965957107713?color=%237289DA&label=Citra&logo=discord&logoColor=white)](https://discord.gg/FAXfZV9)
+This build takes the Citra version bundled with that package ([Nightly r1800](https://github.com/rtiangha/citra-fork/releases/tag/r1800-2022.10.23)) and updates most of its dependencies to more modern versions, which may help improve performance.
 
-Citra is an experimental open-source Nintendo 3DS emulator/debugger written in C++. It is written with portability in mind, with builds actively maintained for Windows, Linux and macOS.
+## How to Install
 
-Citra emulates a subset of 3DS hardware and therefore is useful for running/debugging homebrew applications, and it is also able to run many commercial games! Some of these do not run at a playable state, but we are working every day to advance the project forward. (Playable here means compatibility of at least "Okay" on our [game compatibility list](https://citra-emu.org/game).)
+1. First, back up all the `.exe` and `.dll` files in the `Bravely Offline\DATA\Citra` folder in case you want to return to the old version.
 
-Citra is licensed under the GPLv2 (or any later version). Refer to the license.txt file included. Please read the [FAQ](https://citra-emu.org/wiki/faq/) before getting started with the project.
+2. Download a version of **Custom Citra for Bravely Offline** from the [Releases](https://github.com/rtiangha/citra-fork/releases) page.
 
-Check out our [website](https://citra-emu.org/)!
+3. Extract the package.
 
-Need help? Check out our [asking for help](https://citra-emu.org/help/reference/asking/) guide.
+4. Copy the contents to the root folder of `Bravely Offline`, confirming any files to be overwritten.
 
-For development discussion, please join us on our [Discord server](https://citra-emu.org/discord/) or at #citra-dev on libera.
+5. Launch the app.
 
-### Releases
+To revert to using the original version of Citra that was bundled with Bravely Offline, copy over all of the `.exe` and `.dll` files from your backup into the `Bravely Offline\DATA\Citra` folder  (or, download a copy of [Nightly r1800](https://github.com/rtiangha/citra-fork/releases/tag/r1800-2022.10.23)), overwriting the files from the new version and relaunch the app.
 
-Citra has two main release channels: Nightly and Canary.
+## How to Compile: MinGW-w64 Build with MSYS2
 
-The [Nightly](https://github.com/citra-emu/citra-nightly) build is based on the master branch, and contains already reviewed and tested features.
+#### Prerequisites to install
 
-The [Canary](https://github.com/citra-emu/citra-canary) build is based on the master branch, but with additional features still under review. PRs tagged `canary-merge` are merged only into the Canary builds.
+- [MSYS2](https://msys2.github.io/)
 
-Both builds can be installed with the installer provided on the [website](https://citra-emu.org/download/), but those looking for specific versions or standalone releases can find them in the release tabs of the [Nightly](https://github.com/citra-emu/citra-nightly/releases) and [Canary](https://github.com/citra-emu/citra-canary/releases) repositories.
+Make sure to follow the instructions and update to the latest version by running `pacman -Syu` as many times as needed.
 
-Currently, development and releases of the Android version are in [a separate repository](https://github.com/citra-emu/citra-android).
+#### Install Citra dependencies for MinGW-w64
 
-A Flatpak for Citra is available on [Flathub](https://flathub.org/apps/details/org.citra_emu.citra). Details on the build process can be found in [our Flathub repository](https://github.com/flathub/org.citra_emu.citra).
+- Open the "MSYS2 MinGW 64-bit" (mingw64.exe) shell
+- Download and install all dependencies using: `pacman -S mingw-w64-x86_64-{gcc,SDL2,qt5-static,cmake} make git`
 
-### Development
+#### Clone the Citra repository with git.
 
-Most of the development happens on GitHub. It's also where [our central repository](https://github.com/citra-emu/citra) is hosted.
+- `git clone https://github.com/rtiangha/citra-fork.git`
+- `cd citra-fork`
+- `git checkout bravely-offline`
+- `git submodule update --init --recursive`
 
-If you want to contribute please take a look at the [Contributor's Guide](https://github.com/citra-emu/citra/wiki/Contributing) and [Developer Information](https://github.com/citra-emu/citra/wiki/Developer-Information). You should also contact any of the developers in the forum in order to know about the current state of the emulator because the [TODO list](https://docs.google.com/document/d/1SWIop0uBI9IW8VGg97TAtoT_CHNoP42FzYmvG1F4QDA) isn't maintained anymore.
+#### Run the following commands to build Citra (static build)
 
-If you want to contribute to the user interface translation, please check out the [citra project on transifex](https://www.transifex.com/citra/citra). We centralize the translation work there, and periodically upstream translations.
+```shell
+mkdir build && cd build
+cmake -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-s" -DCMAKE_CXX_FLAGS="-s" -DMICROPROFILE_ENABLED=0 -DMINGW_STATIC_BUILD=1" ..
+make -jN  (where N = number of CPU threads, ex. -j4)
+```
 
-### Building
+If the compilation is successful, the resulting **Custom Citra for Bravely Offline** `.exe` and `.dll` files will be found in the `build/bin/Release` folder. Copy these files to the `Bravely Offline\DATA\Citra` folder, but make sure to back up the original copies first in case you want to return to them later (or download [Nightly r1800](https://github.com/rtiangha/citra-fork/releases/tag/r1800-2022.10.23)).
 
-* __Windows__: [Windows Build](https://github.com/citra-emu/citra/wiki/Building-For-Windows)
-* __Linux__: [Linux Build](https://github.com/citra-emu/citra/wiki/Building-For-Linux)
-* __macOS__: [macOS Build](https://github.com/citra-emu/citra/wiki/Building-for-macOS)
+If you intend to run the program on the same computer that you're compiling this on, you may choose to run `cmake -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-march=native -s -DMICROPROFILE_ENABLED=0" -DCMAKE_C_FLAGS="-march=native -s" -DMINGW_STATIC_BUILD=1 ..` instead before running `make`, which may help you eke out a few more fps of performance. Just note that if you choose to compile the program in this way, it may not run on another computer with different specs.
 
+## Troubleshooting
 
-### Support
-We happily accept monetary donations or donated games and hardware. Please see our [donations page](https://citra-emu.org/donate/) for more information on how you can contribute to Citra. Any donations received will go towards things like:
-* 3DS consoles for developers to explore the hardware
-* 3DS games for testing
-* Any equipment required for homebrew
-* Infrastructure setup
+* **Issue**:  Citra crashes as soon as I launch the game.
 
-We also more than gladly accept used 3DS consoles! If you would like to give yours away, don't hesitate to join our [Discord server](https://citra-emu.org/discord/) and talk to bunnei.
+    * This sometimes happens when you switch between Citra versions. To fix it, navigate to the `Bravely Offline\DATA\Citra\user\shaders\opengl` folder, delete all of its contents, then restart the app.
+
+* **Issue**: When launching Citra, an error appears about missing `libcrypto-3.x64.dll` or `libssl-3-x64.dll` files.
+
+    * If these files didn't already come bundled with your custom version of Citra, you can copy over the files provided from [this installation](https://slproweb.com/download/Win64OpenSSL_Light-3_2_1.exe) of OpenSSL for Windows (i.e. install the program, navigate to its installation folder and copy over the two missing .dll files to the `Bravely Offline\DATA\Citra` folder, and then uninstall OpenSSL).
