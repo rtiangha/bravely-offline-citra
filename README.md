@@ -58,8 +58,8 @@ If you intend to run the program on the same computer that you're compiling this
 
 * **Issue**:  When launching Citra, an error appears about missing `libcrypto-3.x64.dll` or `libssl-3-x64.dll` files.
 
-    * If these files didn't already come bundled with your custom version of Citra, you can copy over the files provided from [this installation](https://slproweb.com/download/Win64OpenSSL_Light-3_2_1.exe) of OpenSSL for Windows (i.e. install the program, navigate to its installation folder and copy over the two missing .dll files to the `Bravely Offline\DATA\Citra` folder, and then uninstall OpenSSL). You may also find these copies of these files in the [dll](https://github.com/rtiangha/citra-fork/tree/bravely-offline/dlls) folder of the source code.
+    * If these files didn't already come bundled with your custom version of Citra, you can copy over the files provided from [this installation](https://slproweb.com/download/Win64OpenSSL_Light-3_2_1.exe) of OpenSSL for Windows (i.e. install the program, navigate to its installation folder and copy over the two missing .dll files to the `Bravely Offline\DATA\Citra` folder, and then uninstall OpenSSL). You may also find copies of these files in the [dll](https://github.com/rtiangha/citra-fork/tree/bravely-offline/dlls) folder of the source code.
  
-* **Issue:**:  Game control buttons no longer work.
+* **Issue:**:  Game control buttons (ex. keyboard, gamepad, etc.) no longer work.
 
     * Navigate to `Emulation -> Configure -> Controls` and remap your buttons, even if they look correct at first glance. Button presses need to be registered again in order for things to work.
