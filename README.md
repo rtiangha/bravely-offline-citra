@@ -12,7 +12,7 @@ This build takes the Citra version bundled with that package ([Nightly r1800](ht
 
 3. Extract the package.
 
-4. Copy the contents to the root folder of `Bravely Offline`, confirming any files to be overwritten.
+4. Copy the contents to the `Bravely Offline\DATA\Citra` folder, confirming any files to be overwritten.
 
 5. Launch the app.
 
