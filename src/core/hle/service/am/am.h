@@ -587,9 +587,9 @@ private:
 
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& cia_installing;
-        ar& am_title_list;
-        ar& system_updater_mutex;
+        ar & cia_installing;
+        ar & am_title_list;
+        ar & system_updater_mutex;
     }
 
     template <class Archive>

@@ -28,22 +28,22 @@ namespace Kernel {
 template <class Archive>
 void Process::serialize(Archive& ar, const unsigned int file_version) {
     ar& boost::serialization::base_object<Object>(*this);
-    ar& handle_table;
-    ar& codeset; // TODO: Replace with apploader reference
-    ar& resource_limit;
-    ar& svc_access_mask;
-    ar& handle_table_size;
+    ar & handle_table;
+    ar & codeset; // TODO: Replace with apploader reference
+    ar & resource_limit;
+    ar & svc_access_mask;
+    ar & handle_table_size;
     ar&(boost::container::vector<AddressMapping, boost::container::dtl::static_storage_allocator<
                                                      AddressMapping, 8, 0, true>>&)address_mappings;
-    ar& flags.raw;
-    ar& kernel_version;
-    ar& ideal_processor;
-    ar& status;
-    ar& process_id;
-    ar& vm_manager;
-    ar& memory_used;
-    ar& memory_region;
-    ar& tls_slots;
+    ar & flags.raw;
+    ar & kernel_version;
+    ar & ideal_processor;
+    ar & status;
+    ar & process_id;
+    ar & vm_manager;
+    ar & memory_used;
+    ar & memory_region;
+    ar & tls_slots;
 }
 
 SERIALIZE_IMPL(Process)

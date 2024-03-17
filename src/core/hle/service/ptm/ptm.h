@@ -148,9 +148,9 @@ private:
 
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& shell_open;
-        ar& battery_is_charging;
-        ar& pedometer_is_counting;
+        ar & shell_open;
+        ar & battery_is_charging;
+        ar & pedometer_is_counting;
     }
     friend class boost::serialization::access;
 };

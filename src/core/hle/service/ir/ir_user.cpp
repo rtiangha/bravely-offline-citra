@@ -24,12 +24,12 @@ namespace Service::IR {
 template <class Archive>
 void IR_USER::serialize(Archive& ar, const unsigned int) {
     ar& boost::serialization::base_object<Kernel::SessionRequestHandler>(*this);
-    ar& conn_status_event;
-    ar& send_event;
-    ar& receive_event;
-    ar& shared_memory;
-    ar& connected_device;
-    ar& receive_buffer;
+    ar & conn_status_event;
+    ar & send_event;
+    ar & receive_event;
+    ar & shared_memory;
+    ar & connected_device;
+    ar & receive_buffer;
     ar&* extra_hid.get();
 }
 
@@ -161,10 +161,10 @@ private:
     private:
         template <class Archive>
         void serialize(Archive& ar, const unsigned int) {
-            ar& begin_index;
-            ar& end_index;
-            ar& packet_count;
-            ar& unknown;
+            ar & begin_index;
+            ar & end_index;
+            ar & packet_count;
+            ar & unknown;
         }
         friend class boost::serialization::access;
     };
@@ -213,12 +213,12 @@ private:
 
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& info;
-        ar& shared_memory;
-        ar& info_offset;
-        ar& buffer_offset;
-        ar& max_packet_count;
-        ar& max_data_size;
+        ar & info;
+        ar & shared_memory;
+        ar & info_offset;
+        ar & buffer_offset;
+        ar & max_packet_count;
+        ar & max_data_size;
     }
     friend class boost::serialization::access;
 };

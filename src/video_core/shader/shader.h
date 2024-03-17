@@ -39,7 +39,7 @@ private:
     friend class boost::serialization::access;
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& attr;
+        ar & attr;
     }
 };
 
@@ -68,14 +68,14 @@ struct OutputVertex {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& pos;
-        ar& quat;
-        ar& color;
-        ar& tc0;
-        ar& tc1;
-        ar& tc0_w;
-        ar& view;
-        ar& tc2;
+        ar & pos;
+        ar & quat;
+        ar & color;
+        ar & tc0;
+        ar & tc1;
+        ar & tc0_w;
+        ar & view;
+        ar & tc2;
     }
     friend class boost::serialization::access;
 };
@@ -109,7 +109,7 @@ struct GSEmitter {
     struct Handlers {
         VertexHandler vertex_handler;
         WindingSetter winding_setter;
-    } * handlers;
+    }* handlers;
 
     GSEmitter();
     ~GSEmitter();
@@ -119,11 +119,11 @@ private:
     friend class boost::serialization::access;
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& buffer;
-        ar& vertex_id;
-        ar& prim_emit;
-        ar& winding;
-        ar& output_mask;
+        ar & buffer;
+        ar & vertex_id;
+        ar & prim_emit;
+        ar & winding;
+        ar & output_mask;
         // Handlers are ignored because they're constant
     }
 };
@@ -148,9 +148,9 @@ struct UnitState {
         friend class boost::serialization::access;
         template <class Archive>
         void serialize(Archive& ar, const unsigned int file_version) {
-            ar& input;
-            ar& temporary;
-            ar& output;
+            ar & input;
+            ar & temporary;
+            ar & output;
         }
     } registers;
     static_assert(std::is_trivial_v<Registers>, "Structure is not POD");
@@ -209,9 +209,9 @@ private:
     friend class boost::serialization::access;
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& registers;
-        ar& conditional_code;
-        ar& address_registers;
+        ar & registers;
+        ar & conditional_code;
+        ar & address_registers;
         // emitter_ptr is only set by GSUnitState and is serialized there
     }
 };
@@ -233,7 +233,7 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
         ar& boost::serialization::base_object<UnitState>(*this);
-        ar& emitter;
+        ar & emitter;
     }
 };
 
@@ -261,9 +261,9 @@ private:
     friend class boost::serialization::access;
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& f;
-        ar& b;
-        ar& i;
+        ar & f;
+        ar & b;
+        ar & i;
     }
 };
 
@@ -313,13 +313,13 @@ private:
     friend class boost::serialization::access;
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& uniforms;
-        ar& program_code;
-        ar& swizzle_data;
-        ar& program_code_hash_dirty;
-        ar& swizzle_data_hash_dirty;
-        ar& program_code_hash;
-        ar& swizzle_data_hash;
+        ar & uniforms;
+        ar & program_code;
+        ar & swizzle_data;
+        ar & program_code_hash_dirty;
+        ar & swizzle_data_hash_dirty;
+        ar & program_code_hash;
+        ar & swizzle_data_hash;
     }
 };
 

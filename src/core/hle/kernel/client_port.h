@@ -68,10 +68,10 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
         ar& boost::serialization::base_object<Object>(*this);
-        ar& server_port;
-        ar& max_sessions;
-        ar& active_sessions;
-        ar& name;
+        ar & server_port;
+        ar & max_sessions;
+        ar & active_sessions;
+        ar & name;
     }
 };
 

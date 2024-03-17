@@ -56,8 +56,8 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
         ar& boost::serialization::base_object<Object>(*this);
-        ar& name;
-        ar& parent;
+        ar & name;
+        ar & parent;
     }
 };
 

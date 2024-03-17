@@ -57,9 +57,9 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
         ar& boost::serialization::base_object<WaitObject>(*this);
-        ar& reset_type;
-        ar& signaled;
-        ar& name;
+        ar & reset_type;
+        ar & signaled;
+        ar & name;
     }
 };
 

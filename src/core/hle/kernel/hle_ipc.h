@@ -105,8 +105,8 @@ protected:
         SessionInfo() = default;
         template <class Archive>
         void serialize(Archive& ar, const unsigned int file_version) {
-            ar& session;
-            ar& data;
+            ar & session;
+            ar & data;
         }
         friend class boost::serialization::access;
     };
@@ -117,7 +117,7 @@ protected:
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& connected_sessions;
+        ar & connected_sessions;
     }
     friend class boost::serialization::access;
 };
@@ -158,11 +158,11 @@ private:
 
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& id;
-        ar& address;
-        ar& process;
-        ar& size;
-        ar& perms;
+        ar & id;
+        ar & address;
+        ar & process;
+        ar & size;
+        ar & perms;
     }
     friend class boost::serialization::access;
 };
@@ -306,12 +306,12 @@ private:
     HLERequestContext();
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& cmd_buf;
-        ar& session;
-        ar& thread;
-        ar& request_handles;
-        ar& static_buffers;
-        ar& request_mapped_buffers;
+        ar & cmd_buf;
+        ar & session;
+        ar & thread;
+        ar & request_handles;
+        ar & static_buffers;
+        ar & request_mapped_buffers;
     }
     friend class boost::serialization::access;
 };

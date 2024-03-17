@@ -52,9 +52,9 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
         ar& boost::serialization::base_object<WaitObject>(*this);
-        ar& max_count;
-        ar& available_count;
-        ar& name;
+        ar & max_count;
+        ar & available_count;
+        ar & name;
     }
 };
 

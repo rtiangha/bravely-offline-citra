@@ -36,17 +36,17 @@ namespace Service::APT {
 
 template <class Archive>
 void Module::serialize(Archive& ar, const unsigned int file_version) {
-    ar& shared_font_mem;
-    ar& shared_font_loaded;
-    ar& shared_font_relocated;
-    ar& lock;
-    ar& cpu_percent;
-    ar& unknown_ns_state_field;
-    ar& screen_capture_buffer;
-    ar& screen_capture_post_permission;
-    ar& applet_manager;
+    ar & shared_font_mem;
+    ar & shared_font_loaded;
+    ar & shared_font_relocated;
+    ar & lock;
+    ar & cpu_percent;
+    ar & unknown_ns_state_field;
+    ar & screen_capture_buffer;
+    ar & screen_capture_post_permission;
+    ar & applet_manager;
     if (file_version > 0) {
-        ar& wireless_reboot_info;
+        ar & wireless_reboot_info;
     }
 }
 

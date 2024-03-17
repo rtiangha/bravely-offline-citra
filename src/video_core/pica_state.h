@@ -101,11 +101,11 @@ struct State {
         friend class boost::serialization::access;
         template <class Archive>
         void serialize(Archive& ar, const unsigned int file_version) {
-            ar& noise_table;
-            ar& color_map_table;
-            ar& alpha_map_table;
-            ar& color_table;
-            ar& color_diff_table;
+            ar & noise_table;
+            ar & color_map_table;
+            ar & alpha_map_table;
+            ar & color_table;
+            ar & color_diff_table;
         }
     } proctex;
 
@@ -132,7 +132,7 @@ struct State {
 
             template <class Archive>
             void serialize(Archive& ar, const unsigned int file_version) {
-                ar& raw;
+                ar & raw;
             }
         };
 
@@ -180,9 +180,9 @@ struct State {
         friend class boost::serialization::access;
         template <class Archive>
         void serialize(Archive& ar, const unsigned int file_version) {
-            ar& input_vertex;
-            ar& current_attribute;
-            ar& reset_geometry_pipeline;
+            ar & input_vertex;
+            ar & current_attribute;
+            ar & reset_geometry_pipeline;
         }
 
     } immediate;
@@ -210,26 +210,26 @@ private:
     friend class boost::serialization::access;
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& regs.reg_array;
-        ar& vs;
-        ar& gs;
-        ar& input_default_attributes;
-        ar& proctex;
-        ar& lighting.luts;
-        ar& fog.lut;
-        ar& cmd_list.addr;
-        ar& cmd_list.length;
-        ar& immediate;
-        ar& gs_unit;
-        ar& geometry_pipeline;
-        ar& primitive_assembler;
-        ar& vs_float_regs_counter;
+        ar & regs.reg_array;
+        ar & vs;
+        ar & gs;
+        ar & input_default_attributes;
+        ar & proctex;
+        ar & lighting.luts;
+        ar & fog.lut;
+        ar & cmd_list.addr;
+        ar & cmd_list.length;
+        ar & immediate;
+        ar & gs_unit;
+        ar & geometry_pipeline;
+        ar & primitive_assembler;
+        ar & vs_float_regs_counter;
         ar& boost::serialization::make_array(vs_uniform_write_buffer.data(),
                                              vs_uniform_write_buffer.size());
-        ar& gs_float_regs_counter;
+        ar & gs_float_regs_counter;
         ar& boost::serialization::make_array(gs_uniform_write_buffer.data(),
                                              gs_uniform_write_buffer.size());
-        ar& default_attr_counter;
+        ar & default_attr_counter;
         ar& boost::serialization::make_array(default_attr_write_buffer.data(),
                                              default_attr_write_buffer.size());
         boost::serialization::split_member(ar, *this, file_version);

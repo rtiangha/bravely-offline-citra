@@ -58,12 +58,12 @@ private:
 
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& current_frame;
-        ar& state.intermediate_mixer_volume;
-        ar& state.mixer1_enabled;
-        ar& state.mixer2_enabled;
-        ar& state.intermediate_mix_buffer;
-        ar& state.output_format;
+        ar & current_frame;
+        ar & state.intermediate_mixer_volume;
+        ar & state.mixer1_enabled;
+        ar & state.mixer2_enabled;
+        ar & state.intermediate_mix_buffer;
+        ar & state.output_format;
     }
     friend class boost::serialization::access;
 };

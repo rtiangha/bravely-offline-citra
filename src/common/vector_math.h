@@ -49,8 +49,8 @@ class Vec2 {
     friend class boost::serialization::access;
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& x;
-        ar& y;
+        ar & x;
+        ar & y;
     }
 
 public:
@@ -217,9 +217,9 @@ class Vec3 {
     friend class boost::serialization::access;
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& x;
-        ar& y;
-        ar& z;
+        ar & x;
+        ar & y;
+        ar & z;
     }
 
 public:
@@ -447,10 +447,10 @@ class Vec4 {
     friend class boost::serialization::access;
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& x;
-        ar& y;
-        ar& z;
-        ar& w;
+        ar & x;
+        ar & y;
+        ar & z;
+        ar & w;
     }
 
 public:
@@ -690,8 +690,8 @@ template <typename T>
 
 // linear interpolation via float: 0.0=begin, 1.0=end
 template <typename X>
-[[nodiscard]] constexpr decltype(X{} * float{} + X{} * float{})
-    Lerp(const X& begin, const X& end, const float t) {
+[[nodiscard]] constexpr decltype(X{} * float{} + X{} * float{}) Lerp(const X& begin, const X& end,
+                                                                     const float t) {
     return begin * (1.f - t) + end * t;
 }
 

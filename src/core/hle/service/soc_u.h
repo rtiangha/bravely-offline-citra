@@ -22,8 +22,8 @@ struct SocketHolder {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& socket_fd;
-        ar& blocking;
+        ar & socket_fd;
+        ar & blocking;
     }
     friend class boost::serialization::access;
 };
@@ -68,7 +68,7 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
         ar& boost::serialization::base_object<Kernel::SessionRequestHandler>(*this);
-        ar& open_sockets;
+        ar & open_sockets;
     }
     friend class boost::serialization::access;
 };

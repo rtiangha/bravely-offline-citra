@@ -965,10 +965,10 @@ public:
 
         template <class Archive>
         void serialize(Archive& ar, const unsigned int) {
-            ar& new_arrival_flag;
-            ar& ns_data_new_flag;
-            ar& ns_data_new_flag_privileged;
-            ar& output_flag;
+            ar & new_arrival_flag;
+            ar & ns_data_new_flag;
+            ar & ns_data_new_flag_privileged;
+            ar & output_flag;
         }
         friend class boost::serialization::access;
     };
@@ -978,7 +978,7 @@ private:
 
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& task_finish_event;
+        ar & task_finish_event;
     }
     friend class boost::serialization::access;
 };

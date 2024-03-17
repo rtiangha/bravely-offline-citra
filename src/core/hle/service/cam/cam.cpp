@@ -27,11 +27,11 @@ namespace Service::CAM {
 
 template <class Archive>
 void Module::serialize(Archive& ar, const unsigned int file_version) {
-    ar& cameras;
-    ar& ports;
-    ar& is_camera_reload_pending;
+    ar & cameras;
+    ar & ports;
+    ar & is_camera_reload_pending;
     if (file_version > 0) {
-        ar& initialized;
+        ar & initialized;
     } else {
         initialized = true;
     }

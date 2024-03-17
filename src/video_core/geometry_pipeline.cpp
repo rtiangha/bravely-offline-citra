@@ -380,7 +380,7 @@ void GeometryPipeline::SubmitVertex(const Shader::AttributeBuffer& input) {
 template <class Archive>
 void GeometryPipeline::serialize(Archive& ar, const unsigned int version) {
     // vertex_handler and shader_engine are always set to the same value
-    ar& backend;
+    ar & backend;
 }
 
 } // namespace Pica

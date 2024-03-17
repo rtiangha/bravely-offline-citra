@@ -59,9 +59,9 @@ KernelSystem::PortPair KernelSystem::CreatePortPair(u32 max_sessions, std::strin
 template <class Archive>
 void ServerPort::serialize(Archive& ar, const unsigned int file_version) {
     ar& boost::serialization::base_object<WaitObject>(*this);
-    ar& name;
-    ar& pending_sessions;
-    ar& hle_handler;
+    ar & name;
+    ar & pending_sessions;
+    ar & hle_handler;
 }
 SERIALIZE_IMPL(ServerPort)
 

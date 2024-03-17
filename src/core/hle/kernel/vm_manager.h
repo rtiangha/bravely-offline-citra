@@ -89,14 +89,14 @@ private:
     friend class boost::serialization::access;
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& base;
-        ar& size;
-        ar& type;
-        ar& permissions;
-        ar& meminfo_state;
-        ar& backing_memory;
-        ar& paddr;
-        ar& mmio_handler;
+        ar & base;
+        ar & size;
+        ar & type;
+        ar & permissions;
+        ar & meminfo_state;
+        ar & backing_memory;
+        ar & paddr;
+        ar & mmio_handler;
     }
 };
 
@@ -261,8 +261,8 @@ private:
 
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& vma_map;
-        ar& page_table;
+        ar & vma_map;
+        ar & page_table;
         if (Archive::is_loading::value) {
             is_locked = true;
         }

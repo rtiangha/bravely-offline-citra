@@ -34,10 +34,10 @@ private:
     friend class boost::serialization::access;
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& address;
-        ar& size;
-        ar& read_only;
-        ar& unk_flag;
+        ar & address;
+        ar & size;
+        ar & read_only;
+        ar & unk_flag;
     }
 };
 
@@ -78,9 +78,9 @@ public:
         friend class boost::serialization::access;
         template <class Archive>
         void serialize(Archive& ar, const unsigned int file_version) {
-            ar& offset;
-            ar& addr;
-            ar& size;
+            ar & offset;
+            ar & addr;
+            ar & size;
         }
     };
 
@@ -135,11 +135,11 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
         ar& boost::serialization::base_object<Object>(*this);
-        ar& memory;
-        ar& segments;
-        ar& entrypoint;
-        ar& name;
-        ar& program_id;
+        ar & memory;
+        ar & segments;
+        ar & entrypoint;
+        ar & name;
+        ar & program_id;
     }
 };
 

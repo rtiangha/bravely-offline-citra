@@ -150,18 +150,18 @@ public:
     private:
         template <class Archive>
         void save(Archive& ar, const unsigned int) const {
-            ar& time;
-            ar& fifo_order;
-            ar& userdata;
+            ar & time;
+            ar & fifo_order;
+            ar & userdata;
             std::string name = *(type->name);
             ar << name;
         }
 
         template <class Archive>
         void load(Archive& ar, const unsigned int) {
-            ar& time;
-            ar& fifo_order;
-            ar& userdata;
+            ar & time;
+            ar & fifo_order;
+            ar & userdata;
             std::string name;
             ar >> name;
             type = Global<Timing>().RegisterEvent(name, nullptr);
@@ -237,13 +237,13 @@ public:
             // NOTE: ts_queue should be empty now
             // TODO(SaveState): Remove the next two lines when we break compatibility
             s64 x;
-            ar& x; // to keep compatibility with old save states that stored global_timer
-            ar& event_queue;
-            ar& event_fifo_id;
-            ar& slice_length;
-            ar& downcount;
-            ar& executed_ticks;
-            ar& idled_cycles;
+            ar & x; // to keep compatibility with old save states that stored global_timer
+            ar & event_queue;
+            ar & event_fifo_id;
+            ar & slice_length;
+            ar & downcount;
+            ar & executed_ticks;
+            ar & idled_cycles;
         }
         friend class boost::serialization::access;
     };
@@ -304,13 +304,13 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
         // event_types set during initialization of other things
-        ar& timers;
+        ar & timers;
         if (file_version == 0) {
             std::shared_ptr<Timer> x;
-            ar& x;
+            ar & x;
             current_timer = x.get();
         } else {
-            ar& current_timer;
+            ar & current_timer;
         }
         if (Archive::is_loading::value) {
             event_queue_locked = true;

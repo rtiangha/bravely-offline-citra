@@ -53,8 +53,8 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
         ar& boost::serialization::base_object<Kernel::WakeupCallback>(*this);
-        ar& callback;
-        ar& context;
+        ar & callback;
+        ar & context;
     }
     friend class boost::serialization::access;
 };

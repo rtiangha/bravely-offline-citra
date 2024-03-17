@@ -100,10 +100,10 @@ private:
             DummyCallback x;
             ar& boost::serialization::base_object<WakeupCallback>(x);
         }
-        ar& name;
-        ar& waiting_threads;
+        ar & name;
+        ar & waiting_threads;
         if (file_version > 1) {
-            ar& timeout_callback;
+            ar & timeout_callback;
         }
     }
 };

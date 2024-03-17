@@ -182,10 +182,10 @@ void InstallInterfaces(Core::System& system) {
 
 template <class Archive>
 void Module::serialize(Archive& ar, const unsigned int) {
-    ar& ac_connected;
-    ar& close_event;
-    ar& connect_event;
-    ar& disconnect_event;
+    ar & ac_connected;
+    ar & close_event;
+    ar & connect_event;
+    ar & disconnect_event;
     // default_config is never written to
 }
 

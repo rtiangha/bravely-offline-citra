@@ -162,10 +162,10 @@ private:
     friend class boost::serialization::access;
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& current_thread;
-        ar& ready_queue;
-        ar& wakeup_callback_table;
-        ar& thread_list;
+        ar & current_thread;
+        ar & ready_queue;
+        ar & wakeup_callback_table;
+        ar & thread_list;
     }
 };
 

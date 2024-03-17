@@ -94,11 +94,11 @@ struct MessageParameter {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& sender_id;
-        ar& destination_id;
-        ar& signal;
-        ar& object;
-        ar& buffer;
+        ar & sender_id;
+        ar & destination_id;
+        ar & signal;
+        ar & object;
+        ar & buffer;
     }
     friend class boost::serialization::access;
 };
@@ -169,9 +169,9 @@ public:
     private:
         template <class Archive>
         void serialize(Archive& ar, const unsigned int) {
-            ar& param;
-            ar& hmac;
-            ar& source_program_id;
+            ar & param;
+            ar & hmac;
+            ar & source_program_id;
         }
         friend class boost::serialization::access;
     };
@@ -206,13 +206,13 @@ public:
     private:
         template <class Archive>
         void serialize(Archive& ar, const unsigned int file_version) {
-            ar& next_title_id;
-            ar& next_media_type;
+            ar & next_title_id;
+            ar & next_media_type;
             if (file_version > 0) {
-                ar& flags;
+                ar & flags;
             }
-            ar& current_title_id;
-            ar& current_media_type;
+            ar & current_title_id;
+            ar & current_media_type;
         }
         friend class boost::serialization::access;
     };
@@ -258,14 +258,14 @@ private:
     private:
         template <class Archive>
         void serialize(Archive& ar, const unsigned int) {
-            ar& applet_id;
-            ar& slot;
-            ar& title_id;
-            ar& registered;
-            ar& loaded;
-            ar& attributes.raw;
-            ar& notification_event;
-            ar& parameter_event;
+            ar & applet_id;
+            ar & slot;
+            ar & title_id;
+            ar & registered;
+            ar & loaded;
+            ar & attributes.raw;
+            ar & notification_event;
+            ar & parameter_event;
         }
         friend class boost::serialization::access;
     };
@@ -290,13 +290,13 @@ private:
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& next_parameter;
-        ar& app_jump_parameters;
+        ar & next_parameter;
+        ar & app_jump_parameters;
         if (file_version > 0) {
-            ar& deliver_arg;
+            ar & deliver_arg;
         }
-        ar& applet_slots;
-        ar& library_applet_closing_command;
+        ar & applet_slots;
+        ar & library_applet_closing_command;
     }
     friend class boost::serialization::access;
 };

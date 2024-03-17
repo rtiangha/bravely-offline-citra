@@ -45,7 +45,7 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
         ar& boost::serialization::base_object<Kernel::SessionRequestHandler>(*this);
-        ar& nim_system_update_event;
+        ar & nim_system_update_event;
     }
     friend class boost::serialization::access;
 };

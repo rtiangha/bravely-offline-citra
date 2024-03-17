@@ -58,7 +58,7 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
         ar& boost::serialization::base_object<BackingMem>(*this);
-        ar& data;
+        ar & data;
     }
     friend class boost::serialization::access;
 };
@@ -128,8 +128,8 @@ private:
 
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& backing_mem;
-        ar& offset;
+        ar & backing_mem;
+        ar & offset;
         Init();
     }
     friend class boost::serialization::access;

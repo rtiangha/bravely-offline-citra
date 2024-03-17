@@ -68,11 +68,11 @@ private:
 
     template <class Archive>
     void serialize(Archive& ar, const unsigned int version) {
-        ar& topology;
-        ar& buffer_index;
+        ar & topology;
+        ar & buffer_index;
         ar& boost::serialization::make_array(buffer.data(), buffer.size());
-        ar& strip_ready;
-        ar& winding;
+        ar & strip_ready;
+        ar & winding;
     }
     friend class boost::serialization::access;
 };

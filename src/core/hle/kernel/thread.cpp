@@ -34,31 +34,31 @@ template <class Archive>
 void Thread::serialize(Archive& ar, const unsigned int file_version) {
     ar& boost::serialization::base_object<WaitObject>(*this);
     ar&* context.get();
-    ar& thread_id;
-    ar& status;
-    ar& entry_point;
-    ar& stack_top;
-    ar& nominal_priority;
-    ar& current_priority;
-    ar& last_running_ticks;
-    ar& processor_id;
-    ar& tls_address;
-    ar& held_mutexes;
-    ar& pending_mutexes;
+    ar & thread_id;
+    ar & status;
+    ar & entry_point;
+    ar & stack_top;
+    ar & nominal_priority;
+    ar & current_priority;
+    ar & last_running_ticks;
+    ar & processor_id;
+    ar & tls_address;
+    ar & held_mutexes;
+    ar & pending_mutexes;
 
     // Note: this is equivalent of what is done in boost/serialization/weak_ptr.hpp, but it's
     // compatible with previous versions of savestates.
     // TODO(SaveStates): When the savestate version is bumped, simplify this again.
     std::shared_ptr<Process> shared_owner_process = owner_process.lock();
-    ar& shared_owner_process;
+    ar & shared_owner_process;
     if (Archive::is_loading::value) {
         owner_process = shared_owner_process;
     }
 
-    ar& wait_objects;
-    ar& wait_address;
-    ar& name;
-    ar& wakeup_callback;
+    ar & wait_objects;
+    ar & wait_address;
+    ar & name;
+    ar & wakeup_callback;
 }
 
 SERIALIZE_IMPL(Thread)

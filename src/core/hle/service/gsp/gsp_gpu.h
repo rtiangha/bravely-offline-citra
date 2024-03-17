@@ -207,10 +207,10 @@ private:
     void serialize(Archive& ar, const unsigned int) {
         ar& boost::serialization::base_object<Kernel::SessionRequestHandler::SessionDataBase>(
             *this);
-        ar& gsp;
-        ar& interrupt_event;
-        ar& thread_id;
-        ar& registered;
+        ar & gsp;
+        ar & interrupt_event;
+        ar & thread_id;
+        ar & registered;
     }
     friend class boost::serialization::access;
 };
@@ -449,10 +449,10 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
         ar& boost::serialization::base_object<Kernel::SessionRequestHandler>(*this);
-        ar& shared_memory;
-        ar& active_thread_id;
-        ar& first_initialization;
-        ar& used_thread_ids;
+        ar & shared_memory;
+        ar & active_thread_id;
+        ar & first_initialization;
+        ar & used_thread_ids;
     }
 
     friend class boost::serialization::access;

@@ -31,12 +31,12 @@ struct MappedBufferContext {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& permissions;
-        ar& size;
-        ar& source_address;
-        ar& target_address;
-        ar& buffer;
-        ar& reserve_buffer;
+        ar & permissions;
+        ar & size;
+        ar & source_address;
+        ar & target_address;
+        ar & buffer;
+        ar & reserve_buffer;
     }
     friend class boost::serialization::access;
 };

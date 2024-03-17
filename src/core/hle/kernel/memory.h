@@ -76,10 +76,10 @@ private:
     friend class boost::serialization::access;
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& base;
-        ar& size;
-        ar& used;
-        ar& free_blocks;
+        ar & base;
+        ar & size;
+        ar & used;
+        ar & free_blocks;
         if (Archive::is_loading::value) {
             is_locked = true;
         }

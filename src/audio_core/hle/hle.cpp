@@ -106,12 +106,12 @@ private:
 
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& dsp_state;
-        ar& pipe_data;
-        ar& dsp_memory.raw_memory;
-        ar& sources;
-        ar& mixers;
-        ar& dsp_dsp;
+        ar & dsp_state;
+        ar & pipe_data;
+        ar & dsp_memory.raw_memory;
+        ar & sources;
+        ar & mixers;
+        ar & dsp_dsp;
     }
     friend class boost::serialization::access;
 };

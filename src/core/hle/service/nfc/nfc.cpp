@@ -18,12 +18,12 @@ namespace Service::NFC {
 
 template <class Archive>
 void Module::serialize(Archive& ar, const unsigned int) {
-    ar& tag_in_range_event;
-    ar& tag_out_of_range_event;
-    ar& nfc_tag_state;
-    ar& nfc_status;
-    ar& amiibo_data;
-    ar& amiibo_in_range;
+    ar & tag_in_range_event;
+    ar & tag_out_of_range_event;
+    ar & nfc_tag_state;
+    ar & nfc_status;
+    ar & amiibo_data;
+    ar & amiibo_in_range;
 }
 SERIALIZE_IMPL(Module)
 

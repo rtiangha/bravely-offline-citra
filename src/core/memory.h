@@ -59,9 +59,9 @@ struct SpecialRegion {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& base;
-        ar& size;
-        ar& handler;
+        ar & base;
+        ar & size;
+        ar & handler;
     }
     friend class boost::serialization::access;
 };
@@ -134,9 +134,9 @@ struct PageTable {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& pointers.refs;
-        ar& special_regions;
-        ar& attributes;
+        ar & pointers.refs;
+        ar & special_regions;
+        ar & attributes;
         for (std::size_t i = 0; i < PAGE_TABLE_NUM_ENTRIES; i++) {
             pointers.raw[i] = pointers.refs[i].GetPtr();
         }

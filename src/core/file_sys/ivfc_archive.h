@@ -142,7 +142,7 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
         ar& boost::serialization::base_object<FileBackend>(*this);
-        ar& romfs_file;
+        ar & romfs_file;
     }
     friend class boost::serialization::access;
 };
@@ -182,9 +182,9 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
         ar& boost::serialization::base_object<FileBackend>(*this);
-        ar& romfs_file;
-        ar& data_offset;
-        ar& data_size;
+        ar & romfs_file;
+        ar & data_offset;
+        ar & data_size;
     }
     friend class boost::serialization::access;
 };

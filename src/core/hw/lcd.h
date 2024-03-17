@@ -55,10 +55,10 @@ struct Regs {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& color_fill_top.raw;
-        ar& backlight_top;
-        ar& color_fill_bottom.raw;
-        ar& backlight_bottom;
+        ar & color_fill_top.raw;
+        ar & backlight_top;
+        ar & color_fill_bottom.raw;
+        ar & backlight_bottom;
     }
     friend class boost::serialization::access;
 };
