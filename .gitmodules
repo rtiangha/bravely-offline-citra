@@ -18,7 +18,8 @@
     url = https://github.com/weidai11/cryptopp.git
 [submodule "fmt"]
     path = externals/fmt
-    url = https://github.com/fmtlib/fmt.git
+    url = https://github.com/rtiangha/fmt.git
+    branch = bravely-offline
 [submodule "enet"]
     path = externals/enet
     url = https://github.com/lsalzman/enet.git
