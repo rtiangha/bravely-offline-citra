@@ -5,6 +5,12 @@ if (${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.15)
     cmake_policy(SET CMP0092 NEW)
     # Enforce new LTO setting
     cmake_policy(SET CMP0069 NEW)
+    # Allow installation of fmt as a submodule
+    cmake_policy(SET CMP0077 NEW)
+    set (CMAKE_POLICY_DEFAULT_CMP0077 NEW)
+    set(FMT_INSTALL ON)
+    cmake_policy(SET CMP0079 NEW)
+    set (CMAKE_POLICY_DEFAULT_CMP0079 NEW)
 endif()
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules")
