@@ -1,6 +1,6 @@
 # Custom Citra for Bravely Offline
 
-This is a custom build of Citra to be used with the [Bravely Offline](https://github.com/osm70/bravely-offline) server/client program by @osm70.
+This is a custom build of Citra to be used with the [Bravely Offline](https://github.com/osm70/bravely-offline) server/client program by [**osm70**](https://github.com/osm70/bravely-offline).
 
 This build takes the Citra version bundled with that package ([Nightly r1800](https://github.com/rtiangha/citra-fork/releases/tag/r1800-2022.10.23)) and updates most of its dependencies to more modern versions, which *may* help improve performance.
 
@@ -18,7 +18,11 @@ This build takes the Citra version bundled with that package ([Nightly r1800](ht
 
 To revert to using the original version of Citra that was bundled with Bravely Offline, copy over all of the `.exe` and `.dll` files from your backup into the `Bravely Offline\DATA\Citra` folder  (or, download a copy of [Nightly r1800](https://github.com/rtiangha/citra-fork/releases/tag/r1800-2022.10.23)), overwriting the files from the new version and relaunch the app.
 
-## How to Compile: MinGW-w64 Build with MSYS2
+## How to Compile (GCC or CLANG)
+
+There may be performance differences when compiling with either GCC or CLANG. Here's how to compile with both and you can choose which one performs better.
+
+### MinGW-w64 GCC Build with MSYS2
 
 #### Prerequisites to install
 
@@ -33,22 +37,66 @@ Make sure to follow the instructions and update to the latest version by running
 
 #### Clone the Citra repository with git.
 
-- `git clone https://github.com/rtiangha/citra-fork.git`
-- `cd citra-fork`
-- `git checkout bravely-offline`
-- `git submodule update --init --recursive`
+```shell
+git clone https://github.com/rtiangha/citra-fork.git
+cd citra-fork
+git checkout bravely-offline
+git submodule update --init --recursive
+```
 
 #### Run the following commands to build Citra (static build)
 
 ```shell
 mkdir build && cd build
-cmake -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-s" -DCMAKE_CXX_FLAGS="-s" -DMICROPROFILE_ENABLED=0 -DMINGW_STATIC_BUILD=1" ..
+cmake -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-DMICROPROFILE_ENABLED=0" -DMINGW_STATIC_BUILD=1 ..
 make -jN  (where N = number of CPU threads, ex. -j4)
+strip -s bin/Release/*.dll
+strip -s bin/Release/*.exe
 ```
 
-If the compilation is successful, the resulting **Custom Citra for Bravely Offline** `.exe` and `.dll` files will be found in the `build/bin/Release` folder. Copy these files to the `Bravely Offline\DATA\Citra` folder, but make sure to back up the original copies first in case you want to return to them later (or download [Nightly r1800](https://github.com/rtiangha/citra-fork/releases/tag/r1800-2022.10.23)).
+### Clang Build with MSYS2
 
-If you intend to run the program on the same computer that you're compiling this on, you may choose to run `cmake -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-march=native -s -DMICROPROFILE_ENABLED=0" -DCMAKE_C_FLAGS="-march=native -s" -DMINGW_STATIC_BUILD=1 ..` instead before running `make`, which may help you eke out a few more fps of performance. Just note that if you choose to compile the program in this way, it may not run on another computer with different specs.
+#### Prerequisites to install
+
+- [MSYS2](https://msys2.github.io/)
+
+Make sure to follow the instructions and update to the latest version by running `pacman -Syu` as many times as needed.
+
+#### Install Citra dependencies
+
+- Open the "MSYS2 Clang64" (clang64.exe) shell
+- Download and install all dependencies using: `pacman -S mingw-w64-clang-x86_64-{gcc,qt5-static,cmake} make git`
+
+#### Clone the Citra repository with git.
+
+```shell
+git clone https://github.com/rtiangha/citra-fork.git
+cd citra-fork
+git checkout bravely-offline
+git submodule update --init --recursive
+```
+
+#### Run the following commands to build Citra (static build)
+
+```shell
+mkdir build && cd build
+cmake -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-DMICROPROFILE_ENABLED=0" -DMINGW_STATIC_BUILD=1 ..
+make -j4
+strip -s bin/Release/*.dll
+strip -s bin/Release/*.exe
+```
+
+## Optimizing Builds
+
+If you intend to run Citra on the same computer that you're compiling this on, you may choose to run
+
+`cmake -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-march=native -O2 -DMICROPROFILE_ENABLED=0" -DCMAKE_C_FLAGS="-march=native -O2" -DMINGW_STATIC_BUILD=1 ..`
+
+before running `make -jN` instead, which may help you eke out a few more fps of performance. Just note that if you choose to compile the program in this way, it may not run on another computer with different specs.
+
+### Installation
+
+If the compilation is successful, the resulting **Custom Citra for Bravely Offline** `.exe` and `.dll` files will be found in the `build/bin/Release` folder. Copy these files to the `Bravely Offline\DATA\Citra` folder, but make sure to back up the original copies first in case you want to return to them later (or download [Nightly r1800](https://github.com/rtiangha/citra-fork/releases/tag/r1800-2022.10.23)).
 
 ## Troubleshooting
 
@@ -62,4 +110,4 @@ If you intend to run the program on the same computer that you're compiling this
  
 * **Issue:**:  Game control buttons (ex. keyboard, gamepad, etc.) no longer work.
 
-    * Navigate to `Emulation -> Configure -> Controls` and remap your buttons, even if they look correct at first glance. Button presses need to be registered again in order for things to work.
+    * Navigate to `Emulation -> Configure -> Controls` and remap your buttons, even if they look correct at first glance. Button presses need to be registered again in order for things to work properly.
