@@ -17,6 +17,7 @@ on:
 jobs:
   nightly:
     runs-on: ubuntu-latest
+    if: ${{ (github.repository == 'rtiangha/master') || (github.repository == 'rtiangha/dev') }}
     if: ${{ github.event.inputs.nightly != 'false' && github.repository == 'citra-emu/citra' }}
     steps:
       # this checkout is required to make sure the GitHub Actions scripts are available
@@ -59,6 +60,7 @@ jobs:
             tagAndPush(github, context.repo.owner, `${context.repo.repo}-nightly`, execa);
   canary:
     runs-on: ubuntu-latest
+    if: ${{ (github.repository == 'rtiangha/master') || (github.repository == 'rtiangha/dev') }}
     if: ${{ github.event.inputs.canary != 'false' && github.repository == 'citra-emu/citra' }}
     steps:
       # this checkout is required to make sure the GitHub Actions scripts are available
