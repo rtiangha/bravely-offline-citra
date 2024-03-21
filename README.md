@@ -55,7 +55,7 @@ git submodule update --init --recursive
 mkdir build && cd build
 cmake -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-DMICROPROFILE_ENABLED=0" -DMINGW_STATIC_BUILD=1 ..
 make -jN  (where N = number of CPU threads, ex. -j4)
-strip -s bin/Release/*.dll
+strip --strip-unneeded bin/Release/*.dll
 strip -s bin/Release/*.exe
 ```
 
@@ -86,7 +86,7 @@ git submodule update --init --recursive
 mkdir build && cd build
 cmake -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-DMICROPROFILE_ENABLED=0" -DMINGW_STATIC_BUILD=1 ..
 make -jN (where N = number of CPU threads, ex. -j4)
-strip -s bin/Release/*.dll
+strip --strip-unneeded bin/Release/*.dll
 strip -s bin/Release/*.exe
 ```
 
