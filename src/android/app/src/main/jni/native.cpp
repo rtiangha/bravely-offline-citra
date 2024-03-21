@@ -165,7 +165,7 @@ static Core::System::ResultStatus RunCitra(const std::string& filepath) {
 #elif ENABLE_VULKAN
         window = std::make_unique<EmuWindow_Android_Vulkan>(s_surf, vulkan_library);
 #else
-// TODO: Add a null renderer backend for this, perhaps.
+        // TODO: Add a null renderer backend for this, perhaps.
 #error "At least one renderer must be enabled."
 #endif
         break;

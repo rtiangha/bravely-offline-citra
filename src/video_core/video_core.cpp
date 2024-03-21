@@ -46,7 +46,7 @@ std::unique_ptr<RendererBase> CreateRenderer(Frontend::EmuWindow& emu_window,
 #elif ENABLE_SOFTWARE_RENDERER
         return std::make_unique<SwRenderer::RendererSoftware>(system, pica, emu_window);
 #else
-// TODO: Add a null renderer backend for this, perhaps.
+        // TODO: Add a null renderer backend for this, perhaps.
 #error "At least one renderer must be enabled."
 #endif
     }

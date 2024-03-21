@@ -386,7 +386,7 @@ int main(int argc, char** argv) {
 #elif ENABLE_SOFTWARE_RENDERER
             return std::make_unique<EmuWindow_SDL2_SW>(system, fullscreen, is_secondary);
 #else
-// TODO: Add a null renderer backend for this, perhaps.
+            // TODO: Add a null renderer backend for this, perhaps.
 #error "At least one renderer must be enabled."
 #endif
         }

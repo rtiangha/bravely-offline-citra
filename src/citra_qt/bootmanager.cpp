@@ -670,7 +670,7 @@ bool GRenderWindow::InitRenderTarget() {
 #elif ENABLE_SOFTWARE_RENDERER
         InitializeSoftware();
 #else
-// TODO: Add a null renderer backend for this, perhaps.
+        // TODO: Add a null renderer backend for this, perhaps.
 #error "At least one renderer must be enabled."
 #endif
         break;
