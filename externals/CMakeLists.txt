@@ -2,7 +2,7 @@
 
 # Suppress warnings from external libraries
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-    add_compile_options(/W0)
+    add_compile_options(/W0 /O2)
 else()
     add_compile_options(-w)
 endif()
