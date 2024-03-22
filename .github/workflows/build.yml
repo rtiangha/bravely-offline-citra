@@ -151,7 +151,7 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1
         if: ${{ matrix.target == 'msvc' }}
       - name: Install extra tools (MSVC)
-        run: choco install ccache ninja wget
+        run: choco install ccache ninja wget pkgconfiglite
         if: ${{ matrix.target == 'msvc' }}
       - name: Disable line ending translation
         run: git config --global core.autocrlf input
