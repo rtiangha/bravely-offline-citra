@@ -202,7 +202,7 @@ jobs:
       - name: Disable line ending translation
         run: git config --global core.autocrlf input
       - name: Build
-        run: ./.ci/windows.sh
+        run: ./.ci/windows-msys2.sh
       - name: Pack
         run: ./.ci/pack.sh
       - name: Upload
