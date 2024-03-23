@@ -53,6 +53,7 @@ target_link_libraries(catch2 INTERFACE Catch2::Catch2WithMain)
 
 # Crypto++
 if(USE_SYSTEM_CRYPTOPP)
+    find_package(PkgConfig REQUIRED)
     find_package(cryptopp REQUIRED)
     add_library(cryptopp INTERFACE)
     target_link_libraries(cryptopp INTERFACE cryptopp::cryptopp)
