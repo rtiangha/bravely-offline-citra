@@ -204,8 +204,8 @@ public:
     explicit Setting(const Type& default_val, const Type& min_val, const Type& max_val,
                      const std::string& name)
         requires(ranged)
-        : value{default_val},
-          default_value{default_val}, maximum{max_val}, minimum{min_val}, label{name} {}
+        : value{default_val}, default_value{default_val}, maximum{max_val}, minimum{min_val},
+          label{name} {}
 
     /**
      *  Returns a reference to the setting's value.
@@ -457,7 +457,7 @@ struct Values {
 #elif defined(ENABLE_SOFTWARE_RENDERER)
         GraphicsAPI::Software,
 #else
-// TODO: Add a null renderer backend for this, perhaps.
+        // TODO: Add a null renderer backend for this, perhaps.
 #error "At least one renderer must be enabled."
 #endif
             GraphicsAPI::Software, GraphicsAPI::Vulkan, "graphics_api"

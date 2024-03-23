@@ -83,7 +83,7 @@ enum : u32 {
 #define vfp_get_sn(inst) ((inst & 0x000f0000) >> 15 | (inst & (1 << 7)) >> 7)
 #define vfp_get_dn(inst) ((inst & 0x000f0000) >> 16 | (inst & (1 << 7)) >> 3)
 
-#define vfp_single(inst) (((inst)&0x0000f00) == 0xa00)
+#define vfp_single(inst) (((inst) & 0x0000f00) == 0xa00)
 
 inline u32 vfp_shiftright32jamming(u32 val, unsigned int shift) {
     if (shift) {
@@ -222,7 +222,7 @@ struct vfp_single {
 #define VFP_SINGLE_SIGNIFICAND_QNAN (1 << (VFP_SINGLE_MANTISSA_BITS - 1 + VFP_SINGLE_LOW_BITS))
 
 // Operations on packed single-precision numbers
-#define vfp_single_packed_sign(v) ((v)&0x80000000)
+#define vfp_single_packed_sign(v) ((v) & 0x80000000)
 #define vfp_single_packed_negate(v) ((v) ^ 0x80000000)
 #define vfp_single_packed_abs(v) ((v) & ~0x80000000)
 #define vfp_single_packed_exponent(v)                                                              \
