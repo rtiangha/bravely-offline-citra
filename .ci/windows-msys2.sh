@@ -12,6 +12,7 @@ cmake .. -G Ninja \
     -DCMAKE_CXX_FLAGS="-O2" \
     -DCMAKE_C_FLAGS="-O2" 
 ninja
+strip -s bin/Release/*.exe
 ninja bundle
 
 ccache -s -v
