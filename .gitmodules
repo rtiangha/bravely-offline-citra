@@ -94,4 +94,5 @@
     url = https://github.com/yuzu-mirror/oaknut.git
 [submodule "externals/teakra-old"]
     path = externals/teakra-old
-    url = https://github.com/wwylele/teakra.git
+    url = https://github.com/rtiangha/teakra.git
+    branch = teakra-old
