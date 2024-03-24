@@ -13,6 +13,7 @@
 [submodule "dynarmic"]
     path = externals/dynarmic
     url = https://github.com/rtiangha/dynarmic.git 
+    branch = dynarmic-ufork
 [submodule "xbyak"]
     path = externals/xbyak
     url = https://github.com/herumi/xbyak.git
