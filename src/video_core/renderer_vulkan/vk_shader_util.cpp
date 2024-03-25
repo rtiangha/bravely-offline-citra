@@ -3,6 +3,7 @@
 // Refer to the license.txt file included.
 
 #include <SPIRV/GlslangToSpv.h>
+#include <memory>
 #include <glslang/Include/ResourceLimits.h>
 #include <glslang/Public/ShaderLang.h>
 #include "common/assert.h"
