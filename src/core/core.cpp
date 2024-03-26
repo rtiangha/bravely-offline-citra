@@ -259,6 +259,10 @@ static void LoadOverrides(u64 title_id) {
         title_id == 0x0004000000030800 || title_id == 0x0004000000030700) {
         // Mario Kart 7
         Settings::values.skip_texture_copy = true;
+    } else if (title_id == 0x00040000000D0000 || title_id == 0x0004000000076400 ||
+        title_id == 0x0004000000055F00 || title_id == 0x0004000000076500) {
+        // Luigi Mansion 2
+        Settings::SetFMVHack(true, true);
     }
 
     const std::array<u64, 10> core_ticks_hack_ids = {
@@ -275,7 +279,7 @@ static void LoadOverrides(u64 title_id) {
     };
     for (auto id : core_ticks_hack_ids) {
         if (title_id == id) {
-            Settings::SetFMVHack(true);
+            Settings::SetFMVHack(true, false);
             break;
         }
     }

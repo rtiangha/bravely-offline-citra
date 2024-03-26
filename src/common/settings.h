@@ -577,7 +577,7 @@ void LogSettings();
 void RestoreGlobalState(bool is_powered_on);
 
 // MMJ Hacks
-void SetFMVHack(bool enable);
+void SetFMVHack(bool enable, bool is_luigi_mansion);
 
 // Input profiles
 void LoadProfile(int index);

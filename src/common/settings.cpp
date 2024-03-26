@@ -148,10 +148,13 @@ void LogSettings() {
     log_setting("Debugging_GdbstubPort", values.gdbstub_port.GetValue());
 }
 
-void SetFMVHack(bool enable) {
+void SetFMVHack(bool enable, bool is_luigi_mansion) {
     if (enable) {
         if (values.use_cpu_jit) {
             values.core_ticks_hack = 16000;
+        } else if (values.use_cpu_jit && is_luigi_mansion) {
+            // workaround to fix some of bad performance
+            values.core_ticks_hack = 21000;
         } else {
             values.core_ticks_hack = 0xFFFF;
         }
