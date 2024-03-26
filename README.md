@@ -35,7 +35,7 @@ Make sure to follow the instructions and update to the latest version by running
 #### Install Citra dependencies for MinGW-w64
 
 - Open the "MSYS2 MinGW 64-bit" (mingw64.exe) shell
-- Download and install all dependencies using: `pacman -S mingw-w64-x86_64-{gcc,SDL2,qt6,cmake} make git`
+- Download and install all dependencies using: `pacman -S mingw-w64-x86_64-{gcc,SDL2,qt6,cmake,ninja,spirv-tools} make git`
 
 #### Clone the Citra repository with git.
 
@@ -49,10 +49,13 @@ git submodule update --init --recursive
 
 ```shell
 mkdir build && cd build
-cmake -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release ..
-make -jN  (where N = number of CPU threads, ex. -j4)
-strip -s bin/Release/*.exe
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Release ..
+ninja
+ninja bundle
+strip -s bundle/*.exe
 ```
+
+When complete, all the binaries will be found in `build/bundle`.
 
 #### Optimizing GCC Builds
 
@@ -60,7 +63,7 @@ If you intend to run Citra on the same computer that you're compiling this on, y
 
 `cmake -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-march=native -O2" -DCMAKE_C_FLAGS="-march=native -O2" ..`
 
-before running `make -jN` instead, which may help you eke out a few more fps of performance. Just note that if you choose to compile the program in this way, it may not run on another computer with different specs.
+before running `ninja` instead, which may help you eke out a few more fps of performance. Just note that if you choose to compile the program in this way, it may not run on another computer with different specs.
 
 ### Clang Build with MSYS2
 
@@ -73,7 +76,7 @@ Make sure to follow the instructions and update to the latest version by running
 #### Install Citra dependencies
 
 - Open the "MSYS2 Clang64" (clang64.exe) shell
-- Download and install all dependencies using: `pacman -S mingw-w64-clang-x86_64-{gcc,qt6,cmake} make git`
+- Download and install all dependencies using: `pacman -S mingw-w64-clang-x86_64-{gcc,qt6,cmake} mingw-w64-x86_64-{ninja,spirv-tools} make git`
 
 #### Clone the Citra repository with git.
 
@@ -88,9 +91,12 @@ git submodule update --init --recursive
 ```shell
 mkdir build && cd build
 cmake -G -DCMAKE_BUILD_TYPE=Release ..
-cmake --build . --config Release -- -j N (where N = number of CPU threads, ex. -j4)
-strip -s bin/Release/*.exe
+ninja
+ninja bundle
+strip -s bundle/*.exe
 ```
+
+When complete, all the binaries will be found in `build/bundle`.
 
 #### Optimizing Clang Builds
 
@@ -98,7 +104,7 @@ If you intend to run Citra on the same computer that you're compiling this on, y
 
 `cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-march=native -O2" -DCMAKE_C_FLAGS="-march=native -O2" ..`
 
-before running `cmake --build . --config Release -- -j N` instead, which may help you eke out a few more fps of performance. Just note that if you choose to compile the program in this way, it may not run on another computer with different specs.
+before running `ninja` instead, which may help you eke out a few more fps of performance. Just note that if you choose to compile the program in this way, it may not run on another computer with different specs.
 
 ### Installation in Bravely Offline
 
