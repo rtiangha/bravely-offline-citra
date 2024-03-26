@@ -373,8 +373,8 @@ void Java_org_citra_citra_1emu_NativeLibrary_setLemontweaks(JNIEnv* env,
     jint* settings = env->GetIntArrayElements(array, nullptr);
 
     // FMV Hack
-    u64 luigi_mansion_ids == 0x00040000000D0000 || 0x0004000000076400 ||
-        0x0004000000055F00 || 0x0004000000076500;
+    u64 luigi_mansion_ids = 0x00040000000D0000 | 0x0004000000076400 |
+        0x0004000000055F00 | 0x0004000000076500;
     if (system.GetAppLoader().ReadProgramId(luigi_mansion_ids)) {
         Settings::SetFMVHack(settings[i++] > 0, true);
     } else {
