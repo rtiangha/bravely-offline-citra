@@ -61,7 +61,7 @@ When complete, all the binaries will be found in `build/bundle`.
 
 If you intend to run Citra on the same computer that you're compiling this on, you may choose to run
 
-`cmake -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-march=native -O2" -DCMAKE_C_FLAGS="-march=native -O2" ..`
+`cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-march=native -O2" -DCMAKE_C_FLAGS="-march=native -O2" ..`
 
 before running `ninja` instead, which may help you eke out a few more fps of performance. Just note that if you choose to compile the program in this way, it may not run on another computer with different specs.
 
@@ -90,7 +90,7 @@ git submodule update --init --recursive
 
 ```shell
 mkdir build && cd build
-cmake -G -DCMAKE_BUILD_TYPE=Release ..
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Release ..
 ninja
 ninja bundle
 strip -s bundle/*.exe
@@ -102,7 +102,7 @@ When complete, all the binaries will be found in `build/bundle`.
 
 If you intend to run Citra on the same computer that you're compiling this on, you may choose to run
 
-`cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-march=native -O2" -DCMAKE_C_FLAGS="-march=native -O2" ..`
+`cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-march=native -O2" -DCMAKE_C_FLAGS="-march=native -O2" ..`
 
 before running `ninja` instead, which may help you eke out a few more fps of performance. Just note that if you choose to compile the program in this way, it may not run on another computer with different specs.
 
