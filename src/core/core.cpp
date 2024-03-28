@@ -291,6 +291,9 @@ static void LoadOverrides(u64 title_id) {
         title_id == 0x0004000000055F00 || title_id == 0x0004000000076500) {
         // Luigi Mansion 2
         Settings::SetFMVHack(true, true);
+    } else if (title_id == 0x00040000000DCA00 || title_id == 0x00040000000F4000) {
+        // Danball Senki W Chou Custom, Danball Senki WARS
+        Settings::values.y2r_perform_hack = true;
     }
 
     const std::array<u64, 10> core_ticks_hack_ids = {

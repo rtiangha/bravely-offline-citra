@@ -522,7 +522,9 @@ void Y2R_U::StartConversion(Kernel::HLERequestContext& ctx) {
     system.Memory().RasterizerFlushVirtualRegion(conversion.dst.address, total_output_size,
                                                  Memory::FlushMode::FlushAndInvalidate);
 
-    HW::Y2R::PerformConversion(system.Memory(), conversion);
+    if (!Settings::values.y2r_perform_hack || completion_event->ShouldWait(nullptr)) {
+        HW::Y2R::PerformConversion(system.Memory(), conversion);
+    }
 
     if (Settings::values.y2r_event_delay) {
         Core::System::GetInstance().CoreTiming().ScheduleEvent(40000, conversion_delay_event);

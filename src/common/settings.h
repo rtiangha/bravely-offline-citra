@@ -544,11 +544,12 @@ struct Values {
     Setting<std::string> log_filter{"*:Info", "log_filter"};
     Setting<std::string> log_regex_filter{"", "log_regex_filter"};
 
-    // MMJ Hacks
+    // Hacks
     SwitchableSetting<bool> core_downcount_hack{false, "core_downcount_hack"};
     bool skip_slow_draw;
     bool skip_texture_copy;
     bool y2r_event_delay;
+    bool y2r_perform_hack;
     u32 core_ticks_hack;
 
     // Video Dumping
