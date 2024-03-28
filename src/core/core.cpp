@@ -294,6 +294,26 @@ static void LoadOverrides(u64 title_id) {
     } else if (title_id == 0x00040000000DCA00 || title_id == 0x00040000000F4000) {
         // Danball Senki W Chou Custom, Danball Senki WARS
         Settings::values.y2r_perform_hack = true;
+    } else if (title_id == 0x0004000000068B00 || title_id == 0x0004000000061300 ||
+        title_id == 0x000400000004A700 || title_id == 0x000400000005D700) {
+        // hack for Tales of the Abyss / Pac Man Party 3D
+        Settings::values.display_transfer_hack = true;
+        // crash on `g_state.geometry_pipeline.Reconfigure();`
+        // state.regs.pipeline.gs_unit_exclusive_configuration = 0
+        // state.regs.gs.max_input_attribute_index = 0
+        Settings::values.skip_slow_draw = true;
+    } else if (title_id == 0x000400000015CB00) {
+        // New Atelier Rorona
+        Settings::values.skip_slow_draw = true;
+    } else if (title_id == 0x000400000018E900) {
+        // My Hero Academia
+        Settings::values.skip_slow_draw = true;
+    } else if (title_id == 0x000400000016AD00) {
+        // Dragon Quest Monsters Joker 3
+        Settings::values.skip_slow_draw = true;
+    } else if (title_id == 0x00040000001ACB00) {
+        // Dragon Quest Monsters Joker 3 Professional
+        Settings::values.skip_slow_draw = true;
     }
 
     const std::array<u64, 10> core_ticks_hack_ids = {
@@ -372,23 +392,6 @@ static void LoadOverrides(u64 title_id) {
     for (auto id : fifa_ids) {
         if (title_id == id) {
             Settings::values.y2r_event_delay = true;
-            break;
-        }
-    }
-
-    const std::array<u64, 8> slow_draw_ids = {
-        0x0004000000068B00, // Tales of the Abyss
-        0x0004000000061300, // Tales of the Abyss
-        0x000400000004A700, // Pac Man Party 3D
-        0x000400000005D700, // Pac Man Party 3D
-        0x000400000015CB00, // New Atelier Rorona
-        0x000400000018E900, // My Hero Academia
-        0x000400000016AD00, // Dragon Quest Monsters Joker 3
-        0x00040000001ACB00, // Dragon Quest Monsters Joker 3 Professional
-    };
-    for (auto id : slow_draw_ids) {
-        if (title_id == id) {
-            Settings::values.skip_slow_draw = true;
             break;
         }
     }
