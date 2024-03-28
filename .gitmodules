@@ -44,7 +44,6 @@
 [submodule "teakra"]
     path = externals/teakra
     url = https://github.com/rtiangha/teakra.git
-    branch = bravely-offline
 [submodule "lodepng"]
     path = externals/lodepng/lodepng
     url = https://github.com/lvandeve/lodepng.git
