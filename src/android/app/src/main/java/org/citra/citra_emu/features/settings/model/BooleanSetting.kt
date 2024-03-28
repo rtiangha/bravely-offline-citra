@@ -9,6 +9,7 @@ enum class BooleanSetting(
     override val section: String,
     override val defaultValue: Boolean
 ) : AbstractBooleanSetting {
+    DISPLAY_CUTOUT_EXPAND("display_cutout_expand", Settings.SECTION_CORE, false),
     SPIRV_SHADER_GEN("spirv_shader_gen", Settings.SECTION_RENDERER, true),
     ASYNC_SHADERS("async_shader_compilation", Settings.SECTION_RENDERER, false),
     CORE_DOWNCOUNT_HACK("core_downcount_hack", Settings.SECTION_RENDERER, false),
