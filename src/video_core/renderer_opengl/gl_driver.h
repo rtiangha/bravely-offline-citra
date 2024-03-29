@@ -7,8 +7,7 @@
 #include <string_view>
 #include "common/common_types.h"
 
-namespace Core {
-}
+namespace Core {}
 
 namespace VideoCore {
 enum class CustomPixelFormat : u32;

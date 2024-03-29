@@ -10,8 +10,7 @@
 #include "video_core/rasterizer_cache/pixel_format.h"
 #include "video_core/renderer_vulkan/vk_platform.h"
 
-namespace Core {
-}
+namespace Core {}
 
 namespace Frontend {
 class EmuWindow;
@@ -40,8 +39,7 @@ struct FormatTraits {
 class Instance {
 public:
     explicit Instance(bool validation = false, bool dump_command_buffers = false);
-    explicit Instance(Core, Frontend::EmuWindow& window,
-                      u32 physical_device_index);
+    explicit Instance(Core, Frontend::EmuWindow& window, u32 physical_device_index);
     ~Instance();
 
     /// Returns the FormatTraits struct for the provided pixel format
