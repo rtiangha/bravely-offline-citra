@@ -52,23 +52,23 @@ constexpr static std::array<vk::DescriptorSetLayoutBinding, 1> PRESENT_BINDINGS 
 
 RendererVulkan::RendererVulkan(Core::System& system, Pica::PicaCore& pica_,
                                Frontend::EmuWindow& window, Frontend::EmuWindow* secondary_window)
-    : RendererBase{system, window, secondary_window}, memory{system.Memory()}, pica{pica_}, window,
-      Settings::values.physical_device.GetValue()
-}
-, scheduler{instance}, render_manager{instance, scheduler},
-    main_window{window, instance, scheduler},
-    vertex_buffer{instance, scheduler, vk::BufferUsageFlagBits::eVertexBuffer, VERTEX_BUFFER_SIZE},
-    update_queue{instance}, rasterizer{memory,
-                                       pica,
-                                       system.CustomTexManager(),
-                                       *this,
-                                       render_window,
-                                       instance,
-                                       scheduler,
-                                       render_manager,
-                                       update_queue,
-                                       main_window.ImageCount()},
-    present_heap{instance, scheduler.GetMasterSemaphore(), PRESENT_BINDINGS, 32} {
+    : RendererBase{system, window, secondary_window}, memory{system.Memory()}, pica{pica_},
+      instance{window, Settings::values.physical_device.GetValue()},
+      scheduler{instance}, render_manager{instance, scheduler},
+      main_window{window, instance, scheduler},
+      vertex_buffer{instance, scheduler, vk::BufferUsageFlagBits::eVertexBuffer,
+                    VERTEX_BUFFER_SIZE},
+      update_queue{instance}, rasterizer{memory,
+                                         pica,
+                                         system.CustomTexManager(),
+                                         *this,
+                                         render_window,
+                                         instance,
+                                         scheduler,
+                                         render_manager,
+                                         update_queue,
+                                         main_window.ImageCount()},
+      present_heap{instance, scheduler.GetMasterSemaphore(), PRESENT_BINDINGS, 32} {
     CompileShaders();
     BuildLayouts();
     BuildPipelines();
