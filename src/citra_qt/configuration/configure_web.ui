@@ -155,8 +155,6 @@
  <tabstops>
   <tabstop>edit_token</tabstop>
   <tabstop>button_verify_login</tabstop>
-  <tabstop>toggle_telemetry</tabstop>
-  <tabstop>button_regenerate_telemetry_id</tabstop>
   <tabstop>toggle_discordrpc</tabstop>
  </tabstops>
  <resources/>
