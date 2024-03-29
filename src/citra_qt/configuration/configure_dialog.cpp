@@ -16,7 +16,6 @@
 #include "citra_qt/configuration/configure_storage.h"
 #include "citra_qt/configuration/configure_system.h"
 #include "citra_qt/configuration/configure_ui.h"
-#include "citra_qt/configuration/configure_web.h"
 #include "citra_qt/hotkeys.h"
 #include "common/settings.h"
 #include "core/core.h"
