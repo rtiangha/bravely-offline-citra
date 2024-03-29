@@ -38,7 +38,7 @@ ConfigureDialog::ConfigureDialog(QWidget* parent, HotkeyRegistry& registry_, Cor
       camera_tab{std::make_unique<ConfigureCamera>(this)},
       debug_tab{std::make_unique<ConfigureDebug>(is_powered_on, this)},
       storage_tab{std::make_unique<ConfigureStorage>(is_powered_on, this)},
-      web_tab{std::make_unique<ConfigureWeb>(this)}, ui_tab{std::make_unique<ConfigureUi>(this)} {
+      ui_tab{std::make_unique<ConfigureUi>(this)} {
     Settings::SetConfiguringGlobal(true);
 
     ui->setupUi(this);
