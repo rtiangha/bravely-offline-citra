@@ -7,8 +7,6 @@
 #include <string_view>
 #include "common/common_types.h"
 
-namespace Core {}
-
 namespace VideoCore {
 enum class CustomPixelFormat : u32;
 }
@@ -46,7 +44,6 @@ enum class DriverBug {
  */
 class Driver {
 public:
-    Driver(Core);
     ~Driver();
 
     /// Returns true of the driver has a particular bug stated in the DriverBug enum

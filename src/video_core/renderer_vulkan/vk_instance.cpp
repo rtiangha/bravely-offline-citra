@@ -137,7 +137,7 @@ Instance::Instance(bool enable_validation, bool dump_command_buffers)
                               dump_command_buffers)},
       physical_devices{instance->enumeratePhysicalDevices()} {}
 
-Instance::Instance(Core, Frontend::EmuWindow& window, u32 physical_device_index)
+Instance::Instance(Frontend::EmuWindow& window, u32 physical_device_index)
     : library{OpenLibrary(&window)},
       instance{CreateInstance(*library, window.GetWindowInfo().type,
                               Settings::values.renderer_debug.GetValue(),
