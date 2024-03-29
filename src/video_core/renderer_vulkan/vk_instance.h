@@ -11,7 +11,6 @@
 #include "video_core/renderer_vulkan/vk_platform.h"
 
 namespace Core {
-class TelemetrySession;
 }
 
 namespace Frontend {
@@ -41,7 +40,7 @@ struct FormatTraits {
 class Instance {
 public:
     explicit Instance(bool validation = false, bool dump_command_buffers = false);
-    explicit Instance(Core::TelemetrySession& telemetry, Frontend::EmuWindow& window,
+    explicit Instance(Core, Frontend::EmuWindow& window,
                       u32 physical_device_index);
     ~Instance();
 
@@ -289,10 +288,6 @@ private:
 
     /// Creates the VMA allocator handle
     void CreateAllocator();
-
-    /// Collects telemetry information from the device.
-    void CollectTelemetryParameters(Core::TelemetrySession& telemetry);
-    void CollectToolingInfo();
 
 private:
     std::shared_ptr<Common::DynamicLibrary> library;
