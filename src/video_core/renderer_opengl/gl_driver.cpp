@@ -54,26 +54,6 @@ inline std::string_view GetType(GLenum type) {
     return std::string_view{};
 }
 
-static void APIENTRY DebugHandler(GLenum source, GLenum type, GLuint id, GLenum severity,
-                                  GLsizei length, const GLchar* message, const void* user_param) {
-    auto level = Common::Log::Level::Info;
-    switch (severity) {
-    case GL_DEBUG_SEVERITY_HIGH:
-        level = Common::Log::Level::Critical;
-        break;
-    case GL_DEBUG_SEVERITY_MEDIUM:
-        level = Common::Log::Level::Warning;
-        break;
-    case GL_DEBUG_SEVERITY_NOTIFICATION:
-    case GL_DEBUG_SEVERITY_LOW:
-        level = Common::Log::Level::Debug;
-        break;
-    }
-
-    LOG_GENERIC(Common::Log::Class::Render_OpenGL, level, "{} {} {}: {}", GetSource(source),
-                GetType(type), id, message);
-}
-
 Driver::~Driver() = default;
 
 bool Driver::HasBug(DriverBug bug) const {
