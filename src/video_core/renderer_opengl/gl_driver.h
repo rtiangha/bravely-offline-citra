@@ -8,7 +8,6 @@
 #include "common/common_types.h"
 
 namespace Core {
-class TelemetrySession;
 }
 
 namespace VideoCore {
@@ -48,7 +47,7 @@ enum class DriverBug {
  */
 class Driver {
 public:
-    Driver(Core::TelemetrySession& telemetry_session);
+    Driver(Core);
     ~Driver();
 
     /// Returns true of the driver has a particular bug stated in the DriverBug enum
@@ -143,7 +142,6 @@ private:
     void FindBugs();
 
 private:
-    Core::TelemetrySession& telemetry_session;
     Vendor vendor = Vendor::Unknown;
     DriverBug bugs{};
     bool is_suitable{};
