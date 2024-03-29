@@ -44,6 +44,7 @@ enum class DriverBug {
  */
 class Driver {
 public:
+    Driver();
     ~Driver();
 
     /// Returns true of the driver has a particular bug stated in the DriverBug enum
