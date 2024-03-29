@@ -160,7 +160,6 @@ Instance::Instance(Frontend::EmuWindow& window, u32 physical_device_index)
     }
 
     CreateDevice();
-    CollectToolingInfo();
     CreateFormatTable();
     CreateCustomFormatTable();
     CreateAttribTable();
