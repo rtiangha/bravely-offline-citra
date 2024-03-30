@@ -1481,6 +1481,7 @@ void GMainWindow::ShutdownGame() {
 #endif
 
     game_title.clear();
+    game_title_long.clear();
     UpdateWindowTitle();
 
     game_path.clear();
