@@ -290,7 +290,7 @@ static void LoadOverrides(u64 title_id) {
     } else if (title_id == 0x00040000000D0000 || title_id == 0x0004000000076400 ||
         title_id == 0x0004000000055F00 || title_id == 0x0004000000076500) {
         // Luigi Mansion 2
-        Settings::SetFMVHack(true, true);
+        Settings::SetFMVHack(!Settings::values.core_downcount_hack, true);
     } else if (title_id == 0x00040000000DCA00 || title_id == 0x00040000000F4000) {
         // Danball Senki W Chou Custom, Danball Senki WARS
         Settings::values.y2r_perform_hack = true;
@@ -331,10 +331,10 @@ static void LoadOverrides(u64 title_id) {
     } else if (title_id == 0x000400000008FE00) {
         // 1001 Spikes
         Settings::values.stream_buffer_hack = false;
-        Settings::values.core_downcount_hack = true;
+        Settings::SetFMVHack(!Settings::values.core_downcount_hack, false);
     }
 
-    const std::array<u64, 10> core_ticks_hack_ids = {
+    const std::array<u64, 14> core_ticks_hack_ids = {
         0x0004000000030500, // Super Street Fighter IV: 3D Edition
         0x0004000000032D00, // Super Street Fighter IV: 3D Edition
         0x0004000000033C00, // Super Street Fighter IV: 3D Edition
@@ -345,10 +345,14 @@ static void LoadOverrides(u64 title_id) {
         0x00040000000C8100, // Paper Mario: Sticker Star
         0x00040000000A5E00, // Paper Mario: Sticker Star
         0x00040000000A5F00, // Paper Mario: Sticker Star
+        0x00040000001CCD00, // The Alliance Alive
+        0x00040000001B4500, // The Alliance Alive
+        0x0004000000120900, // Lord of Magna: Maiden Heaven
+        0x0004000000164300, // Lord of Magna: Maiden Heaven
     };
     for (auto id : core_ticks_hack_ids) {
         if (title_id == id) {
-            Settings::SetFMVHack(true, false);
+            Settings::SetFMVHack(!Settings::values.core_downcount_hack, false);
             break;
         }
     }
@@ -372,7 +376,7 @@ static void LoadOverrides(u64 title_id) {
         }
     }
 
-    const std::array<u64, 11> cpu_limit_ids = {
+    const std::array<u64, 7> cpu_limit_ids = {
         0x000400000007C700, // Mario Tennis Open
         0x000400000007C800, // Mario Tennis Open
         0x0004000000064D00, // Mario Tennis Open
@@ -380,10 +384,6 @@ static void LoadOverrides(u64 title_id) {
         0x00040000000DCD00, // Mario Golf: World Tour
         0x00040000000A5300, // Mario Golf: World Tour
         0x00040000000DCE00, // Mario Golf: World Tour
-        0x00040000001CCD00, // The Alliance Alive
-        0x00040000001B4500, // The Alliance Alive
-        0x0004000000120900, // Lord of Magna: Maiden Heaven
-        0x0004000000164300, // Lord of Magna: Maiden Heaven
     };
     for (auto id : cpu_limit_ids) {
         if (title_id == id) {
