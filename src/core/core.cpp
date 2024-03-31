@@ -372,7 +372,7 @@ static void LoadOverrides(u64 title_id) {
         }
     }
 
-    const std::array<u64, 12> cpu_limit_ids = {
+    const std::array<u64, 11> cpu_limit_ids = {
         0x000400000007C700, // Mario Tennis Open
         0x000400000007C800, // Mario Tennis Open
         0x0004000000064D00, // Mario Tennis Open
