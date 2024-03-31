@@ -549,6 +549,7 @@ struct Values {
     bool skip_slow_draw;
     bool skip_texture_copy;
     bool display_transfer_hack;
+    bool stream_buffer_hack;
     bool y2r_event_delay;
     bool y2r_perform_hack;
     u32 core_ticks_hack;

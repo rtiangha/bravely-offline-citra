@@ -314,6 +314,24 @@ static void LoadOverrides(u64 title_id) {
     } else if (title_id == 0x00040000001ACB00) {
         // Dragon Quest Monsters Joker 3 Professional
         Settings::values.skip_slow_draw = true;
+    } else if (title_id == 0x000400000019E700 || title_id == 0x00040000001A5600) {
+        // Armed Blue Gunvolt
+        Settings::values.stream_buffer_hack = false;
+    } else if (title_id == 0x000400000019B200 || title_id == 0x0004000000196A00 ||
+               title_id == 0x00040000001A6E00) {
+        // Armed Blue Gunvolt 2
+        Settings::values.stream_buffer_hack = false;
+    } else if (title_id == 0x0004000000149100) {
+        // Gravity Falls - Legend of the Gnome Gemulets
+        Settings::values.stream_buffer_hack = false;
+    } else if (title_id == 0x0004000000196900 || title_id == 0x0004000000119A00 ||
+               title_id == 0x000400000017C900 || title_id == 0x000400000017E100) {
+        // Shovel Knight
+        Settings::values.stream_buffer_hack = false;
+    } else if (title_id == 0x000400000008FE00) {
+        // 1001 Spikes
+        Settings::values.stream_buffer_hack = false;
+        Settings::values.core_downcount_hack = true;
     }
 
     const std::array<u64, 10> core_ticks_hack_ids = {
@@ -366,7 +384,6 @@ static void LoadOverrides(u64 title_id) {
         0x00040000001B4500, // The Alliance Alive
         0x0004000000120900, // Lord of Magna: Maiden Heaven
         0x0004000000164300, // Lord of Magna: Maiden Heaven
-        0x000400000008FE00, // 1001 Spikes
     };
     for (auto id : cpu_limit_ids) {
         if (title_id == id) {
