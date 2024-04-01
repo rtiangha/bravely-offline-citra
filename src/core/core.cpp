@@ -290,6 +290,7 @@ static void LoadOverrides(u64 title_id) {
     } else if (title_id == 0x00040000000D0000 || title_id == 0x0004000000076400 ||
         title_id == 0x0004000000055F00 || title_id == 0x0004000000076500) {
         // Luigi Mansion 2
+        Settings::values.core_downcount_hack = true;
         Settings::SetFMVHack(!Settings::values.core_downcount_hack, true);
     } else if (title_id == 0x00040000000DCA00 || title_id == 0x00040000000F4000) {
         // Danball Senki W Chou Custom, Danball Senki WARS
@@ -680,7 +681,7 @@ System::ResultStatus System::Init(Frontend::EmuWindow& emu_window,
     kernel->SetRunningCPU(cpu_cores[0].get());
 
     if (Settings::values.core_downcount_hack) {
-        SetCpuUsageLimit(true);
+        SetCpuUsageLimit(true, num_cores);
     }
 
     const auto audio_emulation = Settings::values.audio_emulation.GetValue();
@@ -822,8 +823,7 @@ void System::RegisterImageInterface(std::shared_ptr<Frontend::ImageInterface> im
     registered_image_interface = std::move(image_interface);
 }
 
-void System::SetCpuUsageLimit(bool enabled) {
-    u32 num_cores = this->GetNumCores();
+void System::SetCpuUsageLimit(bool enabled, u32 num_cores) {
     if (enabled) {
         u32 hacks[4] = {1, 4, 2, 2};
         for (u32 i = 0; i < num_cores; ++i) {

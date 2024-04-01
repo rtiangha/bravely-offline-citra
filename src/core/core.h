@@ -355,7 +355,7 @@ public:
     }
 
     /// Core downcount hack
-    void SetCpuUsageLimit(bool enabled);
+    void SetCpuUsageLimit(bool enabled, u32 num_cores);
 
     /// Applies any changes to settings to this core instance.
     void ApplySettings();
