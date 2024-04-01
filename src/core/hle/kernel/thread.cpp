@@ -264,6 +264,11 @@ void Thread::WakeAfterDelay(s64 nanoseconds, bool thread_safe_mode) {
         return;
     std::size_t core = thread_safe_mode ? core_id : std::numeric_limits<std::size_t>::max();
 
+    if ((nanoseconds & 0x7000000000000000) == 0x7000000000000000) {
+        // fx jit bug
+        nanoseconds &= 0xFFFFFFFF;
+    }
+
     thread_manager.kernel.timing.ScheduleEvent(nsToCycles(nanoseconds),
                                                thread_manager.ThreadWakeupEventType, thread_id,
                                                core, thread_safe_mode);
@@ -360,6 +365,10 @@ ResultVal<std::shared_ptr<Thread>> KernelSystem::CreateThread(
         // TODO: Verify error
         return Result(ErrorDescription::InvalidAddress, ErrorModule::Kernel,
                       ErrorSummary::InvalidArgument, ErrorLevel::Permanent);
+    }
+
+    if (processor_id >= thread_managers.size()) {
+        processor_id = 0;
     }
 
     auto thread = std::make_shared<Thread>(*this, processor_id);
@@ -465,8 +474,20 @@ bool ThreadManager::HaveReadyThreads() {
 }
 
 void ThreadManager::Reschedule() {
+    Thread* next;
     Thread* cur = GetCurrentThread();
-    Thread* next = PopNextReadyThread();
+
+    if (cur && cur->status == ThreadStatus::Running) {
+        // We have to do better than the current thread.
+        // This call returns null when that's not possible.
+        next = ready_queue.pop_first_better(cur->current_priority);
+        if (!next) {
+            // Otherwise just keep going with the current thread
+            return;
+        }
+    } else {
+        next = ready_queue.pop_first();
+    }
 
     if (cur && next) {
         LOG_TRACE(Kernel, "context switch {} -> {}", cur->GetObjectId(), next->GetObjectId());
