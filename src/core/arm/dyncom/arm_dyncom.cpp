@@ -98,10 +98,8 @@ void ARM_DynCom::SetCP15Register(CP15Register reg, u32 value) {
 
 void ARM_DynCom::ExecuteInstructions(u64 num_instructions) {
     state->NumInstrsToExecute = num_instructions;
-    const u32 ticks_executed = InterpreterMainLoop(state.get());
-    if (timer) {
-        timer->AddTicks(ticks_executed);
-    }
+    const u32 ticks_executed = InterpreterMainLoop(state.get(), timer.get());
+    timer->AddTicks(ticks_executed);
     state->ServeBreak();
 }
 
