@@ -136,6 +136,7 @@ void Config::ReadValues() {
     ReadSetting("Renderer", Settings::values.physical_device);
     ReadSetting("Renderer", Settings::values.spirv_shader_gen);
     ReadSetting("Renderer", Settings::values.async_shader_compilation);
+    ReadSetting("Renderer", Settings::values.core_downcount_hack);
     ReadSetting("Renderer", Settings::values.async_presentation);
     ReadSetting("Renderer", Settings::values.use_gles);
     ReadSetting("Renderer", Settings::values.use_hw_shader);

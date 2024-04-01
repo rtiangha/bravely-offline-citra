@@ -208,7 +208,7 @@ bool RasterizerCache<T>::AccelerateTextureCopy(const Pica::DisplayTransferConfig
 
     const auto [src_surface_id, src_rect] = GetTexCopySurface(src_params);
     if (!src_surface_id) {
-        return false;
+        return Settings::values.skip_texture_copy;
     }
 
     const SurfaceParams src_info = slot_surfaces[src_surface_id];

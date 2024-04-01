@@ -10,6 +10,7 @@
 #include <boost/optional.hpp>
 #include <cryptopp/hex.h>
 #include <cryptopp/osrng.h>
+#include <fmt/ranges.h>
 #include "common/archives.h"
 #include "common/bit_field.h"
 #include "common/file_util.h"
@@ -23,6 +24,7 @@
 #include "core/hle/service/ir/ir_rst.h"
 #include "core/loader/loader.h"
 #include "core/movie.h"
+
 
 namespace Core {
 

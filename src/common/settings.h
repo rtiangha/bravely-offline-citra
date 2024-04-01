@@ -544,6 +544,13 @@ struct Values {
     Setting<std::string> log_filter{"*:Info", "log_filter"};
     Setting<std::string> log_regex_filter{"", "log_regex_filter"};
 
+    // MMJ Hacks
+    SwitchableSetting<bool> core_downcount_hack{false, "core_downcount_hack"};
+    bool skip_slow_draw;
+    bool skip_texture_copy;
+    bool y2r_event_delay;
+    u32 core_ticks_hack;
+
     // Video Dumping
     std::string output_format;
     std::string format_options;
@@ -568,6 +575,9 @@ void LogSettings();
 
 // Restore the global state of all applicable settings in the Values struct
 void RestoreGlobalState(bool is_powered_on);
+
+// MMJ Hacks
+void SetFMVHack(bool enable, bool is_luigi_mansion);
 
 // Input profiles
 void LoadProfile(int index);

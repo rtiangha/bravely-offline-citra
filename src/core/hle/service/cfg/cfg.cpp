@@ -10,6 +10,7 @@
 #include <cryptopp/osrng.h>
 #include <cryptopp/sha.h>
 #include <fmt/format.h>
+#include <fmt/ranges.h>
 #include "common/archives.h"
 #include "common/file_util.h"
 #include "common/logging/log.h"
