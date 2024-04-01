@@ -660,19 +660,19 @@ System::ResultStatus System::Init(Frontend::EmuWindow& emu_window,
 #if CITRA_ARCH(x86_64) || CITRA_ARCH(arm64)
         for (u32 i = 0; i < num_cores; ++i) {
             cpu_cores.push_back(std::make_shared<ARM_Dynarmic>(
-                *this, *memory, i, timing->GetTimer(i), *exclusive_monitor));
+                *this, i, timing->GetTimer(i), *exclusive_monitor));
         }
 #else
         for (u32 i = 0; i < num_cores; ++i) {
             cpu_cores.push_back(
-                std::make_shared<ARM_DynCom>(this, *memory, USER32MODE, i, timing->GetTimer(i)));
+                std::make_shared<ARM_DynCom>(this, i, timing->GetTimer(i)));
         }
         LOG_WARNING(Core, "CPU JIT requested, but Dynarmic not available");
 #endif
     } else {
         for (u32 i = 0; i < num_cores; ++i) {
             cpu_cores.push_back(
-                std::make_shared<ARM_DynCom>(*this, *memory, USER32MODE, i, timing->GetTimer(i)));
+                std::make_shared<ARM_DynCom>(*this, i, timing->GetTimer(i)));
         }
     }
     running_core = cpu_cores[0].get();
