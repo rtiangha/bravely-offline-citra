@@ -76,29 +76,80 @@ System::System() : movie{*this}, cheat_engine{*this} {}
 
 System::~System() = default;
 
-System::ResultStatus System::RunLoop(bool tight_loop) {
-    status = ResultStatus::Success;
-    if (!IsPoweredOn()) {
-        return ResultStatus::ErrorNotInitialized;
-    }
+System::ResultStatus System::RunLoop() {
+    return cpu_cores.size() > 1 ? RunLoopMultiCores() : RunLoopOneCore();
+}
 
-    if (GDBStub::IsServerEnabled()) {
-        Kernel::Thread* thread = kernel->GetCurrentThreadManager().GetCurrentThread();
-        if (thread && running_core) {
-            running_core->SaveContext(thread->context);
-        }
-        GDBStub::HandlePacket(*this);
-
-        // If the loop is halted and we want to step, use a tiny (1) number of instructions to
-        // execute. Otherwise, get out of the loop function.
-        if (GDBStub::GetCpuHaltFlag()) {
-            if (GDBStub::GetCpuStepFlag()) {
-                tight_loop = false;
-            } else {
-                return ResultStatus::Success;
+System::ResultStatus System::RunLoopMultiCores() {
+    // All cores should have executed the same amount of ticks. If this is not the case an event was
+    // scheduled with a cycles_into_future smaller then the current downcount.
+    // So we have to get those cores to the same global time first
+    s64 max_delay = 0;
+    ARM_Interface* current_core_to_execute = nullptr;
+    for (auto& cpu_core : cpu_cores) {
+        s64 delay = timing->GetGlobalTicks() - cpu_core->GetTimer().GetTicks();
+        if (delay > 0) {
+            running_core = cpu_core.get();
+            kernel->SetRunningCPU(running_core);
+            cpu_core->GetTimer().Advance();
+            cpu_core->PrepareReschedule();
+            kernel->GetThreadManager(cpu_core->GetID()).Reschedule();
+            cpu_core->GetTimer().SetNextSlice(delay);
+            if (max_delay < delay) {
+                max_delay = delay;
+                current_core_to_execute = cpu_core.get();
             }
         }
     }
+
+    // jit sometimes overshoot by a few ticks which might lead to a minimal desync in the cores.
+    // This small difference shouldn't make it necessary to sync the cores and would only cost
+    // performance. Thus we don't sync delays below min_delay
+    static constexpr s64 min_delay = 100;
+    if (max_delay > min_delay) {
+        if (running_core != current_core_to_execute) {
+            running_core = current_core_to_execute;
+            kernel->SetRunningCPU(running_core);
+        }
+        if (kernel->GetCurrentThreadManager().GetCurrentThread() == nullptr) {
+            LOG_TRACE(Core_ARM11, "Core {} idling", current_core_to_execute->GetID());
+            current_core_to_execute->GetTimer().Idle();
+            PrepareReschedule();
+        } else {
+            current_core_to_execute->Run();
+        }
+    } else {
+        // Now all cores are at the same global time. So we will run them one after the other
+        // with a max slice that is the minimum of all max slices of all cores
+        // TODO: Make special check for idle since we can easily revert the time of idle cores
+        s64 max_slice = Timing::MAX_SLICE_LENGTH;
+        for (const auto& cpu_core : cpu_cores) {
+            running_core = cpu_core.get();
+            kernel->SetRunningCPU(running_core);
+            cpu_core->GetTimer().Advance();
+            cpu_core->PrepareReschedule();
+            kernel->GetThreadManager(cpu_core->GetID()).Reschedule();
+            max_slice = std::min(max_slice, cpu_core->GetTimer().GetMaxSliceLength());
+        }
+        for (auto& cpu_core : cpu_cores) {
+            cpu_core->GetTimer().SetNextSlice(max_slice);
+            auto start_ticks = cpu_core->GetTimer().GetTicks();
+            running_core = cpu_core.get();
+            kernel->SetRunningCPU(running_core);
+            // If we don't have a currently active thread then don't execute instructions,
+            // instead advance to the next event and try to yield to the next thread
+            if (kernel->GetCurrentThreadManager().GetCurrentThread() == nullptr) {
+                LOG_TRACE(Core_ARM11, "Core {} idling", cpu_core->GetID());
+                cpu_core->GetTimer().Idle();
+                PrepareReschedule();
+            } else {
+                cpu_core->Run();
+            }
+            max_slice = cpu_core->GetTimer().GetTicks() - start_ticks;
+        }
+    }
+
+    Reschedule();
 
     Signal signal{Signal::None};
     u32 param{};
@@ -148,93 +199,70 @@ System::ResultStatus System::RunLoop(bool tight_loop) {
         break;
     }
 
-    // All cores should have executed the same amount of ticks. If this is not the case an event was
-    // scheduled with a cycles_into_future smaller then the current downcount.
-    // So we have to get those cores to the same global time first
-    u64 global_ticks = timing->GetGlobalTicks();
-    s64 max_delay = 0;
-    ARM_Interface* current_core_to_execute = nullptr;
-    for (auto& cpu_core : cpu_cores) {
-        if (cpu_core->GetTimer().GetTicks() < global_ticks) {
-            s64 delay = global_ticks - cpu_core->GetTimer().GetTicks();
-            running_core = cpu_core.get();
-            kernel->SetRunningCPU(running_core);
-            cpu_core->GetTimer().Advance();
-            cpu_core->PrepareReschedule();
-            kernel->GetThreadManager(cpu_core->GetID()).Reschedule();
-            cpu_core->GetTimer().SetNextSlice(delay);
-            if (max_delay < delay) {
-                max_delay = delay;
-                current_core_to_execute = cpu_core.get();
-            }
-        }
-    }
+    return status;
+}
 
-    // jit sometimes overshoot by a few ticks which might lead to a minimal desync in the cores.
-    // This small difference shouldn't make it necessary to sync the cores and would only cost
-    // performance. Thus we don't sync delays below min_delay
-    static constexpr s64 min_delay = 100;
-    if (max_delay > min_delay) {
-        LOG_TRACE(Core_ARM11, "Core {} running (delayed) for {} ticks",
-                  current_core_to_execute->GetID(),
-                  current_core_to_execute->GetTimer().GetDowncount());
-        if (running_core != current_core_to_execute) {
-            running_core = current_core_to_execute;
-            kernel->SetRunningCPU(running_core);
-        }
-        if (kernel->GetCurrentThreadManager().GetCurrentThread() == nullptr) {
-            LOG_TRACE(Core_ARM11, "Core {} idling", current_core_to_execute->GetID());
-            current_core_to_execute->GetTimer().Idle();
-            PrepareReschedule();
-        } else {
-            if (tight_loop) {
-                current_core_to_execute->Run();
-            } else {
-                current_core_to_execute->Step();
-            }
-        }
+System::ResultStatus System::RunLoopOneCore() {
+    // If we don't have a currently active thread then don't execute instructions,
+    // instead advance to the next event and try to yield to the next thread
+    if (kernel->GetCurrentThreadManager().GetCurrentThread() == nullptr) {
+        running_core->GetTimer().Idle();
+        running_core->GetTimer().Advance();
+        PrepareReschedule();
     } else {
-        // Now all cores are at the same global time. So we will run them one after the other
-        // with a max slice that is the minimum of all max slices of all cores
-        // TODO: Make special check for idle since we can easily revert the time of idle cores
-        s64 max_slice = Timing::MAX_SLICE_LENGTH;
-        for (const auto& cpu_core : cpu_cores) {
-            running_core = cpu_core.get();
-            kernel->SetRunningCPU(running_core);
-            cpu_core->GetTimer().Advance();
-            cpu_core->PrepareReschedule();
-            kernel->GetThreadManager(cpu_core->GetID()).Reschedule();
-            max_slice = std::min(max_slice, cpu_core->GetTimer().GetMaxSliceLength());
-        }
-        for (auto& cpu_core : cpu_cores) {
-            cpu_core->GetTimer().SetNextSlice(max_slice);
-            auto start_ticks = cpu_core->GetTimer().GetTicks();
-            LOG_TRACE(Core_ARM11, "Core {} running for {} ticks", cpu_core->GetID(),
-                      cpu_core->GetTimer().GetDowncount());
-            running_core = cpu_core.get();
-            kernel->SetRunningCPU(running_core);
-            // If we don't have a currently active thread then don't execute instructions,
-            // instead advance to the next event and try to yield to the next thread
-            if (kernel->GetCurrentThreadManager().GetCurrentThread() == nullptr) {
-                LOG_TRACE(Core_ARM11, "Core {} idling", cpu_core->GetID());
-                cpu_core->GetTimer().Idle();
-                PrepareReschedule();
-            } else {
-                if (tight_loop) {
-                    cpu_core->Run();
-                } else {
-                    cpu_core->Step();
-                }
-            }
-            max_slice = cpu_core->GetTimer().GetTicks() - start_ticks;
-        }
+        running_core->GetTimer().Advance();
+        running_core->Run();
     }
-
-    if (GDBStub::IsServerEnabled()) {
-        GDBStub::SetCpuStepFlag(false);
-    }
-
+    
     Reschedule();
+
+    Signal signal{Signal::None};
+    u32 param{};
+    {
+        std::scoped_lock lock{signal_mutex};
+        if (current_signal != Signal::None) {
+            signal = current_signal;
+            param = signal_param;
+            current_signal = Signal::None;
+        }
+    }
+    switch (signal) {
+    case Signal::Reset:
+        Reset();
+        return ResultStatus::Success;
+    case Signal::Shutdown:
+        return ResultStatus::ShutdownRequested;
+    case Signal::Load: {
+        const u32 slot = param;
+        LOG_INFO(Core, "Begin load of slot {}", slot);
+        try {
+            System::LoadState(slot);
+            LOG_INFO(Core, "Load completed");
+        } catch (const std::exception& e) {
+            LOG_ERROR(Core, "Error loading: {}", e.what());
+            status_details = e.what();
+            return ResultStatus::ErrorSavestate;
+        }
+        frame_limiter.WaitOnce();
+        return ResultStatus::Success;
+    }
+    case Signal::Save: {
+        const u32 slot = param;
+        LOG_INFO(Core, "Begin save to slot {}", slot);
+        try {
+            System::SaveState(slot);
+            LOG_INFO(Core, "Save completed");
+        } catch (const std::exception& e) {
+            LOG_ERROR(Core, "Error saving: {}", e.what());
+            status_details = e.what();
+            return ResultStatus::ErrorSavestate;
+        }
+        frame_limiter.WaitOnce();
+        return ResultStatus::Success;
+    }
+    default:
+        break;
+    }
 
     return status;
 }
@@ -251,7 +279,7 @@ bool System::SendSignal(System::Signal signal, u32 param) {
 }
 
 System::ResultStatus System::SingleStep() {
-    return RunLoop(false);
+    return status;
 }
 
 static void LoadOverrides(u64 title_id) {
@@ -365,7 +393,6 @@ static void LoadOverrides(u64 title_id) {
 
 System::ResultStatus System::Load(Frontend::EmuWindow& emu_window, const std::string& filepath,
                                   Frontend::EmuWindow* secondary_window) {
-    FileUtil::SetCurrentRomPath(filepath);
     app_loader = Loader::GetLoader(filepath);
     if (!app_loader) {
         LOG_CRITICAL(Core, "Failed to obtain loader for {}!", filepath);
@@ -401,15 +428,17 @@ System::ResultStatus System::Load(Frontend::EmuWindow& emu_window, const std::st
         }
     }
 
+    u64 title_id{0};
+    if (app_loader->ReadProgramId(title_id) != Loader::ResultStatus::Success) {
+        LOG_ERROR(Core, "Failed to find title id for ROM");
+    }
+    LoadOverrides(title_id);
+
     ASSERT(memory_mode.first);
     auto n3ds_hw_caps = app_loader->LoadNew3dsHwCapabilities();
     ASSERT(n3ds_hw_caps.first);
-    u32 num_cores = 2;
-    if (Settings::values.is_new_3ds) {
-        num_cores = 4;
-    }
     ResultStatus init_result{
-        Init(emu_window, secondary_window, *memory_mode.first, *n3ds_hw_caps.first, num_cores)};
+        Init(emu_window, secondary_window, *memory_mode.first, *n3ds_hw_caps.first)};
     if (init_result != ResultStatus::Success) {
         LOG_CRITICAL(Core, "Failed to initialize system (Error {})!",
                      static_cast<u32>(init_result));
@@ -450,14 +479,6 @@ System::ResultStatus System::Load(Frontend::EmuWindow& emu_window, const std::st
         }
     }
     kernel->SetCurrentProcess(process);
-    title_id = 0;
-    if (app_loader->ReadProgramId(title_id) != Loader::ResultStatus::Success) {
-        LOG_ERROR(Core, "Failed to find title id for ROM (Error {})",
-                  static_cast<u32>(load_result));
-    }
-
-    // load game settings
-    LoadOverrides(title_id);
 
     cheat_engine.LoadCheatFile(title_id);
     cheat_engine.Connect();
@@ -512,8 +533,13 @@ void System::Reschedule() {
 System::ResultStatus System::Init(Frontend::EmuWindow& emu_window,
                                   Frontend::EmuWindow* secondary_window,
                                   Kernel::MemoryMode memory_mode,
-                                  const Kernel::New3dsHwCapabilities& n3ds_hw_caps, u32 num_cores) {
+                                  const Kernel::New3dsHwCapabilities& n3ds_hw_caps) {
     LOG_DEBUG(HW_Memory, "initialized OK");
+
+    u32 num_cores = 1;
+    if (Settings::values.is_new_3ds) {
+        num_cores = 4;
+    }
 
     memory = std::make_unique<Memory::MemorySystem>(*this);
 
@@ -744,6 +770,9 @@ void System::Shutdown(bool is_deserializing) {
         video_dumper->StopDumping();
     }
 
+    running_core = nullptr;
+    reschedule_pending = false;
+
     if (auto room_member = Network::GetRoomMember().lock()) {
         Network::GameInfo game_info{};
         room_member->SendGameInfo(game_info);
@@ -853,7 +882,7 @@ void System::serialize(Archive& ar, const unsigned int file_version) {
         auto memory_mode = this->app_loader->LoadKernelMemoryMode();
         auto n3ds_hw_caps = this->app_loader->LoadNew3dsHwCapabilities();
         [[maybe_unused]] const System::ResultStatus result = Init(
-            *m_emu_window, m_secondary_window, *memory_mode.first, *n3ds_hw_caps.first, num_cores);
+            *m_emu_window, m_secondary_window, *memory_mode.first, *n3ds_hw_caps.first);
     }
 
     // Flush on save, don't flush on load

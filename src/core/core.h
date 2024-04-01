@@ -117,7 +117,9 @@ public:
      * @param tight_loop If false, the CPU single-steps.
      * @return Result status, indicating whethor or not the operation succeeded.
      */
-    [[nodiscard]] ResultStatus RunLoop(bool tight_loop = true);
+    [[nodiscard]] ResultStatus RunLoop();
+    [[nodiscard]] ResultStatus RunLoopMultiCores();
+    [[nodiscard]] ResultStatus RunLoopOneCore();
 
     /**
      * Step the CPU one instruction
@@ -369,8 +371,7 @@ private:
     [[nodiscard]] ResultStatus Init(Frontend::EmuWindow& emu_window,
                                     Frontend::EmuWindow* secondary_window,
                                     Kernel::MemoryMode memory_mode,
-                                    const Kernel::New3dsHwCapabilities& n3ds_hw_caps,
-                                    u32 num_cores);
+                                    const Kernel::New3dsHwCapabilities& n3ds_hw_caps);
 
     /// Reschedule the core emulation
     void Reschedule();
@@ -386,7 +387,7 @@ private:
     std::unique_ptr<AudioCore::DspInterface> dsp_core;
 
     /// When true, signals that a reschedule should happen
-    bool reschedule_pending{};
+    bool reschedule_pending = false;
 
     /// Telemetry session for this emulation session
     std::unique_ptr<Core::TelemetrySession> telemetry_session;
@@ -433,7 +434,7 @@ private:
 
     std::atomic_bool is_powered_on{};
 
-    ResultStatus status = ResultStatus::Success;
+    ResultStatus status;
     std::string status_details = "";
     /// Saved variables for reset
     Frontend::EmuWindow* m_emu_window;
