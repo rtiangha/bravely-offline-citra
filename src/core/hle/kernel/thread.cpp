@@ -367,7 +367,7 @@ ResultVal<std::shared_ptr<Thread>> KernelSystem::CreateThread(
                       ErrorSummary::InvalidArgument, ErrorLevel::Permanent);
     }
 
-    if (processor_id >= thread_managers.size()) {
+    if (!Settings::values.is_new_3ds) {
         processor_id = 0;
     }
 
