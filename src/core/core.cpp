@@ -823,13 +823,14 @@ void System::RegisterImageInterface(std::shared_ptr<Frontend::ImageInterface> im
 }
 
 void System::SetCpuUsageLimit(bool enabled) {
+    u32 num_cores = this->GetNumCores();
     if (enabled) {
         u32 hacks[4] = {1, 4, 2, 2};
-        for (u32 i = 0; i < 4; ++i) {
+        for (u32 i = 0; i < num_cores; ++i) {
             timing->GetTimer(i)->SetDowncountHack(hacks[i]);
         }
     } else {
-        for (u32 i = 0; i < 4; ++i) {
+        for (u32 i = 0; i < num_cores; ++i) {
             timing->GetTimer(i)->SetDowncountHack(0);
         }
     }
