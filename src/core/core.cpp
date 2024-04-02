@@ -213,7 +213,7 @@ System::ResultStatus System::RunLoopOneCore() {
         running_core->GetTimer().Advance();
         running_core->Run();
     }
-    
+
     Reschedule();
 
     Signal signal{Signal::None};
@@ -288,7 +288,7 @@ static void LoadOverrides(u64 title_id) {
         // Mario Kart 7
         Settings::values.skip_texture_copy = true;
     } else if (title_id == 0x00040000000D0000 || title_id == 0x0004000000076400 ||
-        title_id == 0x0004000000055F00 || title_id == 0x0004000000076500) {
+               title_id == 0x0004000000055F00 || title_id == 0x0004000000076500) {
         // Luigi Mansion 2
         Settings::values.core_downcount_hack = true;
         Settings::SetFMVHack(!Settings::values.core_downcount_hack, true);
@@ -296,7 +296,7 @@ static void LoadOverrides(u64 title_id) {
         // Danball Senki W Chou Custom, Danball Senki WARS
         Settings::values.y2r_perform_hack = true;
     } else if (title_id == 0x0004000000068B00 || title_id == 0x0004000000061300 ||
-        title_id == 0x000400000004A700 || title_id == 0x000400000005D700) {
+               title_id == 0x000400000004A700 || title_id == 0x000400000005D700) {
         // hack for Tales of the Abyss / Pac Man Party 3D
         Settings::values.display_transfer_hack = true;
         // crash on `g_state.geometry_pipeline.Reconfigure();`
@@ -975,7 +975,7 @@ void System::serialize(Archive& ar, const unsigned int file_version) {
     if (Archive::is_saving::value) {
         num_cores = this->GetNumCores();
     }
-    ar& num_cores;
+    ar & num_cores;
 
     if (Archive::is_loading::value) {
         // When loading, we want to make sure any lingering state gets cleared out before we begin.
@@ -985,8 +985,8 @@ void System::serialize(Archive& ar, const unsigned int file_version) {
         // Re-initialize everything like it was before
         auto memory_mode = this->app_loader->LoadKernelMemoryMode();
         auto n3ds_hw_caps = this->app_loader->LoadNew3dsHwCapabilities();
-        [[maybe_unused]] const System::ResultStatus result = Init(
-            *m_emu_window, m_secondary_window, *memory_mode.first, *n3ds_hw_caps.first);
+        [[maybe_unused]] const System::ResultStatus result =
+            Init(*m_emu_window, m_secondary_window, *memory_mode.first, *n3ds_hw_caps.first);
     }
 
     // Flush on save, don't flush on load
@@ -1011,7 +1011,7 @@ void System::serialize(Archive& ar, const unsigned int file_version) {
     ar&* memory.get();
     ar&* kernel.get();
     ar&* gpu.get();
-    ar& movie;
+    ar & movie;
 
     // This needs to be set from somewhere - might as well be here!
     if (Archive::is_loading::value) {
