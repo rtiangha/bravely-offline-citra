@@ -357,6 +357,8 @@ private:
     bool spacial_dithering_enabled = false;
     bool is_busy_conversion = false;
 
+    Core::TimingEventType* conversion_delay_event;
+
     template <class Archive>
     void serialize(Archive& ar, const unsigned int);
     friend class boost::serialization::access;

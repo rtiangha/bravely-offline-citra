@@ -854,8 +854,6 @@ void RendererOpenGL::TryPresent(int timeout_ms, bool is_secondary) {
     /* insert fence for the main thread to block on */
     frame->present_fence = glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0);
     glFlush();
-
-    glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
 }
 
 void RendererOpenGL::PrepareVideoDumping() {

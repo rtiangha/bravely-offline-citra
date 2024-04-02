@@ -19,12 +19,6 @@ namespace OpenGL {
 
 namespace {
 
-MICROPROFILE_DEFINE(OpenGL_VAO, "OpenGL", "Vertex Array Setup", MP_RGB(255, 128, 0));
-MICROPROFILE_DEFINE(OpenGL_VS, "OpenGL", "Vertex Shader Setup", MP_RGB(192, 128, 128));
-MICROPROFILE_DEFINE(OpenGL_GS, "OpenGL", "Geometry Shader Setup", MP_RGB(128, 192, 128));
-MICROPROFILE_DEFINE(OpenGL_Drawing, "OpenGL", "Drawing", MP_RGB(128, 128, 192));
-MICROPROFILE_DEFINE(OpenGL_Display, "OpenGL", "Display", MP_RGB(128, 128, 192));
-
 using VideoCore::SurfaceType;
 using namespace Common::Literals;
 using namespace Pica::Shader::Generator;
@@ -84,12 +78,17 @@ RasterizerOpenGL::RasterizerOpenGL(Memory::MemorySystem& memory, Pica::PicaCore&
     : VideoCore::RasterizerAccelerated{memory, pica}, driver{driver_},
       shader_manager{renderer.GetRenderWindow(), driver, !driver.IsOpenGLES()},
       runtime{driver, renderer}, res_cache{memory, custom_tex_manager, runtime, regs, renderer},
-      texture_buffer_size{TextureBufferSize()},
-      vertex_buffer{driver, GL_ARRAY_BUFFER, VERTEX_BUFFER_SIZE},
-      uniform_buffer{driver, GL_UNIFORM_BUFFER, UNIFORM_BUFFER_SIZE},
-      index_buffer{driver, GL_ELEMENT_ARRAY_BUFFER, INDEX_BUFFER_SIZE},
-      texture_buffer{driver, GL_TEXTURE_BUFFER, IsVendorMali() ? (GL_MAX_TEXTURE_BUFFER_SIZE == 65536 ? 11264 : texture_buffer_size) : texture_buffer_size},
-      texture_lf_buffer{driver, GL_TEXTURE_BUFFER, IsVendorMali() ? (GL_MAX_TEXTURE_BUFFER_SIZE == 65536 ? 525312 : texture_buffer_size) : texture_buffer_size} {
+      texture_buffer_size{TextureBufferSize()}, vertex_buffer{GL_ARRAY_BUFFER, VERTEX_BUFFER_SIZE},
+      uniform_buffer{GL_UNIFORM_BUFFER, UNIFORM_BUFFER_SIZE},
+      index_buffer{GL_ELEMENT_ARRAY_BUFFER, INDEX_BUFFER_SIZE},
+      texture_buffer{GL_TEXTURE_BUFFER,
+                     IsVendorMali()
+                         ? (GL_MAX_TEXTURE_BUFFER_SIZE == 65536 ? 11264 : texture_buffer_size)
+                         : texture_buffer_size},
+      texture_lf_buffer{GL_TEXTURE_BUFFER,
+                        IsVendorMali()
+                            ? (GL_MAX_TEXTURE_BUFFER_SIZE == 65536 ? 525312 : texture_buffer_size)
+                            : texture_buffer_size} {
 
     // Clipping plane 0 is always enabled for PICA fixed clip plane z <= 0
     state.clip_distance[0] = true;
@@ -193,7 +192,6 @@ void RasterizerOpenGL::SyncFixedState() {
 
 void RasterizerOpenGL::SetupVertexArray(u8* array_ptr, GLintptr buffer_offset,
                                         GLuint vs_input_index_min, GLuint vs_input_index_max) {
-    MICROPROFILE_SCOPE(OpenGL_VAO);
     const auto& vertex_attributes = regs.pipeline.vertex_attributes;
     PAddr base_address = vertex_attributes.GetPhysicalBaseAddress();
 
@@ -269,13 +267,10 @@ void RasterizerOpenGL::SetupVertexArray(u8* array_ptr, GLintptr buffer_offset,
 }
 
 bool RasterizerOpenGL::SetupVertexShader() {
-    MICROPROFILE_SCOPE(OpenGL_VS);
     return shader_manager.UseProgrammableVertexShader(regs, pica.vs_setup);
 }
 
 bool RasterizerOpenGL::SetupGeometryShader() {
-    MICROPROFILE_SCOPE(OpenGL_GS);
-
     if (regs.pipeline.use_gs != Pica::PipelineRegs::UseGS::No) {
         LOG_ERROR(Render_OpenGL, "Accelerate draw doesn't support geometry shader");
         return false;
@@ -368,8 +363,6 @@ void RasterizerOpenGL::DrawTriangles() {
 }
 
 bool RasterizerOpenGL::Draw(bool accelerate, bool is_indexed) {
-    MICROPROFILE_SCOPE(OpenGL_Drawing);
-
     const bool shadow_rendering = regs.framebuffer.IsShadowRendering();
     const bool has_stencil = regs.framebuffer.HasStencil();
 
@@ -377,7 +370,6 @@ bool RasterizerOpenGL::Draw(bool accelerate, bool is_indexed) {
                                 state.color_mask.green_enabled == GL_TRUE ||
                                 state.color_mask.blue_enabled == GL_TRUE ||
                                 state.color_mask.alpha_enabled == GL_TRUE;
-
     const bool write_depth_fb =
         (state.depth.test_enabled && state.depth.write_mask == GL_TRUE) ||
         (has_stencil && state.stencil.test_enabled && state.stencil.write_mask != 0);
@@ -729,7 +721,6 @@ bool RasterizerOpenGL::AccelerateDisplay(const Pica::FramebufferConfig& config,
     if (framebuffer_addr == 0) {
         return false;
     }
-    MICROPROFILE_SCOPE(OpenGL_Display);
 
     VideoCore::SurfaceParams src_params;
     src_params.addr = framebuffer_addr;

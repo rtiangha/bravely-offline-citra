@@ -519,6 +519,8 @@ void PicaCore::DrawArrays(bool is_indexed) {
     // Attempt to use hardware vertex shaders if possible.
     if (accelerate_draw && rasterizer->AccelerateDrawBatch(is_indexed)) {
         return;
+    } else if (Settings::values.skip_slow_draw) {
+        return;
     }
 
     // We cannot accelerate the draw, so load and execute the vertex shader for each vertex.
