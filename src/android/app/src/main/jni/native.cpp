@@ -352,7 +352,7 @@ void Java_org_citra_citra_1emu_NativeLibrary_swapScreens([[maybe_unused]] JNIEnv
 }
 
 jintArray Java_org_citra_citra_1emu_NativeLibrary_getLemontweaks([[maybe_unused]] JNIEnv* env,
-                                                                     [[maybe_unused]] jobject obj) {
+                                                                 [[maybe_unused]] jobject obj) {
     int i = 0;
     int settings[3];
 
@@ -367,8 +367,8 @@ jintArray Java_org_citra_citra_1emu_NativeLibrary_getLemontweaks([[maybe_unused]
 }
 
 void Java_org_citra_citra_1emu_NativeLibrary_setLemontweaks(JNIEnv* env,
-                                                                [[maybe_unused]] jobject obj,
-                                                                jintArray array) {
+                                                            [[maybe_unused]] jobject obj,
+                                                            jintArray array) {
     int i = 0;
     jint* settings = env->GetIntArrayElements(array, nullptr);
 

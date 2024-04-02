@@ -25,7 +25,6 @@
 #include "core/loader/loader.h"
 #include "core/movie.h"
 
-
 namespace Core {
 
 enum class ControllerStateType : u8 {

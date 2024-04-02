@@ -204,9 +204,8 @@ void ConfigureGraphics::SetupPerGameUI() {
     ConfigurationShared::SetColoredTristate(ui->toggle_async_shaders,
                                             Settings::values.async_shader_compilation,
                                             async_shader_compilation);
-    ConfigurationShared::SetColoredTristate(ui->toggle_core_downcount_hack,
-                                            Settings::values.core_downcount_hack,
-                                            core_downcount_hack);
+    ConfigurationShared::SetColoredTristate(
+        ui->toggle_core_downcount_hack, Settings::values.core_downcount_hack, core_downcount_hack);
     ConfigurationShared::SetColoredTristate(
         ui->toggle_async_present, Settings::values.async_presentation, async_presentation);
     ConfigurationShared::SetColoredTristate(ui->spirv_shader_gen, Settings::values.spirv_shader_gen,

@@ -143,7 +143,8 @@ void OpenALSink::SetCallback(std::function<void(s16*, std::size_t)> cb) {
     impl->cb = cb;
 }
 
-ALsizei OpenALSink::Impl::Callback(void* impl_, void* buffer, ALsizei buffer_size_in_bytes) noexcept {
+ALsizei OpenALSink::Impl::Callback(void* impl_, void* buffer,
+                                   ALsizei buffer_size_in_bytes) noexcept {
     auto impl = reinterpret_cast<Impl*>(impl_);
     if (!impl || !impl->cb) {
         return 0;
