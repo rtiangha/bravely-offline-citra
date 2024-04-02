@@ -3,6 +3,7 @@
 // Refer to the license.txt file included.
 
 #include "common/alignment.h"
+#include "common/logging/log.h"
 #include "common/microprofile.h"
 #include "common/settings.h"
 #include "video_core/renderer_opengl/gl_driver.h"
