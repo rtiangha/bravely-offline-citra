@@ -524,14 +524,6 @@ void Y2R_U::StartConversion(Kernel::HLERequestContext& ctx) {
 
     HW::Y2R::PerformConversion(system.Memory(), conversion);
 
-    if (is_busy_conversion) {
-        system.CoreTiming().RemoveEvent(completion_signal_event);
-    }
-
-    static constexpr s64 MinY2RDelay = 50000;
-    system.CoreTiming().ScheduleEvent(MinY2RDelay, completion_signal_event);
-    is_busy_conversion = true;
-
     if (Settings::values.y2r_event_delay) {
         Core::System::GetInstance().CoreTiming().ScheduleEvent(40000, conversion_delay_event);
     } else {
