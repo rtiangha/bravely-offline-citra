@@ -1990,8 +1990,7 @@ u32 SVC::ConvertVaToPa(u32 addr) {
         vma->second.type != VMAType::BackingMemory) {
         return 0;
     }
-    return kernel.memory.GetFCRAMOffset(vma->second.backing_memory.GetPtr() + addr -
-                                        vma->second.base) +
+    return kernel.memory.GetFCRAMOffset(vma->second.backing_memory + addr - vma->second.base) +
            Memory::FCRAM_PADDR;
 }
 
@@ -2020,8 +2019,8 @@ Result SVC::MapProcessMemoryEx(Handle dst_process_handle, u32 dst_address,
 
     auto vma_res = dst_process->vm_manager.MapBackingMemory(
         dst_address,
-        memory.GetFCRAMRef(vma->second.backing_memory.GetPtr() + offset -
-                           kernel.memory.GetFCRAMPointer(0)),
+        memory.GetFCRAMPointer(vma->second.backing_memory + offset -
+                               kernel.memory.GetFCRAMPointer(0)),
         size, Kernel::MemoryState::Continuous);
 
     if (!vma_res.Succeeded()) {
