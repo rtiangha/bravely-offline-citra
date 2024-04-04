@@ -70,7 +70,7 @@
     url = https://github.com/kcat/openal-soft
 [submodule "glslang"]
     path = externals/glslang
-    url = https://github.com/rtiangha/glslang
+    url = https://github.com/KhronosGroup/glslang
 [submodule "vma"]
     path = externals/vma
     url = https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator
