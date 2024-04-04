@@ -132,9 +132,9 @@ std::string GetReadableVersion(u32 version) {
 } // Anonymous namespace
 
 Instance::Instance(bool enable_validation, bool dump_command_buffers)
-    : library{OpenLibrary()},
-      instance{CreateInstance(*library, Frontend::WindowSystemType::Headless, enable_validation,
-                              dump_command_buffers)},
+    : library{OpenLibrary()}, instance{CreateInstance(*library,
+                                                      Frontend::WindowSystemType::Headless,
+                                                      enable_validation, dump_command_buffers)},
       physical_devices{instance->enumeratePhysicalDevices()} {}
 
 Instance::Instance(Frontend::EmuWindow& window, u32 physical_device_index)

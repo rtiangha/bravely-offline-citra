@@ -62,8 +62,11 @@ RasterizerVulkan::RasterizerVulkan(Memory::MemorySystem& memory, Pica::PicaCore&
                                    DescriptorUpdateQueue& update_queue_, u32 image_count)
     : RasterizerAccelerated{memory, pica}, instance{instance}, scheduler{scheduler},
       render_manager{render_manager}, update_queue{update_queue_},
-      pipeline_cache{instance, scheduler, render_manager, update_queue},
-      runtime{instance, scheduler, render_manager, update_queue, image_count},
+      pipeline_cache{instance, scheduler, render_manager, update_queue}, runtime{instance,
+                                                                                 scheduler,
+                                                                                 render_manager,
+                                                                                 update_queue,
+                                                                                 image_count},
       res_cache{memory, custom_tex_manager, runtime, regs, renderer},
       stream_buffer{instance, scheduler, BUFFER_USAGE, STREAM_BUFFER_SIZE},
       uniform_buffer{instance, scheduler, vk::BufferUsageFlagBits::eUniformBuffer,
