@@ -9,7 +9,8 @@ cmake .. -G Ninja \
     -DCITRA_ENABLE_COMPATIBILITY_REPORTING=ON \
     -DENABLE_COMPATIBILITY_LIST_DOWNLOAD=ON \
     -DUSE_DISCORD_PRESENCE=ON \
-    -DCMAKE_CXX_FLAGS="-O2" \
+    -DCITRA_USE_PRECOMPILED_HEADERS=OFF \
+    -DCMAKE_CXX_FLAGS="-O2 -fvisibility=hidden -Wl,-fvisibility=default" \
     -DCMAKE_C_FLAGS="-O2" 
 ninja
 strip -s bin/Release/*.exe
