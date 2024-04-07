@@ -6,6 +6,7 @@
 #include <array>
 #include <cstddef>
 #include <string>
+#include <span>
 #include "common/common_types.h"
 
 namespace Kernel {
