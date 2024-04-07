@@ -59,7 +59,7 @@ jobs:
           name: ${{ env.OS }}-${{ env.TARGET }}
           path: artifacts/
   macos:
-    runs-on: ${{ (matrix.target == 'x86_64' && 'macos-13') || 'macos-14' }}
+    runs-on: macos-14
     strategy:
       matrix:
         target: ["x86_64", "arm64"]
@@ -80,6 +80,10 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.target }}-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.target }}-
+      - name: Setup XCode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '15.3'
       - name: Install tools
         run: brew install ccache ninja
       - name: Build
@@ -243,6 +247,10 @@ jobs:
           key: ${{ runner.os }}-ios-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-ios-
+      - name: Setup XCode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '15.3'
       - name: Install tools
         run: brew install ccache ninja
       - name: Build
