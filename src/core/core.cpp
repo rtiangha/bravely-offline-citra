@@ -555,9 +555,6 @@ void System::RegisterImageInterface(std::shared_ptr<Frontend::ImageInterface> im
 }
 
 void System::Shutdown() {
-    // Log last frame performance stats
-    const auto perf_results = GetAndResetPerfStats();
-    constexpr auto performance = Common::Telemetry::FieldType::Performance;
 
     // Shutdown emulation session
     is_powered_on = false;
