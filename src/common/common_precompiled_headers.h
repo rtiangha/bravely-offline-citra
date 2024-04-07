@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <array>
 #include <chrono>
+#include <span>
 #include <memory>
 
 #include <fmt/format.h>
