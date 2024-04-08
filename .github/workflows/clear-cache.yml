@@ -1,0 +1,36 @@
+# Workflow credited towards the Lemonade team (https://github.com/Lemonade-emu/Lemonade/blob/18f3b2cfc593b5a9c1eb5eda439f021284f4c993/.github/workflows/clear-cache.yml)
+name: Clear cache
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'   # 00:00 every day
+    - cron: '5 0 * * *'   # 00:05 every day
+    - cron: '0 12 * * *'  # 12:00 every day
+    - cron: '5 12 * * *'  # 12:05 every day
+
+permissions:
+  actions: write
+
+jobs:
+  clear-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clear cache
+        uses: actions/github-script@v7.0.1
+        with:
+          script: |
+            console.log("About to clear")
+            const caches = await github.rest.actions.getActionsCacheList({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
+            for (const cache of caches.data.actions_caches) {
+              console.log(cache)
+              github.rest.actions.deleteActionsCacheById({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                cache_id: cache.id,
+              })
+            }
+            console.log("Clear completed")
