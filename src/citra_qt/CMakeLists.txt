@@ -294,6 +294,13 @@ if(ENABLE_SDL2)
     target_compile_definitions(citra-qt PRIVATE HAVE_SDL2)
 endif()
 
+if (WIN32 OR (UNIX AND NOT APPLE AND NOT ANDROID))
+    find_package(OpenMP)
+    if(OpenMP_CXX_FOUND)
+        target_link_libraries(citra-qt PRIVATE OpenMP::OpenMP_CXX)
+    endif()
+endif()
+
 create_target_directory_groups(citra-qt)
 
 target_link_libraries(citra-qt PRIVATE audio_core citra_common citra_core input_common network video_core)

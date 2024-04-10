@@ -44,6 +44,13 @@ if (ENABLE_OPENGL)
     target_link_libraries(citra PRIVATE glad)
 endif()
 
+if (WIN32 OR (UNIX AND NOT APPLE AND NOT ANDROID))
+    find_package(OpenMP)
+    if(OpenMP_CXX_FOUND)
+        target_link_libraries(citra PRIVATE OpenMP::OpenMP_CXX)
+    endif()
+endif()
+
 if(UNIX AND NOT APPLE)
     install(TARGETS citra RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
 endif()
