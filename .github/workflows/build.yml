@@ -80,8 +80,12 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.target }}-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.target }}-
+      - name: Setup XCode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
       - name: Install tools
-        run: brew install ccache ninja
+        run: brew install ccache ninja spirv-tools
       - name: Build
         run: ./.ci/macos.sh
       - name: Prepare outputs for caching
@@ -153,6 +157,19 @@ jobs:
       - name: Install extra tools (MSVC)
         run: choco install ccache ninja wget
         if: ${{ matrix.target == 'msvc' }}
+      - name: Install Vulkan SDK (MSVC)
+        uses: humbletim/install-vulkan-sdk@v1.1.1
+        with:
+          version: latest
+          cache: true
+        if: ${{ matrix.target == 'msvc' }}
+      - name: Set up Vulkan SDK (MSVC)
+        uses: humbletim/setup-vulkan-sdk@v1.2.0
+        if: ${{ matrix.target == 'msvc' }}
+        with:
+          vulkan-query-version: latest
+          vulkan-components: SPIRV-Tools
+          vulkan-use-cache: true
       - name: Set up MSYS2
         uses: msys2/setup-msys2@v2
         if: ${{ matrix.target == 'msys2' }}
@@ -161,7 +178,7 @@ jobs:
           update: true
           install: git make p7zip
           pacboy: >-
-            toolchain:p ccache:p cmake:p ninja:p
+            toolchain:p ccache:p cmake:p ninja:p spirv-tools:p
             qt6-base:p qt6-multimedia:p qt6-multimedia-wmf:p qt6-tools:p qt6-translations:p
       - name: Disable line ending translation
         run: git config --global core.autocrlf input
@@ -243,6 +260,10 @@ jobs:
           key: ${{ runner.os }}-ios-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-ios-
+      - name: Setup XCode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
       - name: Install tools
         run: brew install ccache ninja
       - name: Build
@@ -263,7 +284,7 @@ jobs:
           draft: false
           prerelease: false
       - name: Upload artifacts
-        uses: alexellis/upload-assets@0.4.0
+        uses: alexellis/upload-assets@0.4.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:

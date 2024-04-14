@@ -78,10 +78,9 @@ constexpr std::array<vk::DescriptorSetLayoutBinding, 2> UTILITY_BINDINGS = {{
 }};
 
 PipelineCache::PipelineCache(const Instance& instance_, Scheduler& scheduler_,
-                             RenderManager& render_manager_, DescriptorUpdateQueue& update_queue_)
-    : instance{instance_}, scheduler{scheduler_}, render_manager{render_manager_},
-      update_queue{update_queue_},
-      num_worker_threads{std::max(std::thread::hardware_concurrency(), 2U) >> 1},
+                             RenderpassCache& renderpass_cache_, DescriptorPool& pool_)
+    : instance{instance_}, scheduler{scheduler_}, renderpass_cache{renderpass_cache_}, pool{pool_},
+      num_worker_threads{std::max(std::thread::hardware_concurrency() >> 1, 2U)},
       workers{num_worker_threads, "Pipeline workers"},
       descriptor_heaps{
           DescriptorHeap{instance, scheduler.GetMasterSemaphore(), BUFFER_BINDINGS, 32},

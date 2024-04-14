@@ -20,6 +20,9 @@
 #include "core/hle/result.h"
 #include "core/hle/service/soc/soc_u.h"
 
+// Suppress deprecated msvc warnings for now
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
+
 #ifdef _WIN32
 #include <winsock2.h>
 #include <ws2tcpip.h>
