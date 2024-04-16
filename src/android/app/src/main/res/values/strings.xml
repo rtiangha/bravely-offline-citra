@@ -332,6 +332,7 @@
     <string name="emulation_toggle_controls">Toggle Controls</string>
     <string name="emulation_control_scale">Adjust Scale</string>
     <string name="emulation_control_scale_global">Global Scale</string>
+    <string name="emulation_rotate_screen">Rotate Screen</string>
     <string name="emulation_control_scale_reset_all">Reset All</string>
     <string name="emulation_control_opacity">Adjust Opacity</string>
     <string name="emulation_control_joystick_rel_center">Relative Stick Center</string>
