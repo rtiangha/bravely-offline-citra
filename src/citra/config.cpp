@@ -306,12 +306,14 @@ void Config::ReadValues() {
 
     // Miscellaneous
     ReadSetting("Miscellaneous", Settings::values.log_filter);
+    ReadSetting("Miscellaneous", Settings::values.log_regex_filter);
 
     // Apply the log_filter setting as the logger has already been initialized
     // and doesn't pick up the filter on its own.
     Common::Log::Filter filter;
     filter.ParseFilterString(Settings::values.log_filter.GetValue());
     Common::Log::SetGlobalFilter(filter);
+    Common::Log::SetRegexFilter(Settings::values.log_regex_filter.GetValue());
 
     // Debugging
     Settings::values.record_frame_times =
@@ -326,8 +328,6 @@ void Config::ReadValues() {
     }
 
     // Web Service
-    NetSettings::values.enable_telemetry =
-        sdl2_config->GetBoolean("WebService", "enable_telemetry", false);
     NetSettings::values.web_api_url =
         sdl2_config->GetString("WebService", "web_api_url", "https://api.citra-emu.org");
     NetSettings::values.citra_username = sdl2_config->GetString("WebService", "citra_username", "");

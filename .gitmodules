@@ -85,7 +85,7 @@
     url = https://github.com/knik0/faad2
 [submodule "library-headers"]
     path = externals/library-headers
-    url = https://github.com/PabloMK7/ext-library-headers.git
+    url = https://github.com/rtiangha/ext-library-headers.git
 [submodule "libadrenotools"]
     path = externals/libadrenotools
     url = https://github.com/bylaws/libadrenotools

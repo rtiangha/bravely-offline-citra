@@ -47,7 +47,6 @@
 #ifdef ENABLE_SCRIPTING
 #include "core/rpc/server.h"
 #endif
-#include "core/telemetry_session.h"
 #include "network/network.h"
 #include "video_core/custom_textures/custom_tex_manager.h"
 #include "video_core/gpu.h"
@@ -263,6 +262,18 @@ System::ResultStatus System::Load(Frontend::EmuWindow& emu_window, const std::st
         return ResultStatus::ErrorGetLoader;
     }
 
+    if (restore_plugin_context.has_value() && restore_plugin_context->is_enabled &&
+        restore_plugin_context->use_user_load_parameters) {
+        u64_le program_id = 0;
+        app_loader->ReadProgramId(program_id);
+        if (restore_plugin_context->user_load_parameters.low_title_Id ==
+                static_cast<u32_le>(program_id) &&
+            restore_plugin_context->user_load_parameters.plugin_memory_strategy ==
+                Service::PLGLDR::PLG_LDR::PluginMemoryStrategy::PLG_STRATEGY_MODE3) {
+            app_loader->SetKernelMemoryModeOverride(Kernel::MemoryMode::Dev2);
+        }
+    }
+
     auto memory_mode = app_loader->LoadKernelMemoryMode();
     if (memory_mode.second != Loader::ResultStatus::Success) {
         LOG_CRITICAL(Core, "Failed to determine system mode (Error {})!",
@@ -310,7 +321,6 @@ System::ResultStatus System::Load(Frontend::EmuWindow& emu_window, const std::st
         restore_plugin_context.reset();
     }
 
-    telemetry_session->AddInitialInfo(*app_loader);
     std::shared_ptr<Kernel::Process> process;
     const Loader::ResultStatus load_result{app_loader->Load(process)};
     if (Loader::ResultStatus::Success != load_result) {
@@ -440,8 +450,6 @@ System::ResultStatus System::Init(Frontend::EmuWindow& emu_window,
                       Settings::values.output_device.GetValue());
     dsp_core->EnableStretching(Settings::values.enable_audio_stretching.GetValue());
 
-    telemetry_session = std::make_unique<Core::TelemetrySession>();
-
 #ifdef ENABLE_SCRIPTING
     rpc_server = std::make_unique<RPC::Server>(*this);
 #endif
@@ -566,16 +574,6 @@ void System::RegisterImageInterface(std::shared_ptr<Frontend::ImageInterface> im
 }
 
 void System::Shutdown(bool is_deserializing) {
-    // Log last frame performance stats
-    const auto perf_results = GetAndResetPerfStats();
-    constexpr auto performance = Common::Telemetry::FieldType::Performance;
-
-    telemetry_session->AddField(performance, "Shutdown_EmulationSpeed",
-                                perf_results.emulation_speed * 100.0);
-    telemetry_session->AddField(performance, "Shutdown_Framerate", perf_results.game_fps);
-    telemetry_session->AddField(performance, "Shutdown_Frametime", perf_results.frametime * 1000.0);
-    telemetry_session->AddField(performance, "Mean_Frametime_MS",
-                                perf_stats ? perf_stats->GetMeanFrametime() : 0);
 
     // Shutdown emulation session
     is_powered_on = false;
@@ -587,7 +585,6 @@ void System::Shutdown(bool is_deserializing) {
         app_loader.reset();
     }
     custom_tex_manager.reset();
-    telemetry_session.reset();
 #ifdef ENABLE_SCRIPTING
     rpc_server.reset();
 #endif

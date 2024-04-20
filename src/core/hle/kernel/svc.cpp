@@ -4,11 +4,13 @@
 
 #include <algorithm>
 #include <array>
+#include <chrono>
 #include <fmt/format.h>
 #include "common/archives.h"
 #include "common/logging/log.h"
 #include "common/microprofile.h"
 #include "common/scm_rev.h"
+#include "common/settings.h"
 #include "core/arm/arm_interface.h"
 #include "core/core.h"
 #include "core/core_timing.h"
@@ -73,6 +75,12 @@ enum class KernelState {
      * Reboots the console
      */
     KERNEL_STATE_REBOOT = 7,
+
+    // Special Citra only states.
+    /**
+     * Sets the emulation speed percentage. A value of 0 means unthrottled.
+     */
+    KERNEL_STATE_CITRA_EMULATION_SPEED = 0x20000 ///
 };
 
 struct PageInfo {
@@ -268,8 +276,11 @@ enum class SystemInfoMemUsageRegion {
  */
 enum class SystemInfoCitraInformation {
     IS_CITRA = 0,          // Always set the output to 1, signaling the app is running on Citra.
+    HOST_TICK = 1,         // Tick reference from the host in ns, unaffected by lag or cpu speed.
+    EMULATION_SPEED = 2,   // Gets the emulation speed set by the user or by KernelSetState.
     BUILD_NAME = 10,       // (ie: Nightly, Canary).
     BUILD_VERSION = 11,    // Build version.
+    BUILD_PLATFORM = 12,   // Build platform, see SystemInfoCitraPlatform.
     BUILD_DATE_PART1 = 20, // Build date first 7 characters.
     BUILD_DATE_PART2 = 21, // Build date next 7 characters.
     BUILD_DATE_PART3 = 22, // Build date next 7 characters.
@@ -278,6 +289,17 @@ enum class SystemInfoCitraInformation {
     BUILD_GIT_BRANCH_PART2 = 31,      // Git branch last 7 characters.
     BUILD_GIT_DESCRIPTION_PART1 = 40, // Git description (commit) first 7 characters.
     BUILD_GIT_DESCRIPTION_PART2 = 41, // Git description (commit) last 7 characters.
+};
+
+/**
+ * Current officially supported platforms.
+ */
+enum class SystemInfoCitraPlatform {
+    PLATFORM_UNKNOWN = 0,
+    PLATFORM_WINDOWS = 1,
+    PLATFORM_LINUX = 2,
+    PLATFORM_APPLE = 3,
+    PLATFORM_ANDROID = 4,
 };
 
 /**
@@ -382,6 +404,9 @@ private:
                                 s64 nano_seconds);
     Result ReplyAndReceive(s32* index, VAddr handles_address, s32 handle_count,
                            Handle reply_target);
+    Result InvalidateProcessDataCache(Handle process_handle, VAddr address, u32 size);
+    Result StoreProcessDataCache(Handle process_handle, VAddr address, u32 size);
+    Result FlushProcessDataCache(Handle process_handle, VAddr address, u32 size);
     Result CreateAddressArbiter(Handle* out_handle);
     Result ArbitrateAddress(Handle handle, u32 address, u32 type, u32 value, s64 nanoseconds);
     void Break(u8 break_reason);
@@ -1005,6 +1030,39 @@ Result SVC::ReplyAndReceive(s32* index, VAddr handles_address, s32 handle_count,
     return ResultSuccess;
 }
 
+/// Invalidates the specified cache range (stubbed as we do not emulate cache).
+Result SVC::InvalidateProcessDataCache(Handle process_handle, VAddr address, u32 size) {
+    const std::shared_ptr<Process> process =
+        kernel.GetCurrentProcess()->handle_table.Get<Process>(process_handle);
+    R_UNLESS(process, ResultInvalidHandle);
+
+    LOG_DEBUG(Kernel_SVC, "called address=0x{:08X}, size=0x{:08X}", address, size);
+
+    return ResultSuccess;
+}
+
+/// Stores the specified cache range (stubbed as we do not emulate cache).
+Result SVC::StoreProcessDataCache(Handle process_handle, VAddr address, u32 size) {
+    const std::shared_ptr<Process> process =
+        kernel.GetCurrentProcess()->handle_table.Get<Process>(process_handle);
+    R_UNLESS(process, ResultInvalidHandle);
+
+    LOG_DEBUG(Kernel_SVC, "called address=0x{:08X}, size=0x{:08X}", address, size);
+
+    return ResultSuccess;
+}
+
+/// Flushes the specified cache range (stubbed as we do not emulate cache).
+Result SVC::FlushProcessDataCache(Handle process_handle, VAddr address, u32 size) {
+    const std::shared_ptr<Process> process =
+        kernel.GetCurrentProcess()->handle_table.Get<Process>(process_handle);
+    R_UNLESS(process, ResultInvalidHandle);
+
+    LOG_DEBUG(Kernel_SVC, "called address=0x{:08X}, size=0x{:08X}", address, size);
+
+    return ResultSuccess;
+}
+
 /// Create an address arbiter (to allocate access to shared resources)
 Result SVC::CreateAddressArbiter(Handle* out_handle) {
     // Update address arbiter count in resource limit.
@@ -1370,6 +1428,12 @@ Result SVC::KernelSetState(u32 kernel_state, u32 varg1, u32 varg2) {
     case KernelState::KERNEL_STATE_REBOOT:
         system.RequestShutdown();
         break;
+
+    // Citra specific states.
+    case KernelState::KERNEL_STATE_CITRA_EMULATION_SPEED: {
+        u16 new_value = static_cast<u16>(varg1);
+        Settings::values.frame_limit.SetValue(new_value);
+    } break;
     default:
         LOG_ERROR(Kernel_SVC, "Unknown KernelSetState state={} varg1={} varg2={}", kernel_state,
                   varg1, varg2);
@@ -1740,12 +1804,34 @@ Result SVC::GetSystemInfo(s64* out, u32 type, s32 param) {
         case SystemInfoCitraInformation::IS_CITRA:
             *out = 1;
             break;
+        case SystemInfoCitraInformation::HOST_TICK:
+            *out = static_cast<s64>(std::chrono::duration_cast<std::chrono::nanoseconds>(
+                                        std::chrono::steady_clock::now().time_since_epoch())
+                                        .count());
+            break;
+        case SystemInfoCitraInformation::EMULATION_SPEED:
+            *out = static_cast<s64>(Settings::values.frame_limit.GetValue());
+            break;
         case SystemInfoCitraInformation::BUILD_NAME:
             CopyStringPart(reinterpret_cast<char*>(out), Common::g_build_name, 0, sizeof(s64));
             break;
         case SystemInfoCitraInformation::BUILD_VERSION:
             CopyStringPart(reinterpret_cast<char*>(out), Common::g_build_version, 0, sizeof(s64));
             break;
+        case SystemInfoCitraInformation::BUILD_PLATFORM: {
+#if defined(_WIN32)
+            *out = static_cast<s64>(SystemInfoCitraPlatform::PLATFORM_WINDOWS);
+#elif defined(ANDROID)
+            *out = static_cast<s64>(SystemInfoCitraPlatform::PLATFORM_ANDROID);
+#elif defined(__linux__)
+            *out = static_cast<s64>(SystemInfoCitraPlatform::PLATFORM_LINUX);
+#elif defined(__APPLE__)
+            *out = static_cast<s64>(SystemInfoCitraPlatform::PLATFORM_APPLE);
+#else
+            *out = static_cast<s64>(SystemInfoCitraPlatform::PLATFORM_UNKNOWN);
+#endif
+            break;
+        }
         case SystemInfoCitraInformation::BUILD_DATE_PART1:
             CopyStringPart(reinterpret_cast<char*>(out), Common::g_build_date,
                            (sizeof(s64) - 1) * 0, sizeof(s64));
@@ -2124,9 +2210,9 @@ const std::array<SVC::FunctionDef, 180> SVC::SVC_Table{{
     {0x4F, &SVC::Wrap<&SVC::ReplyAndReceive>, "ReplyAndReceive"},
     {0x50, nullptr, "BindInterrupt"},
     {0x51, nullptr, "UnbindInterrupt"},
-    {0x52, nullptr, "InvalidateProcessDataCache"},
-    {0x53, nullptr, "StoreProcessDataCache"},
-    {0x54, nullptr, "FlushProcessDataCache"},
+    {0x52, &SVC::Wrap<&SVC::InvalidateProcessDataCache>, "InvalidateProcessDataCache"},
+    {0x53, &SVC::Wrap<&SVC::StoreProcessDataCache>, "StoreProcessDataCache"},
+    {0x54, &SVC::Wrap<&SVC::FlushProcessDataCache>, "FlushProcessDataCache"},
     {0x55, nullptr, "StartInterProcessDma"},
     {0x56, nullptr, "StopDma"},
     {0x57, nullptr, "GetDmaState"},
