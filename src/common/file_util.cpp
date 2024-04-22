@@ -729,7 +729,7 @@ static const std::string& GetHomeDirectory() {
  * @return The directory path
  * @sa http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
  */
-[[maybe_unused]] static const std::string GetUserDirectory(const std::string& envvar) {
+[[maybe_unused]] const std::string GetUserDirectory(const std::string& envvar) {
     const char* directory = getenv(envvar.c_str());
 
     std::string user_dir;

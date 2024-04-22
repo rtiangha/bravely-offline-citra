@@ -203,6 +203,8 @@ void UpdateUserPath(UserPath path, const std::string& filename);
 #ifdef _WIN32
 [[nodiscard]] const std::string& GetExeDirectory();
 [[nodiscard]] std::string AppDataRoamingDirectory();
+#else
+[[nodiscard]] const std::string GetUserDirectory(const std::string& envvar);
 #endif
 
 std::size_t WriteStringToFile(bool text_file, const std::string& filename, std::string_view str);

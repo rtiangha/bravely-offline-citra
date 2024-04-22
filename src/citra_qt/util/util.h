@@ -7,6 +7,7 @@
 #include <filesystem>
 #include <QFont>
 #include <QString>
+#include "common/common_types.h"
 
 /// Returns a QFont object appropriate to use as a monospace font for debugging widgets, etc.
 QFont GetMonospaceFont();
