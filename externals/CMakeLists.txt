@@ -442,4 +442,7 @@ endif()
 # Tracy
 if (ENABLE_PROFILING)
     add_subdirectory(tracy)
+    if(WIN32)
+        target_link_libraries(tracy PRIVATE dbghelp)
+    endif()
 endif()
