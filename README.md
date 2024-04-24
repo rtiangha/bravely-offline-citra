@@ -2,7 +2,7 @@
 
 This is a custom build of Citra originally meant to be used with the [Bravely Offline](https://github.com/osm70/bravely-offline) server/client program by [**osm70**](https://github.com/osm70/bravely-offline) as a drop-in replacement. It can also be used on its own like any normal version of Citra.
 
-This is an **experimental** build that takes current Citra code and updates most of Citra's third-party dependencies to more modern versions. In that sense, this build is a little more bleeding edge than stock Citra.
+This is an **experimental** build that takes current Citra code and updates most of Citra's third-party dependencies to more modern versions. In that sense, this build is a little more bleeding edge than stock Citra. Think of it as less Canary, and more YOLO... 😉
 
 There _may_ be performance improvements with this version, but there may also be dragons. If you want to be safe, make sure to keep backups of your save games and save states, just in case.
 
