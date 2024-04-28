@@ -26,7 +26,7 @@ public:
             LOG_INFO(Audio_Sink, "Restarting AudioStream after disconnect");
             start();
         } else {
-            LOG_CRITICAL(Audio_Sink, "Error after close: %d", error);
+            LOG_CRITICAL(Audio_Sink, "Error after close: {}", error);
         }
     }
 
@@ -40,14 +40,14 @@ public:
                           ->setCallback(this)
                           ->openManagedStream(mStream);
         if (result != oboe::Result::OK) {
-            LOG_CRITICAL(Audio_Sink, "Error creating playback stream: %s",
+            LOG_CRITICAL(Audio_Sink, "Error creating playback stream: {}",
                          oboe::convertToText(result));
             return false;
         }
         mSampleRate = mStream->getSampleRate();
         result = mStream->start();
         if (result != oboe::Result::OK) {
-            LOG_CRITICAL(Audio_Sink, "Error starting playback stream: %s",
+            LOG_CRITICAL(Audio_Sink, "Error starting playback stream: {}",
                          oboe::convertToText(result));
             return false;
         }
