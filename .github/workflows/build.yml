@@ -165,8 +165,12 @@ jobs:
             qt6-base:p qt6-multimedia:p qt6-multimedia-wmf:p qt6-tools:p qt6-translations:p
       - name: Disable line ending translation
         run: git config --global core.autocrlf input
-      - name: Build
+      - name: Build (MSVC)
         run: ./.ci/windows.sh
+        if: ${{ matrix.target == 'msvc' }}
+      - name: Build (MSYS2)
+        run: ./.ci/windows-msys2.sh
+        if: ${{ matrix.target == 'msys2' }}
       - name: Pack
         run: ./.ci/pack.sh
       - name: Upload
@@ -267,4 +271,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          asset_paths: '["./**/*.tar.*","./**/*.AppImage","./**/*.7z","./**/*.zip","./**/*.apk","./**/*.aab"]'
+          asset_paths: '["./**/*.tar.*","./**/*.AppImage","./**/*.zip","./**/*.apk","./**/*.aab"]'
