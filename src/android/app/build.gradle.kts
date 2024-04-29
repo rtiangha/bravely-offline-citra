@@ -278,12 +278,12 @@ android.applicationVariants.configureEach {
                 include("*.apk")
                 into(layout.buildDirectory.dir("bundle"))
             }
-            project.copy {
+        }
+        project.copy {
                 from(layout.buildDirectory.dir("outputs/bundle/${variant.name}"))
-                include("*.aab")
+                     include("*.aab")
                 into(layout.buildDirectory.dir("bundle"))
             }
-        }
     }
     tasks.named("bundle${capitalizedName}").configure { finalizedBy(copyTask) }
 }
