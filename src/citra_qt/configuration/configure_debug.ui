@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>523</width>
-    <height>458</height>
+    <height>495</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QGroupBox" name="groupBox">
+      <widget class="QGroupBox" name="gdb_group">
        <property name="title">
         <string>GDB</string>
        </property>
@@ -66,7 +66,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="logging_group">
      <property name="title">
       <string>Logging</string>
      </property>
@@ -121,7 +121,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_4">
+    <widget class="QGroupBox" name="cpu_group">
      <property name="title">
       <string>CPU</string>
      </property>
@@ -228,6 +228,74 @@
         <property name="text">
          <string>Dump command buffers</string>
         </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QWidget" name="refresh_rate_widget" native="true">
+        <layout class="QHBoxLayout" name="refresh_rate_widget_2">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QComboBox" name="refresh_rate_combo">
+           <item>
+            <property name="text">
+             <string>Use global refresh rate</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Set refresh rate:</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="refresh_rate_label">
+           <property name="text">
+            <string>Refresh rate</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSlider" name="slider_refresh_rate">
+           <property name="minimum">
+            <number>30</number>
+           </property>
+           <property name="maximum">
+            <number>360</number>
+           </property>
+           <property name="singleStep">
+            <number>30</number>
+           </property>
+           <property name="pageStep">
+            <number>30</number>
+           </property>
+           <property name="value">
+            <number>60</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="refresh_display_label">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>

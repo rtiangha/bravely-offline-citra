@@ -540,6 +540,7 @@ struct Values {
     Setting<bool> delay_start_for_lle_modules{true, "delay_start_for_lle_modules"};
     Setting<bool> use_gdbstub{false, "use_gdbstub"};
     Setting<u16> gdbstub_port{24689, "gdbstub_port"};
+    SwitchableSetting<u32, true> refresh_rate{60, 30, 360, "refresh_rate"};
 
     // Hacks
     SwitchableSetting<bool> raise_cpu_ticks{false, "raise_cpu_ticks"};

@@ -19,6 +19,11 @@
 
 namespace VideoCore {
 
+// Measured on hardware to be 2240568 timer cycles or 4481136 ARM11 cycles
+u64 frame_ticks = 4481136ull;
+
+double SCREEN_REFRESH_RATE = BASE_CLOCK_RATE_ARM11 / static_cast<double>(frame_ticks);
+
 constexpr VAddr VADDR_LCD = 0x1ED02000;
 constexpr VAddr VADDR_GPU = 0x1EF00000;
 
@@ -417,6 +422,11 @@ void GPU::VBlankCallback(std::uintptr_t user_data, s64 cycles_late) {
 template <class Archive>
 void GPU::serialize(Archive& ar, const u32 file_version) {
     ar & impl->pica;
+}
+
+void SetRefreshRate(u32 refresh) {
+    frame_ticks = (4481136ull * 60) / refresh;
+    SCREEN_REFRESH_RATE = BASE_CLOCK_RATE_ARM11 / static_cast<double>(frame_ticks);
 }
 
 SERIALIZE_IMPL(GPU)

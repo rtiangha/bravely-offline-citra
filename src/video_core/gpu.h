@@ -33,7 +33,9 @@ class EmuWindow;
 namespace VideoCore {
 
 /// Measured on hardware to be 2240568 timer cycles or 4481136 ARM11 cycles
-constexpr u64 FRAME_TICKS = 4481136ull;
+extern u64 frame_ticks;
+
+extern double SCREEN_REFRESH_RATE;
 
 class GraphicsDebugger;
 class RendererBase;
@@ -111,5 +113,8 @@ private:
 
     PAddr VirtualToPhysicalAddress(VAddr addr);
 };
+
+/// Sets the screen refresh rate
+void SetRefreshRate(u32 refresh);
 
 } // namespace VideoCore

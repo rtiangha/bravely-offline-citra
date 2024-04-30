@@ -80,13 +80,21 @@ ConfigureDebug::ConfigureDebug(bool is_powered_on_, QWidget* parent)
     // Set a minimum width for the label to prevent the slider from changing size.
     // This scales across DPIs. (This value should be enough for "xxx%")
     ui->clock_display_label->setMinimumWidth(40);
+    ui->refresh_display_label->setMinimumWidth(40);
 
     connect(ui->slider_clock_speed, &QSlider::valueChanged, this, [&](int value) {
         ui->clock_display_label->setText(QStringLiteral("%1%").arg(SliderToSettings(value)));
     });
 
-    ui->clock_speed_label->setVisible(Settings::IsConfiguringGlobal());
-    ui->clock_speed_combo->setVisible(!Settings::IsConfiguringGlobal());
+    connect(ui->slider_refresh_rate, &QSlider::valueChanged, this, [&](int value) {
+        ui->refresh_display_label->setText(QStringLiteral("%1Hz").arg(value));
+    });
+
+    const bool is_global = Settings::IsConfiguringGlobal();
+    ui->clock_speed_label->setVisible(is_global);
+    ui->refresh_rate_label->setVisible(is_global);
+    ui->clock_speed_combo->setVisible(!is_global);
+    ui->refresh_rate_combo->setVisible(!is_global);
 
     SetupPerGameUI();
 }
@@ -119,14 +127,26 @@ void ConfigureDebug::SetConfiguration() {
             ui->clock_speed_combo->setCurrentIndex(1);
             ui->slider_clock_speed->setEnabled(true);
         }
+        if (Settings::values.refresh_rate.UsingGlobal()) {
+            ui->refresh_rate_combo->setCurrentIndex(0);
+            ui->slider_refresh_rate->setEnabled(false);
+        } else {
+            ui->refresh_rate_combo->setCurrentIndex(1);
+            ui->slider_refresh_rate->setEnabled(true);
+        }
         ConfigurationShared::SetHighlight(ui->clock_speed_widget,
                                           !Settings::values.cpu_clock_percentage.UsingGlobal());
+        ConfigurationShared::SetHighlight(ui->refresh_rate_widget,
+                                          !Settings::values.refresh_rate.UsingGlobal());
     }
 
     ui->slider_clock_speed->setValue(
         SettingsToSlider(Settings::values.cpu_clock_percentage.GetValue()));
     ui->clock_display_label->setText(
         QStringLiteral("%1%").arg(Settings::values.cpu_clock_percentage.GetValue()));
+    ui->slider_refresh_rate->setValue(Settings::values.refresh_rate.GetValue());
+    ui->refresh_display_label->setText(
+        QStringLiteral("%1Hz").arg(Settings::values.refresh_rate.GetValue()));
 }
 
 void ConfigureDebug::ApplyConfiguration() {
@@ -151,12 +171,18 @@ void ConfigureDebug::ApplyConfiguration() {
     ConfigurationShared::ApplyPerGameSetting(
         &Settings::values.cpu_clock_percentage, ui->clock_speed_combo,
         [this](s32) { return SliderToSettings(ui->slider_clock_speed->value()); });
+
+    ConfigurationShared::ApplyPerGameSetting(
+        &Settings::values.refresh_rate, ui->refresh_rate_combo,
+        [this](s32) { return ui->slider_refresh_rate->value(); });
 }
 
 void ConfigureDebug::SetupPerGameUI() {
     // Block the global settings if a game is currently running that overrides them
     if (Settings::IsConfiguringGlobal()) {
         ui->slider_clock_speed->setEnabled(Settings::values.cpu_clock_percentage.UsingGlobal());
+        ui->slider_refresh_rate->setEnabled(Settings::values.refresh_rate.UsingGlobal());
+        ui->refresh_rate_widget->setVisible(false);
         return;
     }
 
@@ -165,9 +191,10 @@ void ConfigureDebug::SetupPerGameUI() {
         ConfigurationShared::SetHighlight(ui->clock_speed_widget, index == 1);
     });
 
-    ui->groupBox->setVisible(false);
-    ui->groupBox_2->setVisible(false);
+    ui->gdb_group->setVisible(false);
+    ui->logging_group->setVisible(false);
     ui->toggle_cpu_jit->setVisible(false);
+    ui->refresh_rate_widget->setVisible(true);
 }
 
 void ConfigureDebug::RetranslateUI() {
