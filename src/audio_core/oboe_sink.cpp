@@ -1,5 +1,6 @@
 #include "oboe_sink.h"
 
+#include <memory>
 #include <oboe/Oboe.h>
 
 #include "audio_core/audio_types.h"
@@ -12,9 +13,10 @@ public:
     Impl() = default;
     ~Impl() override {
         // Destructor now ensures that the stream is properly stopped and closed
-        if (mStream) {
+        if (mStream && mStream->getState() != oboe::StreamState::Closed) {
             mStream->stop();
             mStream->close();
+            mStream.reset();
         }
     }
 
@@ -37,8 +39,12 @@ public:
     }
 
     bool start() {
+        if (mStream && mStream->getState() != oboe::StreamState::Closed) {
+            mStream->stop();
+            mStream->close();
+        }
         if (mStream) {
-            mStream->close(); // Close any existing stream before creating a new one
+            mStream.reset();
         }
         oboe::AudioStreamBuilder builder;
         auto result = builder.setSharingMode(oboe::SharingMode::Exclusive)
@@ -48,7 +54,7 @@ public:
                           ->setSampleRate(mSampleRate)
                           ->setChannelCount(2)
                           ->setCallback(this)
-                          ->openManagedStream(mStream);
+                          ->openStream(mStream);
         if (result != oboe::Result::OK) {
             LOG_CRITICAL(Audio_Sink, "Error creating playback stream: {}",
                          oboe::convertToText(result));
@@ -65,13 +71,18 @@ public:
     }
 
     void stop() {
-        if (mStream) {
-            auto result = mStream->stop();
-            if (result != oboe::Result::OK) {
+        if (mStream && mStream->getState() != oboe::StreamState::Closed) {
+            auto stopResult = mStream->stop();
+            auto closeResult = mStream->close();
+            if (stopResult != oboe::Result::OK) {
                 LOG_CRITICAL(Audio_Sink, "Error stopping playback stream: {}",
-                             oboe::convertToText(result));
+                             oboe::convertToText(stopResult));
             }
-            mStream->close(); // Close the stream after stopping
+            if (closeResult != oboe::Result::OK) {
+                LOG_CRITICAL(Audio_Sink, "Error closing playback stream: {}",
+                             oboe::convertToText(closeResult));
+            }
+            mStream.reset();
         }
     }
 
@@ -84,7 +95,7 @@ public:
     }
 
 private:
-    oboe::ManagedStream mStream;
+    std::shared_ptr<oboe::AudioStream> mStream;
     std::function<void(s16*, std::size_t)> mCallback;
     int32_t mSampleRate = native_sample_rate;
 };
