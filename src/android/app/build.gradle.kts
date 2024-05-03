@@ -77,6 +77,8 @@ android {
                 arguments(
                     "-DENABLE_QT=0", // Don't use QT
                     "-DENABLE_SDL2=0", // Don't use SDL
+                    "-DCMAKE_CXX_FLAGS=-Ofast",
+                    "-DCMAKE_C_FLAGS=-Ofast",
                     "-DANDROID_ARM_NEON=true" // cryptopp requires Neon to work
                 )
             }
