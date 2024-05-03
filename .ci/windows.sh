@@ -13,7 +13,6 @@ cmake .. -G Ninja \
 
 ninja
 ninja bundle
-strip -s bundle/*.exe
 
 ccache -s -v
 
