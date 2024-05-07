@@ -95,6 +95,7 @@ void LogSettings() {
     log_setting("Renderer_AsyncShaders", values.async_shader_compilation.GetValue());
     log_setting("Renderer_AsyncPresentation", values.async_presentation.GetValue());
     log_setting("Renderer_SpirvShaderGen", values.spirv_shader_gen.GetValue());
+    log_setting("Renderer_OptimizeSpirv", values.optimize_spirv_output.GetValue());
     log_setting("Renderer_Debug", values.renderer_debug.GetValue());
     log_setting("Renderer_UseHwShader", values.use_hw_shader.GetValue());
     log_setting("Renderer_ShadersAccurateMul", values.shaders_accurate_mul.GetValue());
@@ -201,6 +202,7 @@ void RestoreGlobalState(bool is_powered_on) {
     values.graphics_api.SetGlobal(true);
     values.physical_device.SetGlobal(true);
     values.spirv_shader_gen.SetGlobal(true);
+    values.optimize_spirv_output.SetGlobal(true);
     values.async_shader_compilation.SetGlobal(true);
     values.async_presentation.SetGlobal(true);
     values.use_hw_shader.SetGlobal(true);

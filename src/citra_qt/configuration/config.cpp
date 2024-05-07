@@ -680,6 +680,7 @@ void Config::ReadRendererValues() {
     ReadGlobalSetting(Settings::values.graphics_api);
     ReadGlobalSetting(Settings::values.physical_device);
     ReadGlobalSetting(Settings::values.spirv_shader_gen);
+    ReadGlobalSetting(Settings::values.optimize_spirv_output);
     ReadGlobalSetting(Settings::values.async_shader_compilation);
     ReadGlobalSetting(Settings::values.async_presentation);
     ReadGlobalSetting(Settings::values.use_hw_shader);
@@ -1225,6 +1226,7 @@ void Config::SaveRendererValues() {
     WriteGlobalSetting(Settings::values.graphics_api);
     WriteGlobalSetting(Settings::values.physical_device);
     WriteGlobalSetting(Settings::values.spirv_shader_gen);
+    WriteGlobalSetting(Settings::values.optimize_spirv_output);
     WriteGlobalSetting(Settings::values.async_shader_compilation);
     WriteGlobalSetting(Settings::values.async_presentation);
     WriteGlobalSetting(Settings::values.use_hw_shader);

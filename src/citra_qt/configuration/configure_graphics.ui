@@ -136,6 +136,34 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QWidget" name="spirv_shader_group" native="true">
+        <layout class="QVBoxLayout" name="verticalLayout_8">
+         <property name="leftMargin">
+          <number>16</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QCheckBox" name="optimize_spirv_output">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Performs various optimizations on SPIR-V modules to improve performance and reduce size. &lt;/p&gt;&lt;p&gt;It can be used to “legalize” and reduce the size of SPIR-V shaders for Vulkan.&lt;/p&gt;&lt;p&gt;Aims to improve shader performance and reduce the overall size of SPIR-V modules.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+             <string>SPIR-V Shader Optimization</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -172,7 +200,7 @@
          </item>
          <item>
           <widget class="QWidget" name="hw_shader_group" native="true">
-           <layout class="QVBoxLayout" name="verticalLayout_7">
+           <layout class="QVBoxLayout" name="verticalLayout_8">
             <property name="leftMargin">
              <number>16</number>
             </property>
