@@ -10,7 +10,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("de.undercouch.download") version "5.6.0"
     id("kotlin-parcelize")
-    kotlin("plugin.serialization") version "1.9.23"
+    kotlin("plugin.serialization") version "1.9.24"
     id("androidx.navigation.safeargs.kotlin")
 }
 
@@ -174,12 +174,12 @@ android {
 dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.activity:activity-ktx:1.8.2")
-    implementation("androidx.fragment:fragment-ktx:1.6.2")
+    implementation("androidx.fragment:fragment-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.documentfile:documentfile:1.0.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.slidingpanelayout:slidingpanelayout:1.2.0")
-    implementation("com.google.android.material:material:1.11.0")
+    implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.work:work-runtime:2.9.0")
     implementation("org.ini4j:ini4j:0.5.4")
