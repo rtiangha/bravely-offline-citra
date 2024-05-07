@@ -30,6 +30,7 @@ class ConfigureAudio;
 class ConfigureCamera;
 class ConfigureDebug;
 class ConfigureStorage;
+class ConfigureWeb;
 class ConfigureUi;
 
 class ConfigureDialog : public QDialog {
@@ -71,5 +72,6 @@ private:
     std::unique_ptr<ConfigureCamera> camera_tab;
     std::unique_ptr<ConfigureDebug> debug_tab;
     std::unique_ptr<ConfigureStorage> storage_tab;
+    std::unique_ptr<ConfigureWeb> web_tab;
     std::unique_ptr<ConfigureUi> ui_tab;
 };
