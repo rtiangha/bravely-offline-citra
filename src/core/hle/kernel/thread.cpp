@@ -156,6 +156,9 @@ void ThreadManager::SwitchContext(Thread* new_thread) {
             kernel.SetCurrentProcessForCPU(current_thread->owner_process.lock(), cpu->GetID());
         }
 
+        // Restores thread to its nominal priority if it has been temporarily changed
+        new_thread->current_priority = new_thread->nominal_priority;
+
         cpu->LoadContext(new_thread->context);
         cpu->SetCP15Register(CP15_THREAD_URO, new_thread->GetTLSAddress());
     } else {
