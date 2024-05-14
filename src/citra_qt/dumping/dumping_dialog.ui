@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dump Video</string>
+   <string>Dump Video (OpenGL Only)</string>
   </property>
   <layout class="QVBoxLayout">
    <item>
