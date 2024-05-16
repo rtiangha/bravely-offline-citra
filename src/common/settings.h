@@ -76,6 +76,12 @@ enum class AudioEmulation : u32 {
     LLEMultithreaded = 2,
 };
 
+enum class OptimizeSpirv : u32 {
+    Disabled = 0,
+    Performance = 1,
+    Size = 2,
+};
+
 enum class TextureFilter : u32 {
     None = 0,
     Anime4K = 1,
@@ -495,6 +501,10 @@ struct Values {
     Setting<bool> use_shader_jit{true, "use_shader_jit"};
     SwitchableSetting<u32, true> resolution_factor{1, 0, 20, "resolution_factor"};
     SwitchableSetting<u16, true> frame_limit{100, 0, 1000, "frame_limit"};
+    SwitchableSetting<OptimizeSpirv> optimize_spirv_output{OptimizeSpirv::Disabled,
+                                                           "optimize_spirv_output"};
+    SwitchableSetting<bool> spirv_output_validation{false, "spirv_output_validation"};
+    SwitchableSetting<bool> spirv_output_legalization{false, "spirv_output_legalization"};
     SwitchableSetting<TextureFilter> texture_filter{TextureFilter::None, "texture_filter"};
     SwitchableSetting<TextureSampling> texture_sampling{TextureSampling::GameControlled,
                                                         "texture_sampling"};

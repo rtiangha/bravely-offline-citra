@@ -191,10 +191,29 @@ std::vector<u32> OptimizeSPIRV(std::vector<u32> code) {
     spvtools::Optimizer spv_opt(SPV_ENV_VULKAN_1_3);
     spv_opt.SetMessageConsumer([](spv_message_level_t, const char*, const spv_position_t&,
                                   const char* m) { LOG_ERROR(HW_GPU, "spirv-opt: {}", m); });
-    spv_opt.RegisterPerformancePasses();
+
+    // SPIR-V Legalization
+    if (Settings::values.spirv_output_legalization.GetValue()) {
+        spv_opt.RegisterLegalizationPasses();
+    }
+
+    // Optimize SPIR-V for Size or Performance. Equivalent to passing -Os or -O to spirv-opt
+    // respectively.
+    if (Settings::values.optimize_spirv_output.GetValue() == Settings::OptimizeSpirv::Size) {
+        spv_opt.RegisterSizePasses();
+    } else if (Settings::values.optimize_spirv_output.GetValue() ==
+               Settings::OptimizeSpirv::Performance) {
+        spv_opt.RegisterPerformancePasses();
+    }
 
     spvtools::OptimizerOptions opt_options;
-    opt_options.set_run_validator(false);
+
+    // SPIR-V Validation
+    if (Settings::values.spirv_output_validation.GetValue()) {
+        opt_options.set_run_validator(true);
+    } else {
+        opt_options.set_run_validator(false);
+    }
 
     if (!spv_opt.Run(spirv.data(), spirv.size(), &result, opt_options)) {
         LOG_ERROR(HW_GPU,
@@ -256,10 +275,17 @@ std::vector<u32> CompileGLSLtoSPIRV(std::string_view code, vk::ShaderStageFlagBi
     spv::SpvBuildLogger logger;
     glslang::SpvOptions options;
 
-    // Enable optimizations on the generated SPIR-V code.
+#ifdef OPTIMIZE_SPIRV
+    // On desktop, use external SPIRV-Tools to perform optimizations
+    options.disableOptimizer = true;
+    options.validate = false;
+    options.optimizeSize = false;
+#else
+    // Use built-in glslang to enable optimizations on the generated SPIR-V code on mobile
     options.disableOptimizer = false;
     options.validate = false;
     options.optimizeSize = true;
+#endif
 
     out_code.reserve(8_KiB);
     glslang::GlslangToSpv(*intermediate, out_code, &logger, &options);
@@ -270,7 +296,7 @@ std::vector<u32> CompileGLSLtoSPIRV(std::string_view code, vk::ShaderStageFlagBi
     }
 
     // Final pass through SPIRV-Optimizer
-    if (!Settings::values.optimize_spirv_output.GetValue()) {
+    if (Settings::values.optimize_spirv_output.GetValue() == Settings::OptimizeSpirv::Disabled) {
         return out_code;
     } else {
         std::vector<u32> result;

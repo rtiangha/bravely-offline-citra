@@ -1609,7 +1609,7 @@ std::vector<u32> GenerateFragmentShader(const FSConfig& config, const Profile& p
     module.Generate();
 
     // Run through SPIRV-Optimizer
-    if (!Settings::values.optimize_spirv_output.GetValue()) {
+    if (Settings::values.optimize_spirv_output.GetValue() == Settings::OptimizeSpirv::Disabled) {
         return module.Assemble();
     } else {
         std::vector<u32> result;

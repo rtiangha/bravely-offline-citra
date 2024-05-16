@@ -58,7 +58,7 @@ ConfigureGraphics::ConfigureGraphics(QString gl_renderer, std::span<const QStrin
 
         ui->physical_device_combo->setVisible(false);
         ui->spirv_shader_gen->setVisible(false);
-        ui->optimize_spirv_output->setVisible(false);
+        ui->widget_optimize_spirv->setVisible(false);
     } else {
         for (const QString& name : physical_devices) {
             ui->physical_device_combo->addItem(name);
@@ -84,6 +84,24 @@ ConfigureGraphics::ConfigureGraphics(QString gl_renderer, std::span<const QStrin
         ui->toggle_disk_shader_cache->setEnabled(checked && enabled);
     });
 
+    connect(ui->spirv_shader_gen, &QCheckBox::toggled, this, [this] {
+        const bool enabled = ui->spirv_shader_gen->isEnabled();
+        const bool checked = ui->spirv_shader_gen->isChecked();
+        ui->widget_optimize_spirv->setEnabled(checked && enabled);
+    });
+
+    connect(ui->optimize_spirv_combobox, qOverload<int>(&QComboBox::currentIndexChanged), this,
+            [this](int index) {
+                const auto spirv_opt = ConfigurationShared::GetComboboxSetting(
+                    index, &Settings::values.optimize_spirv_output);
+                const bool is_active = spirv_opt != Settings::OptimizeSpirv::Disabled;
+                const bool enabled = ui->spirv_shader_gen->isEnabled();
+                const bool checked = ui->spirv_shader_gen->isChecked();
+
+                ui->toggle_spirv_validation->setEnabled(enabled && checked && is_active);
+                ui->toggle_spirv_legalization->setEnabled(enabled && checked && is_active);
+            });
+
     connect(ui->graphics_api_combo, qOverload<int>(&QComboBox::currentIndexChanged), this,
             &ConfigureGraphics::SetPhysicalDeviceComboVisibility);
 
@@ -93,6 +111,10 @@ ConfigureGraphics::ConfigureGraphics(QString gl_renderer, std::span<const QStrin
                 .arg(((double)value) / 1000.f, 0, 'f', 3)
                 .rightJustified(QString::fromStdString("000000000").size()));
     });
+    ui->toggle_spirv_validation->setEnabled(Settings::values.optimize_spirv_output.GetValue() !=
+                                            Settings::OptimizeSpirv::Disabled);
+    ui->toggle_spirv_legalization->setEnabled(Settings::values.optimize_spirv_output.GetValue() !=
+                                              Settings::OptimizeSpirv::Disabled);
 
     SetConfiguration();
 }
@@ -115,8 +137,10 @@ void ConfigureGraphics::SetConfiguration() {
                                           !Settings::values.physical_device.UsingGlobal());
         ConfigurationShared::SetPerGameSetting(ui->physical_device_combo,
                                                &Settings::values.physical_device);
-        ConfigurationShared::SetPerGameSetting(ui->texture_sampling_combobox,
-                                               &Settings::values.texture_sampling);
+        ConfigurationShared::SetHighlight(ui->widget_optimize_spirv,
+                                          !Settings::values.optimize_spirv_output.UsingGlobal());
+        ConfigurationShared::SetPerGameSetting(ui->optimize_spirv_combobox,
+                                               &Settings::values.optimize_spirv_output);
         ConfigurationShared::SetHighlight(ui->widget_texture_sampling,
                                           !Settings::values.texture_sampling.UsingGlobal());
         ConfigurationShared::SetHighlight(
@@ -129,11 +153,15 @@ void ConfigureGraphics::SetConfiguration() {
             ui->delay_render_combo->setCurrentIndex(1);
             ui->delay_render_slider->setEnabled(true);
         }
+        ConfigurationShared::SetPerGameSetting(ui->texture_sampling_combobox,
+                                               &Settings::values.texture_sampling);
     } else {
         ui->graphics_api_combo->setCurrentIndex(
             static_cast<int>(Settings::values.graphics_api.GetValue()));
         ui->physical_device_combo->setCurrentIndex(
             static_cast<int>(Settings::values.physical_device.GetValue()));
+        ui->optimize_spirv_combobox->setCurrentIndex(
+            static_cast<int>(Settings::values.optimize_spirv_output.GetValue()));
         ui->texture_sampling_combobox->setCurrentIndex(
             static_cast<int>(Settings::values.texture_sampling.GetValue()));
     }
@@ -143,7 +171,9 @@ void ConfigureGraphics::SetConfiguration() {
     ui->toggle_disk_shader_cache->setChecked(Settings::values.use_disk_shader_cache.GetValue());
     ui->toggle_vsync_new->setChecked(Settings::values.use_vsync_new.GetValue());
     ui->spirv_shader_gen->setChecked(Settings::values.spirv_shader_gen.GetValue());
-    ui->optimize_spirv_output->setChecked(Settings::values.optimize_spirv_output.GetValue());
+    ui->toggle_spirv_validation->setChecked(Settings::values.spirv_output_validation.GetValue());
+    ui->toggle_spirv_legalization->setChecked(
+        Settings::values.spirv_output_legalization.GetValue());
     ui->toggle_async_shaders->setChecked(Settings::values.async_shader_compilation.GetValue());
     ui->toggle_async_present->setChecked(Settings::values.async_presentation.GetValue());
     ui->toggle_force_hw_vertex_shaders->setChecked(
@@ -152,6 +182,11 @@ void ConfigureGraphics::SetConfiguration() {
         Settings::values.disable_surface_texture_copy.GetValue());
     ui->toggle_disable_flush_cpu_write->setChecked(
         Settings::values.disable_flush_cpu_write.GetValue());
+
+    ui->toggle_spirv_validation->setEnabled(Settings::values.optimize_spirv_output.GetValue() !=
+                                            Settings::OptimizeSpirv::Disabled);
+    ui->toggle_spirv_legalization->setEnabled(Settings::values.optimize_spirv_output.GetValue() !=
+                                              Settings::OptimizeSpirv::Disabled);
 
     if (Settings::IsConfiguringGlobal()) {
         ui->toggle_shader_jit->setChecked(Settings::values.use_shader_jit.GetValue());
@@ -170,7 +205,12 @@ void ConfigureGraphics::ApplyConfiguration() {
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.spirv_shader_gen,
                                              ui->spirv_shader_gen, spirv_shader_gen);
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.optimize_spirv_output,
-                                             ui->optimize_spirv_output, optimize_spirv_output);
+                                             ui->optimize_spirv_combobox);
+    ConfigurationShared::ApplyPerGameSetting(&Settings::values.spirv_output_validation,
+                                             ui->toggle_spirv_validation, spirv_output_validation);
+    ConfigurationShared::ApplyPerGameSetting(&Settings::values.spirv_output_legalization,
+                                             ui->toggle_spirv_legalization,
+                                             spirv_output_legalization);
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.use_hw_shader, ui->toggle_hw_shader,
                                              use_hw_shader);
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.shaders_accurate_mul,
@@ -221,6 +261,7 @@ void ConfigureGraphics::SetupPerGameUI() {
             Settings::values.disable_surface_texture_copy.UsingGlobal());
         ui->toggle_disable_flush_cpu_write->setEnabled(
             Settings::values.disable_flush_cpu_write.UsingGlobal());
+        ui->widget_optimize_spirv->setEnabled(Settings::values.optimize_spirv_output.UsingGlobal());
         ui->widget_texture_sampling->setEnabled(Settings::values.texture_sampling.UsingGlobal());
         ui->toggle_async_present->setEnabled(Settings::values.async_presentation.UsingGlobal());
         ui->graphics_api_combo->setEnabled(Settings::values.graphics_api.UsingGlobal());
@@ -244,6 +285,10 @@ void ConfigureGraphics::SetupPerGameUI() {
     ConfigurationShared::SetColoredComboBox(
         ui->physical_device_combo, ui->physical_device_group,
         static_cast<u32>(Settings::values.physical_device.GetValue(true)));
+
+    ConfigurationShared::SetColoredComboBox(
+        ui->optimize_spirv_combobox, ui->widget_optimize_spirv,
+        static_cast<int>(Settings::values.optimize_spirv_output.GetValue(true)));
 
     ConfigurationShared::SetColoredComboBox(
         ui->texture_sampling_combobox, ui->widget_texture_sampling,
@@ -276,6 +321,12 @@ void ConfigureGraphics::SetupPerGameUI() {
                                             disable_flush_cpu_write);
     ConfigurationShared::SetColoredTristate(
         ui->optimize_spirv_output, Settings::values.optimize_spirv_output, optimize_spirv_output);
+    ConfigurationShared::SetColoredTristate(ui->toggle_spirv_validation,
+                                            Settings::values.spirv_output_validation,
+                                            spirv_output_validation);
+    ConfigurationShared::SetColoredTristate(ui->toggle_spirv_legalization,
+                                            Settings::values.spirv_output_legalization,
+                                            spirv_output_legalization);
 }
 
 void ConfigureGraphics::SetPhysicalDeviceComboVisibility(int index) {
@@ -298,6 +349,12 @@ void ConfigureGraphics::SetPhysicalDeviceComboVisibility(int index) {
 
     ui->physical_device_group->setVisible(effective_api == Settings::GraphicsAPI::Vulkan);
     ui->spirv_shader_gen->setVisible(effective_api == Settings::GraphicsAPI::Vulkan);
-    ui->optimize_spirv_output->setVisible(effective_api == Settings::GraphicsAPI::Vulkan);
+    ui->widget_optimize_spirv->setVisible(effective_api == Settings::GraphicsAPI::Vulkan);
+    ui->widget_optimize_spirv->setVisible(effective_api == Settings::GraphicsAPI::Vulkan);
+    ui->widget_optimize_spirv->setEnabled(Settings::values.spirv_shader_gen.GetValue() == true);
+    ui->toggle_spirv_validation->setEnabled(Settings::values.optimize_spirv_output.GetValue() !=
+                                            Settings::OptimizeSpirv::Disabled);
+    ui->toggle_spirv_legalization->setEnabled(Settings::values.optimize_spirv_output.GetValue() !=
+                                              Settings::OptimizeSpirv::Disabled);
     ui->opengl_renderer_group->setVisible(effective_api == Settings::GraphicsAPI::OpenGL);
 }

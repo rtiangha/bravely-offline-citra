@@ -271,7 +271,7 @@ std::vector<u32> GenerateTrivialVertexShader(bool use_clip_planes) {
     });
 
     // Run through SPIR-V Optimizer
-    if (!Settings::values.optimize_spirv_output.GetValue()) {
+    if (Settings::values.optimize_spirv_output.GetValue() == Settings::OptimizeSpirv::Disabled) {
         return module.Assemble();
     } else {
         std::vector<u32> result;
