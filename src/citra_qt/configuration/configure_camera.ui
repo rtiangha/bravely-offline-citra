@@ -59,7 +59,7 @@
            <string>Select the camera mode (single or double)</string>
           </property>
           <property name="text">
-           <string>Camera mode:</string>
+           <string>Camera Mode</string>
           </property>
          </widget>
         </item>
@@ -90,7 +90,7 @@
            <string>Select the position of camera to configure</string>
           </property>
           <property name="text">
-           <string>Camera position:</string>
+           <string>Camera Position</string>
           </property>
          </widget>
         </item>
@@ -320,7 +320,7 @@
       <item>
        <widget class="QPushButton" name="preview_button">
         <property name="text">
-         <string>Click to preview</string>
+         <string>Click to Preview</string>
         </property>
        </widget>
       </item>

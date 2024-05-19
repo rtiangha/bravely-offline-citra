@@ -25,7 +25,7 @@
         <item>
          <widget class="QLabel" name="label_change_language_info">
           <property name="text">
-           <string>Note: Changing language will apply your configuration.</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;NOTE: Changing language will apply your configuration.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -191,7 +191,7 @@
         <item>
          <widget class="QCheckBox" name="toggle_hide_no_icon">
           <property name="text">
-           <string>Hide Titles without Icon</string>
+           <string>Hide Titles Without Icon</string>
           </property>
          </widget>
         </item>

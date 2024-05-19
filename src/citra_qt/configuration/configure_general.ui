@@ -69,14 +69,14 @@
         <item>
          <widget class="QCheckBox" name="toggle_update_check">
           <property name="text">
-           <string>Check for updates on start</string>
+           <string>Check for Updates on Start</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QCheckBox" name="toggle_auto_update">
           <property name="text">
-           <string>Silently auto update after closing</string>
+           <string>Silently Auto Update After Closing</string>
           </property>
          </widget>
         </item>
@@ -107,7 +107,7 @@
            <item>
             <widget class="QLabel" name="region_label">
              <property name="text">
-              <string>Region:</string>
+              <string>Region</string>
              </property>
             </widget>
            </item>
@@ -190,7 +190,7 @@
            <item>
             <widget class="QLabel" name="label_emulation_speed">
              <property name="text">
-              <string>Emulation Speed:</string>
+              <string>Emulation Speed</string>
              </property>
             </widget>
            </item>

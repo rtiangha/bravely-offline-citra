@@ -528,9 +528,9 @@ void GameList::PopupHeaderContextMenu(const QPoint& menu_location) {
     static const QMap<QString, Settings::Setting<bool>*> columns{
         {tr("Compatibility"), &UISettings::values.show_compat_column},
         {tr("Region"), &UISettings::values.show_region_column},
-        {tr("File type"), &UISettings::values.show_type_column},
+        {tr("File Type"), &UISettings::values.show_type_column},
         {tr("Size"), &UISettings::values.show_size_column},
-        {tr("Play time"), &UISettings::values.show_play_time_column}};
+        {tr("Play Time"), &UISettings::values.show_play_time_column}};
 
     QActionGroup* column_group = new QActionGroup(this);
     column_group->setExclusive(false);
@@ -943,9 +943,9 @@ void GameList::RetranslateUI() {
     item_model->setHeaderData(COLUMN_NAME, Qt::Horizontal, tr("Name"));
     item_model->setHeaderData(COLUMN_COMPATIBILITY, Qt::Horizontal, tr("Compatibility"));
     item_model->setHeaderData(COLUMN_REGION, Qt::Horizontal, tr("Region"));
-    item_model->setHeaderData(COLUMN_FILE_TYPE, Qt::Horizontal, tr("File type"));
+    item_model->setHeaderData(COLUMN_FILE_TYPE, Qt::Horizontal, tr("File Type"));
     item_model->setHeaderData(COLUMN_SIZE, Qt::Horizontal, tr("Size"));
-    item_model->setHeaderData(COLUMN_PLAY_TIME, Qt::Horizontal, tr("Play time"));
+    item_model->setHeaderData(COLUMN_PLAY_TIME, Qt::Horizontal, tr("Play Time"));
 }
 
 void GameListSearchField::changeEvent(QEvent* event) {
