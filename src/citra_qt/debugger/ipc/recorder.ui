@@ -27,7 +27,7 @@
       <item>
        <widget class="QLabel">
         <property name="text">
-         <string>Filter:</string>
+         <string>Filter</string>
         </property>
        </widget>
       </item>

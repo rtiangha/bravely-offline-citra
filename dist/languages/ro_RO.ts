@@ -599,7 +599,7 @@ Astfel vor fi banați din forum numele lor de utilizator și adresa IP.</transla
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_camera.ui" line="169"/>
-        <source>File:</source>
+        <source>File</source>
         <translation>Fișier:</translation>
     </message>
     <message>
@@ -2563,7 +2563,7 @@ Doriți să ignorați eroarea și să continuați?</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_system.ui" line="357"/>
-        <source>Play Coins:</source>
+        <source>Play Coins</source>
         <translation>Monezi de Joc:</translation>
     </message>
     <message>
@@ -2583,7 +2583,7 @@ Doriți să ignorați eroarea și să continuați?</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_system.ui" line="401"/>
-        <source>3GX Plugin Loader:</source>
+        <source>3GX Plugin Loader</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3677,14 +3677,14 @@ Drag points to change position, or double-click table cells to edit values.</sou
     </message>
     <message>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="26"/>
-        <source>Format:</source>
+        <source>Format</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="36"/>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="96"/>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="163"/>
-        <source>Options:</source>
+        <source>Options</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3697,7 +3697,7 @@ Drag points to change position, or double-click table cells to edit values.</sou
     </message>
     <message>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="53"/>
-        <source>Path:</source>
+        <source>Path</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3708,13 +3708,13 @@ Drag points to change position, or double-click table cells to edit values.</sou
     <message>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="79"/>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="146"/>
-        <source>Encoder:</source>
+        <source>Encoder</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="113"/>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="180"/>
-        <source>Bitrate:</source>
+        <source>Bitrate</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -4247,7 +4247,7 @@ To view a guide on how to install FFmpeg, press Help.</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/main.cpp" line="2604"/>
-        <source>Game: %1 FPS</source>
+        <source>Game %1 FPS</source>
         <translation>Joc: %1 FPS</translation>
     </message>
     <message>
@@ -4754,7 +4754,7 @@ Screen.</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/game_list.cpp" line="881"/>
-        <source>Filter:</source>
+        <source>Filter</source>
         <translation>Filtru:</translation>
     </message>
     <message>
@@ -4909,8 +4909,8 @@ Screen.</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/debugger/graphics/graphics_surface.cpp" line="175"/>
-        <source>Format:</source>
-        <translation>Format:</translation>
+        <source>Format</source>
+        <translation>Format</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/debugger/graphics/graphics_surface.cpp" line="187"/>
@@ -5268,7 +5268,7 @@ Mesaj de Depanare:</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/debugger/ipc/recorder.ui" line="30"/>
-        <source>Filter:</source>
+        <source>Filter</source>
         <translation>Filtrați:</translation>
     </message>
     <message>
@@ -5926,7 +5926,7 @@ Mesaj de Depanare:</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_play_dialog.ui" line="22"/>
-        <source>File:</source>
+        <source>File</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -5941,22 +5941,22 @@ Mesaj de Depanare:</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_play_dialog.ui" line="57"/>
-        <source>Game:</source>
+        <source>Game</source>
         <translation>Joc:</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_play_dialog.ui" line="71"/>
-        <source>Author:</source>
+        <source>Author</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_play_dialog.ui" line="85"/>
-        <source>Rerecord Count:</source>
+        <source>Rerecord Count</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_play_dialog.ui" line="99"/>
-        <source>Length:</source>
+        <source>Length</source>
         <translation>Lungime:</translation>
     </message>
     <message>
@@ -6018,7 +6018,7 @@ Mesaj de Depanare:</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_record_dialog.ui" line="22"/>
-        <source>File:</source>
+        <source>File</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -6028,7 +6028,7 @@ Mesaj de Depanare:</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_record_dialog.ui" line="39"/>
-        <source>Author:</source>
+        <source>Author</source>
         <translation type="unfinished"/>
     </message>
     <message>

@@ -19,7 +19,7 @@
      <item>
       <widget class="QLabel">
        <property name="text">
-        <string>File:</string>
+        <string>File</string>
        </property>
       </widget>
      </item>
@@ -54,7 +54,7 @@
       <item row="0" column="0">
        <widget class="QLabel">
         <property name="text">
-         <string>Game:</string>
+         <string>Game</string>
         </property>
        </widget>
       </item>
@@ -68,7 +68,7 @@
       <item row="1" column="0">
        <widget class="QLabel">
         <property name="text">
-         <string>Author:</string>
+         <string>Author</string>
         </property>
        </widget>
       </item>
@@ -82,7 +82,7 @@
       <item row="2" column="0">
        <widget class="QLabel" name="rerecordCountLabel">
         <property name="text">
-         <string>Rerecord Count:</string>
+         <string>Rerecord Count</string>
         </property>
        </widget>
       </item>
@@ -96,7 +96,7 @@
       <item row="3" column="0">
        <widget class="QLabel" name="lengthLabel">
         <property name="text">
-         <string>Length:</string>
+         <string>Length</string>
         </property>
        </widget>
       </item>

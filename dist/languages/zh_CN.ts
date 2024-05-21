@@ -599,7 +599,7 @@ This would ban both their forum username and their IP address.</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_camera.ui" line="169"/>
-        <source>File:</source>
+        <source>File</source>
         <translation>图像文件:</translation>
     </message>
     <message>
@@ -2563,7 +2563,7 @@ Would you like to ignore the error and continue?</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_system.ui" line="357"/>
-        <source>Play Coins:</source>
+        <source>Play Coins</source>
         <translation>游戏币:</translation>
     </message>
     <message>
@@ -2583,7 +2583,7 @@ Would you like to ignore the error and continue?</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_system.ui" line="401"/>
-        <source>3GX Plugin Loader:</source>
+        <source>3GX Plugin Loader</source>
         <translation>3GX 插件加载器：</translation>
     </message>
     <message>
@@ -3678,14 +3678,14 @@ Drag points to change position, or double-click table cells to edit values.</sou
     </message>
     <message>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="26"/>
-        <source>Format:</source>
+        <source>Format</source>
         <translation>格式：</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="36"/>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="96"/>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="163"/>
-        <source>Options:</source>
+        <source>Options</source>
         <translation>选项：</translation>
     </message>
     <message>
@@ -3698,7 +3698,7 @@ Drag points to change position, or double-click table cells to edit values.</sou
     </message>
     <message>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="53"/>
-        <source>Path:</source>
+        <source>Path</source>
         <translation>路径：</translation>
     </message>
     <message>
@@ -3709,13 +3709,13 @@ Drag points to change position, or double-click table cells to edit values.</sou
     <message>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="79"/>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="146"/>
-        <source>Encoder:</source>
+        <source>Encoder</source>
         <translation>编码器：</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="113"/>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="180"/>
-        <source>Bitrate:</source>
+        <source>Bitrate</source>
         <translation>比特率：</translation>
     </message>
     <message>
@@ -4256,7 +4256,7 @@ To view a guide on how to install FFmpeg, press Help.</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/main.cpp" line="2604"/>
-        <source>Game: %1 FPS</source>
+        <source>Game %1 FPS</source>
         <translation>FPS: %1</translation>
     </message>
     <message>
@@ -4760,7 +4760,7 @@ Screen.</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/game_list.cpp" line="881"/>
-        <source>Filter:</source>
+        <source>Filter</source>
         <translation>搜索:</translation>
     </message>
     <message>
@@ -4915,7 +4915,7 @@ Screen.</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/debugger/graphics/graphics_surface.cpp" line="175"/>
-        <source>Format:</source>
+        <source>Format</source>
         <translation>格式：</translation>
     </message>
     <message>
@@ -5274,7 +5274,7 @@ Debug Message: </source>
     </message>
     <message>
         <location filename="../../src/citra_qt/debugger/ipc/recorder.ui" line="30"/>
-        <source>Filter:</source>
+        <source>Filter</source>
         <translation>过滤器：</translation>
     </message>
     <message>
@@ -5933,7 +5933,7 @@ Debug Message: </source>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_play_dialog.ui" line="22"/>
-        <source>File:</source>
+        <source>File</source>
         <translation>录像文件：</translation>
     </message>
     <message>
@@ -5948,22 +5948,22 @@ Debug Message: </source>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_play_dialog.ui" line="57"/>
-        <source>Game:</source>
+        <source>Game</source>
         <translation>游戏：</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_play_dialog.ui" line="71"/>
-        <source>Author:</source>
+        <source>Author</source>
         <translation>作者：</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_play_dialog.ui" line="85"/>
-        <source>Rerecord Count:</source>
+        <source>Rerecord Count</source>
         <translation>重录次数：</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_play_dialog.ui" line="99"/>
-        <source>Length:</source>
+        <source>Length</source>
         <translation>长度：</translation>
     </message>
     <message>
@@ -6025,7 +6025,7 @@ Debug Message: </source>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_record_dialog.ui" line="22"/>
-        <source>File:</source>
+        <source>File</source>
         <translation>录像文件：</translation>
     </message>
     <message>
@@ -6035,7 +6035,7 @@ Debug Message: </source>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_record_dialog.ui" line="39"/>
-        <source>Author:</source>
+        <source>Author</source>
         <translation>作者：</translation>
     </message>
     <message>
