@@ -16,6 +16,7 @@
 #include "core/hle/kernel/event.h"
 #include "core/hle/kernel/shared_memory.h"
 #include "core/hle/service/ir/extra_hid.h"
+#include "core/hle/service/ir/ir_portal.h"
 #include "core/hle/service/ir/ir_user.h"
 
 SERIALIZE_EXPORT_IMPL(Service::IR::IR_USER)
@@ -30,9 +31,13 @@ void IR_USER::serialize(Archive& ar, const unsigned int) {
     ar& send_event;
     ar& receive_event;
     ar& shared_memory;
-    ar& connected_device;
+    ar& connected_circle_pad;
+    ar& connected_portal;
+    ar& init_with_shared;
     ar& receive_buffer;
+    ar& send_buffer;
     ar&* extra_hid.get();
+    ar&* ir_portal.get();
 }
 
 // This is a header that will present in the ir:USER shared memory if it is initialized with
@@ -228,7 +233,7 @@ private:
 
 /// Wraps the payload into packet and puts it to the receive buffer
 void IR_USER::PutToReceive(std::span<const u8> payload) {
-    LOG_TRACE(Service_IR, "called, data={}", fmt::format("{:02x}", fmt::join(payload, " ")));
+    LOG_INFO(Service_IR, "called, data={}", fmt::format("{:02x}", fmt::join(payload, " ")));
     std::size_t size = payload.size();
 
     std::vector<u8> packet;
@@ -239,8 +244,12 @@ void IR_USER::PutToReceive(std::span<const u8> payload) {
     // fixed value
     packet.push_back(0xA5);
     // destination network ID
-    u8 network_id = *(shared_memory->GetPointer(offsetof(SharedMemoryHeader, network_id)));
-    packet.push_back(network_id);
+    if (init_with_shared) {
+        u8 network_id = *(shared_memory->GetPointer(offsetof(SharedMemoryHeader, network_id)));
+        packet.push_back(network_id);
+    } else {
+        packet.push_back(0);
+    }
 
     // puts the size info.
     // The highest bit of the first byte is unknown, which is set to zero here. The second highest
@@ -289,9 +298,43 @@ void IR_USER::InitializeIrNopShared(Kernel::HLERequestContext& ctx) {
 
     receive_buffer = std::make_unique<BufferManager>(shared_memory, 0x10, 0x20,
                                                      recv_buff_packet_count, recv_buff_size);
+    send_buffer =
+        std::make_unique<BufferManager>(shared_memory, 0x20 + recv_buff_size, 0x30 + recv_buff_size,
+                                        send_buff_packet_count, send_buff_size);
+    init_with_shared = true;
     SharedMemoryHeader shared_memory_init{};
     shared_memory_init.initialized = 1;
     std::memcpy(shared_memory->GetPointer(), &shared_memory_init, sizeof(SharedMemoryHeader));
+
+    rb.Push(ResultSuccess);
+
+    LOG_INFO(Service_IR,
+             "called, shared_buff_size={}, recv_buff_size={}, "
+             "recv_buff_packet_count={}, send_buff_size={}, "
+             "send_buff_packet_count={}, baud_rate={}",
+             shared_buff_size, recv_buff_size, recv_buff_packet_count, send_buff_size,
+             send_buff_packet_count, baud_rate);
+}
+
+void IR_USER::InitializeIrNop(Kernel::HLERequestContext& ctx) {
+    IPC::RequestParser rp(ctx);
+    const u32 shared_buff_size = rp.Pop<u32>();
+    const u32 recv_buff_size = rp.Pop<u32>();
+    const u32 recv_buff_packet_count = rp.Pop<u32>();
+    const u32 send_buff_size = rp.Pop<u32>();
+    const u32 send_buff_packet_count = rp.Pop<u32>();
+    const u8 baud_rate = rp.Pop<u8>();
+    shared_memory = rp.PopObject<Kernel::SharedMemory>();
+
+    IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
+
+    shared_memory->SetName("IR_USER: shared memory");
+
+    receive_buffer = std::make_unique<BufferManager>(shared_memory, 0, 0, recv_buff_packet_count,
+                                                     recv_buff_size);
+    send_buffer = std::make_unique<BufferManager>(shared_memory, 0, recv_buff_size,
+                                                  send_buff_packet_count, send_buff_size);
+    init_with_shared = false;
 
     rb.Push(ResultSuccess);
 
@@ -315,7 +358,7 @@ void IR_USER::RequireConnection(Kernel::HLERequestContext& ctx) {
         shared_memory_ptr[offsetof(SharedMemoryHeader, connection_role)] = 2;
         shared_memory_ptr[offsetof(SharedMemoryHeader, connected)] = 1;
 
-        connected_device = true;
+        connected_circle_pad = true;
         extra_hid->OnConnect();
         conn_status_event->Signal();
     } else {
@@ -328,6 +371,44 @@ void IR_USER::RequireConnection(Kernel::HLERequestContext& ctx) {
     rb.Push(ResultSuccess);
 
     LOG_INFO(Service_IR, "called, device_id = {}", device_id);
+}
+
+void IR_USER::AutoConnection(Kernel::HLERequestContext& ctx) {
+    IPC::RequestParser rp(ctx);
+    const u32 param_one = rp.Pop<u32>();
+    const u32 param_two = rp.Pop<u32>();
+    const u8 param_three = rp.Pop<u8>();
+    const u32 param_four = rp.Pop<u32>();
+    const u8 param_five = rp.Pop<u8>();
+    const u32 param_six = rp.Pop<u32>();
+    const u8 param_seven = rp.Pop<u8>();
+    const u32 param_eight = rp.Pop<u32>();
+    const u8 param_nine = rp.Pop<u8>();
+    const u32 param_ten = rp.Pop<u32>();
+    const u8 param_eleven = rp.Pop<u8>();
+
+    if (init_with_shared) {
+        u8* shared_memory_ptr = shared_memory->GetPointer();
+        shared_memory_ptr[offsetof(SharedMemoryHeader, connection_status)] = 2;
+        shared_memory_ptr[offsetof(SharedMemoryHeader, connection_role)] = 2;
+        shared_memory_ptr[offsetof(SharedMemoryHeader, connected)] = 1;
+    }
+
+    connected_portal = true;
+    conn_status_event->Signal();
+
+    IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
+    rb.Push(ResultSuccess);
+
+    LOG_INFO(Service_IR,
+             "called, one={}, two={}, "
+             "three={}, four={}, "
+             "five={}, six={}, "
+             "seven={}, eight={}, "
+             "nine={}, ten={}, "
+             "eleven={}",
+             param_one, param_two, param_three, param_four, param_five, param_six, param_seven,
+             param_eight, param_nine, param_ten, param_eleven);
 }
 
 void IR_USER::GetReceiveEvent(Kernel::HLERequestContext& ctx) {
@@ -349,15 +430,22 @@ void IR_USER::GetSendEvent(Kernel::HLERequestContext& ctx) {
 }
 
 void IR_USER::Disconnect(Kernel::HLERequestContext& ctx) {
-    if (connected_device) {
+    if (connected_circle_pad) {
         extra_hid->OnDisconnect();
-        connected_device = false;
+        connected_circle_pad = false;
+        conn_status_event->Signal();
+    }
+    if (connected_portal) {
+        ir_portal->OnDisconnect();
+        connected_portal = false;
         conn_status_event->Signal();
     }
 
-    u8* shared_memory_ptr = shared_memory->GetPointer();
-    shared_memory_ptr[offsetof(SharedMemoryHeader, connection_status)] = 0;
-    shared_memory_ptr[offsetof(SharedMemoryHeader, connected)] = 0;
+    if (init_with_shared) {
+        u8* shared_memory_ptr = shared_memory->GetPointer();
+        shared_memory_ptr[offsetof(SharedMemoryHeader, connection_status)] = 0;
+        shared_memory_ptr[offsetof(SharedMemoryHeader, connected)] = 0;
+    }
 
     IPC::RequestBuilder rb(ctx, 0x09, 1, 0);
     rb.Push(ResultSuccess);
@@ -374,14 +462,35 @@ void IR_USER::GetConnectionStatusEvent(Kernel::HLERequestContext& ctx) {
     LOG_INFO(Service_IR, "called");
 }
 
+void IR_USER::GetConnectionStatus(Kernel::HLERequestContext& ctx) {
+    IPC::RequestBuilder rb(ctx, 0x13, 1, 0);
+
+    if (connected_portal) {
+        conn_status_event->Signal();
+        rb.Push(ResultSuccess);
+    } else {
+        LOG_ERROR(Service_IR, "not connected");
+        rb.Push(Result(static_cast<ErrorDescription>(0x13), ErrorModule::IR,
+                       ErrorSummary::InvalidState, ErrorLevel::Status));
+    }
+
+    LOG_INFO(Service_IR, "called");
+}
+
 void IR_USER::FinalizeIrNop(Kernel::HLERequestContext& ctx) {
-    if (connected_device) {
+    if (connected_circle_pad) {
         extra_hid->OnDisconnect();
-        connected_device = false;
+        connected_circle_pad = false;
+    }
+    if (connected_portal) {
+        ir_portal->OnDisconnect();
+        connected_portal = false;
     }
 
     shared_memory = nullptr;
     receive_buffer = nullptr;
+    send_buffer = nullptr;
+    init_with_shared = false;
 
     IPC::RequestBuilder rb(ctx, 0x02, 1, 0);
     rb.Push(ResultSuccess);
@@ -396,17 +505,22 @@ void IR_USER::SendIrNop(Kernel::HLERequestContext& ctx) {
     ASSERT(size == buffer.size());
 
     IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
-    if (connected_device) {
+    if (connected_circle_pad) {
         extra_hid->OnReceive(buffer);
         send_event->Signal();
         rb.Push(ResultSuccess);
+    } else if (connected_portal) {
+        ir_portal->OnReceive(buffer);
+        send_event->Signal();
+        rb.Push(ResultSuccess);
+
     } else {
         LOG_ERROR(Service_IR, "not connected");
         rb.Push(Result(static_cast<ErrorDescription>(13), ErrorModule::IR,
                        ErrorSummary::InvalidState, ErrorLevel::Status));
     }
 
-    LOG_TRACE(Service_IR, "called, data={}", fmt::format("{:02x}", fmt::join(buffer, " ")));
+    LOG_INFO(Service_IR, "called, data={}", fmt::format("{:02x}", fmt::join(buffer, " ")));
 }
 
 void IR_USER::ReleaseReceivedData(Kernel::HLERequestContext& ctx) {
@@ -423,19 +537,39 @@ void IR_USER::ReleaseReceivedData(Kernel::HLERequestContext& ctx) {
                        ErrorLevel::Status));
     }
 
-    LOG_TRACE(Service_IR, "called, count={}", count);
+    LOG_INFO(Service_IR, "called, count={}", count);
+}
+
+void IR_USER::GetLatestReceiveErrorResult(Kernel::HLERequestContext& ctx) {
+    IPC::RequestParser rp(ctx);
+    u32 param = rp.Pop<u32>();
+
+    IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
+    rb.Push(ResultSuccess);
+
+    LOG_INFO(Service_IR, "called, param={}", param);
+}
+
+void IR_USER::GetLatestSendErrorResult(Kernel::HLERequestContext& ctx) {
+    IPC::RequestParser rp(ctx);
+    u32 param = rp.Pop<u32>();
+
+    IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
+    rb.Push(ResultSuccess);
+
+    LOG_INFO(Service_IR, "called, param={}", param);
 }
 
 IR_USER::IR_USER(Core::System& system) : ServiceFramework("ir:USER", 1) {
     const FunctionInfo functions[] = {
         // clang-format off
-        {0x0001, nullptr, "InitializeIrNop"},
+        {0x0001, &IR_USER::InitializeIrNop, "InitializeIrNop"},
         {0x0002, &IR_USER::FinalizeIrNop, "FinalizeIrNop"},
         {0x0003, nullptr, "ClearReceiveBuffer"},
         {0x0004, nullptr, "ClearSendBuffer"},
         {0x0005, nullptr, "WaitConnection"},
         {0x0006, &IR_USER::RequireConnection, "RequireConnection"},
-        {0x0007, nullptr, "AutoConnection"},
+        {0x0007, &IR_USER::AutoConnection, "AutoConnection"},
         {0x0008, nullptr, "AnyConnection"},
         {0x0009, &IR_USER::Disconnect, "Disconnect"},
         {0x000A, &IR_USER::GetReceiveEvent, "GetReceiveEvent"},
@@ -445,9 +579,9 @@ IR_USER::IR_USER(Core::System& system) : ServiceFramework("ir:USER", 1) {
         {0x000E, nullptr, "SendIrNopLarge"},
         {0x000F, nullptr, "ReceiveIrnop"},
         {0x0010, nullptr, "ReceiveIrnopLarge"},
-        {0x0011, nullptr, "GetLatestReceiveErrorResult"},
-        {0x0012, nullptr, "GetLatestSendErrorResult"},
-        {0x0013, nullptr, "GetConnectionStatus"},
+        {0x0011, &IR_USER::GetLatestReceiveErrorResult, "GetLatestReceiveErrorResult"},
+        {0x0012, &IR_USER::GetLatestSendErrorResult, "GetLatestSendErrorResult"},
+        {0x0013, &IR_USER::GetConnectionStatus, "GetConnectionStatus"},
         {0x0014, nullptr, "GetTryingToConnectStatus"},
         {0x0015, nullptr, "GetReceiveSizeFreeAndUsed"},
         {0x0016, nullptr, "GetSendSizeFreeAndUsed"},
@@ -461,18 +595,24 @@ IR_USER::IR_USER(Core::System& system) : ServiceFramework("ir:USER", 1) {
 
     using namespace Kernel;
 
-    connected_device = false;
+    connected_circle_pad = false;
+    connected_portal = false;
     conn_status_event = system.Kernel().CreateEvent(ResetType::OneShot, "IR:ConnectionStatusEvent");
     send_event = system.Kernel().CreateEvent(ResetType::OneShot, "IR:SendEvent");
     receive_event = system.Kernel().CreateEvent(ResetType::OneShot, "IR:ReceiveEvent");
 
     extra_hid = std::make_unique<ExtraHID>([this](std::span<const u8> data) { PutToReceive(data); },
                                            system.CoreTiming(), system.Movie());
+    ir_portal =
+        std::make_unique<IRPortal>([this](std::span<const u8> data) { PutToReceive(data); });
 }
 
 IR_USER::~IR_USER() {
-    if (connected_device) {
+    if (connected_circle_pad) {
         extra_hid->OnDisconnect();
+    }
+    if (connected_portal) {
+        ir_portal->OnDisconnect();
     }
 }
 

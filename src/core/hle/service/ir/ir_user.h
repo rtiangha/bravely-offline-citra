@@ -18,6 +18,7 @@ namespace Service::IR {
 
 class BufferManager;
 class ExtraHID;
+class IRPortal;
 
 /// An interface representing a device that can communicate with 3DS via ir:USER service
 class IRDevice {
@@ -77,6 +78,8 @@ private:
      */
     void InitializeIrNopShared(Kernel::HLERequestContext& ctx);
 
+    void InitializeIrNop(Kernel::HLERequestContext& ctx);
+
     /**
      * RequireConnection service function
      * Searches for an IR device and connects to it. After connecting to the device, applications
@@ -90,6 +93,8 @@ private:
      *      1 : Result of function, 0 on success, otherwise error code
      */
     void RequireConnection(Kernel::HLERequestContext& ctx);
+
+    void AutoConnection(Kernel::HLERequestContext& ctx);
 
     /**
      * GetReceiveEvent service function
@@ -129,6 +134,8 @@ private:
      */
     void GetConnectionStatusEvent(Kernel::HLERequestContext& ctx);
 
+    void GetConnectionStatus(Kernel::HLERequestContext& ctx);
+
     /**
      * FinalizeIrNop service function
      * Finalize ir:USER service.
@@ -161,13 +168,20 @@ private:
      */
     void ReleaseReceivedData(Kernel::HLERequestContext& ctx);
 
+    void GetLatestReceiveErrorResult(Kernel::HLERequestContext& ctx);
+    void GetLatestSendErrorResult(Kernel::HLERequestContext& ctx);
+
     void PutToReceive(std::span<const u8> payload);
 
     std::shared_ptr<Kernel::Event> conn_status_event, send_event, receive_event;
     std::shared_ptr<Kernel::SharedMemory> shared_memory;
-    bool connected_device;
+    bool connected_circle_pad;
+    bool connected_portal;
+    bool init_with_shared;
     std::unique_ptr<BufferManager> receive_buffer;
+    std::unique_ptr<BufferManager> send_buffer;
     std::unique_ptr<ExtraHID> extra_hid;
+    std::unique_ptr<IRPortal> ir_portal;
 
 private:
     template <class Archive>
