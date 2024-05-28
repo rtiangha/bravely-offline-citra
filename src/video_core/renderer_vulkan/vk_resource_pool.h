@@ -5,6 +5,7 @@
 #pragma once
 
 #include <vector>
+#include <tsl/robin_map.h>
 #include "common/common_types.h"
 #include "video_core/renderer_vulkan/vk_common.h"
 
@@ -74,7 +75,7 @@ public:
 
     void Allocate(std::size_t begin, std::size_t end) override;
 
-    vk::DescriptorSet Commit();
+    std::pair<vk::DescriptorSet, bool> Commit(std::size_t hash = 0);
 
 private:
     void AppendDescriptorPool();
@@ -86,6 +87,8 @@ private:
     std::vector<vk::DescriptorPoolSize> pool_sizes;
     std::vector<vk::UniqueDescriptorPool> pools;
     std::vector<vk::DescriptorSet> descriptor_sets;
+    std::vector<std::size_t> hashes;
+    tsl::robin_map<std::size_t, std::size_t> descriptor_content_map;
 };
 
 } // namespace Vulkan

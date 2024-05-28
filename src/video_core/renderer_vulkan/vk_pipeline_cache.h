@@ -45,11 +45,11 @@ public:
     ~PipelineCache();
 
     /// Acquires and binds a free descriptor set from the appropriate heap.
-    vk::DescriptorSet Acquire(DescriptorHeapType type) {
+    vk::DescriptorSet Acquire(DescriptorHeapType type, std::size_t hash = 0) {
         const u32 index = static_cast<u32>(type);
-        const auto descriptor_set = descriptor_heaps[index].Commit();
+        const auto [descriptor_set, requires_update] = descriptor_heaps[index].Commit(hash);
         bound_descriptor_sets[index] = descriptor_set;
-        return descriptor_set;
+        return requires_update ? descriptor_set : VK_NULL_HANDLE;
     }
 
     /// Sets the dynamic offset for the uniform buffer at binding

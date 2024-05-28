@@ -107,12 +107,10 @@ private:
     void SyncUtilityTextures(const Framebuffer* framebuffer);
 
     /// Binds the PICA shadow cube required for shadow mapping
-    void BindShadowCube(const Pica::TexturingRegs::FullTextureConfig& texture,
-                        vk::DescriptorSet texture_set);
+    void BindShadowCube(const Pica::TexturingRegs::FullTextureConfig& texture);
 
     /// Binds a texture cube to texture unit 0
-    void BindTextureCube(const Pica::TexturingRegs::FullTextureConfig& texture,
-                         vk::DescriptorSet texture_set);
+    void BindTextureCube(const Pica::TexturingRegs::FullTextureConfig& texture);
 
     /// Upload the uniform blocks to the uniform buffer object
     void UploadUniforms(bool accelerate_draw);
@@ -154,6 +152,7 @@ private:
     std::array<u32, 16> binding_offsets{};
     std::array<bool, 16> enable_attributes{};
     std::array<vk::Buffer, 16> vertex_buffers;
+    std::array<vk::DescriptorImageInfo, 3> images{};
     VertexArrayInfo vertex_info;
     PipelineInfo pipeline_info{};
 

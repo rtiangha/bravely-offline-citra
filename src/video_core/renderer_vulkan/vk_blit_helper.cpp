@@ -288,7 +288,7 @@ bool BlitHelper::BlitDepthStencil(Surface& source, Surface& dest,
         .extent = {dest.GetScaledWidth(), dest.GetScaledHeight()},
     };
 
-    const auto descriptor_set = two_textures_provider.Commit();
+    const auto [descriptor_set, _] = two_textures_provider.Commit();
     update_queue.AddImageSampler(descriptor_set, 0, 0, source.DepthView(), nearest_sampler);
     update_queue.AddImageSampler(descriptor_set, 1, 0, source.StencilView(), nearest_sampler);
 
@@ -314,7 +314,7 @@ bool BlitHelper::BlitDepthStencil(Surface& source, Surface& dest,
 
 bool BlitHelper::ConvertDS24S8ToRGBA8(Surface& source, Surface& dest,
                                       const VideoCore::TextureCopy& copy) {
-    const auto descriptor_set = compute_provider.Commit();
+    const auto [descriptor_set, _] = compute_provider.Commit();
     update_queue.AddImageSampler(descriptor_set, 0, 0, source.DepthView(), VK_NULL_HANDLE,
                                  vk::ImageLayout::eDepthStencilReadOnlyOptimal);
     update_queue.AddImageSampler(descriptor_set, 1, 0, source.StencilView(), VK_NULL_HANDLE,
@@ -425,7 +425,7 @@ bool BlitHelper::ConvertDS24S8ToRGBA8(Surface& source, Surface& dest,
 
 bool BlitHelper::DepthToBuffer(Surface& source, vk::Buffer buffer,
                                const VideoCore::BufferTextureCopy& copy) {
-    const auto descriptor_set = compute_buffer_provider.Commit();
+    const auto [descriptor_set, _] = compute_buffer_provider.Commit();
     update_queue.AddImageSampler(descriptor_set, 0, 0, source.DepthView(), nearest_sampler,
                                  vk::ImageLayout::eDepthStencilReadOnlyOptimal);
     update_queue.AddImageSampler(descriptor_set, 1, 0, source.StencilView(), nearest_sampler,

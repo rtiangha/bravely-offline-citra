@@ -140,6 +140,7 @@ DescriptorHeap::~DescriptorHeap() = default;
 void DescriptorHeap::Allocate(std::size_t begin, std::size_t end) {
     ASSERT(end - begin == DESCRIPTOR_SET_BATCH);
     descriptor_sets.resize(end);
+    hashes.resize(end);
 
     std::array<vk::DescriptorSetLayout, DESCRIPTOR_SET_BATCH> layouts;
     layouts.fill(*descriptor_set_layout);
@@ -170,9 +171,27 @@ void DescriptorHeap::Allocate(std::size_t begin, std::size_t end) {
     }
 }
 
-vk::DescriptorSet DescriptorHeap::Commit() {
+std::pair<vk::DescriptorSet, bool> DescriptorHeap::Commit(std::size_t hash) {
+    if (hash == 0) {
+        const std::size_t index = CommitResource();
+        return {descriptor_sets[index], true};
+    }
+
+    // Try to recycle an existing descriptor set that matches the content hash.
+    const auto it = descriptor_content_map.find(hash);
+    if (it != descriptor_content_map.end()) {
+        ticks[it->second] = master_semaphore->CurrentTick();
+        return {descriptor_sets[it->second], false};
+    }
+
+    // No descriptor set found, provide a fresh one
     const std::size_t index = CommitResource();
-    return descriptor_sets[index];
+    if (hashes[index] != 0) {
+        descriptor_content_map.erase(hashes[index]);
+    }
+    descriptor_content_map[hash] = index;
+    hashes[index] = hash;
+    return {descriptor_sets[index], true};
 }
 
 void DescriptorHeap::AppendDescriptorPool() {

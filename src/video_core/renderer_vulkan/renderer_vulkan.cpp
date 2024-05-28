@@ -121,7 +121,7 @@ void RendererVulkan::PrepareRendertarget() {
 
 void RendererVulkan::PrepareDraw(Frame* frame, const Layout::FramebufferLayout& layout) {
     const auto sampler = present_samplers[!Settings::values.filter_mode.GetValue()];
-    const auto present_set = present_heap.Commit();
+    const auto [present_set, _] = present_heap.Commit();
     for (u32 index = 0; index < screen_infos.size(); index++) {
         update_queue.AddImageSampler(present_set, 0, index, screen_infos[index].image_view,
                                      sampler);
