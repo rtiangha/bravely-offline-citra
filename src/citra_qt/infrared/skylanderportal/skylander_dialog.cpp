@@ -541,7 +541,7 @@ u16 skylander_crc16(u16 init_value, const u8* buffer, u32 size) {
 
 CreateSkylanderDialog::CreateSkylanderDialog(QWidget* parent) : QDialog(parent) {
     setWindowTitle(tr("Skylander Creator"));
-    setObjectName("skylanders_creator");
+    setObjectName(QStringLiteral("skylanders_creator"));
     setMinimumSize(QSize(500, 150));
 
     QVBoxLayout* vbox_panel = new QVBoxLayout();
@@ -705,7 +705,7 @@ QString CreateSkylanderDialog::get_file_path() const {
 
 SkylanderPortalWindow::SkylanderPortalWindow(QWidget* parent) : QDialog(parent) {
     setWindowTitle(tr("Skylanders Manager"));
-    setObjectName("skylanders_manager");
+    setObjectName(QStringLiteral("skylanders_manager"));
     setAttribute(Qt::WA_DeleteOnClose);
     setMinimumSize(QSize(700, 200));
 
