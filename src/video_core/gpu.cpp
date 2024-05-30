@@ -59,7 +59,7 @@ GPU::GPU(Core::System& system, Frontend::EmuWindow& emu_window,
     : impl{std::make_unique<Impl>(system, emu_window, secondary_window)} {
     last_skip_frame = false;
     g_skip_frame = false;
-    frame_count = Settings::values.frame_skip.GetValue();
+    frame_count = 0;
     impl->vblank_event = impl->timing.RegisterEvent(
         "GPU::VBlankCallback",
         [this](uintptr_t user_data, s64 cycles_late) { VBlankCallback(user_data, cycles_late); });
@@ -416,6 +416,7 @@ void GPU::MemoryTransfer() {
 
 void GPU::VBlankCallback(std::uintptr_t user_data, s64 cycles_late) {
     /// Frame Skip
+    frame_count++;
     last_skip_frame = g_skip_frame;
     g_skip_frame = (frame_count & Settings::values.frame_skip.GetValue()) != 0;
 
@@ -431,10 +432,8 @@ void GPU::VBlankCallback(std::uintptr_t user_data, s64 cycles_late) {
 
         // Present renderered frame.
         impl->renderer->SwapBuffers();
-        frame_count = Settings::values.frame_skip.GetValue();
+        frame_count = 0;
     }
-
-    frame_count--;
 
     // Signal to GSP that GPU interrupt has occurred
     impl->signal_interrupt(Service::GSP::InterruptId::PDC0);
