@@ -214,6 +214,12 @@ void VertexModule::Generate(Common::UniqueFunction<void, Sirit::Module&, const M
     OpFunctionEnd();
 }
 
+void VertexModule::Generate(const PicaVSConfig& config, const Profile& profile) {
+    AddLabel(OpLabel());
+    OpReturn();
+    OpFunctionEnd();
+}
+
 std::vector<u32> GenerateTrivialVertexShader(bool use_clip_planes) {
     VertexModule module;
     module.Generate([use_clip_planes](Sirit::Module& spv,
@@ -285,6 +291,13 @@ std::vector<u32> GenerateTrivialVertexShader(bool use_clip_planes) {
         result = Vulkan::OptimizeSPIRV(module.Assemble());
         return result;
     }
+}
+
+std::vector<u32> GenerateVertexShader(const ShaderSetup& setup, const PicaVSConfig& config,
+                                      const Profile& profile) {
+    VertexModule module;
+    module.Generate(config, profile);
+    return module.Assemble();
 }
 
 } // namespace Pica::Shader::Generator::SPIRV

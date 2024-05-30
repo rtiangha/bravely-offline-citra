@@ -122,6 +122,9 @@ public:
 
     /// Generate code using the provided SPIRV emitter context
     void Generate(Common::UniqueFunction<void, Sirit::Module&, const ModuleIds&> proc);
+
+    /// Emits SPIR-V bytecode corresponding to the provided pica vertex configuration
+    void Generate(const PicaVSConfig& config, const Profile& profile);
 };
 
 /**
@@ -131,4 +134,12 @@ public:
  */
 std::vector<u32> GenerateTrivialVertexShader(bool use_clip_planes);
 
+/**
+ * Generates the SPIRV vertex shader program source code for the given VS program
+ * @param config ShaderCacheKey object generated for the current Pica state, used for the shader
+ *               configuration (NOTE: Use state in this struct only, not the Pica registers!)
+ * @returns SPIRV shader assembly; empty on failure
+ */
+std::vector<u32> GenerateVertexShader(const Pica::ShaderSetup& setup, const PicaVSConfig& config,
+                                      const Profile& profile);
 } // namespace Pica::Shader::Generator::SPIRV
