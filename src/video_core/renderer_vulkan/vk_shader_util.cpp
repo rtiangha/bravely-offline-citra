@@ -275,15 +275,19 @@ std::vector<u32> CompileGLSLtoSPIRV(std::string_view code, vk::ShaderStageFlagBi
     glslang::SpvOptions options;
 
 #ifdef OPTIMIZE_SPIRV
-    // On desktop, use external SPIRV-Tools to perform optimizations
-    options.disableOptimizer = true;
-    options.validate = false;
-    options.optimizeSize = false;
-#else
-    // Use built-in glslang to enable optimizations on the generated SPIR-V code on mobile
-    options.disableOptimizer = false;
-    options.validate = false;
-    options.optimizeSize = true;
+    if (Settings::values.optimize_spirv_output.GetValue() == Settings::OptimizeSpirv::Disabled) {
+#endif
+        // Use built-in glslang to enable optimizations on the generated SPIR-V code on mobile
+        options.disableOptimizer = false;
+        options.validate = false;
+        options.optimizeSize = true;
+#ifdef OPTIMIZE_SPIRV
+    } else {
+        // On desktop, use external SPIRV-Tools to perform optimizations
+        options.disableOptimizer = true;
+        options.validate = false;
+        options.optimizeSize = false;
+    }
 #endif
 
     out_code.reserve(8_KiB);
