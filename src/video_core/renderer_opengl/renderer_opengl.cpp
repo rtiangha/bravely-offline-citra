@@ -714,7 +714,7 @@ void RendererOpenGL::ApplySecondLayerOpacity() {
         if (Settings::values.custom_second_layer_opacity.GetValue() < 100) {
             state.blend.color.alpha =
                 Settings::values.custom_second_layer_opacity.GetValue() / 100.0f;
-        } else if (Settings::values.custom_second_layer_opacity.GetValue() < 100) {
+        } else if (Settings::values.new_custom_second_layer_opacity.GetValue() < 100) {
             state.blend.color.alpha =
                 Settings::values.new_custom_second_layer_opacity.GetValue() / 100.0f;
         }
