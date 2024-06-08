@@ -18,7 +18,6 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 import org.citra.citra_emu.databinding.FragmentSettingsBinding
 import org.citra.citra_emu.features.settings.model.AbstractSetting
 import org.citra.citra_emu.features.settings.model.view.SettingsItem
-import org.citra.citra_emu.utils.ViewUtils.updateMargins
 
 class SettingsFragment : Fragment(), SettingsFragmentView {
     override var activityView: SettingsActivityView? = null
@@ -103,12 +102,12 @@ class SettingsFragment : Fragment(), SettingsFragmentView {
         ) { _: View, windowInsets: WindowInsetsCompat ->
             val barInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
             val cutoutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout())
-
-            val leftInsets = barInsets.left + cutoutInsets.left
-            val rightInsets = barInsets.right + cutoutInsets.right
             
-            binding.listSettings.updateMargins(left = leftInsets, right = rightInsets)
-            binding.listSettings.updatePadding(bottom = barInsets.bottom)
+            binding.listSettings.updatePadding(
+                left = barInsets.left + cutoutInsets.left,
+                right = barInsets.right + cutoutInsets.right,
+                bottom = barInsets.bottom
+            )
             windowInsets
         }
     }
