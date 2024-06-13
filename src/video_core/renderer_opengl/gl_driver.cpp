@@ -54,7 +54,7 @@ inline std::string_view GetType(GLenum type) {
     return std::string_view{};
 }
 
-static void APIENTRY DebugHandler(GLenum source, GLenum type, GLuint id, GLenum severity,
+static void GLAD_API_PTR DebugHandler(GLenum source, GLenum type, GLuint id, GLenum severity,
                                   GLsizei length, const GLchar* message, const void* user_param) {
     auto level = Common::Log::Level::Info;
     switch (severity) {
