@@ -77,7 +77,7 @@ Driver::Driver() {
     const bool enable_debug = Settings::values.renderer_debug.GetValue();
     if (enable_debug) {
         glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-        glDebugMessageCallback(DebugHandler, nullptr);
+        glad_glDebugMessageCallback(DebugHandler, nullptr);
     }
 
     ReportDriverInfo();
