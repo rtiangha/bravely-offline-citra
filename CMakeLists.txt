@@ -9,9 +9,16 @@ cmake_policy(SET CMP0069 NEW)
 # Set the default so subdirectory cmake_minimum_required calls won't unset the policy.
 cmake_policy(SET CMP0063 NEW)
 set(CMAKE_POLICY_DEFAULT_CMP0063 NEW)
+# Honor required libraries
+cmake_policy(SET CMP0075 NEW)
 # Needed for GPUCode's teakra
 cmake_policy(SET CMP0079 NEW)
 set(CMAKE_POLICY_DEFAULT_CMP0079 NEW)
+
+# Allow for <PACKAGENAME>_ROOT
+if(CMAKE_VERSION VERSION_GREATER "3.26")
+    cmake_policy(SET CMP0144 NEW)
+endif()
 
 # Enable link time optimization if supported by compiler
 include(CheckIPOSupported)

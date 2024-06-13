@@ -397,7 +397,15 @@ if (ENABLE_VULKAN)
         set(ENABLE_CTEST OFF CACHE BOOL "")
         set(ENABLE_HLSL OFF CACHE BOOL "")
         set(BUILD_EXTERNAL OFF CACHE BOOL "")
-	set(ALLOW_EXTERNAL_SPIRV_TOOLS ON)
+
+        # External spirv-tools application only exists on desktop
+        if(IOS OR ANDROID)
+	    set(ALLOW_EXTERNAL_SPIRV_TOOLS OFF)
+            set(ENABLE_OPT OFF)
+        else()
+	    set(ALLOW_EXTERNAL_SPIRV_TOOLS ON)
+        endif()
+
         add_subdirectory(glslang)
     endif()
 
