@@ -192,10 +192,16 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
 
             override fun onDrawerOpened(drawerView: View) {
                 binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                binding.surfaceInputOverlay.isClickable = false
+                binding.surfaceInputOverlay.isFocusable = false
+                binding.surfaceInputOverlay.isFocusableInTouchMode = false
             }
 
             override fun onDrawerClosed(drawerView: View) {
                 binding.drawerLayout.setDrawerLockMode(EmulationMenuSettings.drawerLockMode)
+                binding.surfaceInputOverlay.isClickable = true
+                binding.surfaceInputOverlay.isFocusable = true
+                binding.surfaceInputOverlay.isFocusableInTouchMode = true
             }
 
             override fun onDrawerStateChanged(newState: Int) {
@@ -425,6 +431,10 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         } else {
             (context as? EmulationActivity)?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
+    }
+
+    fun isDrawerOpen(): Boolean {
+        return binding.drawerLayout.isOpen
     }
 
     private fun togglePause() {
