@@ -190,6 +190,13 @@ void Config::ReadValues() {
     ReadSetting("Layout", Settings::values.custom_bottom_height);
     ReadSetting("Layout", Settings::values.new_custom_second_layer_opacity);
 
+    ReadSetting("Layout", Settings::values.screen_top_stretch);
+    ReadSetting("Layout", Settings::values.screen_top_leftright_padding);
+    ReadSetting("Layout", Settings::values.screen_top_topbottom_padding);
+    ReadSetting("Layout", Settings::values.screen_bottom_stretch);
+    ReadSetting("Layout", Settings::values.screen_bottom_leftright_padding);
+    ReadSetting("Layout", Settings::values.screen_bottom_topbottom_padding);
+
     // Utility
     ReadSetting("Utility", Settings::values.dump_textures);
     ReadSetting("Utility", Settings::values.custom_textures);
