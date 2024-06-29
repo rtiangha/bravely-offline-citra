@@ -81,6 +81,7 @@
 [submodule "sirit"]
     path = externals/sirit
     url = https://github.com/rtiangha/sirit
+    branch = upstream
 [submodule "faad2"]
     path = externals/faad2/faad2
     url = https://github.com/knik0/faad2
