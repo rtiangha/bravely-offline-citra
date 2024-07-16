@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
+import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
 import org.citra.citra_emu.NativeLibrary
 
@@ -25,7 +26,8 @@ class InputOverlayDrawableButton(
     res: Resources,
     defaultStateBitmap: Bitmap,
     pressedStateBitmap: Bitmap,
-    val id: Int
+    val id: Int,
+    val opacity: Int
 ) {
     var trackId: Int
     private var previousTouchX = 0
@@ -51,7 +53,7 @@ class InputOverlayDrawableButton(
      *
      * @return true if value was changed
      */
-    fun updateStatus(event: MotionEvent): Boolean {
+    fun updateStatus(event: MotionEvent, overlay:InputOverlay): Boolean {
         val pointerIndex = event.actionIndex
         val xPosition = event.getX(pointerIndex).toInt()
         val yPosition = event.getY(pointerIndex).toInt()
@@ -67,6 +69,7 @@ class InputOverlayDrawableButton(
             }
             pressedState = true
             trackId = pointerId
+            overlay.hapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             return true
         }
         if (isActionUp) {
@@ -75,6 +78,7 @@ class InputOverlayDrawableButton(
             }
             pressedState = false
             trackId = -1
+            overlay.hapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY_RELEASE)
             return true
         }
         return false
@@ -111,7 +115,11 @@ class InputOverlayDrawableButton(
         controlPositionY = y
     }
 
-    fun draw(canvas: Canvas) = currentStateBitmapDrawable.draw(canvas)
+    fun draw(canvas: Canvas) {
+        val bitmapDrawable: BitmapDrawable = currentStateBitmapDrawable
+        bitmapDrawable.alpha = opacity
+        bitmapDrawable.draw(canvas)
+    }
 
     private val currentStateBitmapDrawable: BitmapDrawable
         get() = if (pressedState) pressedStateBitmap else defaultStateBitmap

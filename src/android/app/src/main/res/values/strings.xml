@@ -121,6 +121,7 @@
     <string name="button_select" translatable="false">SELECT</string>
     <string name="button_start" translatable="false">START</string>
     <string name="button_home">HOME</string>
+    <string name="button_swap">Swap Screens</string>
     <string name="button_x" translatable="false">X</string>
     <string name="button_y" translatable="false">Y</string>
     <string name="button_l" translatable="false">L</string>
@@ -230,6 +231,16 @@
     <string name="frame_limit_slider_description">Specifies the percentage to limit emulation speed. With the default of 100% emulation will be limited to normal speed. Values higher or lower will increase or decrease the speed limit.</string>
     <string name="internal_resolution">Internal Resolution</string>
     <string name="internal_resolution_description">Specifies the resolution used to render at. A high resolution will improve visual quality a lot but is also quite heavy on performance and might cause glitches in certain games.</string>
+    <string name="internal_resolution_setting_1x">Native (400x240)</string>
+    <string name="internal_resolution_setting_2x">2x Native (800x480)</string>
+    <string name="internal_resolution_setting_3x">3x Native (1200x720)</string>
+    <string name="internal_resolution_setting_4x">4x Native (1600x960)</string>
+    <string name="internal_resolution_setting_5x">5x Native (2000x1200)</string>
+    <string name="internal_resolution_setting_6x">6x Native (2400x1440)</string>
+    <string name="internal_resolution_setting_7x">7x Native (2800x1680)</string>
+    <string name="internal_resolution_setting_8x">8x Native (3200x1920)</string>
+    <string name="internal_resolution_setting_9x">9x Native (3600x2160)</string>
+    <string name="internal_resolution_setting_10x">10x Native (4000x2400)</string>
     <string name="performance_warning">Turning off this setting will significantly reduce emulation performance! For the best experience, it is recommended that you leave this setting enabled.</string>
     <string name="debug_warning">Warning: Modifying these settings will slow emulation</string>
     <string name="stereoscopy">Stereoscopy</string>
@@ -323,12 +334,17 @@
     <string name="emulation_empty_state_slot">Slot %1$d</string>
     <string name="emulation_occupied_state_slot">Slot %1$d - %2$tF %2$tR</string>
     <string name="emulation_show_fps">Show FPS</string>
+    <string name="emulation_haptic_feedback">Haptic Feedback</string>
     <string name="emulation_overlay_options">Overlay Options</string>
     <string name="emulation_configure_controls">Configure Controls</string>
     <string name="emulation_edit_layout">Edit Layout</string>
     <string name="emulation_done">Done</string>
     <string name="emulation_toggle_controls">Toggle Controls</string>
     <string name="emulation_control_scale">Adjust Scale</string>
+    <string name="emulation_control_scale_global">Global Scale</string>
+    <string name="emulation_rotate_screen">Rotate Screen</string>
+    <string name="emulation_control_scale_reset_all">Reset All</string>
+    <string name="emulation_control_opacity">Adjust Opacity</string>
     <string name="emulation_control_joystick_rel_center">Relative Stick Center</string>
     <string name="emulation_control_dpad_slide_enable">D-Pad Sliding</string>
     <string name="emulation_open_settings">Open Settings</string>
