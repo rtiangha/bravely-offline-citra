@@ -16,7 +16,8 @@
 #include "video_core/renderer_opengl/renderer_opengl.h"
 #include "video_core/shader/generator/glsl_shader_gen.h"
 
-#include "video_core/host_shaders/opengl_present_anaglyph_frag.h"
+#include "video_core/host_shaders/opengl_present_anaglyph_dubois_frag.h"
+#include "video_core/host_shaders/opengl_present_anaglyph_rendepth_frag.h"
 #include "video_core/host_shaders/opengl_present_frag.h"
 #include "video_core/host_shaders/opengl_present_interlaced_frag.h"
 #include "video_core/host_shaders/opengl_present_vert.h"
@@ -371,13 +372,15 @@ void RendererOpenGL::ReloadShader() {
     std::string shader_data = fragment_shader_precision_OES;
     if (Settings::values.render_3d.GetValue() == Settings::StereoRenderOption::Anaglyph) {
         if (Settings::values.anaglyph_shader_name.GetValue() == "rendepth (builtin)") {
-            shader_data += HostShaders::OPENGL_PRESENT_ANAGLYPH_FRAG;
+            shader_data += HostShaders::OPENGL_PRESENT_ANAGLYPH_RENDEPTH_FRAG;
+        } else if (Settings::values.anaglyph_shader_name.GetValue() == "dubois (builtin)") {
+            shader_data += HostShaders::OPENGL_PRESENT_ANAGLYPH_DUBOIS_FRAG;
         } else {
             std::string shader_text = OpenGL::GetPostProcessingShaderCode(
                 true, Settings::values.anaglyph_shader_name.GetValue());
             if (shader_text.empty()) {
                 // Should probably provide some information that the shader couldn't load
-                shader_data += HostShaders::OPENGL_PRESENT_ANAGLYPH_FRAG;
+                shader_data += HostShaders::OPENGL_PRESENT_ANAGLYPH_RENDEPTH_FRAG;
             } else {
                 shader_data += shader_text;
             }

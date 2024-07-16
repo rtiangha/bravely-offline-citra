@@ -15,7 +15,8 @@
 #include "video_core/renderer_vulkan/vk_memory_util.h"
 #include "video_core/renderer_vulkan/vk_shader_util.h"
 
-#include "video_core/host_shaders/vulkan_present_anaglyph_frag.h"
+#include "video_core/host_shaders/vulkan_present_anaglyph_dubois_frag.h"
+#include "video_core/host_shaders/vulkan_present_anaglyph_rendepth_frag.h"
 #include "video_core/host_shaders/vulkan_present_frag.h"
 #include "video_core/host_shaders/vulkan_present_interlaced_frag.h"
 #include "video_core/host_shaders/vulkan_present_vert.h"
@@ -225,9 +226,11 @@ void RendererVulkan::CompileShaders() {
         Compile(HostShaders::VULKAN_PRESENT_VERT, vk::ShaderStageFlagBits::eVertex, device);
     present_shaders[0] = Compile(HostShaders::VULKAN_PRESENT_FRAG,
                                  vk::ShaderStageFlagBits::eFragment, device, preamble);
-    present_shaders[1] = Compile(HostShaders::VULKAN_PRESENT_ANAGLYPH_FRAG,
+    present_shaders[1] = Compile(HostShaders::VULKAN_PRESENT_ANAGLYPH_RENDEPTH_FRAG,
                                  vk::ShaderStageFlagBits::eFragment, device, preamble);
-    present_shaders[2] = Compile(HostShaders::VULKAN_PRESENT_INTERLACED_FRAG,
+    present_shaders[2] = Compile(HostShaders::VULKAN_PRESENT_ANAGLYPH_DUBOIS_FRAG,
+                                 vk::ShaderStageFlagBits::eFragment, device, preamble);
+    present_shaders[3] = Compile(HostShaders::VULKAN_PRESENT_INTERLACED_FRAG,
                                  vk::ShaderStageFlagBits::eFragment, device, preamble);
 
     auto properties = instance.GetPhysicalDevice().getProperties();
