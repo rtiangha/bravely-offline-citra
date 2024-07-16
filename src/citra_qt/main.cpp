@@ -3164,10 +3164,11 @@ void GMainWindow::UpdateWindowTitle() {
         setWindowTitle(QStringLiteral("Citra %1").arg(full_name));
     } else {
         setWindowTitle(QStringLiteral("Citra %1 | %2").arg(full_name, game_title_long));
-        render_window->setWindowTitle(
-            QStringLiteral("Citra %1 | %2 | %3").arg(full_name, game_title_long, tr("Primary Window")));
+        render_window->setWindowTitle(QStringLiteral("Citra %1 | %2 | %3")
+                                          .arg(full_name, game_title_long, tr("Primary Window")));
         secondary_window->setWindowTitle(
-            QStringLiteral("Citra %1 | %2 | %3").arg(full_name, game_title_long, tr("Secondary Window")));
+            QStringLiteral("Citra %1 | %2 | %3")
+                .arg(full_name, game_title_long, tr("Secondary Window")));
     }
 }
 
