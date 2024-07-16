@@ -545,6 +545,8 @@ struct Values {
 
     // Tweaks
     SwitchableSetting<u64> frame_skip{0, "frame_skip"};
+    SwitchableSetting<bool> enable_custom_cpu_ticks{false, "enable_custom_cpu_ticks"};
+    SwitchableSetting<u32, true> custom_cpu_ticks{16000, 77, 65535, "custom_cpu_ticks"};
 
     // Audio
     bool audio_muted;
