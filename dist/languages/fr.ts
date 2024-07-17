@@ -599,7 +599,7 @@ Cela bannira à la fois son nom du forum et son adresse IP.</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_camera.ui" line="169"/>
-        <source>File:</source>
+        <source>File</source>
         <translation>Fichier :</translation>
     </message>
     <message>
@@ -2563,7 +2563,7 @@ Souhaitez vous ignorer l&apos;erreur et poursuivre ?</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_system.ui" line="357"/>
-        <source>Play Coins:</source>
+        <source>Play Coins</source>
         <translation>Pièces de jeu :</translation>
     </message>
     <message>
@@ -2583,7 +2583,7 @@ Souhaitez vous ignorer l&apos;erreur et poursuivre ?</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_system.ui" line="401"/>
-        <source>3GX Plugin Loader:</source>
+        <source>3GX Plugin Loader</source>
         <translation>Chargeur de plugin 3GX :</translation>
     </message>
     <message>
@@ -3586,19 +3586,19 @@ Glissez les points pour modifier la position, ou double-cliquez les cellules pou
     </message>
 </context>
 <context>
-    <name>ConfigureWeb</name>
+    <name>ConfigureOnline</name>
     <message>
-        <location filename="../../src/citra_qt/configuration/configure_web.ui" line="14"/>
+        <location filename="../../src/citra_qt/configuration/configure_online.ui" line="14"/>
         <source>Form</source>
         <translation>Forme</translation>
     </message>
     <message>
-        <location filename="../../src/citra_qt/configuration/configure_web.ui" line="177"/>
+        <location filename="../../src/citra_qt/configuration/configure_online.ui" line="177"/>
         <source>Discord Presence</source>
         <translation>Présence sur Discord</translation>
     </message>
     <message>
-        <location filename="../../src/citra_qt/configuration/configure_web.ui" line="183"/>
+        <location filename="../../src/citra_qt/configuration/configure_online.ui" line="183"/>
         <source>Show Current Game in your Discord Status</source>
         <translation>Afficher votre jeu en cours dans votre statut Discord</translation>
     </message>
@@ -3678,14 +3678,14 @@ Glissez les points pour modifier la position, ou double-cliquez les cellules pou
     </message>
     <message>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="26"/>
-        <source>Format:</source>
+        <source>Format</source>
         <translation>Format :</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="36"/>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="96"/>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="163"/>
-        <source>Options:</source>
+        <source>Options</source>
         <translation>Options :</translation>
     </message>
     <message>
@@ -3698,7 +3698,7 @@ Glissez les points pour modifier la position, ou double-cliquez les cellules pou
     </message>
     <message>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="53"/>
-        <source>Path:</source>
+        <source>Path</source>
         <translation>Chemin :</translation>
     </message>
     <message>
@@ -3709,13 +3709,13 @@ Glissez les points pour modifier la position, ou double-cliquez les cellules pou
     <message>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="79"/>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="146"/>
-        <source>Encoder:</source>
+        <source>Encoder</source>
         <translation>Encodeur :</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="113"/>
         <location filename="../../src/citra_qt/dumping/dumping_dialog.ui" line="180"/>
-        <source>Bitrate:</source>
+        <source>Bitrate</source>
         <translation>Débit :</translation>
     </message>
     <message>
@@ -4256,7 +4256,7 @@ Pour consulter un guide sur l&apos;installation de FFmpeg, appuyez sur &quot;Aid
     </message>
     <message>
         <location filename="../../src/citra_qt/main.cpp" line="2604"/>
-        <source>Game: %1 FPS</source>
+        <source>Game %1 FPS</source>
         <translation>Jeux : %1 FPS</translation>
     </message>
     <message>
@@ -4760,7 +4760,7 @@ Screen.</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/game_list.cpp" line="881"/>
-        <source>Filter:</source>
+        <source>Filter</source>
         <translation>Filtre :</translation>
     </message>
     <message>
@@ -4915,7 +4915,7 @@ Screen.</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/debugger/graphics/graphics_surface.cpp" line="175"/>
-        <source>Format:</source>
+        <source>Format</source>
         <translation>Format :</translation>
     </message>
     <message>
@@ -5274,7 +5274,7 @@ Message de débogage :</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/debugger/ipc/recorder.ui" line="30"/>
-        <source>Filter:</source>
+        <source>Filter</source>
         <translation>Filtre :</translation>
     </message>
     <message>
@@ -5933,7 +5933,7 @@ Message de débogage :</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_play_dialog.ui" line="22"/>
-        <source>File:</source>
+        <source>File</source>
         <translation>Fichier :</translation>
     </message>
     <message>
@@ -5948,22 +5948,22 @@ Message de débogage :</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_play_dialog.ui" line="57"/>
-        <source>Game:</source>
+        <source>Game</source>
         <translation>Jeu :</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_play_dialog.ui" line="71"/>
-        <source>Author:</source>
+        <source>Author</source>
         <translation>Auteur :</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_play_dialog.ui" line="85"/>
-        <source>Rerecord Count:</source>
+        <source>Rerecord Count</source>
         <translation>Nombre de réenregistrements :</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_play_dialog.ui" line="99"/>
-        <source>Length:</source>
+        <source>Length</source>
         <translation>Durée :</translation>
     </message>
     <message>
@@ -6025,7 +6025,7 @@ Message de débogage :</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_record_dialog.ui" line="22"/>
-        <source>File:</source>
+        <source>File</source>
         <translation>Fichier :</translation>
     </message>
     <message>
@@ -6035,7 +6035,7 @@ Message de débogage :</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/movie/movie_record_dialog.ui" line="39"/>
-        <source>Author:</source>
+        <source>Author</source>
         <translation>Auteur :</translation>
     </message>
     <message>

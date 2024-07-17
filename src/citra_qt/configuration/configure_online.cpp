@@ -5,13 +5,13 @@
 #include <QIcon>
 #include <QMessageBox>
 #include <QtConcurrent/QtConcurrentRun>
-#include "citra_qt/configuration/configure_web.h"
+#include "citra_qt/configuration/configure_online.h"
 #include "citra_qt/uisettings.h"
 #include "network/network_settings.h"
-#include "ui_configure_web.h"
+#include "ui_configure_online.h"
 
-ConfigureWeb::ConfigureWeb(QWidget* parent)
-    : QWidget(parent), ui(std::make_unique<Ui::ConfigureWeb>()) {
+ConfigureOnline::ConfigureOnline(QWidget* parent)
+    : QWidget(parent), ui(std::make_unique<Ui::ConfigureOnline>()) {
     ui->setupUi(this);
 
 #ifndef USE_DISCORD_PRESENCE
@@ -20,17 +20,17 @@ ConfigureWeb::ConfigureWeb(QWidget* parent)
     SetConfiguration();
 }
 
-ConfigureWeb::~ConfigureWeb() = default;
+ConfigureOnline::~ConfigureOnline() = default;
 
-void ConfigureWeb::SetConfiguration() {
+void ConfigureOnline::SetConfiguration() {
 
     ui->toggle_discordrpc->setChecked(UISettings::values.enable_discord_presence.GetValue());
 }
 
-void ConfigureWeb::ApplyConfiguration() {
+void ConfigureOnline::ApplyConfiguration() {
     UISettings::values.enable_discord_presence = ui->toggle_discordrpc->isChecked();
 }
 
-void ConfigureWeb::RetranslateUI() {
+void ConfigureOnline::RetranslateUI() {
     ui->retranslateUi(this);
 }

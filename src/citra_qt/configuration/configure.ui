@@ -104,9 +104,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>ConfigureWeb</class>
+   <class>ConfigureOnline</class>
    <extends>QWidget</extends>
-   <header>configuration/configure_web.h</header>
+   <header>configuration/configure_online.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
