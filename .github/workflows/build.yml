@@ -65,6 +65,12 @@ jobs:
           target: 'desktop'
           arch: 'linux_gcc_64'
           modules: 'qtmultimedia qtwaylandcompositor'
+      - name: Set up Vulkan SDK
+        uses: humbletim/setup-vulkan-sdk@v1.2.0
+        with:
+          vulkan-query-version: latest
+          vulkan-components: SPIRV-Tools
+          vulkan-use-cache: true
       - name: Build
         run: ./.ci/linux.sh
       - name: Pack
@@ -103,7 +109,7 @@ jobs:
         with:
           xcode-version: latest-stable
       - name: Install tools
-        run: brew install ccache ninja
+        run: brew install ccache ninja spirv-tools
       - name: Build
         run: ./.ci/macos.sh
       - name: Prepare outputs for caching
@@ -175,6 +181,13 @@ jobs:
       - name: Install extra tools (MSVC)
         run: choco install ccache ninja wget
         if: ${{ matrix.target == 'msvc' }}
+      - name: Set up Vulkan SDK (MSVC)
+        uses: humbletim/setup-vulkan-sdk@v1.2.0
+        if: ${{ matrix.target == 'msvc' }}
+        with:
+          vulkan-query-version: latest
+          vulkan-components: SPIRV-Tools
+          vulkan-use-cache: true
       - name: Set up MSYS2
         uses: msys2/setup-msys2@v2
         if: ${{ matrix.target == 'msys2' }}
@@ -183,7 +196,7 @@ jobs:
           update: true
           install: git make p7zip
           pacboy: >-
-            toolchain:p ccache:p cmake:p ninja:p
+            toolchain:p ccache:p cmake:p ninja:p spirv-tools:p
             qt6-base:p qt6-multimedia:p qt6-multimedia-wmf:p qt6-tools:p qt6-translations:p
       - name: Disable line ending translation
         run: git config --global core.autocrlf input
