@@ -53,14 +53,14 @@
     path = externals/libyuv
     url = https://github.com/lemenkov/libyuv.git
 [submodule "sdl2"]
-	path = externals/sdl2/SDL
-	url = https://github.com/libsdl-org/SDL
+    path = externals/sdl2/SDL
+    url = https://github.com/libsdl-org/SDL
 [submodule "cryptopp-cmake"]
-	path = externals/cryptopp-cmake
-	url = https://github.com/abdes/cryptopp-cmake.git
+    path = externals/cryptopp-cmake
+    url = https://github.com/abdes/cryptopp-cmake.git
 [submodule "cryptopp"]
-	path = externals/cryptopp
-	url = https://github.com/weidai11/cryptopp.git
+    path = externals/cryptopp
+    url = https://github.com/weidai11/cryptopp.git
 [submodule "dds-ktx"]
     path = externals/dds-ktx
     url = https://github.com/septag/dds-ktx
@@ -84,7 +84,7 @@
     url = https://github.com/knik0/faad2
 [submodule "library-headers"]
     path = externals/library-headers
-    url = https://github.com/PabloMK7/ext-library-headers.git
+    url = https://github.com/rtiangha/ext-library-headers.git
 [submodule "libadrenotools"]
     path = externals/libadrenotools
     url = https://github.com/bylaws/libadrenotools
