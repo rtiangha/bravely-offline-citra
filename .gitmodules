@@ -89,5 +89,8 @@
     path = externals/libadrenotools
     url = https://github.com/bylaws/libadrenotools
 [submodule "oaknut"]
-	path = externals/oaknut
-	url = https://github.com/merryhime/oaknut.git
+    path = externals/oaknut
+    url = https://github.com/merryhime/oaknut.git
+[submodule "externals/oboe"]
+    path = externals/oboe
+    url = https://github.com/google/oboe.git
