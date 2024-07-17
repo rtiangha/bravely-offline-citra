@@ -188,13 +188,14 @@ filter_mode =
 # 3: Side by Side
 # 4: Separate Windows
 # 5: Hybrid Screen
+# 6: Custom Layout
 layout_option =
 
-# Toggle custom layout (using the settings below) on or off.
+# Toggle the Legacy Custom Layout option (using the settings below) on or off.
 # 0 (default): Off, 1: On
 custom_layout =
 
-# Screen placement when using Custom layout option
+# Screen placement when using the Legacy Custom Layout option
 # 0x, 0y is the top left corner of the render window.
 custom_top_left =
 custom_top_top =
@@ -204,6 +205,21 @@ custom_bottom_left =
 custom_bottom_top =
 custom_bottom_right =
 custom_bottom_bottom =
+
+# Toggle the New Custom Layout option (using the settings below) on or off.
+# 0 (default): Off, 1: On
+new_custom_layout =
+
+# Screen placement when using the New Custom layout option
+# 0x, 0y is the top left corner of the render window.
+custom_top_x =
+custom_top_y =
+custom_top_width =
+custom_top_height =
+custom_bottom_x =
+custom_bottom_y =
+custom_bottom_width =
+custom_bottom_height =
 
 # Opacity of second layer when using custom layout option (bottom screen unless swapped)
 custom_second_layer_opacity =

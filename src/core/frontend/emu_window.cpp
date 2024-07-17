@@ -185,6 +185,9 @@ void EmuWindow::UpdateCurrentFramebufferLayout(u32 width, u32 height, bool is_po
 
     if (Settings::values.custom_layout.GetValue() == true) {
         layout = Layout::CustomFrameLayout(width, height, Settings::values.swap_screen.GetValue());
+    } else if (Settings::values.new_custom_layout.GetValue() == true) {
+        layout =
+            Layout::NewCustomFrameLayout(width, height, Settings::values.swap_screen.GetValue());
     } else {
         width = std::max(width, min_size.first);
         height = std::max(height, min_size.second);
@@ -228,6 +231,12 @@ void EmuWindow::UpdateCurrentFramebufferLayout(u32 width, u32 height, bool is_po
                 Layout::LargeFrameLayout(width, height, Settings::values.swap_screen.GetValue(),
                                          false, 2.25f, Layout::VerticalAlignment::Top);
             break;
+#ifndef ANDROID // TODO: Implement custom layouts on Android
+        case Settings::LayoutOption::CustomLayout:
+            layout = Layout::NewCustomFrameLayout(width, height,
+                                                  Settings::values.swap_screen.GetValue());
+            break;
+#endif
         case Settings::LayoutOption::Default:
         default:
             layout =

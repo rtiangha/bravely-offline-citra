@@ -165,6 +165,8 @@ void Config::ReadValues() {
     ReadSetting("Layout", Settings::values.swap_screen);
     ReadSetting("Layout", Settings::values.upright_screen);
     ReadSetting("Layout", Settings::values.large_screen_proportion);
+
+    // Legacy Custom Layout
     ReadSetting("Layout", Settings::values.custom_layout);
     ReadSetting("Layout", Settings::values.custom_top_left);
     ReadSetting("Layout", Settings::values.custom_top_top);
@@ -175,6 +177,18 @@ void Config::ReadValues() {
     ReadSetting("Layout", Settings::values.custom_bottom_right);
     ReadSetting("Layout", Settings::values.custom_bottom_bottom);
     ReadSetting("Layout", Settings::values.custom_second_layer_opacity);
+
+    // New Custom Layout
+    ReadSetting("Layout", Settings::values.new_custom_layout);
+    ReadSetting("Layout", Settings::values.custom_top_x);
+    ReadSetting("Layout", Settings::values.custom_top_y);
+    ReadSetting("Layout", Settings::values.custom_top_width);
+    ReadSetting("Layout", Settings::values.custom_top_height);
+    ReadSetting("Layout", Settings::values.custom_bottom_x);
+    ReadSetting("Layout", Settings::values.custom_bottom_y);
+    ReadSetting("Layout", Settings::values.custom_bottom_width);
+    ReadSetting("Layout", Settings::values.custom_bottom_height);
+    ReadSetting("Layout", Settings::values.new_custom_second_layer_opacity);
 
     // Utility
     ReadSetting("Utility", Settings::values.dump_textures);
