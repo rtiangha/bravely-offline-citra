@@ -542,6 +542,13 @@ void Config::ReadLayoutValues() {
         ReadBasicSetting(Settings::values.custom_bottom_height);
 
         ReadBasicSetting(Settings::values.custom_second_layer_opacity);
+
+        ReadBasicSetting(Settings::values.screen_top_stretch);
+        ReadBasicSetting(Settings::values.screen_top_leftright_padding);
+        ReadBasicSetting(Settings::values.screen_top_topbottom_padding);
+        ReadBasicSetting(Settings::values.screen_bottom_stretch);
+        ReadBasicSetting(Settings::values.screen_bottom_leftright_padding);
+        ReadBasicSetting(Settings::values.screen_bottom_topbottom_padding);
     }
 
     qt_config->endGroup();
@@ -1101,6 +1108,13 @@ void Config::SaveLayoutValues() {
         WriteBasicSetting(Settings::values.custom_bottom_height);
 
         WriteBasicSetting(Settings::values.custom_second_layer_opacity);
+
+        WriteBasicSetting(Settings::values.screen_top_stretch);
+        WriteBasicSetting(Settings::values.screen_top_leftright_padding);
+        WriteBasicSetting(Settings::values.screen_top_topbottom_padding);
+        WriteBasicSetting(Settings::values.screen_bottom_stretch);
+        WriteBasicSetting(Settings::values.screen_bottom_leftright_padding);
+        WriteBasicSetting(Settings::values.screen_bottom_topbottom_padding);
     }
 
     qt_config->endGroup();
