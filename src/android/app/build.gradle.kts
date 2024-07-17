@@ -194,7 +194,7 @@ dependencies {
 
 // Download Vulkan Validation Layers from the KhronosGroup GitHub.
 val downloadVulkanValidationLayers = tasks.register<Download>("downloadVulkanValidationLayers") {
-    src("https://github.com/KhronosGroup/Vulkan-ValidationLayers/releases/download/sdk-1.3.261.1/android-binaries-sdk-1.3.261.1-android.zip")
+    src("https://github.com/KhronosGroup/Vulkan-ValidationLayers/releases/download/vulkan-sdk-1.3.283.0/android-binaries-1.3.283.0.zip")
     dest(file("${buildDir}/tmp/Vulkan-ValidationLayers.zip"))
     onlyIfModified(true)
 }
