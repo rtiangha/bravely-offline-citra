@@ -3,7 +3,7 @@
     url = https://github.com/rtiangha/ext-boost.git
 [submodule "nihstro"]
     path = externals/nihstro
-    url = https://github.com/neobrain/nihstro.git
+    url = https://github.com/rtiangha/nihstro.git
 [submodule "soundtouch"]
     path = externals/soundtouch
     url = https://codeberg.org/soundtouch/soundtouch.git
