@@ -3586,19 +3586,19 @@ Glissez les points pour modifier la position, ou double-cliquez les cellules pou
     </message>
 </context>
 <context>
-    <name>ConfigureWeb</name>
+    <name>ConfigureOnline</name>
     <message>
-        <location filename="../../src/citra_qt/configuration/configure_web.ui" line="14"/>
+        <location filename="../../src/citra_qt/configuration/configure_online.ui" line="14"/>
         <source>Form</source>
         <translation>Forme</translation>
     </message>
     <message>
-        <location filename="../../src/citra_qt/configuration/configure_web.ui" line="177"/>
+        <location filename="../../src/citra_qt/configuration/configure_online.ui" line="177"/>
         <source>Discord Presence</source>
         <translation>Présence sur Discord</translation>
     </message>
     <message>
-        <location filename="../../src/citra_qt/configuration/configure_web.ui" line="183"/>
+        <location filename="../../src/citra_qt/configuration/configure_online.ui" line="183"/>
         <source>Show Current Game in your Discord Status</source>
         <translation>Afficher votre jeu en cours dans votre statut Discord</translation>
     </message>

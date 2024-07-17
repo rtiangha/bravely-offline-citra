@@ -9,20 +9,20 @@
 #include <QWidget>
 
 namespace Ui {
-class ConfigureWeb;
+class ConfigureOnline;
 }
 
-class ConfigureWeb : public QWidget {
+class ConfigureOnline : public QWidget {
     Q_OBJECT
 
 public:
-    explicit ConfigureWeb(QWidget* parent = nullptr);
-    ~ConfigureWeb() override;
+    explicit ConfigureOnline(QWidget* parent = nullptr);
+    ~ConfigureOnline() override;
 
     void ApplyConfiguration();
     void RetranslateUI();
     void SetConfiguration();
 
 private:
-    std::unique_ptr<Ui::ConfigureWeb> ui;
+    std::unique_ptr<Ui::ConfigureOnline> ui;
 };

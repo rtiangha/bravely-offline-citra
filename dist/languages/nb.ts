@@ -3585,19 +3585,19 @@ Dra punkter for å endre posisjon, eller dobbeltklikk på tabellceller for å re
     </message>
 </context>
 <context>
-    <name>ConfigureWeb</name>
+    <name>ConfigureOnline</name>
     <message>
-        <location filename="../../src/citra_qt/configuration/configure_web.ui" line="14"/>
+        <location filename="../../src/citra_qt/configuration/configure_online.ui" line="14"/>
         <source>Form</source>
         <translation>Form</translation>
     </message>
     <message>
-        <location filename="../../src/citra_qt/configuration/configure_web.ui" line="177"/>
+        <location filename="../../src/citra_qt/configuration/configure_online.ui" line="177"/>
         <source>Discord Presence</source>
         <translation>Discord tilstedeværelse</translation>
     </message>
     <message>
-        <location filename="../../src/citra_qt/configuration/configure_web.ui" line="183"/>
+        <location filename="../../src/citra_qt/configuration/configure_online.ui" line="183"/>
         <source>Show Current Game in your Discord Status</source>
         <translation>Vis Gjeldende Spill i Discord Statusen din.</translation>
     </message>
