@@ -103,7 +103,8 @@ void LogSettings() {
     log_setting("Renderer_FilterMode", values.filter_mode.GetValue());
     log_setting("Renderer_TextureFilter", GetTextureFilterName(values.texture_filter.GetValue()));
     log_setting("Renderer_ForceHWVertexShaders", values.force_hw_vertex_shaders.GetValue());
-    log_setting("Renderer_DisableSurfaceTextureCopy", values.disable_surface_texture_copy.GetValue());
+    log_setting("Renderer_DisableSurfaceTextureCopy",
+                values.disable_surface_texture_copy.GetValue());
     log_setting("Renderer_DisableFlushCPUWrite", values.disable_flush_cpu_write.GetValue());
     log_setting("Renderer_TextureSampling",
                 GetTextureSamplingName(values.texture_sampling.GetValue()));

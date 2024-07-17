@@ -426,8 +426,27 @@
   <tabstop>toggle_update_check</tabstop>
   <tabstop>toggle_auto_update</tabstop>
   <tabstop>frame_skip_combobox</tabstop>
+  <tabstop>toggle_custom_cpu_ticks</tabstop>
+  <tabstop>custom_cpu_ticks_spinbox</tabstop>
   <tabstop>button_reset_defaults</tabstop>
  </tabstops>
  <resources/>
+ <connections>
+  <connection>
+   <sender>toggle_custom_cpu_ticks</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>custom_cpu_ticks_spinbox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>84</x>
+     <y>157</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>342</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
  <connections/>
 </ui>
