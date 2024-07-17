@@ -183,7 +183,7 @@ jobs:
           name: ${{ env.OS }}-${{ env.TARGET }}
           path: artifacts/
   android:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       CCACHE_DIR: ${{ github.workspace }}/.ccache
       CCACHE_COMPILERCHECK: content
@@ -213,7 +213,7 @@ jobs:
       - name: Deps
         run: |
           sudo add-apt-repository -y ppa:theofficialgman/gpu-tools
-          sudo apt-get update -y
+          sudo apt-get update -y && sudo apt-get dist-upgrade -y
           sudo apt-get install ccache apksigner -y
       - name: Build
         run: JAVA_HOME=$JAVA_HOME_21_X64 ./.ci/android.sh
