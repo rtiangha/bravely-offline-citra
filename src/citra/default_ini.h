@@ -100,6 +100,9 @@ cpu_clock_percentage =
 # The applied frameskip amount. Must be a power of two.
 # 0 (default): No frameskip, 1: x2 frameskip, 2: x4 frameskip, 3: x8 frameskip, x16 frameskip.
 frame_skip =
+# Boost low priority starved threads during kernel rescheduling.
+# 0: Off, 1 (default): On
+priority_boost_starved_threads =
 
 [Renderer]
 # Whether to render using OpenGL or Software
