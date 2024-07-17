@@ -86,7 +86,8 @@ void LogSettings() {
     log_setting("Core_FrameSkip", values.frame_skip.GetValue());
     log_setting("Core_EnableCustomCPUTicks", values.enable_custom_cpu_ticks.GetValue());
     log_setting("Core_CustomCPUTicks", values.custom_cpu_ticks.GetValue());
-    log_setting("Core_PriorityBoostStarvedThreads", values.priority_boost_starved_threads.GetValue());
+    log_setting("Core_PriorityBoostStarvedThreads",
+                values.priority_boost_starved_threads.GetValue());
     log_setting("Controller_UseArticController", values.use_artic_base_controller.GetValue());
     log_setting("Renderer_UseGLES", values.use_gles.GetValue());
     log_setting("Renderer_GraphicsAPI", GetGraphicsAPIName(values.graphics_api.GetValue()));
