@@ -234,7 +234,7 @@
     <string name="disable_surface_texture_copy">Disable Surface Texture Copy</string>
     <string name="disable_surface_texture_copy_description">Ignores texture copies if src_surface_id is null. Enable this may lead a small performance boost, but may cause graphical bugs as well.</string>
     <string name="disable_flush_cpu_write">Disable Flush CPU Write</string>
-    <string name="disable_flush_cpu_write_copy_description">Ignores CPU write if there is a region to invalidate from rasterizer cache. Enable this may lead a small performance boost, but may cause graphical bugs as well.</string>
+    <string name="disable_flush_cpu_write_description">Ignores CPU write if there is a region to invalidate from rasterizer cache. Enable this may lead a small performance boost, but may cause graphical bugs as well.</string>
     <string name="hw_shaders">Enable Hardware Shader</string>
     <string name="hw_shaders_description">Uses hardware to emulate 3DS shaders. When enabled, game performance will be significantly improved.</string>
     <string name="shaders_accurate_mul">Accurate Multiplication</string>
