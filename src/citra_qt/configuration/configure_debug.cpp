@@ -142,8 +142,7 @@ void ConfigureDebug::ApplyConfiguration() {
     Common::Log::SetRegexFilter(Settings::values.log_regex_filter.GetValue());
     Settings::values.use_cpu_jit = ui->toggle_cpu_jit->isChecked();
     Settings::values.delay_start_for_lle_modules = ui->delay_start_for_lle_modules->isChecked();
-    Settings::values.reduce_downcount_slice =
-        ui->toggle_reduce_downcount_slice->isChecked();
+    Settings::values.reduce_downcount_slice = ui->toggle_reduce_downcount_slice->isChecked();
     Settings::values.priority_boost_starved_threads =
         ui->toggle_priority_boost_starved_threads->isChecked();
     Settings::values.renderer_debug = ui->toggle_renderer_debug->isChecked();
