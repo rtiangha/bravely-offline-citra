@@ -195,6 +195,17 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     IntSetting.FRAME_LIMIT.defaultValue.toFloat()
                 )
             )
+            add(
+                SingleChoiceSetting(
+                    IntSetting.FRAME_SKIP,
+                    R.string.frame_skip_name,
+                    R.string.frame_skip_description,
+                    R.array.frameSkipNames,
+                    R.array.frameSkipValues,
+                    IntSetting.FRAME_SKIP.key,
+                    IntSetting.FRAME_SKIP.defaultValue
+                )
+            )
         }
     }
 
@@ -951,7 +962,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                 SwitchSetting(
                     IntSetting.NEW_3DS,
                     R.string.new_3ds,
-                    0,
+                    R.string.new_3ds_description,
                     IntSetting.NEW_3DS.key,
                     IntSetting.NEW_3DS.defaultValue
                 )

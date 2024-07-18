@@ -543,6 +543,9 @@ struct Values {
     SwitchableSetting<bool> preload_textures{false, "preload_textures"};
     SwitchableSetting<bool> async_custom_loading{true, "async_custom_loading"};
 
+    // Tweaks
+    SwitchableSetting<u64> frame_skip{0, "frame_skip"};
+
     // Audio
     bool audio_muted;
     SwitchableSetting<AudioEmulation> audio_emulation{AudioEmulation::HLE, "audio_emulation"};
