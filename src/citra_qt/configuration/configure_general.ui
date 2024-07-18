@@ -90,20 +90,6 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QWidget" name="widget_frame_skip" native="true">
-          <layout class="QHBoxLayout" name="frameskip_layout">
-           <property name="leftMargin">
-            <number>0</number>
-           </property>
-           <property name="topMargin">
-            <number>0</number>
-           </property>
-           <property name="rightMargin">
-            <number>0</number>
-           </property>
-           <property name="bottomMargin">
-            <number>0</number>
-           </property>
          <widget class="QCheckBox" name="toggle_custom_cpu_ticks">
           <property name="toolTip">
            <string>&lt;html&gt;&lt;body&gt;Set a custom value of CPU ticks. Higher values can increase performance but if they're too high, it may cause the game to freeze. A range of 77-21000 is recommended.&lt;/body&gt;&lt;/html&gt;</string>
@@ -215,6 +201,21 @@
           </layout>
          </widget>
         </item>
+        <item>
+         <widget class="QWidget" name="widget_frame_skip" native="true">
+          <layout class="QHBoxLayout" name="frameskip_layout">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QLabel" name="frame_skip_label">
              <property name="toolTip">
