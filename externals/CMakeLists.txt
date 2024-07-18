@@ -186,7 +186,11 @@ if(NOT USE_SYSTEM_SOUNDTOUCH)
 endif()
 
 # Teakra
-add_subdirectory(teakra EXCLUDE_FROM_ALL)
+if ("x86_64" IN_LIST ARCHITECTURE)
+    add_subdirectory(teakra EXCLUDE_FROM_ALL)
+else() # use older teakra for arm builds for now
+    add_subdirectory(teakra-old teakra EXCLUDE_FROM_ALL)
+endif()
 
 # SDL2
 if (ENABLE_SDL2 AND NOT USE_SYSTEM_SDL2)

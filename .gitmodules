@@ -43,7 +43,7 @@
     url = https://github.com/arun11299/cpp-jwt.git
 [submodule "teakra"]
     path = externals/teakra
-    url = https://github.com/wwylele/teakra.git
+    url = https://github.com/rtiangha/teakra.git
 [submodule "lodepng"]
     path = externals/lodepng/lodepng
     url = https://github.com/lvandeve/lodepng.git
@@ -95,3 +95,7 @@
 [submodule "externals/oboe"]
     path = externals/oboe
     url = https://github.com/google/oboe.git
+[submodule "externals/teakra-old"]
+    path = externals/teakra-old
+    url = https://github.com/rtiangha/teakra
+    branch = teakra-old
