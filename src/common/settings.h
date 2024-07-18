@@ -551,6 +551,7 @@ struct Values {
     SwitchableSetting<bool> disable_surface_texture_copy{false, "disable_surface_texture_copy"};
     SwitchableSetting<bool> disable_flush_cpu_write{false, "disable_flush_cpu_write"};
     SwitchableSetting<bool> priority_boost_starved_threads{true, "priority_boost_starved_threads"};
+    SwitchableSetting<bool> reduce_downcount_slice{false, "reduce_downcount_slice"};
 
     // Audio
     bool audio_muted;
