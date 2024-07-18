@@ -564,6 +564,7 @@
     <string name="x2">x2</string>
     <string name="x4">x4</string>
     <string name="x8">x8</string>
+    <string name="x16">x16</string>
 
     <!-- Sound output modes -->
     <string name="mono">Mono</string>

@@ -205,6 +205,11 @@
                <string>x8</string>
               </property>
              </item>
+             <item>
+              <property name="text">
+               <string>x16</string>
+              </property>
+             </item>
             </widget>
            </item>
           </layout>
