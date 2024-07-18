@@ -107,7 +107,7 @@
            <item>
             <widget class="QLabel" name="frame_skip_label">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;body&gt;The number of frames to skip. It may cause emulation speed desync issues.&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;body&gt;The number of frames to skip. It may cause emulation desynchronization issues. May not work well with Realtime Audio enabled.&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
               <string>Frame Skip</string>
