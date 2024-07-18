@@ -962,7 +962,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                 SwitchSetting(
                     IntSetting.NEW_3DS,
                     R.string.new_3ds,
-                    0,
+                    R.string.new_3ds_description,
                     IntSetting.NEW_3DS.key,
                     IntSetting.NEW_3DS.defaultValue
                 )

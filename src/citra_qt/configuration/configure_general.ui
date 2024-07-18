@@ -107,7 +107,7 @@
            <item>
             <widget class="QLabel" name="frame_skip_label">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The number of frames to skip.&lt;/p&gt;&lt;p&gt;WARNING: Results may vary depending on using the Vulkan or OpenGL renderer. If set too high, the screen may not render at all. Use with caution.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;body&gt;The number of frames to skip. It may cause emulation speed desync issues.&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
               <string>Frame Skip</string>
