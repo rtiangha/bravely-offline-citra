@@ -435,7 +435,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Dump Video</string>
+    <string>Dump Video (OpenGL Only)</string>
    </property>
   </action>
   <action name="action_Manage_Skylanders">

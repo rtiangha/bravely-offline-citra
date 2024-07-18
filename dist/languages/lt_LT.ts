@@ -509,7 +509,7 @@ This would ban both their forum username and their IP address.</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_camera.ui" line="31"/>
-        <source>Camera to configure:</source>
+        <source>Camera to Configure</source>
         <translation>Kamera, kurią konfigūruosite:</translation>
     </message>
     <message>
@@ -530,7 +530,7 @@ This would ban both their forum username and their IP address.</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_camera.ui" line="62"/>
-        <source>Camera mode:</source>
+        <source>Camera Mode</source>
         <translation>Kameros režimas:</translation>
     </message>
     <message>
@@ -551,7 +551,7 @@ This would ban both their forum username and their IP address.</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_camera.ui" line="93"/>
-        <source>Camera position:</source>
+        <source>Camera Position</source>
         <translation>Kameros pozicija:</translation>
     </message>
     <message>
@@ -577,7 +577,7 @@ This would ban both their forum username and their IP address.</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_camera.ui" line="133"/>
-        <source>Camera Image Source:</source>
+        <source>Camera Image Source</source>
         <translation>Kameros įvestis:</translation>
     </message>
     <message>
@@ -613,7 +613,7 @@ This would ban both their forum username and their IP address.</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_camera.ui" line="196"/>
-        <source>Camera:</source>
+        <source>Camera</source>
         <translation>Kamera:</translation>
     </message>
     <message>
@@ -674,7 +674,7 @@ This would ban both their forum username and their IP address.</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_camera.ui" line="323"/>
-        <source>Click to preview</source>
+        <source>Click to Preview</source>
         <translation>Paspauskite, kad peržiūrėti</translation>
     </message>
     <message>
@@ -800,7 +800,7 @@ Would you like to ignore the error and continue?</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_debug.ui" line="50"/>
-        <source>Port:</source>
+        <source>Port</source>
         <translation>Įvadas:</translation>
     </message>
     <message>
@@ -1325,12 +1325,12 @@ Would you like to ignore the error and continue?</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_general.ui" line="72"/>
-        <source>Check for updates on start</source>
+        <source>Check for Updates on Start</source>
         <translation>Paieškoti atnaujinimų paleidžiant programą</translation>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_general.ui" line="79"/>
-        <source>Silently auto update after closing</source>
+        <source>Silently Auto Update After Closing</source>
         <translation>Tyliai atsinaujinti išjungus programą</translation>
     </message>
     <message>
@@ -1737,7 +1737,7 @@ Would you like to ignore the error and continue?</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_input.ui" line="283"/>
-        <source>Select:</source>
+        <source>Select</source>
         <translation>Pasirinkti:</translation>
     </message>
     <message>
@@ -2026,7 +2026,7 @@ Would you like to ignore the error and continue?</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_motion_touch.ui" line="226"/>
-        <source>Port:</source>
+        <source>Port</source>
         <translation>Įvadas:</translation>
     </message>
     <message>
@@ -2325,12 +2325,12 @@ Would you like to ignore the error and continue?</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_system.ui" line="28"/>
-        <source>Enable New 3DS mode</source>
+        <source>Enable New 3DS Mode</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_system.ui" line="35"/>
-        <source>Use LLE applets (if installed)</source>
+        <source>Use LLE Applets (if installed)</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2475,7 +2475,7 @@ Would you like to ignore the error and continue?</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_system.ui" line="214"/>
-        <source>Sound output mode</source>
+        <source>Sound Output Mode</source>
         <translation>Garso išvesties režimas</translation>
     </message>
     <message>
@@ -2525,7 +2525,7 @@ Would you like to ignore the error and continue?</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_system.ui" line="285"/>
-        <source>Offset time</source>
+        <source>Offset Time</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2565,7 +2565,7 @@ Would you like to ignore the error and continue?</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_system.ui" line="371"/>
-        <source>Run System Setup when Home Menu is launched</source>
+        <source>Run System Setup When Home Menu is Launched</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2590,12 +2590,12 @@ Would you like to ignore the error and continue?</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_system.ui" line="415"/>
-        <source>Allow games to change plugin loader state</source>
+        <source>Allow Games to Change Plugin Loader State</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_system.ui" line="422"/>
-        <source>Download System Files from Nitendo servers</source>
+        <source>Download System Files from Nintendo Servers</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3562,7 +3562,7 @@ Drag points to change position, or double-click table cells to edit values.</sou
     </message>
     <message>
         <location filename="../../src/citra_qt/configuration/configure_ui.ui" line="194"/>
-        <source>Hide Titles without Icon</source>
+        <source>Hide Titles Without Icon</source>
         <translation>Paslėpti programas be paveikslėlio</translation>
     </message>
     <message>
@@ -4464,7 +4464,7 @@ To view a guide on how to install FFmpeg, press Help.</source>
     <message>
         <location filename="../../src/citra_qt/game_list.cpp" line="497"/>
         <location filename="../../src/citra_qt/game_list.cpp" line="868"/>
-        <source>File type</source>
+        <source>File Type</source>
         <translation>Failo tipas</translation>
     </message>
     <message>
@@ -6514,19 +6514,19 @@ They may have left the room.</source>
     <message>
         <location filename="../../src/citra_qt/debugger/ipc/record_dialog.ui" line="28"/>
         <location filename="../../src/citra_qt/debugger/ipc/record_dialog.ui" line="79"/>
-        <source>Process:</source>
+        <source>Process</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../../src/citra_qt/debugger/ipc/record_dialog.ui" line="42"/>
         <location filename="../../src/citra_qt/debugger/ipc/record_dialog.ui" line="93"/>
-        <source>Thread:</source>
+        <source>Thread</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../../src/citra_qt/debugger/ipc/record_dialog.ui" line="56"/>
         <location filename="../../src/citra_qt/debugger/ipc/record_dialog.ui" line="107"/>
-        <source>Session:</source>
+        <source>Session</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -6541,17 +6541,17 @@ They may have left the room.</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/debugger/ipc/record_dialog.ui" line="132"/>
-        <source>Client Port:</source>
+        <source>Client Port</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../../src/citra_qt/debugger/ipc/record_dialog.ui" line="146"/>
-        <source>Service:</source>
+        <source>Service</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../../src/citra_qt/debugger/ipc/record_dialog.ui" line="160"/>
-        <source>Function:</source>
+        <source>Function</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -6561,7 +6561,7 @@ They may have left the room.</source>
     </message>
     <message>
         <location filename="../../src/citra_qt/debugger/ipc/record_dialog.ui" line="185"/>
-        <source>Select:</source>
+        <source>Select</source>
         <translation type="unfinished"/>
     </message>
     <message>

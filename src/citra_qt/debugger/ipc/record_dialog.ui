@@ -25,7 +25,7 @@
         <item row="0" column="0">
          <widget class="QLabel">
           <property name="text">
-           <string>Process:</string>
+           <string>Process</string>
           </property>
          </widget>
         </item>
@@ -39,7 +39,7 @@
         <item row="1" column="0">
          <widget class="QLabel">
           <property name="text">
-           <string>Thread:</string>
+           <string>Thread</string>
           </property>
          </widget>
         </item>
@@ -53,7 +53,7 @@
         <item row="2" column="0">
          <widget class="QLabel">
           <property name="text">
-           <string>Session:</string>
+           <string>Session</string>
           </property>
          </widget>
         </item>
@@ -76,7 +76,7 @@
         <item row="0" column="0">
          <widget class="QLabel">
           <property name="text">
-           <string>Process:</string>
+           <string>Process</string>
           </property>
          </widget>
         </item>
@@ -90,7 +90,7 @@
         <item row="1" column="0">
          <widget class="QLabel">
           <property name="text">
-           <string>Thread:</string>
+           <string>Thread</string>
           </property>
          </widget>
         </item>
@@ -104,7 +104,7 @@
         <item row="2" column="0">
          <widget class="QLabel">
           <property name="text">
-           <string>Session:</string>
+           <string>Session</string>
           </property>
          </widget>
         </item>
@@ -129,7 +129,7 @@
       <item row="0" column="0">
        <widget class="QLabel">
         <property name="text">
-         <string>Client Port:</string>
+         <string>Client Port</string>
         </property>
        </widget>
       </item>
@@ -143,7 +143,7 @@
       <item row="1" column="0">
        <widget class="QLabel">
         <property name="text">
-         <string>Service:</string>
+         <string>Service</string>
         </property>
        </widget>
       </item>
@@ -157,7 +157,7 @@
       <item row="2" column="0">
        <widget class="QLabel">
         <property name="text">
-         <string>Function:</string>
+         <string>Function</string>
         </property>
        </widget>
       </item>
@@ -182,7 +182,7 @@
         <item>
          <widget class="QLabel">
           <property name="text">
-           <string>Select:</string>
+           <string>Select</string>
           </property>
          </widget>
         </item>

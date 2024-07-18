@@ -289,7 +289,7 @@ ConfigureSystem::ConfigureSystem(Core::System& system_, QWidget* parent)
         ui->button_start_download->setEnabled(true);
         ui->combo_download_set->setEnabled(true);
         ui->combo_download_region->setEnabled(true);
-        ui->label_nus_download->setText(tr("Download System Files from Nintendo servers"));
+        ui->label_nus_download->setText(tr("Download System Files from Nintendo Servers"));
     } else {
         ui->button_start_download->setEnabled(false);
         ui->combo_download_set->setEnabled(false);

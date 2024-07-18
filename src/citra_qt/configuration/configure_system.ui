@@ -52,14 +52,14 @@
             <item row="1" column="0">
              <widget class="QCheckBox" name="toggle_new_3ds">
               <property name="text">
-               <string>Enable New 3DS mode</string>
+               <string>Enable New 3DS Mode</string>
               </property>
              </widget>
             </item>
             <item row="2" column="0">
              <widget class="QCheckBox" name="toggle_lle_applets">
               <property name="text">
-               <string>Use LLE applets (if installed)</string>
+               <string>Use LLE Applets (if installed)</string>
               </property>
              </widget>
             </item>
@@ -238,7 +238,7 @@
             <item row="6" column="0">
              <widget class="QLabel" name="label_sound">
               <property name="text">
-               <string>Sound output mode</string>
+               <string>Sound Output Mode</string>
               </property>
              </widget>
             </item>
@@ -309,7 +309,7 @@
             <item row="9" column="0">
              <widget class="QLabel" name="label_init_time_offset">
               <property name="text">
-               <string>Offset time</string>
+               <string>Offset Time</string>
               </property>
              </widget>
             </item>
@@ -395,7 +395,7 @@
             <item row="13" column="1">
              <widget class="QCheckBox" name="toggle_system_setup">
               <property name="text">
-               <string>Run System Setup when Home Menu is launched</string>
+               <string>Run System Setup when Home Menu is Launched</string>
               </property>
              </widget>
             </item>
@@ -432,21 +432,21 @@
             <item row="15" column="1">
              <widget class="QCheckBox" name="plugin_loader">
               <property name="text">
-               <string>Enable 3GX plugin loader</string>
+               <string>Enable 3GX Plugin Loader</string>
               </property>
              </widget>
             </item>
             <item row="16" column="1">
              <widget class="QCheckBox" name="allow_plugin_loader">
               <property name="text">
-               <string>Allow games to change plugin loader state</string>
+               <string>Allow Games to Change Plugin Loader State</string>
               </property>
              </widget>
             </item>
             <item row="17" column="0">
              <widget class="QLabel" name="label_nus_download">
               <property name="text">
-               <string>Download System Files from Nitendo servers</string>
+               <string>Download System Files from Nintendo Servers</string>
               </property>
              </widget>
             </item>
