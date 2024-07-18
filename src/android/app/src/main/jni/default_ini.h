@@ -103,6 +103,15 @@ cpu_clock_percentage =
 # The applied frameskip amount. Must be a power of two.
 # 0 (default): No frameskip, 1: x2 frameskip, 2: x4 frameskip, 3: x8 frameskip, x16 frameskip.
 frame_skip =
+
+# Set a custom value of CPU ticks.
+# 0 (default): Off, 1: On
+enable_custom_cpu_ticks =
+
+# Downcount will be limited to a smaller time slice.
+# 0 (default): Off, 1: On
+reduce_downcount_slice =
+
 # Boost low priority starved threads during kernel rescheduling.
 # 0: Off, 1 (default): On
 priority_boost_starved_threads =
@@ -136,6 +145,10 @@ use_shader_jit =
 # so only turn this off if you notice a speed difference.
 # 0: Off, 1 (default): On
 use_vsync_new =
+
+# Increases graphics throughput on supported devices, improving performance.
+# 0 (default): Off, 1: On
+adreno_gpu_boost =
 
 # Reduce stuttering by storing and loading generated shaders to disk
 # 0: Off, 1 (default. On)
