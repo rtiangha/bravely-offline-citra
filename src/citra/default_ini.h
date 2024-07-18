@@ -97,6 +97,10 @@ use_cpu_jit =
 # Range is any positive integer (but we suspect 25 - 400 is a good idea) Default is 100
 cpu_clock_percentage =
 
+# The applied frameskip amount. Must be a power of two.
+# 0 (default): No frameskip, 1: x2 frameskip, 2: x4 frameskip, 3: x8 frameskip, etc.
+frame_skip =
+
 [Renderer]
 # Whether to render using OpenGL or Software
 # 0: Software, 1: OpenGL (default), 2: Vulkan

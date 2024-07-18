@@ -90,6 +90,58 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
+         <widget class="QWidget" name="widget_frame_skip" native="true">
+          <layout class="QHBoxLayout" name="frameskip_layout">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="frame_skip_label">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The number of frames to skip.&lt;/p&gt;&lt;p&gt;WARNING: Results may vary depending on using the Vulkan or OpenGL renderer. If set too high, the screen may not render at all. Use with caution.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Frame Skip</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="frame_skip_combobox">
+             <item>
+              <property name="text">
+               <string>Disabled</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>x2</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>x4</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>x8</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
          <widget class="QWidget" name="widget_region" native="true">
           <layout class="QHBoxLayout" name="region_layout">
            <property name="leftMargin">
@@ -326,6 +378,7 @@
   <tabstop>toggle_hide_mouse</tabstop>
   <tabstop>toggle_update_check</tabstop>
   <tabstop>toggle_auto_update</tabstop>
+  <tabstop>frame_skip_combobox</tabstop>
   <tabstop>button_reset_defaults</tabstop>
  </tabstops>
  <resources/>
