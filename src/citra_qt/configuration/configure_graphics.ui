@@ -219,7 +219,7 @@
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
        <widget class="QWidget" name="hw_renderer_group" native="true">
-        <layout class="QVBoxLayout" name="verticalLayout_5">
+        <layout class="QGridLayout" name="gridLayout_1">
          <property name="leftMargin">
           <number>0</number>
          </property>
@@ -232,7 +232,7 @@
          <property name="bottomMargin">
           <number>0</number>
          </property>
-         <item>
+         <item row="1" column="0">
           <widget class="QCheckBox" name="toggle_hw_shader">
            <property name="toolTip">
             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the selected graphics API to accelerate shader emulation.&lt;/p&gt;&lt;p&gt;Requires a relatively powerful GPU for better performance.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -242,9 +242,9 @@
            </property>
           </widget>
          </item>
-         <item>
+         <item row="2" column="0">
           <widget class="QWidget" name="hw_shader_group" native="true">
-           <layout class="QVBoxLayout" name="verticalLayout_6">
+           <layout class="QVBoxLayout" name="verticalLayout_5">
             <property name="leftMargin">
              <number>16</number>
             </property>
@@ -270,37 +270,37 @@
            </layout>
           </widget>
          </item>
+         <item row="1" column="1">
+          <widget class="QCheckBox" name="toggle_shader_jit">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the JIT engine instead of the interpreter for software shader emulation. &lt;/p&gt;&lt;p&gt;Enable this for better performance.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string>Enable Shader JIT</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QCheckBox" name="toggle_async_shaders">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Compile shaders using background threads to avoid shader compilation stutter. Expect temporary graphical glitches.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string>Enable Async Shader Compilation</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QCheckBox" name="toggle_async_present">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Perform presentation on separate threads. Improves performance when using Vulkan in most games.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string>Enable Async Presentation</string>
+           </property>
+          </widget>
+         </item>
         </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="toggle_shader_jit">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the JIT engine instead of the interpreter for software shader emulation. &lt;/p&gt;&lt;p&gt;Enable this for better performance.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>Enable Shader JIT</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="toggle_async_shaders">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Compile shaders using background threads to avoid shader compilation stutter. Expect temporary graphical glitches&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>Enable Async Shader Compilation</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="toggle_async_present">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Perform presentation on separate threads. Improves performance when using Vulkan in most games.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>Enable Async Presentation</string>
-        </property>
        </widget>
       </item>
      </layout>
@@ -411,7 +411,7 @@
             <item>
               <widget class="QLabel" name="label_delay_render">
                 <property name="text">
-                  <string>Delay game render thread:</string>
+                  <string>Delay Game Render Thread</string>
                 </property>
                 <property name="toolTip">
                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Delays the emulated game render thread the specified amount of milliseconds every time it submits render commands to the GPU.&lt;/p&gt;&lt;p&gt;Adjust this feature in the (very few) dynamic-fps games to fix performance issues.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -462,10 +462,10 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Tweaks</string>
+      <string>Graphics Hacks</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_8">
-      <item>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="1" column="0">
        <widget class="QCheckBox" name="toggle_force_hw_vertex_shaders">
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ignores software vertex shaders from PICA core. Enable this may lead a small performance boost, but may cause graphical bugs as well.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -475,7 +475,7 @@
         </property>
        </widget>
       </item>
-      <item>
+      <item row="1" column="1">
        <widget class="QCheckBox" name="toggle_disable_surface_texture_copy">
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ignores texture copies if src_surface_id is null. Enable this may lead a small performance boost, but may cause graphical bugs as well.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -485,7 +485,7 @@
         </property>
        </widget>
       </item>
-      <item>
+      <item row="1" column="2">
        <widget class="QCheckBox" name="toggle_disable_flush_cpu_write">
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ignores CPU write if there is a region to invalidate from rasterizer cache. Enable this may lead a small performance boost, but may cause graphical bugs as well.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
