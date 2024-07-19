@@ -5,7 +5,7 @@ Set of SPIRV-Tools library headers. Keeps clone size low.
 ## Base Library
 
 * SPIRV-Tools
-  * Tag Version: `v2024.2.rc1`
+  * Tag Version: `v2024.3`
   * Source: [https://github.com/KhronosGroup/SPIRV-Tools](https://github.com/KhronosGroup/SPIRV-Tools)
 
 ## Updating
