@@ -22,13 +22,13 @@
   <property name="accessibleName">
    <string>Graphics</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_1">
    <item>
     <widget class="QGroupBox" name="apiBox">
      <property name="title">
       <string>API Settings</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <widget class="QWidget" name="graphics_api_group" native="true">
         <layout class="QHBoxLayout" name="graphics_api_group_2">
@@ -136,6 +136,78 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QGroupBox" name="widget_optimize_spirv">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="title">
+         <string>SPIR-V Shader Optimization</string>
+        </property>
+        <layout class="QHBoxLayout" name="verticalLayout_3">
+         <item> 
+          <layout class="QHBoxLayout" name="horizontalLayout_1">
+           <item>
+            <widget class="QLabel" name="label_optimize_spirv">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Performs various optimizations on SPIR-V modules to improve performance and reduce size.&lt;/p&gt;&lt;p&gt;Make sure to empty the shader cache in the Citra folder before changing optimization level. The Citra folder can be accessed through the File menu.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+               <string>Choose an Optimization Level</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="optimize_spirv_combobox">
+             <item>
+              <property name="text">
+                  <string>Disabled</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+                  <string>Performance</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+                  <string>Size</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QCheckBox" name="toggle_spirv_validation">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Activate SPIR-V output validation. The validator checks validation rules described by the SPIR-V specification.&lt;/p&gt;&lt;p&gt;Ensures that outputs are valid and protects from bad inputs. Useful for debugging.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Enable SPIR-V Validation</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="toggle_spirv_legalization">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Activate SPIR-V output legalization. Legalizes the SPIR-V code for Vulkan. Primarily used for HLSL shaders.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Enable SPIR-V Legalization</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -144,7 +216,7 @@
      <property name="title">
       <string>Renderer</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_6">
+     <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
        <widget class="QWidget" name="hw_renderer_group" native="true">
         <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -172,7 +244,7 @@
          </item>
          <item>
           <widget class="QWidget" name="hw_shader_group" native="true">
-           <layout class="QVBoxLayout" name="verticalLayout_7">
+           <layout class="QVBoxLayout" name="verticalLayout_6">
             <property name="leftMargin">
              <number>16</number>
             </property>
@@ -239,10 +311,10 @@
      <property name="title">
       <string>Advanced</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <layout class="QVBoxLayout" name="verticalLayout_7">
       <item>
        <widget class="QWidget" name="widget_texture_sampling" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
          <property name="leftMargin">
           <number>0</number>
          </property>
@@ -392,7 +464,7 @@
      <property name="title">
       <string>Tweaks</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_4">
+     <layout class="QVBoxLayout" name="verticalLayout_8">
       <item>
        <widget class="QCheckBox" name="toggle_force_hw_vertex_shaders">
         <property name="toolTip">

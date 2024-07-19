@@ -168,6 +168,22 @@ disable_surface_texture_copy =
 # 0: Off, 1 (default): On
 disable_flush_cpu_write =
 
+# SPIR-V Shader Generation
+# 0: Disabled, 1: Enabled
+spirv_shader_gen =
+
+# SPIR-V Optimization
+# 0: Disabled, 2: Performance, 3: Size
+optimize_spirv_output =
+
+# SPIR-V Validation
+# 0: Disabled, 1: Enabled
+spirv_output_validation =
+
+# SPIR-V Legalization
+# 0: Disabled, 1: Enabled
+spirv_output_legalization =
+
 # Limits the speed of the game to run no faster than this value as a percentage of target speed.
 # Will not have an effect if unthrottled is enabled.
 # 5 - 995: Speed limit as a percentage of target game speed. 0 for unthrottled. 100 (default)

@@ -45,6 +45,9 @@ private:
     ConfigurationShared::CheckState force_hw_vertex_shaders;
     ConfigurationShared::CheckState disable_surface_texture_copy;
     ConfigurationShared::CheckState disable_flush_cpu_write;
+    ConfigurationShared::CheckState optimize_spirv_output;
+    ConfigurationShared::CheckState spirv_output_validation;
+    ConfigurationShared::CheckState spirv_output_legalization;
     std::unique_ptr<Ui::ConfigureGraphics> ui;
     QColor bg_color;
 };
