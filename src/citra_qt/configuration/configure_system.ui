@@ -174,7 +174,7 @@
             <item row="5" column="1">
              <widget class="QComboBox" name="combo_language">
               <property name="toolTip">
-               <string>Note: this can be overridden when region setting is auto-select</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Note: This can be overridden when region setting is auto-select.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <item>
                <property name="text">
@@ -405,7 +405,7 @@
             <item row="14" column="0">
              <widget class="QLabel" name="label_console_id">
               <property name="text">
-               <string>Console ID:</string>
+               <string>Console ID</string>
               </property>
              </widget>
             </item>
@@ -428,7 +428,7 @@
             <item row="15" column="0">
              <widget class="QLabel" name="label_plugin_loader">
               <property name="text">
-               <string>3GX Plugin Loader:</string>
+               <string>3GX Plugin Loader</string>
               </property>
              </widget>
             </item>
