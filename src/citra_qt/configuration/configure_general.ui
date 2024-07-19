@@ -21,32 +21,32 @@
        <property name="title">
         <string>General</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_5">
-        <item>
+       <layout class="QGridLayout" name="gridLayout_1">
+        <item row="1" column="0">
          <widget class="QCheckBox" name="toggle_check_exit">
           <property name="text">
-           <string>Confirm exit while emulation is running</string>
+           <string>Confirm Exit While Emulation is Running</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="2" column="0">
          <widget class="QCheckBox" name="toggle_background_pause">
           <property name="text">
-           <string>Pause emulation when in background</string>
+           <string>Pause Emulation When in Background</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="1" column="1">
          <widget class="QCheckBox" name="toggle_background_mute">
           <property name="text">
-           <string>Mute audio when in background</string>
+           <string>Mute Audio When in Background</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="2" column="1">
          <widget class="QCheckBox" name="toggle_hide_mouse">
           <property name="text">
-           <string>Hide mouse on inactivity</string>
+           <string>Hide Mouse on Inactivity</string>
           </property>
          </widget>
         </item>
@@ -324,7 +324,7 @@
        <property name="title">
         <string>Screenshots</string>
        </property>
-       <layout class="QGridLayout" name="gridLayout">
+       <layout class="QGridLayout" name="gridLayout_2">
         <property name="verticalSpacing">
          <number>0</number>
         </property>
