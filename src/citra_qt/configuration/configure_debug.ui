@@ -219,14 +219,14 @@
       <item row="3" column="0">
        <widget class="QCheckBox" name="toggle_renderer_debug">
         <property name="text">
-         <string>Enable debug renderer</string>
+         <string>Enable Debug Renderer</string>
         </property>
        </widget>
       </item>
       <item row="4" column="0">
        <widget class="QCheckBox" name="toggle_dump_command_buffers">
         <property name="text">
-         <string>Dump command buffers</string>
+         <string>Dump Command Buffers</string>
         </property>
        </widget>
       </item>
@@ -236,7 +236,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_5">
      <property name="title">
-      <string>Core</string>
+      <string>Core Hacks</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
       <item row="1" column="0">
@@ -249,7 +249,7 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
+      <item row="1" column="1">
        <widget class="QCheckBox" name="toggle_priority_boost_starved_threads">
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Boost low priority starved threads during kernel rescheduling. This may improve the performance.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -274,7 +274,7 @@
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Introduces a delay to the first ever launched app thread if LLE modules are enabled, to allow them to initialize.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="text">
-                <string>Delay app start for LLE module initialization</string>
+                <string>Delay App Start for LLE Module Initialization</string>
               </property>
             </widget>
           </item>
@@ -284,7 +284,7 @@
    <item>
     <widget class="QLabel" name="label_cpu_clock_info">
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;CPU Clock Speed Information&lt;br/&gt;Underclocking can increase performance but may cause the game to freeze.&lt;br/&gt;Overclocking may reduce in game lag but also might cause freezes&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;CPU Clock Speed Information&lt;/p&gt;&lt;p&gt;Underclocking can increase performance but may cause the game to freeze.&lt;br/&gt;Overclocking may reduce in game lag but also might cause freezes&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::RichText</enum>
