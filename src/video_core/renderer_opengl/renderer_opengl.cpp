@@ -3,7 +3,7 @@
 // Refer to the license.txt file included.
 
 #include "common/logging/log.h"
-#include "common/microprofile.h"
+#include "common/profiling.h"
 #include "common/settings.h"
 #include "core/core.h"
 #include "core/frontend/emu_window.h"
@@ -23,9 +23,6 @@
 #include "video_core/host_shaders/opengl_present_vert.h"
 
 namespace OpenGL {
-
-MICROPROFILE_DEFINE(OpenGL_RenderFrame, "OpenGL", "Render Frame", MP_RGB(128, 128, 64));
-MICROPROFILE_DEFINE(OpenGL_WaitPresent, "OpenGL", "Wait For Present", MP_RGB(128, 128, 128));
 
 /**
  * Vertex structure that the drawn screen rectangles are composed of.
@@ -183,7 +180,7 @@ void RendererOpenGL::RenderToMailbox(const Layout::FramebufferLayout& layout,
 
     Frontend::Frame* frame;
     {
-        MICROPROFILE_SCOPE(OpenGL_WaitPresent);
+        CITRA_PROFILE("OpenGL", "Wait For Present");
 
         frame = mailbox->GetRenderFrame();
 
@@ -210,7 +207,7 @@ void RendererOpenGL::RenderToMailbox(const Layout::FramebufferLayout& layout,
     }
 
     {
-        MICROPROFILE_SCOPE(OpenGL_RenderFrame);
+        CITRA_PROFILE("OpenGL", "Render Frame");
         // Recreate the frame if the size of the window has changed
         if (layout.width != frame->width || layout.height != frame->height) {
             LOG_DEBUG(Render_OpenGL, "Reloading render frame");
