@@ -188,7 +188,7 @@ std::vector<u32> OptimizeSPIRV(std::vector<u32> code) {
 
 #ifdef OPTIMIZE_SPIRV
     std::vector<u32> spirv = code;
-    spvtools::Optimizer spv_opt(SPV_ENV_VULKAN_1_3);
+    spvtools::Optimizer spv_opt(SPV_ENV_VULKAN_1_1);
     spv_opt.SetMessageConsumer([](spv_message_level_t, const char*, const spv_position_t&,
                                   const char* m) { LOG_ERROR(HW_GPU, "spirv-opt: {}", m); });
 
