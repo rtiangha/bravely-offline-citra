@@ -175,24 +175,14 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
         settingsActivity.setToolbarTitle(settingsActivity.getString(R.string.preferences_general))
         sl.apply {
             add(
-                SwitchSetting(
-                    IntSetting.ENABLE_CUSTOM_CPU_TICKS,
-                    R.string.enable_custom_cpu_ticks,
-                    R.string.enable_custom_cpu_ticks_description,
-                    IntSetting.ENABLE_CUSTOM_CPU_TICKS.key,
-                    IntSetting.ENABLE_CUSTOM_CPU_TICKS.defaultValue
-                )
-            )
-            add(
-                SliderSetting(
-                    IntSetting.CUSTOM_CPU_TICKS,
-                    R.string.custom_cpu_ticks,
-                    0,
-                    77,
-                    65535,
-                    "",
-                    IntSetting.CUSTOM_CPU_TICKS.key,
-                    IntSetting.CUSTOM_CPU_TICKS.defaultValue.toFloat()
+                SingleChoiceSetting(
+                    IntSetting.FRAME_SKIP,
+                    R.string.frame_skip_name,
+                    R.string.frame_skip_description,
+                    R.array.frameSkipNames,
+                    R.array.frameSkipValues,
+                    IntSetting.FRAME_SKIP.key,
+                    IntSetting.FRAME_SKIP.defaultValue
                 )
             )
             add(
@@ -217,14 +207,24 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                 )
             )
             add(
-                SingleChoiceSetting(
-                    IntSetting.FRAME_SKIP,
-                    R.string.frame_skip_name,
-                    R.string.frame_skip_description,
-                    R.array.frameSkipNames,
-                    R.array.frameSkipValues,
-                    IntSetting.FRAME_SKIP.key,
-                    IntSetting.FRAME_SKIP.defaultValue
+                SwitchSetting(
+                    IntSetting.ENABLE_CUSTOM_CPU_TICKS,
+                    R.string.enable_custom_cpu_ticks,
+                    R.string.enable_custom_cpu_ticks_description,
+                    IntSetting.ENABLE_CUSTOM_CPU_TICKS.key,
+                    IntSetting.ENABLE_CUSTOM_CPU_TICKS.defaultValue
+                )
+            )
+            add(
+                SliderSetting(
+                    IntSetting.CUSTOM_CPU_TICKS,
+                    R.string.custom_cpu_ticks,
+                    0,
+                    77,
+                    65535,
+                    "",
+                    IntSetting.CUSTOM_CPU_TICKS.key,
+                    IntSetting.CUSTOM_CPU_TICKS.defaultValue.toFloat()
                 )
             )
         }
