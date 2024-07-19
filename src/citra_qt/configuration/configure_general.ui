@@ -102,13 +102,6 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Ticks:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QSpinBox" name="custom_cpu_ticks_spinbox">
             <property name="minimum">
               <number>77</number>
