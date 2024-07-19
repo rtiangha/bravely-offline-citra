@@ -39,11 +39,18 @@ enum class IntSetting(
     CPU_JIT("use_cpu_jit", Settings.SECTION_CORE, 1),
     HW_SHADER("use_hw_shader", Settings.SECTION_RENDERER, 1),
     VSYNC("use_vsync_new", Settings.SECTION_RENDERER, 1),
+    REDUCE_DOWNCOUNT_SLICE("reduce_downcount_slice", Settings.SECTION_CORE, 0),
+    PRIORITY_BOOST_STARVED_THREADS("priority_boost_starved_threads", Settings.SECTION_CORE, 1),
     DEBUG_RENDERER("renderer_debug", Settings.SECTION_DEBUG, 0),
     TEXTURE_FILTER("texture_filter", Settings.SECTION_RENDERER, 0),
     FRAME_SKIP("frame_skip", Settings.SECTION_CORE, 0),
+    ENABLE_CUSTOM_CPU_TICKS("enable_custom_cpu_ticks", Settings.SECTION_CORE, 0),
+    CUSTOM_CPU_TICKS("custom_cpu_ticks", Settings.SECTION_CORE, 16000),
     USE_FRAME_LIMIT("use_frame_limit", Settings.SECTION_RENDERER, 1),
     DELAY_RENDER_THREAD_US("delay_game_render_thread_us", Settings.SECTION_RENDERER, 0),
+    FORCE_HW_VERTEX_SHADERS("force_hw_vertex_shaders", Settings.SECTION_RENDERER, 0),
+    DISABLE_SURFACE_TEXTURE_COPY("disable_surface_texture_copy", Settings.SECTION_RENDERER, 0),
+    DISABLE_FLUSH_CPU_WRITE("disable_flush_cpu_write", Settings.SECTION_RENDERER, 0),
     USE_ARTIC_BASE_CONTROLLER("use_artic_base_controller", Settings.SECTION_CONTROLS, 0);
 
     override var int: Int = defaultValue
@@ -69,6 +76,7 @@ enum class IntSetting(
             LLE_APPLETS,
             GRAPHICS_API,
             VSYNC,
+            REDUCE_DOWNCOUNT_SLICE,
             DEBUG_RENDERER,
             CPU_JIT,
             ASYNC_CUSTOM_LOADING,

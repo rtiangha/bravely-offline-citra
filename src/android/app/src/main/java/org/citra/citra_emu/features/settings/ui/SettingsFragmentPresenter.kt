@@ -175,6 +175,17 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
         settingsActivity.setToolbarTitle(settingsActivity.getString(R.string.preferences_general))
         sl.apply {
             add(
+                SingleChoiceSetting(
+                    IntSetting.FRAME_SKIP,
+                    R.string.frame_skip_name,
+                    R.string.frame_skip_description,
+                    R.array.frameSkipNames,
+                    R.array.frameSkipValues,
+                    IntSetting.FRAME_SKIP.key,
+                    IntSetting.FRAME_SKIP.defaultValue
+                )
+            )
+            add(
                 SwitchSetting(
                     IntSetting.USE_FRAME_LIMIT,
                     R.string.frame_limit_enable,
@@ -196,14 +207,24 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                 )
             )
             add(
-                SingleChoiceSetting(
-                    IntSetting.FRAME_SKIP,
-                    R.string.frame_skip_name,
-                    R.string.frame_skip_description,
-                    R.array.frameSkipNames,
-                    R.array.frameSkipValues,
-                    IntSetting.FRAME_SKIP.key,
-                    IntSetting.FRAME_SKIP.defaultValue
+                SwitchSetting(
+                    IntSetting.ENABLE_CUSTOM_CPU_TICKS,
+                    R.string.enable_custom_cpu_ticks,
+                    R.string.enable_custom_cpu_ticks_description,
+                    IntSetting.ENABLE_CUSTOM_CPU_TICKS.key,
+                    IntSetting.ENABLE_CUSTOM_CPU_TICKS.defaultValue
+                )
+            )
+            add(
+                SliderSetting(
+                    IntSetting.CUSTOM_CPU_TICKS,
+                    R.string.custom_cpu_ticks,
+                    0,
+                    77,
+                    65535,
+                    "",
+                    IntSetting.CUSTOM_CPU_TICKS.key,
+                    IntSetting.CUSTOM_CPU_TICKS.defaultValue.toFloat()
                 )
             )
         }
@@ -781,6 +802,35 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                 )
             )
 
+            add(HeaderSetting(R.string.tweaks))
+            add(
+                SwitchSetting(
+                    IntSetting.FORCE_HW_VERTEX_SHADERS,
+                    R.string.force_hw_vertex_shaders,
+                    R.string.force_hw_vertex_shaders_description,
+                    IntSetting.FORCE_HW_VERTEX_SHADERS.key,
+                    IntSetting.FORCE_HW_VERTEX_SHADERS.defaultValue
+                )
+            )
+            add(
+                SwitchSetting(
+                    IntSetting.DISABLE_SURFACE_TEXTURE_COPY,
+                    R.string.disable_surface_texture_copy,
+                    R.string.disable_surface_texture_copy_description,
+                    IntSetting.DISABLE_SURFACE_TEXTURE_COPY.key,
+                    IntSetting.DISABLE_SURFACE_TEXTURE_COPY.defaultValue
+                )
+            )
+            add(
+                SwitchSetting(
+                    IntSetting.DISABLE_FLUSH_CPU_WRITE,
+                    R.string.disable_flush_cpu_write,
+                    R.string.disable_flush_cpu_write_description,
+                    IntSetting.DISABLE_FLUSH_CPU_WRITE.key,
+                    IntSetting.DISABLE_FLUSH_CPU_WRITE.defaultValue
+                )
+            )
+
             add(HeaderSetting(R.string.stereoscopy))
             add(
                 SingleChoiceSetting(
@@ -1022,6 +1072,26 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     R.string.renderer_debug_description,
                     IntSetting.DEBUG_RENDERER.key,
                     IntSetting.DEBUG_RENDERER.defaultValue
+                )
+            )
+
+            add(HeaderSetting(R.string.miscellaneous))
+            add(
+                SwitchSetting(
+                    IntSetting.REDUCE_DOWNCOUNT_SLICE,
+                    R.string.reduce_downcount_slice,
+                    R.string.reduce_downcount_slice_description,
+                    IntSetting.REDUCE_DOWNCOUNT_SLICE.key,
+                    IntSetting.REDUCE_DOWNCOUNT_SLICE.defaultValue
+                )
+            )
+            add(
+                SwitchSetting(
+                    IntSetting.PRIORITY_BOOST_STARVED_THREADS,
+                    R.string.priority_boost_starved_threads,
+                    R.string.priority_boost_starved_threads_description,
+                    IntSetting.PRIORITY_BOOST_STARVED_THREADS.key,
+                    IntSetting.PRIORITY_BOOST_STARVED_THREADS.defaultValue
                 )
             )
         }

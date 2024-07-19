@@ -458,6 +458,10 @@ void Config::ReadCoreValues() {
 
     ReadGlobalSetting(Settings::values.cpu_clock_percentage);
     ReadGlobalSetting(Settings::values.frame_skip);
+    ReadGlobalSetting(Settings::values.enable_custom_cpu_ticks);
+    ReadGlobalSetting(Settings::values.custom_cpu_ticks);
+    ReadGlobalSetting(Settings::values.reduce_downcount_slice);
+    ReadGlobalSetting(Settings::values.priority_boost_starved_threads);
 
     if (global) {
         ReadBasicSetting(Settings::values.use_cpu_jit);
@@ -693,6 +697,10 @@ void Config::ReadRendererValues() {
     ReadGlobalSetting(Settings::values.texture_sampling);
 
     ReadGlobalSetting(Settings::values.delay_game_render_thread_us);
+
+    ReadGlobalSetting(Settings::values.force_hw_vertex_shaders);
+    ReadGlobalSetting(Settings::values.disable_surface_texture_copy);
+    ReadGlobalSetting(Settings::values.disable_flush_cpu_write);
 
     if (global) {
         ReadBasicSetting(Settings::values.use_shader_jit);
@@ -1033,6 +1041,10 @@ void Config::SaveCoreValues() {
 
     WriteGlobalSetting(Settings::values.cpu_clock_percentage);
     WriteGlobalSetting(Settings::values.frame_skip);
+    WriteGlobalSetting(Settings::values.enable_custom_cpu_ticks);
+    WriteGlobalSetting(Settings::values.custom_cpu_ticks);
+    WriteGlobalSetting(Settings::values.reduce_downcount_slice);
+    WriteGlobalSetting(Settings::values.priority_boost_starved_threads);
 
     if (global) {
         WriteBasicSetting(Settings::values.use_cpu_jit);
@@ -1230,6 +1242,10 @@ void Config::SaveRendererValues() {
     WriteGlobalSetting(Settings::values.texture_sampling);
 
     WriteGlobalSetting(Settings::values.delay_game_render_thread_us);
+
+    WriteGlobalSetting(Settings::values.force_hw_vertex_shaders);
+    WriteGlobalSetting(Settings::values.disable_surface_texture_copy);
+    WriteGlobalSetting(Settings::values.disable_flush_cpu_write);
 
     if (global) {
         WriteSetting(QStringLiteral("use_shader_jit"), Settings::values.use_shader_jit.GetValue(),

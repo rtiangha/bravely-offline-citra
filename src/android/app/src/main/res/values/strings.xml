@@ -222,10 +222,23 @@
     <string name="renderer_debug_description">Log additional graphics related debug information. When enabled, game performance will be significantly reduced.</string>
     <string name="vsync">Enable V-Sync</string>
     <string name="vsync_description">Synchronizes the game frame rate to the refresh rate of your device.</string>
+    <string name="reduce_downcount_slice">Reduce Downcount Slice</string>
+    <string name="reduce_downcount_slice_description">Reduces core timing downcount to a smaller time slice, reducing CPU usage. This may improve the performance for GPU heavy games, but if the game is CPU hungry, it may cause a performance hit.</string>
+    <string name="priority_boost_starved_threads">Priority Boost Starved Threads</string>
+    <string name="priority_boost_starved_threads_description">Boost low priority starved threads during kernel rescheduling. This may improve the performance.</string>
     <string name="linear_filtering">Linear Filtering</string>
     <string name="linear_filtering_description">Enables linear filtering, which causes game visuals to appear smoother.</string>
     <string name="texture_filter_name">Texture Filter</string>
     <string name="texture_filter_description">Enhances the visuals of games by applying a filter to textures. The supported filters are Anime4K Ultrafast, Bicubic, ScaleForce, and xBRZ freescale.</string>
+    <string name="delay_render_thread">Delay game render thread</string>
+    <string name="delay_render_thread_description">Delay the game render thread when it submits data to the GPU. Helps with performance issues in the (very few) dynamic-fps games.</string>
+    <string name="tweaks">Tweaks</string>
+    <string name="force_hw_vertex_shaders">Force Hardware Vertex Shaders</string>
+    <string name="force_hw_vertex_shaders_description">Ignores software vertex shaders from PICA core. Enable this may lead a small performance boost, but may cause graphical bugs as well.</string>
+    <string name="disable_surface_texture_copy">Disable Surface Texture Copy</string>
+    <string name="disable_surface_texture_copy_description">Ignores texture copies if src_surface_id is null. Enable this may lead a small performance boost, but may cause graphical bugs as well.</string>
+    <string name="disable_flush_cpu_write">Disable Flush CPU Write</string>
+    <string name="disable_flush_cpu_write_description">Ignores CPU write if there is a region to invalidate from rasterizer cache. Enable this may lead a small performance boost, but may cause graphical bugs as well.</string>
     <string name="hw_shaders">Enable Hardware Shader</string>
     <string name="hw_shaders_description">Uses hardware to emulate 3DS shaders. When enabled, game performance will be significantly improved.</string>
     <string name="shaders_accurate_mul">Accurate Multiplication</string>
@@ -234,6 +247,9 @@
     <string name="asynchronous_gpu_description">Uses a separate thread to emulate the GPU asynchronously. When enabled, performance will be improved.</string>
     <string name="frame_skip_name">Frame Skip</string>
     <string name="frame_skip_description">The number of frames to skip. It may cause emulation desynchronization issues. May not work well with Realtime Audio enabled.</string>
+    <string name="enable_custom_cpu_ticks">Enable Custom CPU Ticks</string>
+    <string name="enable_custom_cpu_ticks_description">Set a custom value of CPU ticks. Higher values can increase performance but if they\'re too high, it may cause the game to freeze. A range of 77-21000 is recommended.</string>
+    <string name="custom_cpu_ticks">Ticks</string>
     <string name="frame_limit_enable">Limit Speed</string>
     <string name="frame_limit_enable_description">When enabled, emulation speed will be limited to a specified percentage of normal speed.</string>
     <string name="frame_limit_slider">Limit Speed Percent</string>
@@ -726,8 +742,6 @@
     <string name="artic_base_connect_description">Connect to a real console that is running an Artic Base server</string>
     <string name="artic_base_connect">Connect to Artic Base</string>
     <string name="artic_base_enter_address">Enter Artic Base server address</string>
-    <string name="delay_render_thread">Delay game render thread</string>
-    <string name="delay_render_thread_description">Delay the game render thread when it submits data to the GPU. Helps with performance issues in the (very few) dynamic-fps games.</string>
 
     <!-- Quickload&Save-->
     <string name="emulation_quicksave_slot">Quicksave</string>

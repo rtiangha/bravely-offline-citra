@@ -101,6 +101,18 @@ cpu_clock_percentage =
 # 0 (default): No frameskip, 1: x2 frameskip, 2: x4 frameskip, 3: x8 frameskip, x16 frameskip.
 frame_skip =
 
+# Set a custom value of CPU ticks.
+# 0 (default): Off, 1: On
+enable_custom_cpu_ticks =
+
+# Downcount will be limited to a smaller time slice.
+# 0 (default): Off, 1: On
+reduce_downcount_slice =
+
+# Boost low priority starved threads during kernel rescheduling.
+# 0: Off, 1 (default): On
+priority_boost_starved_threads =
+
 [Renderer]
 # Whether to render using OpenGL or Software
 # 0: Software, 1: OpenGL (default), 2: Vulkan
@@ -139,6 +151,22 @@ resolution_factor =
 # Texture filter
 # 0: None, 1: Anime4K, 2: Bicubic, 3: Nearest Neighbor, 4: ScaleForce, 5: xBRZ
 texture_filter =
+
+# Delays the game render thread by the specified amount of microseconds
+# Set to 0 for no delay, only useful in dynamic-fps games to simulate GPU delay.
+delay_game_render_thread_us =
+
+# Ignores software vertex shaders from PICA core
+# 0: Off, 1 (default): On
+force_hw_vertex_shaders =
+
+# Ignores texture copies if src_surface_id is null
+# 0: Off, 1 (default): On
+disable_surface_texture_copy =
+
+# Ignores CPU write if there is a region to invalidate from rasterizer cache
+# 0: Off, 1 (default): On
+disable_flush_cpu_write =
 
 # Limits the speed of the game to run no faster than this value as a percentage of target speed.
 # Will not have an effect if unthrottled is enabled.

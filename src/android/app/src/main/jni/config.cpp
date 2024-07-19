@@ -134,6 +134,10 @@ void Config::ReadValues() {
     ReadSetting("Core", Settings::values.use_cpu_jit);
     ReadSetting("Core", Settings::values.cpu_clock_percentage);
     ReadSetting("Core", Settings::values.frame_skip);
+    ReadSetting("Core", Settings::values.enable_custom_cpu_ticks);
+    ReadSetting("Core", Settings::values.custom_cpu_ticks);
+    ReadSetting("Core", Settings::values.reduce_downcount_slice);
+    ReadSetting("Core", Settings::values.priority_boost_starved_threads);
 
     // Renderer
     Settings::values.use_gles = sdl2_config->GetBoolean("Renderer", "use_gles", true);
@@ -173,6 +177,9 @@ void Config::ReadValues() {
     ReadSetting("Renderer", Settings::values.bg_green);
     ReadSetting("Renderer", Settings::values.bg_blue);
     ReadSetting("Renderer", Settings::values.delay_game_render_thread_us);
+    ReadSetting("Renderer", Settings::values.force_hw_vertex_shaders);
+    ReadSetting("Renderer", Settings::values.disable_surface_texture_copy);
+    ReadSetting("Renderer", Settings::values.disable_flush_cpu_write);
 
     // Layout
     Settings::values.layout_option = static_cast<Settings::LayoutOption>(sdl2_config->GetInteger(
