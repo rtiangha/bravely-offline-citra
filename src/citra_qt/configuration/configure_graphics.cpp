@@ -319,8 +319,6 @@ void ConfigureGraphics::SetupPerGameUI() {
     ConfigurationShared::SetColoredTristate(ui->toggle_disable_flush_cpu_write,
                                             Settings::values.disable_flush_cpu_write,
                                             disable_flush_cpu_write);
-    ConfigurationShared::SetColoredTristate(
-        ui->optimize_spirv_output, Settings::values.optimize_spirv_output, optimize_spirv_output);
     ConfigurationShared::SetColoredTristate(ui->toggle_spirv_validation,
                                             Settings::values.spirv_output_validation,
                                             spirv_output_validation);
