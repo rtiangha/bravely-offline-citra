@@ -25,7 +25,7 @@
         <item>
          <widget class="QLabel" name="camera_selection_label">
           <property name="toolTip">
-           <string>Select the camera to configure</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the camera to configure.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string>Camera to Configure</string>
@@ -35,7 +35,7 @@
         <item>
          <widget class="QComboBox" name="camera_selection">
           <property name="toolTip">
-           <string>Select the camera to configure</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the camera to configure.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <item>
            <property name="text">
@@ -56,7 +56,7 @@
         <item>
          <widget class="QLabel" name="camera_mode_label">
           <property name="toolTip">
-           <string>Select the camera mode (single or double)</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the camera mode (single or double).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string>Camera Mode</string>
@@ -66,7 +66,7 @@
         <item>
          <widget class="QComboBox" name="camera_mode">
           <property name="toolTip">
-           <string>Select the camera mode (single or double)</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the camera mode (single or double).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <item>
            <property name="text">
@@ -87,7 +87,7 @@
         <item>
          <widget class="QLabel" name="camera_position_label">
           <property name="toolTip">
-           <string>Select the position of camera to configure</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the position of camera to configure.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string>Camera Position</string>
@@ -97,7 +97,7 @@
         <item>
          <widget class="QComboBox" name="camera_position">
           <property name="toolTip">
-           <string>Select the position of camera to configure</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the position of camera to configure.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <item>
            <property name="text">
@@ -127,7 +127,7 @@
         <item>
          <widget class="QLabel" name="image_source_label">
           <property name="toolTip">
-           <string>Select where the image of the emulated camera comes from. It may be an image or a real camera.</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select where the image of the emulated camera comes from. It may be an image or a real camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string>Camera Image Source</string>
@@ -137,7 +137,7 @@
         <item>
          <widget class="QComboBox" name="image_source">
           <property name="toolTip">
-           <string>Select where the image of the emulated camera comes from. It may be an image or a real camera.</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select where the image of the emulated camera comes from. It may be an image or a real camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <item>
            <property name="text">
@@ -187,7 +187,7 @@
         <item>
          <widget class="QLabel" name="system_camera_label">
           <property name="toolTip">
-           <string>Select the system camera to use</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the system camera to use.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>
@@ -212,7 +212,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>Select the system camera to use</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the system camera to use.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <item>
            <property name="text">
@@ -228,7 +228,7 @@
         <item>
          <widget class="QLabel" name="camera_flip_label">
           <property name="toolTip">
-           <string>Select the image flip to apply</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the image flip to apply.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>
@@ -256,7 +256,7 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>Select the image flip to apply</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the image flip to apply.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <item>
            <property name="text">
@@ -285,7 +285,7 @@
       <item>
        <widget class="QCheckBox" name="prompt_before_load">
         <property name="toolTip">
-         <string>Select an image file every time before the camera is loaded</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select an image file every time before the camera is loaded.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
          <string>Prompt before load</string>
