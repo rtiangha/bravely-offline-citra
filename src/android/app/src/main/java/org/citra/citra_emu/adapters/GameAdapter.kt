@@ -89,7 +89,7 @@ class GameAdapter(private val activity: AppCompatActivity, private val inflater:
     }
 
     /**
-     * Opens the GameAboutDialog for the game that was clicked on.
+     * Opens the about game dialog for the game that was clicked on.
      *
      * @param view The view representing the game the user wants to play.
      */
@@ -105,7 +105,7 @@ class GameAdapter(private val activity: AppCompatActivity, private val inflater:
                 .setPositiveButton(android.R.string.ok, null)
                 .show()
         } else {
-            showGameAboutDialog(context, holder.game, holder, view)
+            showAboutGameDialog(context, holder.game, holder, view)
         }
         return true
     }
@@ -194,9 +194,9 @@ class GameAdapter(private val activity: AppCompatActivity, private val inflater:
         }
     }
 
-    private fun showGameAboutDialog(context: Context, game: Game, holder: GameViewHolder, view: View) {
+    private fun showAboutGameDialog(context: Context, game: Game, holder: GameViewHolder, view: View) {
         val bottomSheetView = inflater.inflate(R.layout.game_about_dialog, null)
-        
+
         val bottomSheetDialog = BottomSheetDialog(context)
         bottomSheetDialog.setContentView(bottomSheetView)
 
@@ -211,10 +211,10 @@ class GameAdapter(private val activity: AppCompatActivity, private val inflater:
 
         bottomSheetView.findViewById<MaterialButton>(R.id.game_settings).setOnClickListener {
             SettingsActivity.launch(
-                        context,
-                        SettingsFile.FILE_NAME_CONFIG,
-                        ""
-                    )
+                context,
+                SettingsFile.FILE_NAME_CONFIG,
+                ""
+            )
         }
 
         bottomSheetView.findViewById<MaterialButton>(R.id.cheats).setOnClickListener {
@@ -222,7 +222,7 @@ class GameAdapter(private val activity: AppCompatActivity, private val inflater:
             view.findNavController().navigate(action)
             bottomSheetDialog.dismiss()
         }
-        
+
         bottomSheetDialog.show()
     }
 
