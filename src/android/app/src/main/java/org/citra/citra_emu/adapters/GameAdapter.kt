@@ -38,7 +38,7 @@ import org.citra.citra_emu.model.Game
 import org.citra.citra_emu.utils.GameIconUtils
 import org.citra.citra_emu.viewmodel.GamesViewModel
 import org.citra.citra_emu.features.settings.ui.SettingsActivity
-import org.citra.citra_emu.android.features.settings.utils.SettingsFile
+import org.citra.citra_emu.features.settings.utils.SettingsFile
 
 class GameAdapter(private val activity: AppCompatActivity, private val inflater: LayoutInflater) :
     ListAdapter<Game, GameViewHolder>(AsyncDifferConfig.Builder(DiffCallback()).build()),
