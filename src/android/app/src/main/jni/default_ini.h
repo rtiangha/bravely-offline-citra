@@ -86,6 +86,9 @@ udp_input_port=
 # The pad to request data on. Should be between 0 (Pad 1) and 3 (Pad 4). (Default 0)
 udp_pad_index=
 
+# Use Artic Controller when connected to Artic Base Server. (Default 0)
+use_artic_base_controller=
+
 [Core]
 # Whether to use the Just-In-Time (JIT) compiler for CPU emulation
 # 0: Interpreter (slow), 1 (default): JIT (fast)
@@ -174,6 +177,10 @@ anaglyph_shader_name =
 # This is required for some shaders to work correctly
 # 0: Nearest, 1 (default): Linear
 filter_mode =
+
+# Delays the game render thread by the specified amount of microseconds
+# Set to 0 for no delay, only useful in dynamic-fps games to simulate GPU delay.
+delay_game_render_thread_us =
 
 [Layout]
 # Layout for the screen inside the render window.
@@ -300,6 +307,10 @@ init_ticks_type =
 # Defaults to 0.
 init_ticks_override =
 
+# Number of steps per hour reported by the pedometer.
+# Defaults to 0.
+steps_per_hour =
+
 # Plugin loader state, if enabled plugins will be loaded from the SD card.
 # You can also set if homebrew apps are allowed to enable the plugin loader
 plugin_loader =
@@ -349,6 +360,10 @@ renderer_debug =
 # Port for listening to GDB connections.
 use_gdbstub=false
 gdbstub_port=24689
+
+# Flush log output on every message
+# Immediately commits the debug log to file. Use this if citra crashes and the log output is being cut.
+instant_debug_log =
 
 # To LLE a service module add "LLE\<module name>=true"
 

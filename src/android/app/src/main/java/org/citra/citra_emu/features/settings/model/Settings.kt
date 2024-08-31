@@ -136,6 +136,8 @@ class Settings {
         const val HOTKEY_CYCLE_LAYOUT = "hotkey_toggle_layout"
         const val HOTKEY_CLOSE_GAME = "hotkey_close_game"
         const val HOTKEY_PAUSE_OR_RESUME = "hotkey_pause_or_resume_game"
+        const val HOTKEY_QUICKSAVE = "hotkey_quickload"
+        const val HOTKEY_QUICKlOAD = "hotkey_quickpause"
 
         val buttonKeys = listOf(
             KEY_BUTTON_A,
@@ -164,13 +166,25 @@ class Settings {
             KEY_CSTICK_AXIS_HORIZONTAL
         )
         val dPadKeys = listOf(
-            KEY_DPAD_AXIS_VERTICAL,
-            KEY_DPAD_AXIS_HORIZONTAL
+//            KEY_DPAD_AXIS_VERTICAL,
+//            KEY_DPAD_AXIS_HORIZONTAL,
+            KEY_BUTTON_UP,
+            KEY_BUTTON_DOWN,
+            KEY_BUTTON_LEFT,
+            KEY_BUTTON_RIGHT
         )
         val axisTitles = listOf(
-            R.string.controller_axis_vertical,
+           R.string.controller_axis_vertical,
             R.string.controller_axis_horizontal
         )
+
+        val dPadTitles = listOf(
+            R.string.direction_up,
+            R.string.direction_down,
+            R.string.direction_left,
+            R.string.direction_right,
+        )
+
         val triggerKeys = listOf(
             KEY_BUTTON_L,
             KEY_BUTTON_R,
@@ -187,13 +201,17 @@ class Settings {
             HOTKEY_SCREEN_SWAP,
             HOTKEY_CYCLE_LAYOUT,
             HOTKEY_CLOSE_GAME,
-            HOTKEY_PAUSE_OR_RESUME
+            HOTKEY_PAUSE_OR_RESUME,
+            HOTKEY_QUICKSAVE,
+            HOTKEY_QUICKlOAD
         )
         val hotkeyTitles = listOf(
             R.string.emulation_swap_screens,
             R.string.emulation_cycle_landscape_layouts,
             R.string.emulation_close_game,
-            R.string.emulation_toggle_pause
+            R.string.emulation_toggle_pause,
+            R.string.emulation_quicksave,
+            R.string.emulation_quickload,
         )
 
         const val PREF_FIRST_APP_LAUNCH = "FirstApplicationLaunch"

@@ -79,6 +79,14 @@ class InputBindingSetting(
             else -> false
         }
 
+    fun isDpadButtons(): Boolean =
+        when (abstractSetting.key) {
+            Settings.KEY_BUTTON_DOWN,
+            Settings.KEY_BUTTON_LEFT,
+            Settings.KEY_BUTTON_UP,
+            Settings.KEY_BUTTON_RIGHT -> true
+            else -> false
+        }
     /**
      * Returns true if this key is for the 3DS L/R or ZL/ZR buttons. Note, these are not real
      * triggers on the 3DS, but we support them as such on a physical gamepad.
@@ -133,6 +141,8 @@ class InputBindingSetting(
                 Settings.HOTKEY_CYCLE_LAYOUT -> Hotkey.CYCLE_LAYOUT.button
                 Settings.HOTKEY_CLOSE_GAME -> Hotkey.CLOSE_GAME.button
                 Settings.HOTKEY_PAUSE_OR_RESUME -> Hotkey.PAUSE_OR_RESUME.button
+                Settings.HOTKEY_QUICKSAVE -> Hotkey.QUICKSAVE.button
+                Settings.HOTKEY_QUICKlOAD -> Hotkey.QUICKLOAD.button
                 else -> -1
             }
 
@@ -222,8 +232,10 @@ class InputBindingSetting(
             Toast.makeText(context, R.string.input_message_analog_only, Toast.LENGTH_LONG).show()
             return
         }
-        writeButtonMapping(getInputButtonKey(keyEvent.keyCode))
-        val uiString = "${keyEvent.device.name}: Button ${keyEvent.keyCode}"
+
+        val code = translateEventToKeyId(keyEvent)
+        writeButtonMapping(getInputButtonKey(code))
+        val uiString = "${keyEvent.device.name}: Button $code"
         value = uiString
     }
 
@@ -283,8 +295,16 @@ class InputBindingSetting(
 
         /**
          * Helper function to get the settings key for an gamepad button.
+         *
          */
+        @Deprecated("Use the new getInputButtonKey(keyEvent) method to handle unknown keys")
         fun getInputButtonKey(keyCode: Int): String = "${INPUT_MAPPING_PREFIX}_HostAxis_${keyCode}"
+
+        /**
+         * Helper function to get the settings key for an gamepad button.
+         *
+         */
+        fun getInputButtonKey(event: KeyEvent): String = "${INPUT_MAPPING_PREFIX}_HostAxis_${translateEventToKeyId(event)}"
 
         /**
          * Helper function to get the settings key for an gamepad axis.
@@ -301,5 +321,23 @@ class InputBindingSetting(
          */
         fun getInputAxisOrientationKey(axis: Int): String =
             "${getInputAxisKey(axis)}_GuestOrientation"
+
+
+        /**
+         * This function translates a keyEvent into an "keyid"
+         * This key id is either the keyCode from the event, or
+         * the raw scanCode.
+         * Only when the keyCode itself is 0, (so it is an unknown key)
+         * we fall back to the raw scan code.
+         * This handles keys like the media-keys on google statia-controllers
+         * that don't have a conventional "mapping" and report as "unknown"
+         */
+        fun translateEventToKeyId(event: KeyEvent): Int {
+            return if (event.keyCode == 0) {
+                event.scanCode
+            } else {
+                event.keyCode
+            }
+        }
     }
 }
