@@ -7,7 +7,7 @@
 #include <string>
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
-#include <glad/glad.h>
+#include <glad/gl.h>
 #include "citra/emu_window/emu_window_sdl2_gl.h"
 #include "common/scm_rev.h"
 #include "common/settings.h"
@@ -117,10 +117,9 @@ EmuWindow_SDL2_GL::EmuWindow_SDL2_GL(Core::System& system_, bool fullscreen, boo
 
     int profile_mask = 0;
     SDL_GL_GetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, &profile_mask);
-    auto gl_load_func =
-        profile_mask == SDL_GL_CONTEXT_PROFILE_ES ? gladLoadGLES2Loader : gladLoadGLLoader;
+    auto gl_load_func = profile_mask == SDL_GL_CONTEXT_PROFILE_ES ? gladLoadGLES2 : gladLoadGL;
 
-    if (!gl_load_func(static_cast<GLADloadproc>(SDL_GL_GetProcAddress))) {
+    if (!gl_load_func(GLADloadfunc(SDL_GL_GetProcAddress))) {
         LOG_CRITICAL(Frontend, "Failed to initialize GL functions: {}", SDL_GetError());
         exit(1);
     }
