@@ -26,7 +26,7 @@
 #include "video_core/renderer_software/renderer_software.h"
 
 #ifdef ENABLE_OPENGL
-#include <glad/glad.h>
+#include <glad/gl.h>
 
 #include <QOffscreenSurface>
 #include <QOpenGLContext>
@@ -758,8 +758,8 @@ bool GRenderWindow::LoadOpenGL() {
     auto scope = context->Acquire();
     const auto gles = context->IsGLES();
 
-    auto gl_load_func = gles ? gladLoadGLES2Loader : gladLoadGLLoader;
-    if (!gl_load_func(GetProcAddressGL)) {
+    auto gl_load_func = gles ? gladLoadGLES2 : gladLoadGL;
+    if (!gl_load_func(GLADloadfunc(GetProcAddressGL))) {
         QMessageBox::warning(
             this, tr("Error while initializing OpenGL!"),
             tr("Your GPU may not support OpenGL, or you do not have the latest graphics driver."));

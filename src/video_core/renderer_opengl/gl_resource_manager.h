@@ -8,7 +8,7 @@
 #include <string_view>
 #include <utility>
 #include <vector>
-#include <glad/glad.h>
+#include <glad/gl.h>
 #include "common/common_types.h"
 
 namespace OpenGL {

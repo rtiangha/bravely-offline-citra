@@ -5,7 +5,7 @@
 #pragma once
 
 #include <span>
-#include <glad/glad.h>
+#include <glad/gl.h>
 
 namespace OpenGL {
 

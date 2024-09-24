@@ -8,7 +8,7 @@
 #include <string>
 
 #include <android/native_window_jni.h>
-#include <glad/glad.h>
+#include <glad/gl.h>
 
 #include "common/logging/log.h"
 #include "common/settings.h"
@@ -115,8 +115,8 @@ EmuWindow_Android_OpenGL::EmuWindow_Android_OpenGL(Core::System& system_, ANativ
         LOG_CRITICAL(Frontend, "eglMakeCurrent() failed");
         return;
     }
-    if (!gladLoadGLES2Loader((GLADloadproc)eglGetProcAddress)) {
-        LOG_CRITICAL(Frontend, "gladLoadGLES2Loader() failed");
+    if (!gladLoadGLES2((GLADloadfunc)eglGetProcAddress)) {
+        LOG_CRITICAL(Frontend, "gladLoadGLES2() failed");
         return;
     }
     if (!eglSwapInterval(egl_display, Settings::values.use_vsync_new ? 1 : 0)) {
