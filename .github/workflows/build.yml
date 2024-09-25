@@ -65,11 +65,12 @@ jobs:
         uses: jurplel/install-qt-action@v4
         with:
           aqtversion: '==3.1.*'
-          version: '6.7.*'
+          version: '6.7.3'
           host: 'linux'
           target: 'desktop'
           arch: 'linux_gcc_64'
           modules: 'qtmultimedia qtwaylandcompositor'
+          cache: 'true'
       - name: Install mold linker
         uses: rui314/setup-mold@v1
         with:
@@ -122,11 +123,12 @@ jobs:
         uses: jurplel/install-qt-action@v4
         with:
           aqtversion: '==3.1.*'
-          version: '6.7.*'
+          version: '6.7.3'
           host: 'linux'
           target: 'desktop'
           arch: 'linux_gcc_64'
           modules: 'qtmultimedia qtwaylandcompositor'
+          cache: 'true'
       - name: Install mold linker
         uses: rui314/setup-mold@v1
         with:
