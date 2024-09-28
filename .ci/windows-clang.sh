@@ -6,8 +6,8 @@ cmake .. -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_C_COMPILER_LAUNCHER=ccache \
     -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
-    -DCMAKE_CXX_FLAGS="-O2" \
-    -DCMAKE_C_FLAGS="-O2" \
+    -DCMAKE_CXX_FLAGS="-march=skylake -Ofast" \
+    -DCMAKE_C_FLAGS="-march=skylake -Ofast" \
     -DENABLE_QT_TRANSLATION=ON \
     -DUSE_SYSTEM_BOOST=OFF \
     -DUSE_SYSTEM_CATCH2=OFF \
