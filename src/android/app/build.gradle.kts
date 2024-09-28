@@ -21,7 +21,7 @@ plugins {
  * next 680 years.
  */
 val autoVersion = (((System.currentTimeMillis() / 1000) - 1451606400) / 10).toInt()
-val abiFilter = listOf("arm64-v8a", "x86_64")
+val abiFilter = listOf("arm64-v8a")
 
 val downloadedJniLibsPath = "${project.layout.buildDirectory.get().asFile}/downloadedJniLibs"
 
@@ -33,12 +33,12 @@ android {
     ndkVersion = "27.1.12297006"
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_22
+        targetCompatibility = JavaVersion.VERSION_22
     }
 
     kotlinOptions {
-        jvmTarget = "21"
+        jvmTarget = "22"
     }
 
     androidResources {
@@ -79,8 +79,8 @@ android {
                 arguments(
                     "-DENABLE_QT=0", // Don't use QT
                     "-DENABLE_SDL2=0", // Don't use SDL
-                    "-DCMAKE_CXX_FLAGS=-O2",
-                    "-DCMAKE_C_FLAGS=-O2",
+                    "-DCMAKE_CXX_FLAGS=-Ofast -march=armv8.2-a",
+                    "-DCMAKE_C_FLAGS=-Ofast -march=armv8.2-a",
                     "-DCMAKE_EXE_LINKER_FLAGS=-flto=thin",    // Enable Thin LTO
                     "-DCMAKE_SHARED_LINKER_FLAGS=-flto=thin", // Enable Thin LTO
                     "-DANDROID_ARM_NEON=true", // cryptopp requires Neon to work
@@ -192,6 +192,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.activity:activity:1.9.2")
     implementation("androidx.activity:activity-ktx:1.9.2")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
@@ -300,11 +301,6 @@ android.applicationVariants.configureEach {
             project.copy {
                 from(variant.outputs.first().outputFile.parentFile)
                 include("*.apk")
-                into(layout.buildDirectory.dir("bundle"))
-            }
-            project.copy {
-                from(layout.buildDirectory.dir("outputs/bundle/${variant.name}"))
-                include("*.aab")
                 into(layout.buildDirectory.dir("bundle"))
             }
         }
