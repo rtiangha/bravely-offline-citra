@@ -1630,6 +1630,21 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     StringSetting.LOG_FILTER.defaultValue
                 )
             )
+
+            val logRegexFilterModes =
+                settingsActivity.resources.getStringArray(R.array.logRegexFilterNameModes)
+            val logRegexFilterValues =
+                settingsActivity.resources.getStringArray(R.array.logRegexFilterNameValues)
+            add(
+                StringInputSetting(
+                    StringSetting.LOG_REGEX_FILTER,
+                    R.string.log_regex_filter_name,
+                    R.string.log_regex_filter_description,
+                    StringSetting.LOG_REGEX_FILTER.defaultValue,
+                    255
+                )
+            )
+
             add(
                 SwitchSetting(
                     IntSetting.DEBUG_RENDERER,

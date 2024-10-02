@@ -672,4 +672,23 @@
         <item>@string/log_filter_debug</item>
         <item>@string/log_filter_trace</item>
     </string-array>
+
+    <string-array name="logRegexFilterNameModes">
+        <item>@string/log_regex_none</item>
+        <item>@string/log_regex_critical</item>
+        <item>@string/log_regex_error</item>
+        <item>@string/log_regex_warning</item>
+        <item>@string/log_regex_info</item>
+        <item>@string/log_regex_debug</item>
+        <item>@string/log_regex_trace</item>
+    </string-array>
+    <string-array name="logRegexFilterNameValues">
+        <item>@string/log_regex_filter_none</item>
+        <item>@string/log_regex_filter_critical</item>
+        <item>@string/log_regex_filter_error</item>
+        <item>@string/log_regex_filter_warning</item>
+        <item>@string/log_regex_filter_info</item>
+        <item>@string/log_regex_filter_debug</item>
+        <item>@string/log_regex_filter_trace</item>
+    </string-array>
 </resources>

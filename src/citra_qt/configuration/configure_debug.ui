@@ -81,6 +81,9 @@
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
          <widget class="QLabel" name="label">
+          <property name="toolTip">
+            <string>&lt;html&gt;&lt;body&gt;Global Log Filter is a filter string which removes logs below a certain logging level, each of the format &lt;class&gt;:\&lt;level&gt;.&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Global Log Filter</string>
           </property>
@@ -95,6 +98,9 @@
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <widget class="QLabel" name="label_3">
+          <property name="toolTip">
+            <string>&lt;html&gt;&lt;body&gt;Use POSIX-format regular expressions to display only log entries that match the regex. For example, to only display &lt;Info&gt; level messages, enter \&lt;Info\&gt;.&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Regex Log Filter</string>
           </property>

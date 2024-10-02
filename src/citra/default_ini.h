@@ -72,8 +72,8 @@ motion_device=
 #      - "min_x", "min_y", "max_x", "max_y": defines the udp device's touch screen coordinate system
 touch_device=
 
-# Most desktop operating systems do not expose a way to poll the motion state of the controllers
-# so as a way around it, cemuhook created a udp client/server protocol to broadcast the data directly
+# Most desktop OSes do not expose a way to poll the motion state of the controllers
+# so as a way around it, cemuhook created a udp client/server protocol to broadcast data directly
 # from a controller device to the client program. Citra has a client that can connect and read
 # from any cemuhook compatible motion program.
 
@@ -327,7 +327,7 @@ enable_dsp_lle =
 enable_dsp_lle_thread =
 
 # Whether or not to enable the audio-stretching post-processing effect.
-# This effect adjusts audio speed to match emulation speed and helps prevent audio stutter,
+# This adjusts audio speed to match emulation speed and helps prevent audio stutter,
 # at the cost of increasing audio latency.
 # 0: No, 1 (default): Yes
 enable_audio_stretching =
@@ -442,6 +442,10 @@ camera_inner_flip =
 # See src/common/logging/filter.h and src/common/logging/filter.cpp for
 # the full list of valid classes and levels.
 log_filter = *:Info
+
+# log_regex_filter is a filter that only displays logs based on the regex
+# expression in POSIX format supplied (see log_filter above). Default is "".
+log_regex_filter =
 
 # Record frame time data, can be found in the log directory. Boolean value
 record_frame_times =
