@@ -51,7 +51,7 @@ jobs:
           repo-name: llvm
           keys-asc: https://apt.llvm.org/llvm-snapshot.gpg.key
       - name: Get latest CMake and Ninja
-        uses: lukka/get-cmake@v3.30.3
+        uses: lukka/get-cmake@v3.30.4
         with:
           cmakeVersion: latest
           ninjaVersion: latest 
@@ -109,7 +109,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.target }}-
       - name: Get latest CMake and Ninja
-        uses: lukka/get-cmake@v3.30.3
+        uses: lukka/get-cmake@v3.30.4
         with:
           cmakeVersion: latest
           ninjaVersion: latest 
@@ -318,7 +318,7 @@ jobs:
           fi
           echo $GIT_TAG_NAME
       - name: Get latest CMake and Ninja
-        uses: lukka/get-cmake@v3.30.3
+        uses: lukka/get-cmake@v3.30.4
         with:
           cmakeVersion: latest
           ninjaVersion: latest 
