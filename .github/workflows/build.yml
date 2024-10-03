@@ -47,7 +47,7 @@ jobs:
       - name: Install Clang PPA 
         uses: myci-actions/add-deb-repo@11
         with:
-          repo: deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-18 main
+          repo: deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-19 main
           repo-name: llvm
           keys-asc: https://apt.llvm.org/llvm-snapshot.gpg.key
       - name: Get latest CMake and Ninja
@@ -58,7 +58,7 @@ jobs:
       - name: Install New Packages
         uses: gerlero/apt-install@v1.2.2
         with:
-          packages: ccache clang-18 clang-tools-18 clang-18-doc libxcb-xkb-dev libclang-common-18-dev libclang-18-dev libclang1-18 clang-format-18 python3-clang-18 clangd-18 clang-tidy-18 clang-format-15 libasound-dev xorg-dev libx11-dev libxext-dev jackd libpipewire-0.3-dev libsndio-dev libxcb-cursor-dev libasound2-dev libpulse-dev libaudio-dev libjack-dev libsndio-dev libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxfixes-dev libxi-dev libxss-dev libwayland-dev libxkbcommon-dev libdrm-dev libgbm-dev libgl1-mesa-dev libgles2-mesa-dev libegl1-mesa-dev libdbus-1-dev libibus-1.0-dev libudev-dev fcitx-libs-dev apparmor aspnetcore-runtime-6.0 aspnetcore-runtime-7.0 aspnetcore-targeting-pack-6.0 aspnetcore-targeting-pack-7.0 ca-certificates cloud-init dotnet-apphost-pack-6.0 dotnet-apphost-pack-7.0 dotnet-hostfxr-6.0 dotnet-runtime-6.0 dotnet-runtime-7.0 dotnet-sdk-8.0 dotnet-targeting-pack-6.0 dotnet-targeting-pack-7.0 firefox libapparmor1 libapr1 libcups2 libcurl3-gnutls libmm-glib0 libopenjp2-7 libopenjp2-7-dev libpcap0.8 linux-cloud-tools-common linux-tools-common netstandard-targeting-pack-2.1 podman python3-configobj ubuntu-advantage-tools ubuntu-minimal ubuntu-pro-client ubuntu-pro-client-l10n ubuntu-server ubuntu-standard
+          packages: ccache clang-19 clang-tools-19 clang-19-doc libxcb-xkb-dev libclang-common-19-dev libclang-19-dev libclang1-19 clang-format-19 python3-clang-19 clangd-19 clang-tidy-19 clang-format-15 libasound-dev xorg-dev libx11-dev libxext-dev jackd libpipewire-0.3-dev libsndio-dev libxcb-cursor-dev libasound2-dev libpulse-dev libaudio-dev libjack-dev libsndio-dev libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxfixes-dev libxi-dev libxss-dev libwayland-dev libxkbcommon-dev libdrm-dev libgbm-dev libgl1-mesa-dev libgles2-mesa-dev libegl1-mesa-dev libdbus-1-dev libibus-1.0-dev libudev-dev fcitx-libs-dev apparmor aspnetcore-runtime-6.0 aspnetcore-runtime-7.0 aspnetcore-targeting-pack-6.0 aspnetcore-targeting-pack-7.0 ca-certificates cloud-init dotnet-apphost-pack-6.0 dotnet-apphost-pack-7.0 dotnet-hostfxr-6.0 dotnet-runtime-6.0 dotnet-runtime-7.0 dotnet-sdk-8.0 dotnet-targeting-pack-6.0 dotnet-targeting-pack-7.0 firefox libapparmor1 libapr1 libcups2 libcurl3-gnutls libmm-glib0 libopenjp2-7 libopenjp2-7-dev libpcap0.8 linux-cloud-tools-common linux-tools-common netstandard-targeting-pack-2.1 podman python3-configobj ubuntu-advantage-tools ubuntu-minimal ubuntu-pro-client ubuntu-pro-client-l10n ubuntu-server ubuntu-standard
       - name: Update System Packages
         run: sudo apt-get update && sudo apt-get -y dist-upgrade && sudo apt-get clean
       - name: Install Qt
@@ -111,7 +111,7 @@ jobs:
       - name: Install Clang PPA
         uses: myci-actions/add-deb-repo@11
         with:
-          repo: deb http://apt.llvm.org/noble/ llvm-toolchain-noble-18 main
+          repo: deb http://apt.llvm.org/noble/ llvm-toolchain-noble-19 main
           repo-name: llvm
           keys-asc: https://apt.llvm.org/llvm-snapshot.gpg.key
       - name: Get latest CMake and Ninja
@@ -122,7 +122,7 @@ jobs:
       - name: Install New Packages
         uses: gerlero/apt-install@v1.2.2
         with:
-          packages: ccache clang-18 clang-tools-18 clang-18-doc libxcb-xkb-dev libclang-common-18-dev libclang-18-dev libclang1-18 clang-format-18 python3-clang-18 clangd-18 clang-tidy-18 clang-format-15 libasound-dev xorg-dev libx11-dev libxext-dev jackd libpipewire-0.3-dev libsndio-dev libxcb-cursor-dev libasound2-dev libpulse-dev libaudio-dev libjack-dev libsndio-dev libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxfixes-dev libxi-dev libxss-dev libwayland-dev libxkbcommon-dev libdrm-dev libgbm-dev libgl1-mesa-dev libgles2-mesa-dev libegl1-mesa-dev libdbus-1-dev libibus-1.0-dev libudev-dev fcitx-libs-dev apparmor cloud-init firefox libapparmor1 libapr1t64 libcups2t64 libopenjp2-7 libproc2-0 linux-azure linux-cloud-tools-azure linux-headers-azure linux-image-azure linux-tools-azure lxd-agent-loader mdadm nvme-cli open-vm-tools procps python3-update-manager systemd-hwe-hwdb ubuntu-pro-client ubuntu-pro-client-l10n update-manager-core
+          packages: ccache clang-19 clang-tools-19 clang-19-doc libxcb-xkb-dev libclang-common-19-dev libclang-19-dev libclang1-19 clang-format-19 python3-clang-19 clangd-19 clang-tidy-19 clang-format-15 libasound-dev xorg-dev libx11-dev libxext-dev jackd libpipewire-0.3-dev libsndio-dev libxcb-cursor-dev libasound2-dev libpulse-dev libaudio-dev libjack-dev libsndio-dev libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxfixes-dev libxi-dev libxss-dev libwayland-dev libxkbcommon-dev libdrm-dev libgbm-dev libgl1-mesa-dev libgles2-mesa-dev libegl1-mesa-dev libdbus-1-dev libibus-1.0-dev libudev-dev fcitx-libs-dev apparmor cloud-init firefox libapparmor1 libapr1t64 libcups2t64 libopenjp2-7 libproc2-0 linux-azure linux-cloud-tools-azure linux-headers-azure linux-image-azure linux-tools-azure lxd-agent-loader mdadm nvme-cli open-vm-tools procps python3-update-manager systemd-hwe-hwdb ubuntu-pro-client ubuntu-pro-client-l10n update-manager-core
       - name: Update System Packages
         run: sudo apt-get update && sudo apt-get -y dist-upgrade && sudo apt-get clean
       - name: Install Qt

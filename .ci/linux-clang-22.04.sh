@@ -16,8 +16,8 @@ cmake .. -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_C_COMPILER_LAUNCHER=ccache \
     -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
-    -DCMAKE_CXX_COMPILER=clang++-18 \
-    -DCMAKE_C_COMPILER=clang-18 \
+    -DCMAKE_CXX_COMPILER=clang++-19 \
+    -DCMAKE_C_COMPILER=clang-19 \
     -DCMAKE_CXX_FLAGS="-O2" \
     -DCMAKE_C_FLAGS="-O2" \
     "${EXTRA_CMAKE_FLAGS[@]}" \
