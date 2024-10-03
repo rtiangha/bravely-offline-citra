@@ -106,9 +106,12 @@
 #  include <lmcons.h>
 extern "C" typedef LONG (WINAPI *t_RtlGetVersion)( PRTL_OSVERSIONINFOW );
 extern "C" typedef BOOL (WINAPI *t_GetLogicalProcessorInformationEx)( LOGICAL_PROCESSOR_RELATIONSHIP, PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX, PDWORD );
+extern "C" typedef char* (WINAPI *t_WineGetVersion)();
+extern "C" typedef char* (WINAPI *t_WineGetBuildId)();
 #else
 #  include <unistd.h>
 #  include <limits.h>
+#  include <fcntl.h>
 #endif
 #if defined __linux__
 #  include <sys/sysinfo.h>
@@ -521,7 +524,16 @@ static const char* GetHostInfo()
 #  ifdef __MINGW32__
         ptr += sprintf( ptr, "OS: Windows %i.%i.%i (MingW)\n", (int)ver.dwMajorVersion, (int)ver.dwMinorVersion, (int)ver.dwBuildNumber );
 #  else
-        ptr += sprintf( ptr, "OS: Windows %lu.%lu.%lu\n", ver.dwMajorVersion, ver.dwMinorVersion, ver.dwBuildNumber );
+        auto WineGetVersion = (t_WineGetVersion)GetProcAddress( GetModuleHandleA( "ntdll.dll" ), "wine_get_version" );
+        auto WineGetBuildId = (t_WineGetBuildId)GetProcAddress( GetModuleHandleA( "ntdll.dll" ), "wine_get_build_id" );
+        if( WineGetVersion && WineGetBuildId )
+        {
+            ptr += sprintf( ptr, "OS: Windows %lu.%lu.%lu (Wine %s [%s])\n", ver.dwMajorVersion, ver.dwMinorVersion, ver.dwBuildNumber, WineGetVersion(), WineGetBuildId() );
+        }
+        else
+        {
+            ptr += sprintf( ptr, "OS: Windows %lu.%lu.%lu\n", ver.dwMajorVersion, ver.dwMinorVersion, ver.dwBuildNumber );
+        }
 #  endif
     }
 #elif defined __linux__
@@ -1378,6 +1390,8 @@ TRACY_API LuaZoneState& GetLuaZoneState() { return s_luaZoneState; }
 TRACY_API bool ProfilerAvailable() { return s_instance != nullptr; }
 TRACY_API bool ProfilerAllocatorAvailable() { return !RpThreadShutdown; }
 
+constexpr static size_t SafeSendBufferSize = 65536;
+
 Profiler::Profiler()
     : m_timeBegin( 0 )
     , m_mainThread( detail::GetThreadHandleImpl() )
@@ -1451,6 +1465,21 @@ Profiler::Profiler()
         m_userPort = atoi( userPort );
     }
 
+    m_safeSendBuffer = (char*)tracy_malloc( SafeSendBufferSize );
+
+#ifndef _WIN32
+    pipe(m_pipe);
+#  if defined __APPLE__ || defined BSD
+    // FreeBSD/XNU don't have F_SETPIPE_SZ, so use the default 
+    m_pipeBufSize = 16384;
+#  else
+    m_pipeBufSize = (int)(ptrdiff_t)SafeSendBufferSize;
+    while( fcntl( m_pipe[0], F_SETPIPE_SZ, m_pipeBufSize ) < 0 && errno == EPERM ) m_pipeBufSize /= 2; // too big; reduce
+    m_pipeBufSize = fcntl( m_pipe[0], F_GETPIPE_SZ );
+#  endif
+    fcntl( m_pipe[1], F_SETFL, O_NONBLOCK );
+#endif
+
 #if !defined(TRACY_DELAYED_INIT) || !defined(TRACY_MANUAL_LIFETIME)
     SpawnWorkerThreads();
 #endif
@@ -1476,7 +1505,9 @@ void Profiler::InstallCrashHandler()
 #endif
 
 #if defined _WIN32 && !defined TRACY_UWP && !defined TRACY_NO_CRASH_HANDLER
-    m_exceptionHandler = AddVectoredExceptionHandler( 1, CrashFilter );
+    // We cannot use Vectored Exception handling because it catches application-wide frame-based SEH blocks. We only
+    // want to catch unhandled exceptions.
+    m_prevHandler = SetUnhandledExceptionFilter( CrashFilter );
 #endif
 
 #ifndef TRACY_NO_CRASH_HANDLER
@@ -1487,20 +1518,29 @@ void Profiler::InstallCrashHandler()
 
 void Profiler::RemoveCrashHandler()
 {
-#if defined _WIN32 && !defined TRACY_UWP
-    if( m_crashHandlerInstalled ) RemoveVectoredExceptionHandler( m_exceptionHandler );
+#if defined _WIN32 && !defined TRACY_UWP && !defined TRACY_NO_CRASH_HANDLER
+    if( m_crashHandlerInstalled )
+    {
+        auto prev = SetUnhandledExceptionFilter( (LPTOP_LEVEL_EXCEPTION_FILTER)m_prevHandler );
+        if( prev != CrashFilter ) SetUnhandledExceptionFilter( prev ); // A different exception filter was installed over ours => put it back
+    }
 #endif
 
 #if defined __linux__ && !defined TRACY_NO_CRASH_HANDLER
     if( m_crashHandlerInstalled )
     {
-        sigaction( TRACY_CRASH_SIGNAL, &m_prevSignal.pwr, nullptr );
-        sigaction( SIGILL, &m_prevSignal.ill, nullptr );
-        sigaction( SIGFPE, &m_prevSignal.fpe, nullptr );
-        sigaction( SIGSEGV, &m_prevSignal.segv, nullptr );
-        sigaction( SIGPIPE, &m_prevSignal.pipe, nullptr );
-        sigaction( SIGBUS, &m_prevSignal.bus, nullptr );
-        sigaction( SIGABRT, &m_prevSignal.abrt, nullptr );
+        auto restore = []( int signum, struct sigaction* prev ) {
+            struct sigaction old;
+            sigaction( signum, prev, &old );
+            if( old.sa_sigaction != CrashHandler ) sigaction( signum, &old, nullptr ); // A different signal handler was installed over ours => put it back
+        };
+        restore( TRACY_CRASH_SIGNAL, &m_prevSignal.pwr );
+        restore( SIGILL, &m_prevSignal.ill );
+        restore( SIGFPE, &m_prevSignal.fpe );
+        restore( SIGSEGV, &m_prevSignal.segv );
+        restore( SIGPIPE, &m_prevSignal.pipe );
+        restore( SIGBUS, &m_prevSignal.bus );
+        restore( SIGABRT, &m_prevSignal.abrt );
     }
 #endif
     m_crashHandlerInstalled = false;
@@ -1588,6 +1628,12 @@ Profiler::~Profiler()
     m_kcore->~KCore();
     tracy_free( m_kcore );
 #endif
+
+#ifndef _WIN32
+    close( m_pipe[0] );
+    close( m_pipe[1] );
+#endif
+    tracy_free( m_safeSendBuffer );
 
     tracy_free( m_lz4Buf );
     tracy_free( m_buffer );
@@ -3052,6 +3098,62 @@ bool Profiler::CommitData()
     return ret;
 }
 
+char* Profiler::SafeCopyProlog( const char* data, size_t size )
+{
+    bool success = true;
+    char* buf = m_safeSendBuffer;
+#ifndef NDEBUG
+    assert( !m_inUse.exchange(true) );
+#endif
+
+    if( size > SafeSendBufferSize ) buf = (char*)tracy_malloc( size );
+
+#ifdef _WIN32
+    __try
+    {
+        memcpy( buf, data, size );
+    }
+    __except( 1 /*EXCEPTION_EXECUTE_HANDLER*/ )
+    {
+        success = false;
+    }
+#else
+    // Send through the pipe to ensure safe reads
+    for( size_t offset = 0; offset != size; /*in loop*/ )
+    {
+        size_t sendsize = size - offset;
+        ssize_t result1, result2;
+        while( ( result1 = write( m_pipe[1], data + offset, sendsize ) ) < 0 && errno == EINTR ) { /* retry */ }
+        if( result1 < 0 )
+        {
+            success = false;
+            break;
+        }
+        while( ( result2 = read( m_pipe[0], buf + offset, result1 ) ) < 0 && errno == EINTR ) { /* retry */ }
+        if( result2 != result1 )
+        {
+            success = false;
+            break;
+        }
+        offset += result1;
+    }
+#endif
+
+    if( success ) return buf;
+
+    SafeCopyEpilog( buf );
+    return nullptr;
+}
+
+void Profiler::SafeCopyEpilog( char* buf )
+{
+    if( buf != m_safeSendBuffer ) tracy_free( buf );
+    
+#ifndef NDEBUG
+    m_inUse.store( false );
+#endif
+}
+
 bool Profiler::SendData( const char* data, size_t len )
 {
     const lz4sz_t lz4sz = LZ4_compress_fast_continue( (LZ4_stream_t*)m_stream, data, m_lz4Buf + sizeof( lz4sz_t ), (int)len, LZ4Size, 1 );
@@ -3740,23 +3842,48 @@ void Profiler::ReportTopology()
 #  endif
     if( !_GetLogicalProcessorInformationEx ) return;
 
+    SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX* packageInfo = nullptr;
+    SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX* dieInfo = nullptr;
+    SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX* coreInfo = nullptr;
+
     DWORD psz = 0;
     _GetLogicalProcessorInformationEx( RelationProcessorPackage, nullptr, &psz );
-    auto packageInfo = (SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX*)tracy_malloc( psz );
-    auto res = _GetLogicalProcessorInformationEx( RelationProcessorPackage, packageInfo, &psz );
-    assert( res );
+    if( GetLastError() == ERROR_INSUFFICIENT_BUFFER )
+    {
+        packageInfo = (SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX*)tracy_malloc( psz );
+        auto res = _GetLogicalProcessorInformationEx( RelationProcessorPackage, packageInfo, &psz );
+        assert( res );
+    }
+    else
+    {
+        psz = 0;
+    }
 
     DWORD dsz = 0;
     _GetLogicalProcessorInformationEx( RelationProcessorDie, nullptr, &dsz );
-    auto dieInfo = (SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX*)tracy_malloc( dsz );
-    res = _GetLogicalProcessorInformationEx( RelationProcessorDie, dieInfo, &dsz );
-    assert( res );
+    if( GetLastError() == ERROR_INSUFFICIENT_BUFFER )
+    {
+        dieInfo = (SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX*)tracy_malloc( dsz );
+        auto res = _GetLogicalProcessorInformationEx( RelationProcessorDie, dieInfo, &dsz );
+        assert( res );
+    }
+    else
+    {
+        dsz = 0;
+    }
 
     DWORD csz = 0;
     _GetLogicalProcessorInformationEx( RelationProcessorCore, nullptr, &csz );
-    auto coreInfo = (SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX*)tracy_malloc( csz );
-    res = _GetLogicalProcessorInformationEx( RelationProcessorCore, coreInfo, &csz );
-    assert( res );
+    if( GetLastError() == ERROR_INSUFFICIENT_BUFFER )
+    {
+        coreInfo = (SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX*)tracy_malloc( csz );
+        auto res = _GetLogicalProcessorInformationEx( RelationProcessorCore, coreInfo, &csz );
+        assert( res );
+    }
+    else
+    {
+        csz = 0;
+    }
 
     SYSTEM_INFO sysinfo;
     GetSystemInfo( &sysinfo );
@@ -3865,17 +3992,23 @@ void Profiler::ReportTopology()
 
         sprintf( path, "%s%i/topology/core_id", basePath, i );
         f = fopen( path, "rb" );
-        read = fread( buf, 1, 1024, f );
-        buf[read] = '\0';
-        fclose( f );
-        cpuData[i].core = uint32_t( atoi( buf ) );
+        if( f )
+        {
+            read = fread( buf, 1, 1024, f );
+            buf[read] = '\0';
+            fclose( f );
+            cpuData[i].core = uint32_t( atoi( buf ) );
+        }
 
         sprintf( path, "%s%i/topology/die_id", basePath, i );
         f = fopen( path, "rb" );
-        read = fread( buf, 1, 1024, f );
-        buf[read] = '\0';
-        fclose( f );
-        cpuData[i].die = uint32_t( atoi( buf ) );
+        if( f )
+        {
+            read = fread( buf, 1, 1024, f );
+            buf[read] = '\0';
+            fclose( f );
+            cpuData[i].die = uint32_t( atoi( buf ) );
+        }
     }
 
     for( int i=0; i<numcpus; i++ )
@@ -3975,13 +4108,12 @@ void Profiler::HandleSymbolCodeQuery( uint64_t symbol, uint32_t size )
     }
     else
     {
-        if( !EnsureReadable( symbol ) )
-        {
-            AckSymbolCodeNotAvailable();
-            return;
-        }
+        auto&& lambda = [ this, symbol ]( const char* buf, size_t size ) { 
+            SendLongString( symbol, buf, size, QueueType::SymbolCode );
+        };
 
-        SendLongString( symbol, (const char*)symbol, size, QueueType::SymbolCode );
+        // 'symbol' may have come from a module that has since unloaded, perform a safe copy before sending
+        if( !WithSafeCopy( (const char*)symbol, size, lambda ) ) AckSymbolCodeNotAvailable();
     }
 }
 
