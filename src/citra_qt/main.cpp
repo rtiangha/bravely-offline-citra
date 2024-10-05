@@ -17,6 +17,8 @@
 #include <QtWidgets>
 #include <fmt/format.h>
 #include <fmt/ostream.h>
+#undef _UNICODE
+#include <getopt.h>
 #ifdef __APPLE__
 #include <unistd.h> // for chdir
 #endif
@@ -2866,7 +2868,7 @@ void GMainWindow::ShowFFmpegErrorMessage() {
     message_box.setText(
         tr("FFmpeg could not be loaded. Make sure you have a compatible version installed."
 #ifdef _WIN32
-           "\n\nTo install FFmpeg to Lime, press Open and select your FFmpeg directory."
+           "\n\nTo install FFmpeg to Citra, press Open and select your FFmpeg directory."
 #endif
            "\n\nTo view a guide on how to install FFmpeg, press Help."));
     message_box.setStandardButtons(QMessageBox::Ok | QMessageBox::Help
@@ -3740,7 +3742,7 @@ static void PrintHelp(const char* argv0) {
 }
 
 static void PrintVersion() {
-    std::cout << "Lime3DS " << Common::g_scm_branch << " " << Common::g_scm_desc << std::endl;
+    std::cout << "Citra " << Common::g_scm_branch << " " << Common::g_scm_desc << std::endl;
 }
 
 int main(int argc, char* argv[]) {

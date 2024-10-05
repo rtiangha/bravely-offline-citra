@@ -312,6 +312,9 @@ create_target_directory_groups(citra-qt)
 
 target_link_libraries(citra-qt PRIVATE audio_core citra_common citra_core input_common network video_core)
 target_link_libraries(citra-qt PRIVATE Boost::boost nihstro-headers Qt6::Widgets Qt6::Multimedia Qt6::Concurrent)
+if (MSVC)
+    target_link_libraries(citra-qt PRIVATE getopt)
+endif()
 target_link_libraries(citra-qt PRIVATE ${PLATFORM_LIBRARIES} Threads::Threads)
 
 if (ENABLE_OPENGL)
