@@ -44,6 +44,8 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.target }}-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.target }}-
+      - name: Remove System Clang
+        run: sudo apt autoremove clang-13 clang-format-13 clang-tidy-13 clang-14 clang-format-14 clang-tidy-14 clang-15 clang-format-15 clang-tidy-15 -y
       - name: Install Clang PPA 
         uses: myci-actions/add-deb-repo@11
         with:
@@ -108,6 +110,8 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.target }}-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.target }}-
+      - name: Remove System Clang
+        run: sudo apt autoremove clang-16 clang-format-16 clang-tidy-16 clang-17 clang-format-17 clang-tidy-17 clang-18 clang-format-18 clang-tidy-18 -y
       - name: Install Clang PPA
         uses: myci-actions/add-deb-repo@11
         with:
