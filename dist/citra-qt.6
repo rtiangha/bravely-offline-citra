@@ -1,4 +1,4 @@
-.Dd November 22 2016
+.Dd October 7 2024
 .Dt citra-qt 6
 .Os
 .Sh NAME
@@ -7,6 +7,24 @@
 .Sh SYNOPSIS
 .Nm citra-qt
 .Op Ar file
+.Sh OPTIONS
+.Bl -tag -width Ds
+.It Fl g Ar port , Fl Fl gdbport Ar port
+Starts the GDB stub on the specified port
+.It Fl i Ar PATH
+Install a CIA file at the given path
+.It Fl r Ar PATH
+Record a TAS movie located at the given path
+.It Fl p Ar PATH
+Play a TAS movie located at the given path
+.It Fl d Ar PATH
+Dump video recording of emulator playback to the given file path
+.It Fl f
+Start in fullscreen mode
+.It Fl h , Fl Fl help
+Shows syntax help and exits
+.It Fl v
+Output version information and exit
 .Sh DESCRIPTION
 Citra is an experimental open-source Nintendo 3DS emulator/debugger.
 .Pp
