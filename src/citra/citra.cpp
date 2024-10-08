@@ -65,16 +65,16 @@ __declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
 static void PrintHelp(const char* argv0) {
     std::cout << "Usage: " << argv0
               << " [options] <filename>\n"
+                 "-a, --movie-record-author=AUTHOR Sets the author of the movie to be recorded\n"
+                 "-d, --dump-video=[file]    Dumps audio and video to the given video file\n"
+                 "-f, --fullscreen     Start in fullscreen mode\n"
                  "-g, --gdbport=NUMBER Enable gdb stub on port NUMBER\n"
+                 "-h, --help           Display this help and exit\n"
                  "-i, --install=FILE    Installs a specified CIA file\n"
                  "-m, --multiplayer=nick:password@address:port"
                  " Nickname, password, address and port for multiplayer\n"
-                 "-r, --movie-record=[file]  Record a movie (game inputs) to the given file\n"
-                 "-a, --movie-record-author=AUTHOR Sets the author of the movie to be recorded\n"
                  "-p, --movie-play=[file]    Playback the movie (game inputs) from the given file\n"
-                 "-d, --dump-video=[file]    Dumps audio and video to the given video file\n"
-                 "-f, --fullscreen     Start in fullscreen mode\n"
-                 "-h, --help           Display this help and exit\n"
+                 "-r, --movie-record=[file]  Record a movie (game inputs) to the given file\n"
                  "-v, --version        Output version information and exit\n";
 }
 

@@ -3731,11 +3731,11 @@ static Qt::HighDpiScaleFactorRoundingPolicy GetHighDpiRoundingPolicy() {
 }
 
 static void PrintHelp(const char* argv0) {
-    std::cout << "Usage: " << argv0
+    std::cout << "\nUsage: " << argv0
               << " [options] <file path>\n"
                  "-d [path]    Dump video recording of emulator playback to the given file path\n"
-                 "-g [port]    Enable gdb stub on the given port\n"
                  "-f           Start in fullscreen mode\n"
+                 "-g [port]    Enable gdb stub on the given port\n"
                  "-h           Display this help and exit\n"
                  "-i [path]    Install a CIA file at the given path\n"
                  "-p [path]    Play a TAS movie located at the given path\n"
@@ -3744,7 +3744,7 @@ static void PrintHelp(const char* argv0) {
 }
 
 static void PrintVersion() {
-    std::cout << "Citra " << Common::g_scm_branch << " " << Common::g_scm_desc << std::endl;
+    std::cout << "\nCitra " << Common::g_scm_branch << " " << Common::g_scm_desc << std::endl;
 }
 
 int main(int argc, char* argv[]) {
@@ -3791,12 +3791,12 @@ int main(int argc, char* argv[]) {
                     if (result == Service::AM::InstallStatus::ErrorEncrypted)
                         failure_reason = "CIA is encrypted.";
 
-                    std::cout << "Failed to install CIA: " << failure_reason << std::endl;
+                    std::cout << "\nFailed to install CIA: " << failure_reason << std::endl;
                     return (int)result +
                            2; // 2 is added here to avoid stepping on the toes of
                               // exit codes 1 and 2 which have pre-established conventional meanings
                 }
-                std::cout << "Installed CIA successfully." << std::endl;
+                std::cout << "\nInstalled CIA successfully." << std::endl;
 #ifdef _WIN32
                 if (console) {
                     sendEnterKey();
