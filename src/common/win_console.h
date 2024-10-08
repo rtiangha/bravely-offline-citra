@@ -23,15 +23,11 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#define WINVER 0x0501 // Allow use of features specific to Windows XP or later.
-#define _WIN32_WINNT 0x0501
-#define WIN32_LEAN_AND_MEAN
 #include <fcntl.h>
 #include <io.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
-#pragma comment(lib, "User32.lib")
 
 // Attach output of application to parent console
 static BOOL attachOutputToConsole(void) {
