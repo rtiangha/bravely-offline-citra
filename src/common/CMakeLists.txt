@@ -164,6 +164,12 @@ if (APPLE)
     )
 endif()
 
+if (WIN32)
+    target_sources(citra_common PUBLIC
+        win_console.h
+    )
+endif()
+
 if (MSVC)
   target_compile_options(citra_common PRIVATE
     /W4
