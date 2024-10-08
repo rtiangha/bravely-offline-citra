@@ -23,6 +23,9 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <cstdlib>
+#include <iostream>
+#include <string>
 #include <fcntl.h>
 #include <io.h>
 #include <stdio.h>
@@ -74,4 +77,12 @@ static void sendEnterKey(void) {
     // Release the "Enter" key
     ip.ki.dwFlags = KEYEVENTF_KEYUP; // KEYEVENTF_KEYUP for key release
     SendInput(1, &ip, sizeof(INPUT));
+}
+
+bool isMintty() {
+    const char* term = std::getenv("TERM");
+    if (term && (std::string(term) == "xterm" || std::string(term) == "xterm-256color")) {
+        return true;
+    }
+    return false;
 }

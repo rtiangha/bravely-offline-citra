@@ -25,6 +25,7 @@
 #ifdef _WIN32
 #include <shlobj.h>
 #include <windows.h>
+#include "common/win_console.h"
 #endif
 #ifdef __unix__
 #include <QVariant>
@@ -3747,12 +3748,28 @@ static void PrintVersion() {
 }
 
 int main(int argc, char* argv[]) {
+
+#ifdef _WIN32
+    bool console = false;
+
+    // Explicitly redirect output if terminal is NOT mintty
+    if (!isMintty()) {
+        // Is the program running as console or GUI application
+        console = attachOutputToConsole();
+    }
+#endif
+
     while (optind < argc) {
         int arg = getopt(argc, argv, "d:fg:hi:p:r:v");
         if (arg != -1) {
             switch (static_cast<char>(arg)) {
             case 'h':
                 PrintHelp(argv[0]);
+#ifdef _WIN32
+                if (console) {
+                    sendEnterKey();
+                }
+#endif
                 return 0;
             case 'i': {
                 Service::AM::InstallStatus result = Service::AM::InstallCIA(std::string(optarg));
@@ -3780,10 +3797,20 @@ int main(int argc, char* argv[]) {
                               // exit codes 1 and 2 which have pre-established conventional meanings
                 }
                 std::cout << "Installed CIA successfully." << std::endl;
+#ifdef _WIN32
+                if (console) {
+                    sendEnterKey();
+                }
+#endif
                 return 0;
             }
             case 'v':
                 PrintVersion();
+#ifdef _WIN32
+                if (console) {
+                    sendEnterKey();
+                }
+#endif
                 return 0;
             }
         } else {
@@ -3843,5 +3870,15 @@ int main(int argc, char* argv[]) {
 
     int result = app.exec();
     detached_tasks.WaitForAllTasks();
+
+#ifdef _WIN32
+    // Send "enter" to release application from the console
+    // This is a hack, but if not used the console doesn't know the application has
+    // returned. The "enter" key only sent if the console window is in focus.
+    if (console && (GetConsoleWindow() == GetForegroundWindow())) {
+        sendEnterKey();
+    }
+#endif
+
     return result;
 }
