@@ -5,6 +5,7 @@
 #include <clocale>
 #include <memory>
 #include <thread>
+#include <QCommandLineParser>
 #include <QFileDialog>
 #include <QFutureWatcher>
 #include <QLabel>
@@ -12,6 +13,7 @@
 #include <QSysInfo>
 #include <QtConcurrent/QtConcurrentMap>
 #include <QtConcurrent/QtConcurrentRun>
+#include <QtGlobal>
 #include <QtGui>
 #include <QtWidgets>
 #include <fmt/format.h>
@@ -3686,11 +3688,18 @@ static Qt::HighDpiScaleFactorRoundingPolicy GetHighDpiRoundingPolicy() {
 }
 
 int main(int argc, char* argv[]) {
+
+// Output to console if launched from console on Windows
+#ifdef _WIN32
+    qputenv("QT_COMMAND_LINE_PARSER_NO_GUI_MESSAGE_BOXES", "1");
+#endif
+
     Common::DetachedTasks detached_tasks;
 
     // Init settings params
     QCoreApplication::setOrganizationName(QStringLiteral("Citra team"));
     QCoreApplication::setApplicationName(QStringLiteral("Citra"));
+    QCoreApplication::setApplicationVersion(QStringLiteral("Bravely Offline ver."));
 
     auto rounding_policy = GetHighDpiRoundingPolicy();
     QApplication::setHighDpiScaleFactorRoundingPolicy(rounding_policy);
@@ -3709,8 +3718,50 @@ int main(int argc, char* argv[]) {
 
     QApplication app(argc, argv);
 
-    // Qt changes the locale and causes issues in float conversion using std::to_string() when
-    // generating shaders
+    QCommandLineParser parser;
+    parser.setApplicationDescription(
+        QStringLiteral("Citra is an experimental open-source Nintendo 3DS emulator/debugger."));
+    parser.addHelpOption();
+    parser.addVersionOption();
+
+    parser.addOptions({
+        {{QStringLiteral("a"), QStringLiteral("movie-record-author")},
+         QCoreApplication::translate("main", "Sets the <author> of the movie to be recorded"),
+         QCoreApplication::translate("main", "author")},
+        {{QStringLiteral("d"), QStringLiteral("dump-video")},
+         QCoreApplication::translate("main", "Dumps audio and video to the given <file>."),
+         QCoreApplication::translate("main", "file")},
+        {{QStringLiteral("f"), QStringLiteral("fullscreen")},
+         QCoreApplication::translate("main", "Start in fullscreen mode.")},
+        {{QStringLiteral("g"), QStringLiteral("gdbport")},
+         QCoreApplication::translate("main", "Enable gdb stub on <port> number."),
+         QCoreApplication::translate("main", "port")},
+        {{QStringLiteral("h"), QStringLiteral("help")},
+         QCoreApplication::translate("main", "Display this help and exit.")},
+        {{QStringLiteral("i"), QStringLiteral("install")},
+         QCoreApplication::translate("main", "Installs a specified CIA <file>."),
+         QCoreApplication::translate("main", "file")},
+        {{QStringLiteral("p"), QStringLiteral("movie-play")},
+         QCoreApplication::translate("main",
+                                     "Playback the movie (game inputs) from the given <file>."),
+         QCoreApplication::translate("main", "file")},
+        {{QStringLiteral("r"), QStringLiteral("movie-record")},
+         QCoreApplication::translate("main", "Record a movie (game inputs) to the given <file>."),
+         QCoreApplication::translate("main", "file")},
+        {{QStringLiteral("v"), QStringLiteral("version")},
+         QCoreApplication::translate("main", "Output version information and exit.")},
+    });
+
+    parser.process(app);
+
+    if (parser.isSet(QStringLiteral("v")))
+        parser.showVersion();
+
+    if (parser.isSet(QStringLiteral("h")))
+        parser.showHelp();
+
+    // Qt changes the locale and causes issues in float conversion using
+    // std::to_string() when generating shaders
     setlocale(LC_ALL, "C");
 
     auto& system{Core::System::GetInstance()};
