@@ -11,6 +11,7 @@
 #include <QLabel>
 #include <QMessageBox>
 #include <QSysInfo>
+#include <QTextStream>
 #include <QtConcurrent/QtConcurrentMap>
 #include <QtConcurrent/QtConcurrentRun>
 #include <QtGlobal>
@@ -3688,6 +3689,7 @@ static Qt::HighDpiScaleFactorRoundingPolicy GetHighDpiRoundingPolicy() {
 }
 
 int main(int argc, char* argv[]) {
+    QTextStream out(stdout);
 
 // Output to console if launched from console on Windows
 #ifdef _WIN32
@@ -3760,34 +3762,59 @@ int main(int argc, char* argv[]) {
     if (parser.isSet(QStringLiteral("h")))
         parser.showHelp();
 
-    // Qt changes the locale and causes issues in float conversion using
-    // std::to_string() when generating shaders
-    setlocale(LC_ALL, "C");
+    if (parser.isSet(QStringLiteral("i"))) {
+        Service::AM::InstallStatus result =
+            Service::AM::InstallCIA(std::string(parser.value(QStringLiteral("i"))));
+        if (result != Service::AM::InstallStatus::Success) {
+            QString failure_reason;
+            if (result == Service::AM::InstallStatus::ErrorFailedToOpenFile)
+                failure_reason = "Unable to open file.";
+            if (result == Service::AM::InstallStatus::ErrorFileNotFound)
+                failure_reason = "File not found.";
+            if (result == Service::AM::InstallStatus::ErrorAborted)
+                failure_reason = "Install was aborted.";
+            if (result == Service::AM::InstallStatus::ErrorInvalid)
+                failure_reason = "CIA is invalid.";
+            if (result == Service::AM::InstallStatus::ErrorEncrypted)
+                failure_reason = "CIA is encrypted.";
+            out << "Failed to install CIA: " << failure_reason << endl;
+            return (int)result +
+                   2; // 2 is added here to avoid stepping on the toes of
+                      // exit codes 1 and 2 which have pre-established conventional meanings
+        }
+        out << QStringLiteral("Installed CIA successfully.") << endl;
+        return 0;
+    }
+}
 
-    auto& system{Core::System::GetInstance()};
+// Qt changes the locale and causes issues in float conversion using
+// std::to_string() when generating shaders
+setlocale(LC_ALL, "C");
 
-    // Register Qt image interface
-    system.RegisterImageInterface(std::make_shared<QtImageInterface>());
+auto& system{Core::System::GetInstance()};
 
-    GMainWindow main_window(system);
+// Register Qt image interface
+system.RegisterImageInterface(std::make_shared<QtImageInterface>());
 
-    // Register frontend applets
-    Frontend::RegisterDefaultApplets(system);
+GMainWindow main_window(system);
 
-    system.RegisterMiiSelector(std::make_shared<QtMiiSelector>(main_window));
-    system.RegisterSoftwareKeyboard(std::make_shared<QtKeyboard>(main_window));
+// Register frontend applets
+Frontend::RegisterDefaultApplets(system);
+
+system.RegisterMiiSelector(std::make_shared<QtMiiSelector>(main_window));
+system.RegisterSoftwareKeyboard(std::make_shared<QtKeyboard>(main_window));
 
 #ifdef __APPLE__
-    // Register microphone permission check.
-    system.RegisterMicPermissionCheck(&AppleAuthorization::CheckAuthorizationForMicrophone);
+// Register microphone permission check.
+system.RegisterMicPermissionCheck(&AppleAuthorization::CheckAuthorizationForMicrophone);
 #endif
 
-    main_window.show();
+main_window.show();
 
-    QObject::connect(&app, &QGuiApplication::applicationStateChanged, &main_window,
-                     &GMainWindow::OnAppFocusStateChanged);
+QObject::connect(&app, &QGuiApplication::applicationStateChanged, &main_window,
+                 &GMainWindow::OnAppFocusStateChanged);
 
-    int result = app.exec();
-    detached_tasks.WaitForAllTasks();
-    return result;
+int result = app.exec();
+detached_tasks.WaitForAllTasks();
+return result;
 }
