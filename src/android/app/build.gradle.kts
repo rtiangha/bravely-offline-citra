@@ -11,7 +11,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("de.undercouch.download") version "5.6.0"
     id("kotlin-parcelize")
-    kotlin("plugin.serialization") version "2.0.21"
+    kotlin("plugin.serialization") version "2.1.0-Beta2"
     id("androidx.navigation.safeargs.kotlin")
 }
 
@@ -30,15 +30,15 @@ android {
     namespace = "org.citra.citra_emu"
 
     compileSdkVersion = "android-35"
-    ndkVersion = "27.1.12297006"
+    ndkVersion = "28.0.12433566-beta1"
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_22
-        targetCompatibility = JavaVersion.VERSION_22
+        sourceCompatibility = JavaVersion.VERSION_23
+        targetCompatibility = JavaVersion.VERSION_23
     }
 
     kotlinOptions {
-        jvmTarget = "22"
+        jvmTarget = "23"
     }
 
     androidResources {
