@@ -129,6 +129,10 @@ jobs:
           java-version: '23'
           cache: 'gradle'
           check-latest: true
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3.2.1
+        with:
+          cmdline-tools-version: 11076708
       - name: Build
         run: JAVA_HOME=$JAVA_HOME_23_X64 ./.ci/android.sh
         env:
