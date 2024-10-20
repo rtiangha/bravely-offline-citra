@@ -14,7 +14,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Install New Packages
-        uses: gerlero/apt-install@v1.2.2
+        uses: gerlero/apt-install@v1.3.0
         with:
           packages: clang-format-15
       - name: Build
