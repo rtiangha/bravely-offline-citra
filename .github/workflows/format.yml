@@ -10,11 +10,11 @@ jobs:
   clang-format:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4.2.1
+      - uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
       - name: Install New Packages
-        uses: gerlero/apt-install@v1.2.2
+        uses: gerlero/apt-install@v1.3.9
         with:
           packages: clang-format-15
       - name: Build
