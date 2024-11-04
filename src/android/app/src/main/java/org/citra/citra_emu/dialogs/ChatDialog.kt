@@ -1,5 +1,6 @@
 package org.citra.citra_emu.dialogs
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
@@ -68,7 +69,7 @@ class ChatDialog(context: Context) : BaseSheetDialog(context) {
     }
 
     private fun sendMessage(message: String) {
-        val username = NetPlayManager.getUsername(context)
+        val username = NetPlayManager.getUsername(context as Activity)
         NetPlayManager.netPlaySendMessage(message)
 
         val chatMessage = ChatMessage(
