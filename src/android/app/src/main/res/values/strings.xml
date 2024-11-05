@@ -976,12 +976,28 @@
     <string name="multiplayer_room_joining">Room joining</string>
     <string name="multiplayer_room_joined">Room joined</string>
     <string name="multiplayer_room_moderator">Room moderator</string>
-    <string name="multiplayer_member_join">%1$s join</string>
-    <string name="multiplayer_member_leave">%1$s leave</string>
+    <string name="multiplayer_member_join">%1$s joined</string>
+    <string name="multiplayer_member_leave">%1$s left</string>
     <string name="multiplayer_member_kicked">%1$s kicked</string>
     <string name="multiplayer_member_banned">%1$s banned</string>
     <string name="multiplayer_address_unbanned">address unbanned</string>
     <string name="multiplayer_kick_member">Kick Out</string>
     <string name="multiplayer_chat_input_hint">Send messages……</string>
+    <string name="multiplayer_password">Password</string>
+    <string name="original_button_text">Join</string>
+    <string name="disabled_button_text">Joining...</string>
+    <string name="multiplayer_room_name">Room Name</string>
+    <string name="multiplayer_room_name_invalid">Room name must be between 3 and 20 characters</string>
+    <string name="multiplayer_max_players">Max Players (16)</string>
+    <string name="multiplayer_max_players_value">Max Players: %d</string>
+    <string name="multiplayer_chat">Chat</string>
+    <string name="multiplayer_more_options">More Options</string>
+    <string name="multiplayer_copy_ip">Copy IP Address</string>
+    <string name="multiplayer_ip_copied">IP Address copied to clipboard</string>
+    <string name="multiplayer_server_address">Server Address</string>
+    <string name="chat">Chat</string>
+    <string name="type_message">Type message……</string>
+    <string name="send">Send</string>
+    <string name="send_message">Send Message</string>
 
 </resources>

@@ -530,12 +530,6 @@ object NativeLibrary {
 
     external fun removeAmiibo()
 
-    @Keep
-    @JvmStatic
-    fun addNetPlayMessage(type: Int, message: String) {
-        NetPlayManager.addNetPlayMessage(type, message)
-    }
-
     const val SAVESTATE_SLOT_COUNT = 11
     const val QUICKSAVE_SLOT = 0
 
@@ -665,6 +659,12 @@ object NativeLibrary {
         } else {
             FileUtil.deleteDocument(path)
         }
+
+    @Keep
+    @JvmStatic
+    fun addNetPlayMessage(type: Int, message: String) {
+        NetPlayManager.addNetPlayMessage(type, message)
+    }
 
     enum class CoreError {
         ErrorSystemFiles,

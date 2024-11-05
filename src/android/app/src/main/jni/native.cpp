@@ -53,11 +53,11 @@
 #include "jni/input_manager.h"
 #include "jni/ndk_motion.h"
 #include "jni/util.h"
+#include "multiplayer.h"
+#include "network/network.h"
 #include "video_core/debug_utils/debug_utils.h"
 #include "video_core/gpu.h"
 #include "video_core/renderer_base.h"
-
-#include "multiplayer.h"
 
 #if defined(ENABLE_VULKAN) && CITRA_ARCH(arm64)
 #include <adrenotools/driver.h>
@@ -134,6 +134,15 @@ static Core::System::ResultStatus RunCitra(const std::string& filepath) {
     std::scoped_lock lock(running_mutex);
 
     LOG_INFO(Frontend, "Citra starting...");
+
+    // Only initialize network if we're not already in a room
+    if (!NetPlayIsJoined()) {
+        Network::Shutdown();
+        if (!Network::Init()) {
+            LOG_CRITICAL(Frontend, "Network initialization failed");
+            return Core::System::ResultStatus::ErrorSystemFiles;
+        }
+    }
 
     if (filepath.empty()) {
         LOG_CRITICAL(Frontend, "Failed to load ROM: No ROM specified");
@@ -733,15 +742,18 @@ void Java_org_citra_citra_1emu_NativeLibrary_removeAmiibo([[maybe_unused]] JNIEn
 }
 
 JNIEXPORT jint JNICALL Java_org_citra_citra_1emu_utils_NetPlayManager_netPlayCreateRoom(
-    JNIEnv* env, [[maybe_unused]] jobject obj, jstring ipaddress, jint port, jstring username) {
-    return static_cast<jint>(
-        NetPlayCreateRoom(GetJString(env, ipaddress), port, GetJString(env, username)));
+    JNIEnv* env, [[maybe_unused]] jobject obj, jstring ipaddress, jint port, jstring username,
+    jstring password, jstring room_name, jint max_players) {
+    return static_cast<jint>(NetPlayCreateRoom(GetJString(env, ipaddress), port,
+                                               GetJString(env, username), GetJString(env, password),
+                                               GetJString(env, room_name), max_players));
 }
 
 JNIEXPORT jint JNICALL Java_org_citra_citra_1emu_utils_NetPlayManager_netPlayJoinRoom(
-    JNIEnv* env, [[maybe_unused]] jobject obj, jstring ipaddress, jint port, jstring username) {
-    return static_cast<jint>(
-        NetPlayJoinRoom(GetJString(env, ipaddress), port, GetJString(env, username)));
+    JNIEnv* env, [[maybe_unused]] jobject obj, jstring ipaddress, jint port, jstring username,
+    jstring password) {
+    return static_cast<jint>(NetPlayJoinRoom(GetJString(env, ipaddress), port,
+                                             GetJString(env, username), GetJString(env, password)));
 }
 
 JNIEXPORT jobjectArray JNICALL Java_org_citra_citra_1emu_utils_NetPlayManager_netPlayRoomInfo(
@@ -842,6 +854,11 @@ void Java_org_citra_citra_1emu_NativeLibrary_logDeviceInfo([[maybe_unused]] JNIE
     LOG_INFO(Frontend, "Host CPU: {}", Common::GetCPUCaps().cpu_string);
     // There is no decent way to get the OS version, so we log the API level instead.
     LOG_INFO(Frontend, "Host OS: Android API level {}", android_get_device_api_level());
+}
+
+JNIEXPORT jboolean JNICALL Java_org_citra_citra_1emu_utils_NetPlayManager_netPlayIsModerator(
+    [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jobject obj) {
+    return NetPlayIsModerator();
 }
 
 } // extern "C"

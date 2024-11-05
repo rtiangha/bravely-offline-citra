@@ -26,33 +26,34 @@
             android:layout_marginTop="4dp"
             android:textColor="?attr/colorOnSurface" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_multiplayer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/ic_network"
+            app:tint="?attr/colorPrimary" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_chat"
+            android:id="@+id/btn_join"
             style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
-            android:enabled="true"
-            android:text="@string/multiplayer_chat"
-            app:icon="@drawable/ic_chat"
+            android:text="@string/multiplayer_join_room"
+            app:icon="@drawable/ic_install"
             app:cornerRadius="16dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_leave"
+            android:id="@+id/btn_create"
             style="@style/Widget.Material3.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:text="@string/multiplayer_exit_room"
-            app:icon="@drawable/ic_exit"
+            android:text="@string/multiplayer_create_room"
+            app:icon="@drawable/ic_add"
             app:cornerRadius="16dp" />
 
     </LinearLayout>

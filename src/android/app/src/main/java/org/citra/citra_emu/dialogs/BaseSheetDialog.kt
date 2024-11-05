@@ -12,6 +12,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import org.citra.citra_emu.databinding.DialogBottomSheetBinding
 import org.citra.citra_emu.utils.CompatUtils
 
+// TODO: Fix the dialog to resize when the keyboard is shown
+
 open class BaseSheetDialog(context: Context) : BottomSheetDialog(CompatUtils.findActivity(context)) {
     private val contentView: LinearLayout
     private val binding = DialogBottomSheetBinding.inflate(layoutInflater)

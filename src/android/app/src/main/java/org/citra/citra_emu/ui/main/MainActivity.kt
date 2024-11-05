@@ -53,6 +53,7 @@ import org.citra.citra_emu.utils.CitraDirectoryHelper
 import org.citra.citra_emu.utils.DirectoryInitialization
 import org.citra.citra_emu.utils.FileBrowserHelper
 import org.citra.citra_emu.utils.InsetsHelper
+import org.citra.citra_emu.utils.NetPlayManager
 import org.citra.citra_emu.utils.PermissionsHandler
 import org.citra.citra_emu.utils.ThemeUtil
 import org.citra.citra_emu.viewmodel.GamesViewModel
@@ -66,13 +67,6 @@ class MainActivity : AppCompatActivity(), ThemeProvider {
     private val settingsViewModel: SettingsViewModel by viewModels()
 
     override var themeId: Int = 0
-
-    companion object {
-        var instance: WeakReference<MainActivity?> = WeakReference(null)
-        fun get(): MainActivity? {
-            return instance.get()
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
@@ -92,8 +86,6 @@ class MainActivity : AppCompatActivity(), ThemeProvider {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        instance = WeakReference(this)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
@@ -183,7 +175,7 @@ class MainActivity : AppCompatActivity(), ThemeProvider {
     }
 
     override fun onDestroy() {
-        instance = WeakReference(null)
+        NetPlayManager.shutdownNetwork()
         super.onDestroy()
     }
 
