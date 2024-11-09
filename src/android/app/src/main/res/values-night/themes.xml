@@ -4,6 +4,7 @@
     <style name="ThemeOverlay.Borked3DS.Dark" parent="">
         <item name="colorSurface">@android:color/black</item>
         <item name="android:colorBackground">@android:color/black</item>
+        <item name="android:textDirection">locale</item>
     </style>
 
 </resources>

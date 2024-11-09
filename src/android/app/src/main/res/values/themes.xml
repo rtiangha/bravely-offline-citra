@@ -5,6 +5,7 @@
         <item name="windowSplashScreenBackground">@color/borked3ds_surface_blue</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_borked3ds</item>
         <item name="postSplashScreenTheme">@style/Theme.Borked3DS.Blue</item>
+        <item name="android:textDirection">locale</item>
     </style>
 
     <style name="Theme.Borked3DS" parent="Theme.Material3.DayNight.NoActionBar">
@@ -17,6 +18,7 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="sliderStyle">@style/Borked3DSSlider</item>
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+        <item name="android:textDirection">locale</item>
     </style>
 
     <style name="Theme.Borked3DS.Blue" parent="Theme.Borked3DS">
@@ -43,6 +45,7 @@
         <item name="colorOnSurfaceInverse">@color/borked3ds_inverseOnSurface_blue</item>
         <item name="colorSurfaceInverse">@color/borked3ds_inverseSurface_blue</item>
         <item name="colorPrimaryInverse">@color/borked3ds_inversePrimary_blue</item>
+        <item name="android:textDirection">locale</item>
     </style>
 
     <style name="Theme.Borked3DS.Red" parent="Theme.Borked3DS">
@@ -69,6 +72,7 @@
         <item name="colorOnSurfaceInverse">@color/borked3ds_inverseOnSurface_red</item>
         <item name="colorSurfaceInverse">@color/borked3ds_inverseSurface_red</item>
         <item name="colorPrimaryInverse">@color/borked3ds_inversePrimary_red</item>
+        <item name="android:textDirection">locale</item>
     </style>
 
     <style name="Theme.Borked3DS.Green" parent="Theme.Borked3DS">
@@ -95,6 +99,7 @@
         <item name="colorOnSurfaceInverse">@color/borked3ds_inverseOnSurface_green</item>
         <item name="colorSurfaceInverse">@color/borked3ds_inverseSurface_green</item>
         <item name="colorPrimaryInverse">@color/borked3ds_inversePrimary_green</item>
+        <item name="android:textDirection">locale</item>
     </style>
 
     <style name="Theme.Borked3DS.Orange" parent="Theme.Borked3DS">
@@ -121,6 +126,7 @@
         <item name="colorOnSurfaceInverse">@color/borked3ds_inverseOnSurface_orange</item>
         <item name="colorSurfaceInverse">@color/borked3ds_inverseSurface_orange</item>
         <item name="colorPrimaryInverse">@color/borked3ds_inversePrimary_orange</item>
+        <item name="android:textDirection">locale</item>
     </style>
 
     <style name="Theme.Borked3DS.Yellow" parent="Theme.Borked3DS">
@@ -147,6 +153,7 @@
         <item name="colorOnSurfaceInverse">@color/borked3ds_inverseOnSurface_yellow</item>
         <item name="colorSurfaceInverse">@color/borked3ds_inverseSurface_yellow</item>
         <item name="colorPrimaryInverse">@color/borked3ds_inversePrimary_yellow</item>
+        <item name="android:textDirection">locale</item>
     </style>
 
     <style name="Theme.Borked3DS.Violet" parent="Theme.Borked3DS">
@@ -173,6 +180,7 @@
         <item name="colorOnSurfaceInverse">@color/borked3ds_inverseOnSurface_violet</item>
         <item name="colorSurfaceInverse">@color/borked3ds_inverseSurface_violet</item>
         <item name="colorPrimaryInverse">@color/borked3ds_inversePrimary_violet</item>
+        <item name="android:textDirection">locale</item>
     </style>
 
     <style name="Theme.Borked3DS.Cyan" parent="Theme.Borked3DS">
@@ -199,6 +207,7 @@
         <item name="colorOnSurfaceInverse">@color/borked3ds_inverseOnSurface_cyan</item>
         <item name="colorSurfaceInverse">@color/borked3ds_inverseSurface_cyan</item>
         <item name="colorPrimaryInverse">@color/borked3ds_inversePrimary_cyan</item>
+        <item name="android:textDirection">locale</item>
     </style>
 
     <style name="Theme.Borked3DS.Lime" parent="Theme.Borked3DS">
@@ -225,6 +234,7 @@
         <item name="colorOnSurfaceInverse">@color/borked3ds_inverseOnSurface_lime</item>
         <item name="colorSurfaceInverse">@color/borked3ds_inverseSurface_lime</item>
         <item name="colorPrimaryInverse">@color/borked3ds_inversePrimary_lime</item>
+        <item name="android:textDirection">locale</item>
     </style>
 
     <style name="Theme.Borked3DS.Gray" parent="Theme.Borked3DS">
@@ -251,6 +261,7 @@
         <item name="colorOnSurfaceInverse">@color/borked3ds_inverseOnSurface_gray</item>
         <item name="colorSurfaceInverse">@color/borked3ds_inverseSurface_gray</item>
         <item name="colorPrimaryInverse">@color/borked3ds_inversePrimary_gray</item>
+        <item name="android:textDirection">locale</item>
     </style>
 
     <style name="Theme.Borked3DS.Pink" parent="Theme.Borked3DS">
@@ -277,5 +288,6 @@
         <item name="colorOnSurfaceInverse">@color/borked3ds_inverseOnSurface_pink</item>
         <item name="colorSurfaceInverse">@color/borked3ds_inverseSurface_pink</item>
         <item name="colorPrimaryInverse">@color/borked3ds_inversePrimary_pink</item>
+        <item name="android:textDirection">locale</item>
     </style>
 </resources>

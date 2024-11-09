@@ -4,7 +4,10 @@
     <style name="Theme.V29.Borked3DS" parent="Theme.Borked3DS">
         <item name="android:enforceStatusBarContrast">false</item>
         <item name="android:enforceNavigationBarContrast">false</item>
+        <item name="android:textDirection">locale</item>
     </style>
 
-    <style name="Theme.Borked3DS.Main" parent="Theme.V29.Borked3DS" />
+    <style name="Theme.Borked3DS.Main" parent="Theme.V29.Borked3DS">
+        <item name="android:textDirection">locale</item>
+    </style>
 </resources>
