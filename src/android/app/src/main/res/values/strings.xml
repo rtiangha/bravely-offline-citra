@@ -231,6 +231,9 @@
     <string name="plugin_loader_description">Loads 3GX plugins from the emulated SD card if they are available.</string>
     <string name="allow_plugin_loader">Allow Games to Change Plugin Loader State</string>
     <string name="allow_plugin_loader_description">Allows homebrew apps to enable the plugin loader even when it is disabled.</string>
+    <string name="storage">Storage</string>
+    <string name="use_virtual_sd">Use Virtual SD Card</string>
+    <string name="use_virtual_sd_description">Save data to a virtual SD card. Uses the <font face="monospace">sdmc</font> folder located inside the main Borked3DS user folder.</string>
 
     <!-- Camera settings strings -->
     <string name="inner_camera">Inner Camera</string>

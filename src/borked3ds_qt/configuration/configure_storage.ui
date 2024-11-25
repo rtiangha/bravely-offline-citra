@@ -26,8 +26,11 @@
          <layout class="QHBoxLayout" name="horizontalLayout_1">
           <item>
            <widget class="QCheckBox" name="toggle_virtual_sd">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Save data to a virtual SD card.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property> 
             <property name="text">
-             <string>Use Virtual SD</string>
+             <string>Use Virtual SD Card</string>
             </property>
            </widget>
           </item>

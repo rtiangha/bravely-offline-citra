@@ -27,6 +27,7 @@ enum class BooleanSetting(
     GDB_STUB("use_gdbstub", Settings.SECTION_DEBUG, false),
     INSTANT_DEBUG_LOG("instant_debug_log", Settings.SECTION_DEBUG, false),
     DUMP_COMMAND_BUFFERS("dump_command_buffers", Settings.SECTION_DEBUG, false),
+    USE_VIRTUAL_SD("use_virtual_sd", Settings.SECTION_DATA_STORAGE, true),
     RELAXED_PRECISION_DECORATORS("relaxed_precision_decorators", Settings.SECTION_RENDERER, false),
     CUSTOM_LAYOUT("custom_layout", Settings.SECTION_LAYOUT, false),
     ADRENO_GPU_BOOST("adreno_gpu_boost", Settings.SECTION_RENDERER, false),

@@ -522,6 +522,17 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     BooleanSetting.ALLOW_PLUGIN_LOADER.defaultValue
                 )
             )
+            add(HeaderSetting(R.string.storage))
+            add(
+                SwitchSetting(
+                    BooleanSetting.USE_VIRTUAL_SD,
+                    R.string.use_virtual_sd,
+                    R.string.use_virtual_sd_description,
+                    BooleanSetting.USE_VIRTUAL_SD.key,
+                    BooleanSetting.USE_VIRTUAL_SD.defaultValue
+                )
+            )
+
         }
     }
 
