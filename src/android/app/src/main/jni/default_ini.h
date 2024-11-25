@@ -394,7 +394,7 @@ enable_realtime_audio =
 volume =
 
 # Which audio output type to use.
-# 0 (default): Auto-select, 1: No audio output, 2: Cubeb (if available), 3: OpenAL (if available), 4: SDL2 (if available)
+# 0 (default): Auto-select, 1: No audio output, 2: Cubeb (if available), 3: OpenAL (if available), 4: SDL2 (if available), 5: Oboe (if avaliable)
 output_type =
 
 # Which audio output device to use.
@@ -402,7 +402,7 @@ output_type =
 output_device =
 
 # Which audio input type to use.
-# 0 (default): Auto-select, 1: No audio input, 2: Static noise, 3: Cubeb (if available), 4: OpenAL (if available)
+# 0 (default): Auto-select, 1: No audio input, 2: Static noise, 3: Cubeb (if available), 4: OpenAL (if available), 5: Oboe (if available)
 input_type =
 
 # Which audio input device to use.
