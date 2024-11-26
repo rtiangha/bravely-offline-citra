@@ -187,6 +187,22 @@
         <item>5</item>
     </integer-array>
 
+    <string-array name="audioOutputTypeNames">
+        <item>@string/auto</item>
+        <item>@string/none</item>
+        <item>@string/real_cubeb</item>
+        <item>@string/real_openal</item>
+        <item>@string/real_oboe</item>
+    </string-array>
+
+    <integer-array name="audioOutputTypeValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+    </integer-array>
+
     <string-array name="render3dModes">
         <item>@string/off_monoscopic</item>
         <item>@string/side_by_side</item>

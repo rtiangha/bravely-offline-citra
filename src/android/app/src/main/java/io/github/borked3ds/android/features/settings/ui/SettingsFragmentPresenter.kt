@@ -1530,6 +1530,17 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     IntSetting.AUDIO_INPUT_TYPE.defaultValue
                 )
             )
+            add(
+                SingleChoiceSetting(
+                    IntSetting.AUDIO_OUTPUT_TYPE,
+                    R.string.audio_output_type,
+                    0,
+                    R.array.audioOutputTypeNames,
+                    R.array.audioOutputTypeValues,
+                    IntSetting.AUDIO_OUTPUT_TYPE.key,
+                    IntSetting.AUDIO_OUTPUT_TYPE.defaultValue
+                )
+            )
 
             val soundOutputModeSetting = object : AbstractIntSetting {
                 override var int: Int

@@ -374,8 +374,9 @@
     <string name="audio_stretch_description">Stretches audio to reduce stuttering. When enabled, increases audio latency and slightly reduces performance.</string>
     <string name="realtime_audio">Realtime Audio</string>
     <string name="realtime_audio_description">Scales audio playback speed to account for drops in emulation framerate. This means that audio will play at full speed even while the game framerate is low. May cause audio desync issues.</string>
-    <string name="audio_input_type">Audio Input Device</string>
-    <string name="sound_output_mode">Sound Output Mode</string>
+    <string name="audio_input_type">Input Type</string>
+    <string name="audio_output_type">Output Type</string>
+    <string name="sound_output_mode">Output Mode</string>
 
     <!-- Layout settings strings -->
     <string name="layout_screen_orientation">Screen Orientation</string>
@@ -442,7 +443,7 @@
     <string name="preferences_graphics">Graphics</string>
     <string name="preferences_graphics_description">Accuracy Level, Resolution, Graphics Hacks</string>
     <string name="preferences_audio">Audio</string>
-    <string name="preferences_audio_description">Input Device, Volume, Output Mode</string>
+    <string name="preferences_audio_description">Volume, Input/Output Types, Output Mode</string>
     <string name="preferences_debug">Debug</string>
     <string name="preferences_debug_description">CPU Options, CPU Hacks, Logging</string>
     <string name="preferences_theme">Theme and Color</string>
@@ -726,7 +727,7 @@
     <string name="vertical">Vertical</string>
     <string name="reverse">Reverse</string>
 
-    <!-- Audio input types -->
+    <!-- Audio input/output types -->
     <string name="static_noise">Static Noise</string>
     <string name="real_cubeb">Real Device (cubeb)</string>
     <string name="real_openal">Real Device (OpenAL)</string>
