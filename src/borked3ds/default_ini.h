@@ -453,7 +453,8 @@ log_filter = *:Info
 # expression in POSIX format supplied (see log_filter above). Default is "".
 log_regex_filter =
 
-# Record frame time data, can be found in the log directory. Boolean value
+# Record frame time data. Saved as a separate .csv file in the log directory.
+# 0 (default): Off, 1: On
 record_frame_times =
 
 # Open port for listening to GDB connections.

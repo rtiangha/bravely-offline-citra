@@ -119,6 +119,7 @@ void LogSettings() {
     log_setting("Renderer_SpirvValidation", values.spirv_output_validation.GetValue());
     log_setting("Renderer_SpirvLegalization", values.spirv_output_legalization.GetValue());
     log_setting("Renderer_Debug", values.renderer_debug.GetValue());
+    log_setting("Renderer_RecordFrameTimes", values.record_frame_times.GetValue());
     log_setting("Renderer_UseHwShader", values.use_hw_shader.GetValue());
     log_setting("Renderer_ShadersAccurateMul", values.shaders_accurate_mul.GetValue());
     log_setting("Renderer_UseShaderJit", values.use_shader_jit.GetValue());

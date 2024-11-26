@@ -495,6 +495,8 @@
     <string name="log_regex_filter_trace">*:Trace</string>
     <string name="renderer_debug">Debug Renderer</string>
     <string name="renderer_debug_description">Log additional graphics related debug information. When enabled, game performance may be significantly reduced.</string>
+    <string name="record_frame_times">Record Frame Times</string>
+    <string name="record_frame_times_description">Record frame time data. Saved as a separate <font face="monospace">.csv</font> file in the <b>log</b> folder.</string>
     <string name="dump_command_buffers">Dump Command Buffers</string>
     <string name="dump_command_buffers_description">Print Vulkan API calls, parameters, and values to an identified output stream.\n\nMay need to be enabled globally through ADB first with:\n<font face="monospace">adb shell \"setprop debug.vulkan.layers \'VK_LAYER_LUNARG_api_dump\'\"</font>\n\nWhen done, disable it with:\n<font face="monospace">adb shell \"setprop debug.vulkan.layers \'\'\"</font>\n\nTo set the save location:\n<font face="monospace">adb shell \"setprop debug.vulkan.api_dump.log_filename \'/sdcard/Android/vk_apidump.txt\'\"</font></string>
 

@@ -364,8 +364,7 @@ void Config::ReadValues() {
     Common::Log::SetGlobalFilter(filter);
     Common::Log::SetRegexFilter(Settings::values.log_regex_filter.GetValue());
 
-    Settings::values.record_frame_times =
-        sdl2_config->GetBoolean("Debugging", "record_frame_times", false);
+    ReadSetting("Debugging", Settings::values.record_frame_times);
     ReadSetting("Debugging", Settings::values.renderer_debug);
     ReadSetting("Debugging", Settings::values.use_gdbstub);
     ReadSetting("Debugging", Settings::values.gdbstub_port);
