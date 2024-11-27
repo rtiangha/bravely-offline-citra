@@ -379,12 +379,6 @@ jobs:
       - name: Install extra tools (MSVC)
         run: choco install ccache ninja wget unzip
         if: ${{ matrix.target == 'msvc' }}
-      - name: Install Vulkan SDK (MSVC)
-        uses: humbletim/install-vulkan-sdk@v1.1.1
-        with:
-          version: latest
-          cache: true
-        if: ${{ matrix.target == 'msvc' }}
       - name: Set up MSYS2 (clang)
         uses: msys2/setup-msys2@v2.25.0
         if: ${{ matrix.target == 'clang' }}
