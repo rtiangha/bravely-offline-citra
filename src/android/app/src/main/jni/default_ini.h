@@ -402,7 +402,7 @@ output_type =
 output_device =
 
 # Which audio input type to use.
-# 0 (default): Auto-select, 1: No audio input, 2: Static noise, 3: Cubeb (if available), 4: OpenAL (if available)
+# 0 (default): Auto-select, 1: No audio input, 2: Static noise, 3: Cubeb (if available), 4: OpenAL (if available), 5: Oboe (if available)
 input_type =
 
 # Which audio input device to use.
@@ -504,7 +504,8 @@ log_filter = *:Info
 # expression in POSIX format supplied (see log_filter above). Default is "".
 log_regex_filter =
 
-# Record frame time data, can be found in the log directory. Boolean value
+# Record frame time data. Saved as a separate .csv file in the log directory.
+# 0 (default): Off, 1: On
 record_frame_times =
 
 # Whether to enable additional debugging information during emulation

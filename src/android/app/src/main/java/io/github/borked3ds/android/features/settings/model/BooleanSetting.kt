@@ -26,6 +26,7 @@ enum class BooleanSetting(
     SWAP_SCREEN("swap_screen", Settings.SECTION_LAYOUT, false),
     GDB_STUB("use_gdbstub", Settings.SECTION_DEBUG, false),
     INSTANT_DEBUG_LOG("instant_debug_log", Settings.SECTION_DEBUG, false),
+    RECORD_FRAME_TIMES("record_frame_times", Settings.SECTION_DEBUG, false),
     DUMP_COMMAND_BUFFERS("dump_command_buffers", Settings.SECTION_DEBUG, false),
     USE_VIRTUAL_SD("use_virtual_sd", Settings.SECTION_DATA_STORAGE, true),
     RELAXED_PRECISION_DECORATORS("relaxed_precision_decorators", Settings.SECTION_RENDERER, false),

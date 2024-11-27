@@ -603,7 +603,7 @@ struct Values {
     std::array<int, Service::CAM::NumCameras> camera_flip;
 
     // Debugging
-    bool record_frame_times;
+    Setting<bool> record_frame_times{false, "record_frame_times"};
     std::unordered_map<std::string, bool> lle_modules;
     Setting<bool> delay_start_for_lle_modules{true, "delay_start_for_lle_modules"};
     Setting<bool> use_gdbstub{false, "use_gdbstub"};

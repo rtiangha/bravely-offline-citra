@@ -269,7 +269,7 @@ This project is currently licensed under the Boost Software License 1.0 (http://
     <string name="license_catch2_link" translatable="false">https://github.com/catchorg/Catch2</string>
     <string name="license_catch2_copyright" translatable="false">Copyright © Catch Org</string>
     <string name="license_borked3ds" translatable="false">Borked3DS</string>
-    <string name="license_borked3ds_description" translatable="false">A Nintendo 3DS Emulator</string>
+    <string name="license_borked3ds_description" translatable="false">An experimental Nintendo 3DS Emulator</string>
     <string name="license_borked3ds_link" translatable="false">https://github.com/Borked3DS/Borked3DS</string>
     <string name="license_borked3ds_copyright" translatable="false">Copyright © Borked3DS Project Developers</string>
     <string name="license_httplib" translatable="false">cpp-httplib</string>

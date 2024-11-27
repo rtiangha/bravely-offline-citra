@@ -130,14 +130,28 @@
        </layout>
       </item>
       <item>
-        <widget class="QCheckBox" name="instant_debug_log">
+       <layout class="QGridLayout" name="gridLayout_1">
+        <item row="0" column="0">
+         <widget class="QCheckBox" name="instant_debug_log">
           <property name="text">
-            <string>Flush log output on every message</string>
+           <string>Flush log output on every message</string>
           </property>
           <property name="toolTip">
-            <string>&lt;html&gt;&lt;body&gt;Immediately commits the debug log to file. Use this if borked3ds crashes and the log output is being cut.&lt;br&gt;Enabling this feature will decrease performance, only use it for debugging purposes.&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;body&gt;Immediately commits the debug log to file. Use this if borked3ds crashes and the log output is being cut.&lt;br&gt;Enabling this feature will decrease performance, only use it for debugging purposes.&lt;/body&gt;&lt;/html&gt;</string>
           </property>
-        </widget>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QCheckBox" name="toggle_record_frame_times">
+          <property name="text">
+           <string>Record Frame Times</string>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;body&gt;Record frame time data. Saved as a separate .csv file in the log folder.&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
@@ -229,7 +243,7 @@
        </widget>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_1">
+       <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
          <widget class="QCheckBox" name="toggle_cpu_jit">
           <property name="toolTip">
@@ -272,7 +286,7 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_6">
       <item>
-       <layout class="QGridLayout" name="gridLayout_2">
+       <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
          <widget class="QCheckBox" name="toggle_core_downcount_hack">
           <property name="toolTip">
@@ -350,7 +364,7 @@
      <property name="title">
       <string>Miscellaneous</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_3">
+     <layout class="QGridLayout" name="gridLayout_4">
       <item row="1" column="0">
        <widget class="QCheckBox" name="delay_start_for_lle_modules">
         <property name="toolTip">

@@ -1700,6 +1700,15 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             )
             add(
                 SwitchSetting(
+                    BooleanSetting.RECORD_FRAME_TIMES,
+                    R.string.record_frame_times,
+                    R.string.record_frame_times_description,
+                    BooleanSetting.RECORD_FRAME_TIMES.key,
+                    BooleanSetting.RECORD_FRAME_TIMES.defaultValue
+                )
+            )
+            add(
+                SwitchSetting(
                     BooleanSetting.DUMP_COMMAND_BUFFERS,
                     R.string.dump_command_buffers,
                     R.string.dump_command_buffers_description,
