@@ -253,6 +253,15 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     IntSetting.FRAME_LIMIT.defaultValue.toFloat()
                 )
             )
+            add(
+                SwitchSetting(
+                    BooleanSetting.HIDE_IMAGES,
+                    R.string.hide_images,
+                    R.string.hide_images_description,
+                    BooleanSetting.HIDE_IMAGES.key,
+                    BooleanSetting.HIDE_IMAGES.defaultValue
+                )
+            )
         }
     }
 

@@ -309,6 +309,8 @@
     <string name="frame_limit_enable_description">When enabled, emulation speed will be limited to a specified percentage of normal speed.</string>
     <string name="frame_limit_slider">Limit Speed Percentage</string>
     <string name="frame_limit_slider_description">Specifies the percentage to limit emulation speed. With the default of 100% emulation will be limited to normal speed. Values higher or lower will increase or decrease the speed limit.</string>
+    <string name="hide_images">Hide All 3DS Images from Android</string>
+    <string name="hide_images_description">Prevent 3DS camera, screenshot, and custom texture images from being indexed by Android and being automatically displayed in the Android Gallery. Device may need to be rebooted after setting in order to take effect.</string>
     <string name="frame_skip_name">Frame Skip</string>
     <string name="frame_skip_description">The amount of frames to skip. May not work well with <b>Realtime Audio</b> enabled. Experimental.</string>
     <string name="texture_sampling_name">Texture Sampling</string>
@@ -432,7 +434,7 @@
     <!-- Preferences Screen -->
     <string name="preferences_settings">Settings</string>
     <string name="preferences_general">General</string>
-    <string name="preferences_general_description">Speed Limit, Sustained Performance, Expand to Cutout</string>
+    <string name="preferences_general_description">Expand to Cutout, Speed Limit, Hide Images</string>
     <string name="preferences_system">System</string>
     <string name="preferences_system_description">Region, Language, Country</string>
     <string name="preferences_camera">Camera</string>

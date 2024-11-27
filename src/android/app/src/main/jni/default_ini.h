@@ -414,6 +414,10 @@ input_device =
 # 1 (default): Yes, 0: No
 use_virtual_sd =
 
+# Whether to hide 3DS camera and screenshot images from being indexed by Android
+# 0: Off (default), 1: On
+hide_images =
+
 [System]
 # The system model that Borked3DS will try to emulate
 # 0: Old 3DS (default), 1: New 3DS

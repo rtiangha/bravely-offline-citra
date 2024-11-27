@@ -8,9 +8,13 @@ package io.github.borked3ds.android.features.settings.ui
 import android.os.Bundle
 import android.text.TextUtils
 import io.github.borked3ds.android.NativeLibrary
+import io.github.borked3ds.android.features.settings.model.BooleanSetting
 import io.github.borked3ds.android.features.settings.model.Settings
 import io.github.borked3ds.android.utils.DirectoryInitialization
+import io.github.borked3ds.android.utils.FileUtil
 import io.github.borked3ds.android.utils.Log
+import io.github.borked3ds.android.utils.PermissionsHandler
+import io.github.borked3ds.android.utils.PermissionsHandler.hasWriteAccess
 import io.github.borked3ds.android.utils.SystemSaveGame
 
 class SettingsActivityPresenter(private val activityView: SettingsActivityView) {
@@ -52,11 +56,21 @@ class SettingsActivityPresenter(private val activityView: SettingsActivityView) 
         loadSettingsUI()
     }
 
+    private fun hideImages() {
+        val dataPath = PermissionsHandler.borked3dsDirectory.toString()
+        val nomedia = FileUtil.createFile(dataPath, ".nomedia")
+        if (!BooleanSetting.HIDE_IMAGES.boolean) {
+            Log.debug("[SettingsActivityPresenter]: Trying to delete .nomedia in $dataPath")
+            nomedia?.delete()
+        }
+    }
+
     fun onStop(finishing: Boolean) {
         if (finishing && shouldSave) {
             Log.debug("[SettingsActivity] Settings activity stopping. Saving settings to INI...")
             settings.saveSettings(activityView)
             SystemSaveGame.save()
+            hideImages()
             //added to ensure that layout changes take effect as soon as settings window closes
             NativeLibrary.reloadSettings()
             NativeLibrary.updateFramebuffer(NativeLibrary.isPortraitMode)

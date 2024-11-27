@@ -11,6 +11,7 @@ enum class BooleanSetting(
     override val defaultValue: Boolean
 ) : AbstractBooleanSetting {
     EXPAND_TO_CUTOUT_AREA("expand_to_cutout_area", Settings.SECTION_LAYOUT, false),
+    HIDE_IMAGES("hide_images", Settings.SECTION_DATA_STORAGE, false),
     SPIRV_SHADER_GEN("spirv_shader_gen", Settings.SECTION_RENDERER, true),
     USE_SAMPLE_SHADING("use_sample_shading", Settings.SECTION_RENDERER, false),
     GEOMETRY_SHADER("geometry_shader", Settings.SECTION_RENDERER, false),
