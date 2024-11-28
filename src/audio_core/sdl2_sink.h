@@ -13,7 +13,7 @@ namespace AudioCore {
 
 class SDL2Sink final : public Sink {
 public:
-    explicit SDL2Sink(std::string device_id);
+    explicit SDL2Sink(std::string device_name);
     ~SDL2Sink() override;
 
     [[nodiscard]] unsigned int GetNativeSampleRate() const override;

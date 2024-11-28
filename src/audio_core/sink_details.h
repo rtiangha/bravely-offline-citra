@@ -42,6 +42,6 @@ struct SinkDetails {
 std::vector<SinkDetails> ListSinks();
 
 /// Gets the details of an sink type.
-const SinkDetails& GetSinkDetails(SinkType input_type);
+const SinkDetails& GetSinkDetails(SinkType sink_type);
 
 } // namespace AudioCore

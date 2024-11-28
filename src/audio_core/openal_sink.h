@@ -14,7 +14,7 @@ namespace AudioCore {
 
 class OpenALSink final : public Sink {
 public:
-    explicit OpenALSink(std::string device_id);
+    explicit OpenALSink(std::string device_name);
     ~OpenALSink() override;
 
     [[nodiscard]] unsigned int GetNativeSampleRate() const override;
