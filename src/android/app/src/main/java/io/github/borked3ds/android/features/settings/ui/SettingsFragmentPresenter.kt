@@ -1197,6 +1197,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
     private fun addLayoutSettings(sl: ArrayList<SettingsItem>) {
         settingsActivity.setToolbarTitle("Layout")
         sl.apply {
+            add(HeaderSetting(R.string.layout_screens))
             add(
                 SingleChoiceSetting(
                     IntSetting.ORIENTATION_OPTION,
@@ -1253,6 +1254,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     FloatSetting.LARGE_SCREEN_PROPORTION.defaultValue
                 )
             )
+            add(HeaderSetting(R.string.custom_layout))
             add(
                 SubmenuSetting(
                     R.string.emulation_landscape_custom_layout,
