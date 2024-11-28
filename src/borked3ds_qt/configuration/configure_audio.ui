@@ -65,6 +65,9 @@
        <layout class="QGridLayout" name="output_layout" columnstretch="1,1">
         <item row="0" column="0">
          <widget class="QLabel" name="output_type_label">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;body&gt;Select the audio API to output sound with. Some may perform better than others.&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Output Type</string>
           </property>
@@ -75,6 +78,9 @@
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="output_device_label">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;body&gt;Select the audio device to output sound to.&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Output Device</string>
           </property>
@@ -207,6 +213,9 @@
      <layout class="QGridLayout" name="input_inner_layout" columnstretch="1,1">
       <item row="0" column="0">
        <widget class="QLabel" name="input_type_label">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;body&gt;Select the audio API to input sound with. Select None to disable the microphone.&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
         <property name="text">
          <string>Input Type</string>
         </property>
@@ -217,6 +226,9 @@
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="input_device_label">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;body&gt;Select the audio device to input sound with.&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
         <property name="text">
          <string>Input Device</string>
         </property>

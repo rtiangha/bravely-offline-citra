@@ -376,8 +376,12 @@
     <string name="audio_stretch_description">Stretches audio to reduce stuttering. When enabled, increases audio latency and slightly reduces performance.</string>
     <string name="realtime_audio">Realtime Audio</string>
     <string name="realtime_audio_description">Scales audio playback speed to account for drops in emulation framerate. This means that audio will play at full speed even while the game framerate is low. May cause audio desync issues.</string>
+    <string name="audio_input">Microphone</string>
     <string name="audio_input_type">Input Type</string>
+    <string name="audio_input_description">Select the audio API to input sound with. Select <i>None</i> to disable the microphone.</string>
+    <string name="audio_output">Output</string>
     <string name="audio_output_type">Output Type</string>
+    <string name="audio_output_description">Select the audio API to output sound with. Some may perform better than others.</string>
     <string name="sound_output_mode">Output Mode</string>
 
     <!-- Layout settings strings -->

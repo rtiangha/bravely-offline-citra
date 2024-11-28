@@ -1498,6 +1498,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
     private fun addAudioSettings(sl: ArrayList<SettingsItem>) {
         settingsActivity.setToolbarTitle(settingsActivity.getString(R.string.preferences_audio))
         sl.apply {
+            add(HeaderSetting(R.string.audio_output))
             add(
                 SliderSetting(
                     ScaledFloatSetting.AUDIO_VOLUME,
@@ -1530,20 +1531,9 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             )
             add(
                 SingleChoiceSetting(
-                    IntSetting.AUDIO_INPUT_TYPE,
-                    R.string.audio_input_type,
-                    0,
-                    R.array.audioInputTypeNames,
-                    R.array.audioInputTypeValues,
-                    IntSetting.AUDIO_INPUT_TYPE.key,
-                    IntSetting.AUDIO_INPUT_TYPE.defaultValue
-                )
-            )
-            add(
-                SingleChoiceSetting(
                     IntSetting.AUDIO_OUTPUT_TYPE,
                     R.string.audio_output_type,
-                    0,
+                    R.string.audio_output_description,
                     R.array.audioOutputTypeNames,
                     R.array.audioOutputTypeValues,
                     IntSetting.AUDIO_OUTPUT_TYPE.key,
@@ -1568,6 +1558,18 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     0,
                     R.array.soundOutputModes,
                     R.array.soundOutputModeValues
+                )
+            )
+            add(HeaderSetting(R.string.audio_input))
+            add(
+                SingleChoiceSetting(
+                    IntSetting.AUDIO_INPUT_TYPE,
+                    R.string.audio_input_type,
+                    R.string.audio_input_description,
+                    R.array.audioInputTypeNames,
+                    R.array.audioInputTypeValues,
+                    IntSetting.AUDIO_INPUT_TYPE.key,
+                    IntSetting.AUDIO_INPUT_TYPE.defaultValue
                 )
             )
         }
