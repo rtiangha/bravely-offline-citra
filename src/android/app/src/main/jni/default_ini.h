@@ -122,6 +122,10 @@ core_downcount_hack =
 # 0 (default): Off, 1: On
 priority_boost =
 
+# Whether to hide 3DS camera and screenshot images from being indexed by Android
+# 0: Off (default), 1: On
+hide_images =
+
 [Renderer]
 # Whether to render using OpenGL
 # 1: OpenGL ES (default), 2: Vulkan
@@ -410,13 +414,6 @@ input_type =
 input_device =
 
 [Data Storage]
-# Whether to create a virtual SD card.
-# 1 (default): Yes, 0: No
-use_virtual_sd =
-
-# Whether to hide 3DS camera and screenshot images from being indexed by Android
-# 0: Off (default), 1: On
-hide_images =
 
 [System]
 # The system model that Borked3DS will try to emulate
@@ -462,6 +459,10 @@ steps_per_hour =
 # You can also set if homebrew apps are allowed to enable the plugin loader
 plugin_loader =
 allow_plugin_loader =
+
+# Whether to create a virtual SD card.
+# 1 (default): Yes, 0: No
+use_virtual_sd =
 
 [Camera]
 # Which camera engine to use for the right outer camera

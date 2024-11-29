@@ -11,7 +11,7 @@ enum class BooleanSetting(
     override val defaultValue: Boolean
 ) : AbstractBooleanSetting {
     EXPAND_TO_CUTOUT_AREA("expand_to_cutout_area", Settings.SECTION_LAYOUT, false),
-    HIDE_IMAGES("hide_images", Settings.SECTION_DATA_STORAGE, false),
+    HIDE_IMAGES("hide_images", Settings.SECTION_CORE, false),
     SPIRV_SHADER_GEN("spirv_shader_gen", Settings.SECTION_RENDERER, true),
     USE_SAMPLE_SHADING("use_sample_shading", Settings.SECTION_RENDERER, false),
     GEOMETRY_SHADER("geometry_shader", Settings.SECTION_RENDERER, false),
@@ -29,7 +29,7 @@ enum class BooleanSetting(
     INSTANT_DEBUG_LOG("instant_debug_log", Settings.SECTION_DEBUG, false),
     RECORD_FRAME_TIMES("record_frame_times", Settings.SECTION_DEBUG, false),
     DUMP_COMMAND_BUFFERS("dump_command_buffers", Settings.SECTION_DEBUG, false),
-    USE_VIRTUAL_SD("use_virtual_sd", Settings.SECTION_DATA_STORAGE, true),
+    USE_VIRTUAL_SD("use_virtual_sd", Settings.SECTION_SYSTEM, true),
     RELAXED_PRECISION_DECORATORS("relaxed_precision_decorators", Settings.SECTION_RENDERER, false),
     CUSTOM_LAYOUT("custom_layout", Settings.SECTION_LAYOUT, false),
     ADRENO_GPU_BOOST("adreno_gpu_boost", Settings.SECTION_RENDERER, false),
