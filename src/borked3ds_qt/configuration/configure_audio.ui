@@ -34,8 +34,11 @@
             </property>
             <item>
             <widget class="QLabel" name="label_emulation">
+            <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose whether to enable Audio DSP in HLE or LLE mode (Note: LLE mode has a heavy performance impact).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="text">
-            <string>Emulation</string>
+            <string>Audio Emulation</string>
             </property>
             </widget>
             </item>
