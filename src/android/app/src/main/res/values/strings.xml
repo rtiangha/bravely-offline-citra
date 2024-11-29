@@ -385,6 +385,12 @@
     <string name="sound_output_mode">Output Mode</string>
 
     <!-- Layout settings strings -->
+    <string name="bg_color">Background Color</string>
+    <string name="bg_color_description">The clear color for the renderer. What shows up on the sides of the bottom screen.</string>
+    <string name="bg_red">Red</string>
+    <string name="bg_blue">Blue</string>
+    <string name="bg_green">Green</string>
+    <string name="bg_description">Range from 0.0 to 1.0.</string>
     <string name="custom_layout">Custom Layout</string>
     <string name="layout_screens">Screens</string>
     <string name="layout_screen_orientation">Screen Orientation</string>

@@ -268,6 +268,9 @@
              </property>
              <item>
               <widget class="QLabel" name="bg_label">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The clear color for the renderer. What shows up on the sides of the bottom screen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
                <property name="text">
                 <string>Background Color</string>
                </property>

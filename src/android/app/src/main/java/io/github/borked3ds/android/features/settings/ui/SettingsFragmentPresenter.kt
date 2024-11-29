@@ -1283,7 +1283,43 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     FloatSetting.SECOND_SCREEN_OPACITY.defaultValue
                 )
             )
-
+            add(HeaderSetting(R.string.bg_color, R.string.bg_color_description))
+            add(
+                SliderSetting(
+                    FloatSetting.BG_RED,
+                    R.string.bg_red,
+                    R.string.bg_description,
+                    0,
+                    1,
+                    "x",
+                    FloatSetting.BG_RED.key,
+                    FloatSetting.BG_RED.defaultValue
+                )
+            )
+            add(
+                SliderSetting(
+                    FloatSetting.BG_BLUE,
+                    R.string.bg_blue,
+                    R.string.bg_description,
+                    0,
+                    1,
+                    "x",
+                    FloatSetting.BG_BLUE.key,
+                    FloatSetting.BG_BLUE.defaultValue
+                )
+            )
+            add(
+                SliderSetting(
+                    FloatSetting.BG_GREEN,
+                    R.string.bg_green,
+                    R.string.bg_description,
+                    0,
+                    1,
+                    "x",
+                    FloatSetting.BG_GREEN.key,
+                    FloatSetting.BG_GREEN.defaultValue
+                )
+            )
         }
     }
 
