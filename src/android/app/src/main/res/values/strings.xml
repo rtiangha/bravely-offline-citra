@@ -386,7 +386,7 @@
 
     <!-- Layout settings strings -->
     <string name="layout_screen_orientation">Screen Orientation</string>
-    <string name="layout_screen_orientation_auto_sensor">Automatic</string>
+    <string name="layout_screen_orientation_auto_sensor">Automatic (default)</string>
     <string name="layout_screen_orientation_landscape">Landscape</string>
     <string name="layout_screen_orientation_landscape_reverse">Reverse Landscape</string>
     <string name="layout_screen_orientation_portrait">Portrait</string>
