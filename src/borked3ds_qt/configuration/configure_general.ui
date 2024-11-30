@@ -115,7 +115,7 @@
             <widget class="QComboBox" name="region_combobox">
              <item>
               <property name="text">
-               <string>Auto-select</string>
+               <string>Auto-select (default)</string>
               </property>
              </item>
              <item>

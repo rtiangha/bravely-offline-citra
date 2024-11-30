@@ -94,7 +94,7 @@ void ConfigureEnhancements::updateShaders(Settings::StereoRenderOption stereo_op
         ui->shader_combobox->addItem(QStringLiteral("Dubois (builtin)"));
         current_shader = Settings::values.anaglyph_shader_name.GetValue();
     } else {
-        ui->shader_combobox->addItem(QStringLiteral("None"));
+        ui->shader_combobox->addItem(QStringLiteral("None (default)"));
         current_shader = Settings::values.pp_shader_name.GetValue();
     }
 

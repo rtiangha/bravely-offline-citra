@@ -220,7 +220,7 @@
     <string name="init_ticks_type_description">The system ticks count to use when Borked3DS starts. Simulates the amount of time the system ran before launching the game. This accounts for games that rely on the system tick to seed randomness.</string>
     <string name="init_ticks_override">Initial System Ticks Override</string>
     <string name="init_ticks_override_description">The tick count to use when <b>Initial System Ticks</b> is set to <i>Fixed</i>.</string>
-    <string name="random">Random</string>
+    <string name="random">Random (default)</string>
     <string name="fixed">Fixed</string>
     <string name="steps_per_hour">Pedometer Steps per Hour</string>
     <string name="steps_per_hour_description">Number of steps per hour reported by the pedometer. Range from 0 to 65,535.</string>
@@ -318,7 +318,7 @@
     <string name="internal_resolution">Internal Resolution</string>
     <string name="internal_resolution_description">Specifies the resolution used to render at. Higher resolutions improve visual quality, but may impact performance and cause glitches in certain games.</string>
     <string name="internal_resolution_setting_auto">Auto (Screen Size)</string>
-    <string name="internal_resolution_setting_1x">Native (400x240)</string>
+    <string name="internal_resolution_setting_1x">Native (400x240) (default)</string>
     <string name="internal_resolution_setting_2x">2x Native (800x480)</string>
     <string name="internal_resolution_setting_3x">3x Native (1200x720)</string>
     <string name="internal_resolution_setting_4x">4x Native (1600x960)</string>
@@ -335,13 +335,13 @@
     <string name="factor3d">Depth</string>
     <string name="factor3d_description">Specifies the amount of 3D depth. This should be set to higher than 0% when <b>Stereoscopic 3D Mode</b> is enabled.</string>
     <string name="mono_render_option">Eye to Render in Monoscopic Mode</string>
-    <string name="mono_render_option_description">Change default eye to render when <b>Stereoscopic 3D Mode</b> is set to <i>Off (Monoscopic)</i>.</string>
+    <string name="mono_render_option_description">Change default eye to render when <b>Stereoscopic 3D Mode</b> is set to <i>Monoscopic</i>.</string>
     <string name="left_eye">Left Eye (default)</string>
     <string name="right_eye">Right Eye</string>
-    <string name="off_monoscopic">Off (Monoscopic)</string>
+    <string name="off_monoscopic">Monoscopic (default)</string>
     <string name="anaglyph_shader_name">Anaglyph Post-Processing Shader</string>
     <string name="anaglyph_shader_name_description">Anaglyph algorithm to apply when <b>Stereoscopic 3D Mode</b> is set to <i>Anaglyph</i>.</string>
-    <string name="rendepth">Rendepth</string>
+    <string name="rendepth">Rendepth (default)</string>
     <string name="dubois">Dubois</string>
     <string name="anaglyph_setting_rendepth">rendepth (builtin)</string>
     <string name="anaglyph_setting_dubois">dubois (builtin)</string>
@@ -387,7 +387,7 @@
     <!-- Layout settings strings -->
     <string name="layout_screen_orientation">Screen Orientation</string>
     <string name="layout_screen_orientation_auto_sensor">Automatic</string>
-    <string name="layout_screen_orientation_landscape">Landscape</string>
+    <string name="layout_screen_orientation_landscape">Landscape (default)</string>
     <string name="layout_screen_orientation_landscape_reverse">Reverse Landscape</string>
     <string name="layout_screen_orientation_portrait">Portrait</string>
     <string name="layout_screen_orientation_portrait_reverse">Reverse Portrait</string>
@@ -407,8 +407,8 @@
     <string name="reset_to_default_description">Resets all settings</string>
     <string name="redump_games"><![CDATA[Please follow the guides to redump your <a href="https://web.archive.org/web/20240304210021/https://borked3ds-emu.org/wiki/dumping-game-cartridges/">game cartidges</a> or <a href="https://web.archive.org/web/20240304210011/https://borked3ds-emu.org/wiki/dumping-installed-titles/">installed titles</a>.]]></string>
     <string name="option_default">Default</string>
-    <string name="none">None</string>
-    <string name="auto">Auto</string>
+    <string name="none">None (default)</string>
+    <string name="auto">Auto (default)</string>
     <string name="off">Off</string>
     <string name="install">Install</string>
     <string name="delete">Delete</string>
@@ -420,7 +420,7 @@
     <string name="reset_setting_confirmation">Do you want to reset this setting back to its default value?</string>
     <string name="setting_not_editable">You can\'t edit this now</string>
     <string name="setting_not_editable_description">This option can\'t be changed while a game is running.</string>
-    <string name="auto_select">Auto-Select</string>
+    <string name="auto_select">Auto-Select (default)</string>
 
     <!-- Hacks Dialog -->
     <string name="tweaks_title">Hacks (Experimental)</string>
@@ -475,7 +475,7 @@
     <string name="log_critical">Critical</string>
     <string name="log_error">Error</string>
     <string name="log_warning">Warning</string>
-    <string name="log_info">Info</string>
+    <string name="log_info">Info (default)</string>
     <string name="log_debug">Debug</string>
     <string name="log_trace">Trace</string>
     <string name="log_filter_critical">*:Critical</string>
@@ -536,14 +536,14 @@
     <string name="emulation_screen_layout_single">Single Screen</string>
     <string name="emulation_screen_layout_sidebyside">Side by Side Screens</string>
     <string name="emulation_screen_layout_hybrid">Hybrid Screens</string>
-    <string name="emulation_screen_layout_original">Original</string>
+    <string name="emulation_screen_layout_original">Original (default)</string>
     <string name="emulation_portrait_layout_top_full">Default</string>
     <string name="emulation_screen_layout_custom">Custom Layout</string>
     <string name="emulation_small_screen_position">Small Screen Position</string>
     <string name="small_screen_position_description">Specifies the position of the small screen relative to the large one in <b>Large Screen</b> layout mode.</string>
     <string name="small_screen_position_top_right">Top Right</string>
     <string name="small_screen_position_middle_right">Middle Right</string>
-    <string name="small_screen_position_bottom_right">Bottom Right (Default)</string>
+    <string name="small_screen_position_bottom_right">Bottom Right (default)</string>
     <string name="small_screen_position_top_left">Top Left</string>
     <string name="small_screen_position_middle_left">Middle Left</string>
     <string name="small_screen_position_bottom_left">Bottom Left</string>
@@ -678,7 +678,7 @@
 
     <!-- System theme -->
     <string name="change_theme_mode">Theme Mode</string>
-    <string name="theme_mode_follow_system">Follow System</string>
+    <string name="theme_mode_follow_system">System (default)</string>
     <string name="theme_mode_light">Light</string>
     <string name="theme_mode_dark">Dark</string>
 
@@ -695,7 +695,7 @@
     <string name="use_black_backgrounds_description">When using the dark theme, apply black backgrounds.</string>
 
     <!-- Clock types -->
-    <string name="device_clock">Device Clock</string>
+    <string name="device_clock">Device Clock (default)</string>
     <string name="simulated_clock">Simulated Clock</string>
 
     <!-- Region names -->
@@ -709,7 +709,7 @@
 
     <!-- Language names -->
     <string name="language_japanese">Japanese (日本語)</string>
-    <string name="language_english">English</string>
+    <string name="language_english">English (default)</string>
     <string name="language_french">French (Français)</string>
     <string name="language_german">German (Deutsch)</string>
     <string name="language_italian">Italian (Italiano)</string>
@@ -724,7 +724,7 @@
     <!-- Camera image sources -->
     <string name="blank">Blank</string>
     <string name="still_image">Still Image</string>
-    <string name="device_camera">Device Camera</string>
+    <string name="device_camera">Device Camera (default)</string>
 
     <!-- Camera device names -->
     <string name="any_front_camera">Any Front Camera</string>
@@ -749,7 +749,7 @@
     <string name="reverse_interlaced">Reverse Interlaced</string>
 
     <!-- Graphics API names -->
-    <string name="opengles">OpenGLES</string>
+    <string name="opengles">OpenGLES (default)</string>
     <string name="vulkan">Vulkan</string>
 
     <!-- Texture filter names -->
@@ -761,14 +761,14 @@
     <string name="mmpx">MMPX</string>
 
     <!-- Frame skip names -->
-    <string name="disabled">Disabled</string>
+    <string name="disabled">Disabled (default)</string>
     <string name="x2">x2</string>
     <string name="x4">x4</string>
     <string name="x8">x8</string>
     <string name="x16">x16</string>
 
     <!-- Texture Sampling names -->
-    <string name="game_controlled">Game Controlled</string>
+    <string name="game_controlled">Game Controlled (default)</string>
     <string name="linear">Linear</string>
 
 
@@ -778,7 +778,7 @@
 
     <!-- Sound output modes -->
     <string name="mono">Mono</string>
-    <string name="stereo">Stereo</string>
+    <string name="stereo">Stereo (default)</string>
     <string name="surround">Surround</string>
 
     <!-- Countries -->

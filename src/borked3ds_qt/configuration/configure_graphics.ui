@@ -60,7 +60,7 @@
            </item>
            <item>
             <property name="text">
-             <string>OpenGL</string>
+             <string>OpenGL (default)</string>
             </property>
            </item>
            <item>
@@ -445,7 +445,7 @@
           <widget class="QComboBox" name="texture_sampling_combobox">
            <item>
             <property name="text">
-             <string>Game Controlled</string>
+             <string>Game Controlled (default)</string>
             </property>
            </item>
            <item>
