@@ -286,7 +286,7 @@
     <string name="linear_filtering">Linear Filtering</string>
     <string name="linear_filtering_description">Enables linear filtering, which causes game visuals to appear smoother.</string>
     <string name="texture_filter_name">Texture Filter</string>
-    <string name="texture_filter_description">Enhances the visuals of games by applying a filter to textures. The supported filters are Anime4K Ultrafast, Bicubic, ScaleForce, xBRZ Freescale, and MMPX.</string>
+    <string name="texture_filter_description">Enhances the visuals of games by applying a filter to textures. May slightly impact performance.</string>
     <string name="hw_shaders">Hardware Shader Acceleration</string>
     <string name="hw_shaders_description">Uses hardware to emulate 3DS shaders. When enabled, game performance will be significantly improved.</string>
     <string name="skip_slow_draw">Skip Slow Draw</string>
@@ -753,11 +753,11 @@
     <string name="vulkan">Vulkan</string>
 
     <!-- Texture filter names -->
-    <string name="anime4k">Anime4K</string>
+    <string name="anime4k">Anime4K Ultrafast</string>
     <string name="bicubic">Bicubic</string>
     <string name="nearest_neighbor">Nearest Neighbor</string>
     <string name="scaleforce">ScaleForce</string>
-    <string name="xbrz">xBRZ</string>
+    <string name="xbrz">xBRZ Freescale</string>
     <string name="mmpx">MMPX</string>
 
     <!-- Frame skip names -->

@@ -219,7 +219,7 @@
          <item>
           <widget class="QLabel" name="texture_filter_label">
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enhances the visuals of games by applying a filter to textures.&lt;/p&gt;&lt;p&gt;The supported filters are Anime4K Ultrafast, Bicubic, ScaleForce, xBRZ freescale, and MMPX.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enhances the visuals of games by applying a filter to textures.&lt;/p&gt;&lt;p&gt;May slightly impact performance.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="text">
             <string>Texture Filter</string>
