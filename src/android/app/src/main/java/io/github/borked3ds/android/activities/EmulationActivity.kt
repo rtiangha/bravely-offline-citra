@@ -101,7 +101,7 @@ class EmulationActivity : AppCompatActivity() {
 
         // Override Borked3DS core INI with the one set by our in game menu
         val rotation = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            getDisplay()!!.getRotation()
+            display!!.rotation
         } else {
             @Suppress("DEPRECATION")
             windowManager.defaultDisplay.rotation
