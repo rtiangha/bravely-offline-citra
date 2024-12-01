@@ -475,6 +475,7 @@ struct Values {
     // Data Storage
     Setting<bool> use_virtual_sd{true, "use_virtual_sd"};
     Setting<bool> use_custom_storage{false, "use_custom_storage"};
+    Setting<bool> hide_images{false, "hide_images"};
 
     // System
     SwitchableSetting<s32> region_value{REGION_VALUE_AUTO_SELECT, "region_value"};

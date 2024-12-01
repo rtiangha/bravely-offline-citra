@@ -22,7 +22,8 @@ ConfigureAudio::ConfigureAudio(bool is_powered_on, QWidget* parent)
     ui->setupUi(this);
 
     ui->output_type_combo_box->clear();
-    ui->output_type_combo_box->addItem(tr("Auto"), QVariant::fromValue(AudioCore::SinkType::Auto));
+    ui->output_type_combo_box->addItem(tr("Auto (default)"),
+                                       QVariant::fromValue(AudioCore::SinkType::Auto));
     for (const auto& sink : AudioCore::ListSinks()) {
         ui->output_type_combo_box->addItem(QString::fromUtf8(sink.name),
                                            QVariant::fromValue(sink.type));
@@ -34,7 +35,8 @@ ConfigureAudio::ConfigureAudio(bool is_powered_on, QWidget* parent)
             &ConfigureAudio::SetVolumeIndicatorText);
 
     ui->input_type_combo_box->clear();
-    ui->input_type_combo_box->addItem(tr("Auto"), QVariant::fromValue(AudioCore::InputType::Auto));
+    ui->input_type_combo_box->addItem(tr("Auto (default)"),
+                                      QVariant::fromValue(AudioCore::InputType::Auto));
     for (const auto& input : AudioCore::ListInputs()) {
         ui->input_type_combo_box->addItem(QString::fromUtf8(input.name),
                                           QVariant::fromValue(input.type));

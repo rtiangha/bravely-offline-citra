@@ -271,10 +271,10 @@ class SettingsAdapter(
         if (item.setting is FloatSetting) {
             textSliderValue?.let {
                 it.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
-                it.setText(String.format(Locale.ROOT, "%d", sliderProgress))
+                it.setText(sliderProgress.toString())
             }
         } else {
-            textSliderValue?.setText(String.format(Locale.ROOT, "%d", sliderProgress.roundToInt()))
+            textSliderValue?.setText(sliderProgress.roundToInt().toString())
         }
 
         textInputLayout?.suffixText = item.units

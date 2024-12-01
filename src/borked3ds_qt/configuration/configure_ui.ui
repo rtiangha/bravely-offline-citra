@@ -96,7 +96,7 @@
             </item>
             <item>
              <property name="text">
-              <string>Large (48x48)</string>
+              <string>Large (48x48) (default)</string>
              </property>
             </item>
            </widget>
@@ -126,7 +126,7 @@
             </item>
             <item>
              <property name="text">
-              <string>Title Name (short)</string>
+              <string>Title Name (short) (default)</string>
              </property>
             </item>
             <item>
@@ -161,7 +161,7 @@
             </item>
             <item>
              <property name="text">
-              <string>File Name</string>
+              <string>File Name (default)</string>
              </property>
             </item>
             <item>

@@ -1197,6 +1197,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
     private fun addLayoutSettings(sl: ArrayList<SettingsItem>) {
         settingsActivity.setToolbarTitle("Layout")
         sl.apply {
+            add(HeaderSetting(R.string.layout_screens))
             add(
                 SingleChoiceSetting(
                     IntSetting.ORIENTATION_OPTION,
@@ -1253,6 +1254,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     FloatSetting.LARGE_SCREEN_PROPORTION.defaultValue
                 )
             )
+            add(HeaderSetting(R.string.custom_layout))
             add(
                 SubmenuSetting(
                     R.string.emulation_landscape_custom_layout,
@@ -1281,7 +1283,43 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     FloatSetting.SECOND_SCREEN_OPACITY.defaultValue
                 )
             )
-
+            add(HeaderSetting(R.string.bg_color, R.string.bg_color_description))
+            add(
+                SliderSetting(
+                    FloatSetting.BG_RED,
+                    R.string.bg_red,
+                    R.string.bg_description,
+                    0,
+                    1,
+                    "x",
+                    FloatSetting.BG_RED.key,
+                    FloatSetting.BG_RED.defaultValue
+                )
+            )
+            add(
+                SliderSetting(
+                    FloatSetting.BG_BLUE,
+                    R.string.bg_blue,
+                    R.string.bg_description,
+                    0,
+                    1,
+                    "x",
+                    FloatSetting.BG_BLUE.key,
+                    FloatSetting.BG_BLUE.defaultValue
+                )
+            )
+            add(
+                SliderSetting(
+                    FloatSetting.BG_GREEN,
+                    R.string.bg_green,
+                    R.string.bg_description,
+                    0,
+                    1,
+                    "x",
+                    FloatSetting.BG_GREEN.key,
+                    FloatSetting.BG_GREEN.defaultValue
+                )
+            )
         }
     }
 
@@ -1509,6 +1547,17 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     "%",
                     ScaledFloatSetting.AUDIO_VOLUME.key,
                     ScaledFloatSetting.AUDIO_VOLUME.defaultValue
+                )
+            )
+            add(
+                SingleChoiceSetting(
+                    IntSetting.AUDIO_EMULATION,
+                    R.string.audio_emulation,
+                    R.string.audio_emulation_description,
+                    R.array.audioEmulationNames,
+                    R.array.audioEmulationValues,
+                    IntSetting.AUDIO_EMULATION.key,
+                    IntSetting.AUDIO_EMULATION.defaultValue
                 )
             )
             add(

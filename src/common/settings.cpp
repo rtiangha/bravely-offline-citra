@@ -169,6 +169,7 @@ void LogSettings() {
     log_setting("Camera_OuterLeftConfig", values.camera_config[OuterLeftCamera]);
     log_setting("Camera_OuterLeftFlip", values.camera_flip[OuterLeftCamera]);
     log_setting("DataStorage_UseVirtualSd", values.use_virtual_sd.GetValue());
+    log_setting("DataStorage_HideImages", values.hide_images.GetValue());
     log_setting("DataStorage_UseCustomStorage", values.use_custom_storage.GetValue());
     if (values.use_custom_storage) {
         log_setting("DataStorage_SdmcDir", FileUtil::GetUserPath(FileUtil::UserPath::SDMCDir));

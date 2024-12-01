@@ -141,8 +141,6 @@ void Config::ReadValues() {
 
     // Renderer
     Settings::values.use_gles = sdl2_config->GetBoolean("Renderer", "use_gles", true);
-    Settings::values.shaders_accurate_mul =
-        sdl2_config->GetBoolean("Renderer", "shaders_accurate_mul", false);
     ReadSetting("Renderer", Settings::values.graphics_api);
     ReadSetting("Renderer", Settings::values.async_presentation);
     ReadSetting("Renderer", Settings::values.skip_slow_draw);
@@ -151,11 +149,13 @@ void Config::ReadValues() {
     ReadSetting("Renderer", Settings::values.upscaling_hack);
     ReadSetting("Renderer", Settings::values.async_shader_compilation);
     ReadSetting("Renderer", Settings::values.spirv_shader_gen);
+    ReadSetting("Renderer", Settings::values.geometry_shader);
     ReadSetting("Renderer", Settings::values.optimize_spirv_output);
     ReadSetting("Renderer", Settings::values.spirv_output_validation);
     ReadSetting("Renderer", Settings::values.spirv_output_legalization);
     ReadSetting("Renderer", Settings::values.relaxed_precision_decorators);
     ReadSetting("Renderer", Settings::values.use_hw_shader);
+    ReadSetting("Renderer", Settings::values.shaders_accurate_mul);
     ReadSetting("Renderer", Settings::values.use_shader_jit);
     ReadSetting("Renderer", Settings::values.resolution_factor);
     ReadSetting("Renderer", Settings::values.use_disk_shader_cache);
@@ -249,6 +249,7 @@ void Config::ReadValues() {
 
     // Data Storage
     ReadSetting("Data Storage", Settings::values.use_virtual_sd);
+    ReadSetting("Data Storage", Settings::values.hide_images);
 
     // System
     ReadSetting("System", Settings::values.is_new_3ds);
@@ -302,8 +303,7 @@ void Config::ReadValues() {
     Common::Log::SetGlobalFilter(filter);
     Common::Log::SetRegexFilter(Settings::values.log_regex_filter.GetValue());
 
-    Settings::values.record_frame_times =
-        sdl2_config->GetBoolean("Debugging", "record_frame_times", false);
+    ReadSetting("Debugging", Settings::values.record_frame_times);
     ReadSetting("Debugging", Settings::values.renderer_debug);
     ReadSetting("Debugging", Settings::values.use_gdbstub);
     ReadSetting("Debugging", Settings::values.gdbstub_port);

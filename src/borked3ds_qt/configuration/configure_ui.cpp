@@ -25,7 +25,7 @@ ConfigureUi::~ConfigureUi() = default;
 
 void ConfigureUi::InitializeLanguageComboBox() {
     ui->language_combobox->addItem(tr("<System>"), QString{});
-    ui->language_combobox->addItem(tr("English"), QStringLiteral("en"));
+    ui->language_combobox->addItem(tr("English (default)"), QStringLiteral("en"));
     QDirIterator it(QStringLiteral(":/languages"), QDirIterator::NoIteratorFlags);
     while (it.hasNext()) {
         QString locale = it.next();

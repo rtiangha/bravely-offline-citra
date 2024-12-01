@@ -186,7 +186,7 @@
               </item>
               <item>
                <property name="text">
-                <string>English</string>
+                <string>English (default)</string>
                </property>
               </item>
               <item>
@@ -257,7 +257,7 @@
               </item>
               <item>
                <property name="text">
-                <string>Stereo</string>
+                <string>Stereo (default)</string>
                </property>
               </item>
               <item>
@@ -363,7 +363,7 @@
              <widget class="QComboBox" name="combo_init_ticks_type">
               <item>
                <property name="text">
-                <string>Random</string>
+                <string>Random (default)</string>
                </property>
               </item>
               <item>

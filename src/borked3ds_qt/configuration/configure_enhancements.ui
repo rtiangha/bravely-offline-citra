@@ -230,7 +230,7 @@
           <widget class="QComboBox" name="texture_filter_combobox">
            <item>
             <property name="text">
-             <string>None</string>
+             <string>None (default)</string>
             </property>
            </item>
            <item>
@@ -292,7 +292,7 @@
           <widget class="QComboBox" name="frame_skip_combobox">
            <item>
             <property name="text">
-             <string>Disabled</string>
+             <string>Disabled (default)</string>
             </property>
            </item>
            <item>
@@ -342,7 +342,7 @@
          <widget class="QComboBox" name="render_3d_combobox">
           <item>
            <property name="text">
-            <string>Off (Monoscopic)</string>
+            <string>Monoscopic (default)</string>
            </property>
           </item>
           <item>
