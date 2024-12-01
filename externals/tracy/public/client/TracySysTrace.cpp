@@ -16,25 +16,16 @@
 namespace tracy
 {
 
-static int GetSamplingFrequency()
+static constexpr int GetSamplingFrequency()
 {
-    int samplingHz = TRACY_SAMPLING_HZ;
-
-    auto env = GetEnvVar( "TRACY_SAMPLING_HZ" );
-    if( env )
-    {
-        int val = atoi( env );
-        if( val > 0 ) samplingHz = val;
-    }
-
 #if defined _WIN32
-    return samplingHz > 8000 ? 8000 : ( samplingHz < 1 ? 1 : samplingHz );
+    return TRACY_SAMPLING_HZ > 8000 ? 8000 : ( TRACY_SAMPLING_HZ < 1 ? 1 : TRACY_SAMPLING_HZ );
 #else
-    return samplingHz > 1000000 ? 1000000 : ( samplingHz < 1 ? 1 : samplingHz );
+    return TRACY_SAMPLING_HZ > 1000000 ? 1000000 : ( TRACY_SAMPLING_HZ < 1 ? 1 : TRACY_SAMPLING_HZ );
 #endif
 }
 
-static int GetSamplingPeriod()
+static constexpr int GetSamplingPeriod()
 {
     return 1000000000 / GetSamplingFrequency();
 }
@@ -330,7 +321,7 @@ static void SetupVsync()
 #endif
 }
 
-static int GetSamplingInterval()
+static constexpr int GetSamplingInterval()
 {
     return GetSamplingPeriod() / 100;
 }

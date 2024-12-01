@@ -675,12 +675,11 @@ public:
     }
 
 #ifdef TRACY_FIBERS
-    static tracy_force_inline void EnterFiber( const char* fiber, int32_t groupHint )
+    static tracy_force_inline void EnterFiber( const char* fiber )
     {
         TracyQueuePrepare( QueueType::FiberEnter );
         MemWrite( &item->fiberEnter.time, GetTime() );
         MemWrite( &item->fiberEnter.fiber, (uint64_t)fiber );
-        MemWrite( &item->fiberEnter.groupHint, groupHint );
         TracyQueueCommit( fiberEnter );
     }
 
