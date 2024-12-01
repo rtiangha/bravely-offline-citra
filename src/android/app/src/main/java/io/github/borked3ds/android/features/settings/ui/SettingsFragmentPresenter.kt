@@ -225,20 +225,20 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             )
             add(
                 SwitchSetting(
-                    IntSetting.SUSTAINED_PERFORMANCE,
+                    BooleanSetting.SUSTAINED_PERFORMANCE,
                     R.string.sustained_performance,
                     R.string.sustained_performance_description,
-                    IntSetting.SUSTAINED_PERFORMANCE.key,
-                    IntSetting.SUSTAINED_PERFORMANCE.defaultValue
+                    BooleanSetting.SUSTAINED_PERFORMANCE.key,
+                    BooleanSetting.SUSTAINED_PERFORMANCE.defaultValue
                 )
             )
             add(
                 SwitchSetting(
-                    IntSetting.USE_FRAME_LIMIT,
+                    BooleanSetting.USE_FRAME_LIMIT,
                     R.string.frame_limit_enable,
                     R.string.frame_limit_enable_description,
-                    IntSetting.USE_FRAME_LIMIT.key,
-                    IntSetting.USE_FRAME_LIMIT.defaultValue
+                    BooleanSetting.USE_FRAME_LIMIT.key,
+                    BooleanSetting.USE_FRAME_LIMIT.defaultValue
                 )
             )
             add(
@@ -271,20 +271,20 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
         sl.apply {
             add(
                 SwitchSetting(
-                    IntSetting.NEW_3DS,
+                    BooleanSetting.NEW_3DS,
                     R.string.new_3ds,
                     R.string.new_3ds_description,
-                    IntSetting.NEW_3DS.key,
-                    IntSetting.NEW_3DS.defaultValue
+                    BooleanSetting.NEW_3DS.key,
+                    BooleanSetting.NEW_3DS.defaultValue
                 )
             )
             add(
                 SwitchSetting(
-                    IntSetting.LLE_APPLETS,
+                    BooleanSetting.LLE_APPLETS,
                     R.string.lle_applets,
                     R.string.lle_applets_description,
-                    IntSetting.LLE_APPLETS.key,
-                    IntSetting.LLE_APPLETS.defaultValue
+                    BooleanSetting.LLE_APPLETS.key,
+                    BooleanSetting.LLE_APPLETS.defaultValue
                 )
             )
             val usernameSetting = object : AbstractStringSetting {
@@ -785,11 +785,11 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(HeaderSetting(R.string.miscellaneous))
             add(
                 SwitchSetting(
-                    IntSetting.USE_ARTIC_BASE_CONTROLLER,
+                    BooleanSetting.USE_ARTIC_BASE_CONTROLLER,
                     R.string.use_artic_base_controller,
                     R.string.use_artic_base_controller_desc,
-                    IntSetting.USE_ARTIC_BASE_CONTROLLER.key,
-                    IntSetting.USE_ARTIC_BASE_CONTROLLER.defaultValue
+                    BooleanSetting.USE_ARTIC_BASE_CONTROLLER.key,
+                    BooleanSetting.USE_ARTIC_BASE_CONTROLLER.defaultValue
                 )
             )
         }
@@ -823,11 +823,11 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             )
             add(
                 SwitchSetting(
-                    IntSetting.LINEAR_FILTERING,
+                    BooleanSetting.LINEAR_FILTERING,
                     R.string.linear_filtering,
                     R.string.linear_filtering_description,
-                    IntSetting.LINEAR_FILTERING.key,
-                    IntSetting.LINEAR_FILTERING.defaultValue
+                    BooleanSetting.LINEAR_FILTERING.key,
+                    BooleanSetting.LINEAR_FILTERING.defaultValue
                 )
             )
             add(
@@ -843,20 +843,20 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             )
             add(
                 SwitchSetting(
-                    IntSetting.HW_SHADER,
+                    BooleanSetting.HW_SHADER,
                     R.string.hw_shaders,
                     R.string.hw_shaders_description,
-                    IntSetting.HW_SHADER.key,
-                    IntSetting.HW_SHADER.defaultValue
+                    BooleanSetting.HW_SHADER.key,
+                    BooleanSetting.HW_SHADER.defaultValue
                 )
             )
             add(
                 SwitchSetting(
-                    IntSetting.SHADERS_ACCURATE_MUL,
+                    BooleanSetting.SHADERS_ACCURATE_MUL,
                     R.string.shaders_accurate_mul,
                     R.string.shaders_accurate_mul_description,
-                    IntSetting.SHADERS_ACCURATE_MUL.key,
-                    IntSetting.SHADERS_ACCURATE_MUL.defaultValue
+                    BooleanSetting.SHADERS_ACCURATE_MUL.key,
+                    BooleanSetting.SHADERS_ACCURATE_MUL.defaultValue
                 )
             )
             add(
@@ -966,38 +966,38 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(HeaderSetting(R.string.graphics_hacks, R.string.hacks_description))
             add(
                 SwitchSetting(
-                    IntSetting.SKIP_SLOW_DRAW,
+                    BooleanSetting.SKIP_SLOW_DRAW,
                     R.string.skip_slow_draw,
                     R.string.skip_slow_draw_description,
-                    IntSetting.SKIP_SLOW_DRAW.key,
-                    IntSetting.SKIP_SLOW_DRAW.defaultValue
+                    BooleanSetting.SKIP_SLOW_DRAW.key,
+                    BooleanSetting.SKIP_SLOW_DRAW.defaultValue
                 )
             )
             add(
                 SwitchSetting(
-                    IntSetting.SKIP_TEXTURE_COPY,
+                    BooleanSetting.SKIP_TEXTURE_COPY,
                     R.string.skip_texture_copy,
                     R.string.skip_texture_copy_description,
-                    IntSetting.SKIP_TEXTURE_COPY.key,
-                    IntSetting.SKIP_TEXTURE_COPY.defaultValue
+                    BooleanSetting.SKIP_TEXTURE_COPY.key,
+                    BooleanSetting.SKIP_TEXTURE_COPY.defaultValue
                 )
             )
             add(
                 SwitchSetting(
-                    IntSetting.SKIP_CPU_WRITE,
+                    BooleanSetting.SKIP_CPU_WRITE,
                     R.string.skip_cpu_write,
                     R.string.skip_cpu_write_description,
-                    IntSetting.SKIP_CPU_WRITE.key,
-                    IntSetting.SKIP_CPU_WRITE.defaultValue
+                    BooleanSetting.SKIP_CPU_WRITE.key,
+                    BooleanSetting.SKIP_CPU_WRITE.defaultValue
                 )
             )
             add(
                 SwitchSetting(
-                    IntSetting.UPSCALING_HACK,
+                    BooleanSetting.UPSCALING_HACK,
                     R.string.upscaling_hack,
                     R.string.upscaling_hack_description,
-                    IntSetting.UPSCALING_HACK.key,
-                    IntSetting.UPSCALING_HACK.defaultValue
+                    BooleanSetting.UPSCALING_HACK.key,
+                    BooleanSetting.UPSCALING_HACK.defaultValue
                 )
             )
             add(HeaderSetting(R.string.stereoscopy))
@@ -1104,20 +1104,20 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(HeaderSetting(R.string.utility))
             add(
                 SwitchSetting(
-                    IntSetting.CUSTOM_TEXTURES,
+                    BooleanSetting.CUSTOM_TEXTURES,
                     R.string.custom_textures,
                     R.string.custom_textures_description,
-                    IntSetting.CUSTOM_TEXTURES.key,
-                    IntSetting.CUSTOM_TEXTURES.defaultValue
+                    BooleanSetting.CUSTOM_TEXTURES.key,
+                    BooleanSetting.CUSTOM_TEXTURES.defaultValue
                 )
             )
             add(
                 SwitchSetting(
-                    IntSetting.DUMP_TEXTURES,
+                    BooleanSetting.DUMP_TEXTURES,
                     R.string.dump_textures,
                     R.string.dump_textures_description,
-                    IntSetting.DUMP_TEXTURES.key,
-                    IntSetting.DUMP_TEXTURES.defaultValue
+                    BooleanSetting.DUMP_TEXTURES.key,
+                    BooleanSetting.DUMP_TEXTURES.defaultValue
                 )
             )
             add(
@@ -1131,11 +1131,11 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             )
             add(
                 SwitchSetting(
-                    IntSetting.ASYNC_CUSTOM_LOADING,
+                    BooleanSetting.ASYNC_CUSTOM_LOADING,
                     R.string.async_custom_loading,
                     R.string.async_custom_loading_description,
-                    IntSetting.ASYNC_CUSTOM_LOADING.key,
-                    IntSetting.ASYNC_CUSTOM_LOADING.defaultValue
+                    BooleanSetting.ASYNC_CUSTOM_LOADING.key,
+                    BooleanSetting.ASYNC_CUSTOM_LOADING.defaultValue
                 )
             )
             add(HeaderSetting(R.string.advanced))
@@ -1163,20 +1163,20 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             )
             add(
                 SwitchSetting(
-                    IntSetting.DISK_SHADER_CACHE,
+                    BooleanSetting.DISK_SHADER_CACHE,
                     R.string.use_disk_shader_cache,
                     R.string.use_disk_shader_cache_description,
-                    IntSetting.DISK_SHADER_CACHE.key,
-                    IntSetting.DISK_SHADER_CACHE.defaultValue
+                    BooleanSetting.DISK_SHADER_CACHE.key,
+                    BooleanSetting.DISK_SHADER_CACHE.defaultValue
                 )
             )
             add(
                 SwitchSetting(
-                    IntSetting.VSYNC,
+                    BooleanSetting.VSYNC,
                     R.string.vsync,
                     R.string.vsync_description,
-                    IntSetting.VSYNC.key,
-                    IntSetting.VSYNC.defaultValue
+                    BooleanSetting.VSYNC.key,
+                    BooleanSetting.VSYNC.defaultValue
                 )
             )
             add(
@@ -1513,20 +1513,20 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             )
             add(
                 SwitchSetting(
-                    IntSetting.ENABLE_AUDIO_STRETCHING,
+                    BooleanSetting.ENABLE_AUDIO_STRETCHING,
                     R.string.audio_stretch,
                     R.string.audio_stretch_description,
-                    IntSetting.ENABLE_AUDIO_STRETCHING.key,
-                    IntSetting.ENABLE_AUDIO_STRETCHING.defaultValue
+                    BooleanSetting.ENABLE_AUDIO_STRETCHING.key,
+                    BooleanSetting.ENABLE_AUDIO_STRETCHING.defaultValue
                 )
             )
             add(
                 SwitchSetting(
-                    IntSetting.ENABLE_REALTIME_AUDIO,
+                    BooleanSetting.ENABLE_REALTIME_AUDIO,
                     R.string.realtime_audio,
                     R.string.realtime_audio_description,
-                    IntSetting.ENABLE_REALTIME_AUDIO.key,
-                    IntSetting.ENABLE_REALTIME_AUDIO.defaultValue
+                    BooleanSetting.ENABLE_REALTIME_AUDIO.key,
+                    BooleanSetting.ENABLE_REALTIME_AUDIO.defaultValue
                 )
             )
             add(
@@ -1594,11 +1594,11 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             )
             add(
                 SwitchSetting(
-                    IntSetting.CPU_JIT,
+                    BooleanSetting.CPU_JIT,
                     R.string.cpu_jit,
                     R.string.cpu_jit_description,
-                    IntSetting.CPU_JIT.key,
-                    IntSetting.CPU_JIT.defaultValue
+                    BooleanSetting.CPU_JIT.key,
+                    BooleanSetting.CPU_JIT.defaultValue
                 )
             )
             add(HeaderSetting(R.string.cpu_hacks, R.string.hacks_description))
@@ -1625,20 +1625,20 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             )
             add(
                 SwitchSetting(
-                    IntSetting.CORE_DOWNCOUNT_HACK,
+                    BooleanSetting.CORE_DOWNCOUNT_HACK,
                     R.string.core_downcount_hack,
                     R.string.core_downcount_hack_description,
-                    IntSetting.CORE_DOWNCOUNT_HACK.key,
-                    IntSetting.CORE_DOWNCOUNT_HACK.defaultValue
+                    BooleanSetting.CORE_DOWNCOUNT_HACK.key,
+                    BooleanSetting.CORE_DOWNCOUNT_HACK.defaultValue
                 )
             )
             add(
                 SwitchSetting(
-                    IntSetting.PRIORITY_BOOST,
+                    BooleanSetting.PRIORITY_BOOST,
                     R.string.priority_boost,
                     R.string.priority_boost_description,
-                    IntSetting.PRIORITY_BOOST.key,
-                    IntSetting.PRIORITY_BOOST.defaultValue
+                    BooleanSetting.PRIORITY_BOOST.key,
+                    BooleanSetting.PRIORITY_BOOST.defaultValue
                 )
             )
             add(HeaderSetting(R.string.gdb))
@@ -1693,11 +1693,11 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
 
             add(
                 SwitchSetting(
-                    IntSetting.DEBUG_RENDERER,
+                    BooleanSetting.DEBUG_RENDERER,
                     R.string.renderer_debug,
                     R.string.renderer_debug_description,
-                    IntSetting.DEBUG_RENDERER.key,
-                    IntSetting.DEBUG_RENDERER.defaultValue
+                    BooleanSetting.DEBUG_RENDERER.key,
+                    BooleanSetting.DEBUG_RENDERER.defaultValue
                 )
             )
             add(

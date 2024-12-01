@@ -78,7 +78,7 @@ class EmulationActivity : AppCompatActivity() {
 
         // reduce mhz, helps for throttling reduction
         // at the cost of performance
-        if (IntSetting.SUSTAINED_PERFORMANCE.int == 1) {
+        if (BooleanSetting.SUSTAINED_PERFORMANCE.boolean == true) {
             window.setSustainedPerformanceMode(true)
         }
 
