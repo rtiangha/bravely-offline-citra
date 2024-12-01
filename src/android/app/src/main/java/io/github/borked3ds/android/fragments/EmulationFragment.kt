@@ -5,6 +5,7 @@
 
 package io.github.borked3ds.android.fragments
 
+import android.app.Activity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
@@ -58,6 +59,7 @@ import io.github.borked3ds.android.display.PortraitScreenLayout
 import io.github.borked3ds.android.display.ScreenAdjustmentUtil
 import io.github.borked3ds.android.display.ScreenLayout
 import io.github.borked3ds.android.features.settings.model.IntSetting
+import io.github.borked3ds.android.features.settings.model.Settings
 import io.github.borked3ds.android.features.settings.model.SettingsViewModel
 import io.github.borked3ds.android.features.settings.ui.SettingsActivity
 import io.github.borked3ds.android.features.settings.utils.SettingsFile
@@ -97,6 +99,14 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
     private val emulationViewModel: EmulationViewModel by activityViewModels()
     private val settingsViewModel: SettingsViewModel by viewModels()
 
+    private var currentOrientationIndex = 0
+    private val orientations = arrayOf(
+        ActivityInfo.SCREEN_ORIENTATION_PORTRAIT,
+        ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE,
+        ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT,
+        ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
+    )
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is EmulationActivity) {
@@ -112,6 +122,8 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        currentOrientationIndex = getCurrentOrientationIndex()
 
         val intent = requireActivity().intent
         val intentUri: Uri? = intent.data
@@ -455,14 +467,17 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         setInsets()
     }
 
+    private fun getCurrentOrientationIndex(): Int {
+        val currentOrientation = resources.configuration.orientation
+        return orientations.indexOf(currentOrientation).takeIf { it >= 0 } ?: 0
+    }
+
     private fun rotateScreen() {
-        if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            (context as? EmulationActivity)?.requestedOrientation =
-                ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        } else {
-            (context as? EmulationActivity)?.requestedOrientation =
-                ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        }
+        val activity = context as? Activity ?: return
+        currentOrientationIndex = (currentOrientationIndex + 1) % orientations.size
+        activity.requestedOrientation = orientations[currentOrientationIndex]
+        IntSetting.ORIENTATION_OPTION.int = activity.requestedOrientation
+        settingsViewModel.settings.saveSetting(IntSetting.ORIENTATION_OPTION, SettingsFile.FILE_NAME_CONFIG)
     }
 
     fun isDrawerOpen(): Boolean {
