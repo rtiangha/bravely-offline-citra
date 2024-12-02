@@ -5,7 +5,10 @@
 
 package io.github.borked3ds.android.ui.main
 
+import android.content.Context
 import android.content.Intent
+import android.media.AudioDeviceInfo
+import android.media.AudioManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -49,6 +52,7 @@ import io.github.borked3ds.android.utils.CiaInstallWorker
 import io.github.borked3ds.android.utils.DirectoryInitialization
 import io.github.borked3ds.android.utils.FileBrowserHelper
 import io.github.borked3ds.android.utils.InsetsHelper
+import io.github.borked3ds.android.utils.Log
 import io.github.borked3ds.android.utils.NetPlayManager
 import io.github.borked3ds.android.utils.PermissionsHandler
 import io.github.borked3ds.android.utils.ThemeUtil
@@ -84,6 +88,8 @@ class MainActivity : AppCompatActivity(), ThemeProvider {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        detectAudioDevices()
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
@@ -161,6 +167,24 @@ class MainActivity : AppCompatActivity(), ThemeProvider {
         }
 
         setInsets()
+    }
+
+    private fun detectAudioDevices() { 
+        val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        val audioDevices: Array<AudioDeviceInfo> = audioManager.getDevices(AudioManager.GET_DEVICES_ALL)
+
+        for (deviceInfo in audioDevices) {
+            val deviceName = deviceInfo.productName
+            val deviceType = when (deviceInfo.type) {
+                AudioDeviceInfo.TYPE_BUILTIN_EARPIECE -> "Built-in Earpiece"
+                AudioDeviceInfo.TYPE_BUILTIN_SPEAKER -> "Built-in Speaker"
+                AudioDeviceInfo.TYPE_WIRED_HEADPHONES -> "Wired Headphones"
+                AudioDeviceInfo.TYPE_BLUETOOTH_A2DP -> "Bluetooth A2DP"
+                AudioDeviceInfo.TYPE_BLUETOOTH_SCO -> "Bluetooth SCO"
+                else -> "Unknown"
+            }
+            Log.debug("Audio Device: $deviceName, Audio Type: $deviceType")
+        }
     }
 
     override fun onResume() {
