@@ -19,15 +19,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
-import io.github.borked3ds.R
-import io.github.borked3ds.adapters.CustomListItem
-import io.github.borked3ds.adapters.SearchLocationViewItem
-import io.github.borked3ds.adapters.SelectableAdapter
-import io.github.borked3ds.adapters.SpacingItemDecoration
-import io.github.borked3ds.databinding.FragmentSearchLocationBinding
-import io.github.borked3ds.utils.SearchLocationHelper
-import io.github.borked3ds.utils.SearchLocationResult
-import io.github.borked3ds.utils.serializable
+import io.github.borked3ds.android.R
+import io.github.borked3ds.android.adapters.CustomListItem
+import io.github.borked3ds.android.adapters.SearchLocationViewItem
+import io.github.borked3ds.android.adapters.SelectableAdapter
+import io.github.borked3ds.android.adapters.SpacingItemDecoration
+import io.github.borked3ds.android.databinding.FragmentSearchLocationBinding
+import io.github.borked3ds.android.utils.SearchLocationHelper
+import io.github.borked3ds.android.utils.SearchLocationResult
+import io.github.borked3ds.android.utils.serializable
 
 /**
  * This fragment is used to manage the selected search locations to use.

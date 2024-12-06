@@ -1,4 +1,4 @@
-package io.github.borked3ds.adapters
+package io.github.borked3ds.android.adapters
 
 import android.view.LayoutInflater
 import android.view.View

@@ -1,11 +1,11 @@
 
-package io.github.borked3ds.adapters
+package io.github.borked3ds.android.adapters
 
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import io.github.borked3ds.databinding.SearchLocationItemBinding
+import io.github.borked3ds.android.databinding.SearchLocationItemBinding
 
 object SearchLocationBindingFactory : ViewBindingFactory {
     override fun createBinding(parent : ViewGroup) = SearchLocationItemBinding.inflate(parent.inflater(), parent, false)

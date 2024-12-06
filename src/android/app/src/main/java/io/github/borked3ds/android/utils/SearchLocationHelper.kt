@@ -1,5 +1,5 @@
 
-package io.github.borked3ds.utils
+package io.github.borked3ds.android.utils
 
 import android.content.Context
 import android.net.Uri
