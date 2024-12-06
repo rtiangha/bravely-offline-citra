@@ -43,6 +43,7 @@ import io.github.borked3ds.android.model.StepState
 import io.github.borked3ds.android.ui.main.MainActivity
 import io.github.borked3ds.android.utils.Borked3DSDirectoryHelper
 import io.github.borked3ds.android.utils.GameHelper
+import io.github.borked3ds.android.utils.SearchLocationHelper
 import io.github.borked3ds.android.utils.PermissionsHandler
 import io.github.borked3ds.android.utils.ViewUtils
 import io.github.borked3ds.android.viewmodel.GamesViewModel
@@ -428,11 +429,9 @@ class SetupFragment : Fragment() {
                 Intent.FLAG_GRANT_READ_URI_PERMISSION
             )
 
-            // When a new directory is picked, we currently will reset the existing games
-            // database. This effectively means that only one game directory is supported.
-            preferences.edit()
-                .putString(GameHelper.KEY_GAME_PATH, result.toString())
-                .apply()
+            // When a new directory is picked, we will add the new games
+            // dir. This effectively means that multiple game directory is supported.
+            SearchLocationHelper.addLocation(requireContext(), result)
 
             homeViewModel.setGamesDir(requireActivity(), result.path!!)
 
