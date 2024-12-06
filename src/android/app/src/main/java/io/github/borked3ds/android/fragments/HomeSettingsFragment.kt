@@ -41,6 +41,7 @@ import io.github.borked3ds.android.model.HomeSetting
 import io.github.borked3ds.android.ui.main.MainActivity
 import io.github.borked3ds.android.utils.GameHelper
 import io.github.borked3ds.android.utils.GpuDriverHelper
+import io.github.borked3ds.android.utils.SearchLocationHelper
 import io.github.borked3ds.android.utils.Log
 import io.github.borked3ds.android.utils.PermissionsHandler
 import io.github.borked3ds.android.viewmodel.DriverViewModel
@@ -75,6 +76,7 @@ class HomeSettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mainActivity = requireActivity() as MainActivity
+        val locations = SearchLocationHelper.getSearchLocations(context)
 
         val optionsList = listOf(
             HomeSetting(
@@ -170,11 +172,18 @@ class HomeSettingsFragment : Fragment() {
                 details = homeViewModel.userDir
             ),
             HomeSetting(
-                R.string.select_games_folder,
-                R.string.select_games_folder_description,
+                R.string.search_location,
+                String.format(
+                    requireContext().getString(R.string.search_locations_count),
+                    if(locations.isEmpty()) "No" else locations.size.toString(),
+                    if(locations.size > 1) "s" else ""
+                ),
                 R.drawable.ic_add,
-                { getGamesDirectory.launch(Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).data) },
-                details = homeViewModel.gamesDir
+                {
+                    exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
+                    parentFragmentManager.primaryNavigationFragment?.findNavController()
+                        ?.navigate(R.id.action_homeSettingsFragment_to_searchLocationFragment)
+                }
             ),
             HomeSetting(
                 R.string.preferences_theme,
