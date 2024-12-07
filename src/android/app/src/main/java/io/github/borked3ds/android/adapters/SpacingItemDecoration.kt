@@ -1,5 +1,5 @@
 
-package io.github.borked3ds.android
+package io.github.borked3ds.android.adapters
 
 import android.graphics.Rect
 import android.view.View
