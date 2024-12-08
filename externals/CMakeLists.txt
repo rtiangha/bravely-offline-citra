@@ -129,6 +129,7 @@ endif()
 # oboe
 if (ANDROID)
     add_subdirectory(oboe)
+    add_library(oboe::oboe ALIAS oboe)
 endif()
 
 # inih
