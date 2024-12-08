@@ -95,6 +95,11 @@ public:
         return arb_clear_texture;
     }
 
+    /// Returns true if the implementation supports EXT_clear_texture
+    bool HasExtClearTexture() const {
+        return ext_clear_texture;
+    }
+
     /// Returns true if the implementation supports ARB_get_texture_sub_image
     bool HasArbGetTextureSubImage() const {
         return arb_get_texture_sub_image;
@@ -156,6 +161,7 @@ private:
     bool ext_buffer_storage{};
     bool arb_buffer_storage{};
     bool arb_clear_texture{};
+    bool ext_clear_texture{};
     bool arb_get_texture_sub_image{};
     bool arb_shader_image_load_store{};
     bool clip_cull_distance{};

@@ -168,6 +168,7 @@ void Driver::CheckExtensionSupport() {
     ext_buffer_storage = GLAD_GL_EXT_buffer_storage;
     arb_buffer_storage = GLAD_GL_ARB_buffer_storage;
     arb_clear_texture = GLAD_GL_ARB_clear_texture;
+    ext_clear_texture = GLAD_GL_EXT_clear_texture;
     arb_get_texture_sub_image = GLAD_GL_ARB_get_texture_sub_image;
     arb_shader_image_load_store = GLAD_GL_ARB_shader_image_load_store;
     arb_texture_compression_bptc = GLAD_GL_ARB_texture_compression_bptc;
