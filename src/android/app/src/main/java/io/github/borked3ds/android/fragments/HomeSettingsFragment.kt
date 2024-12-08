@@ -44,6 +44,7 @@ import io.github.borked3ds.android.utils.GpuDriverHelper
 import io.github.borked3ds.android.utils.SearchLocationHelper
 import io.github.borked3ds.android.utils.Log
 import io.github.borked3ds.android.utils.PermissionsHandler
+import io.github.borked3ds.android.utils.HomeSettingStringUtils
 import io.github.borked3ds.android.viewmodel.DriverViewModel
 import io.github.borked3ds.android.viewmodel.HomeViewModel
 
@@ -80,14 +81,14 @@ class HomeSettingsFragment : Fragment() {
 
         val optionsList = listOf(
             HomeSetting(
-                R.string.grid_menu_core_settings,
-                R.string.settings_description,
+                HomeSettingStringUtils.ResId(R.string.grid_menu_core_settings),
+                HomeSettingStringUtils.ResId(R.string.settings_description),
                 R.drawable.ic_settings,
                 { SettingsActivity.launch(requireContext(), SettingsFile.FILE_NAME_CONFIG, "") }
             ),
             HomeSetting(
-                R.string.artic_base_connect,
-                R.string.artic_base_connect_description,
+                HomeSettingStringUtils.ResId(R.string.artic_base_connect),
+                HomeSettingStringUtils.ResId(R.string.artic_base_connect_description),
                 R.drawable.ic_artic_base,
                 {
                     val inflater = LayoutInflater.from(context)
@@ -124,8 +125,8 @@ class HomeSettingsFragment : Fragment() {
                 }
             ),
             HomeSetting(
-                R.string.system_files,
-                R.string.system_files_description,
+                HomeSettingStringUtils.ResId(R.string.system_files),
+                HomeSettingStringUtils.ResId(R.string.system_files_description),
                 R.drawable.ic_system_update,
                 {
                     exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
@@ -134,26 +135,26 @@ class HomeSettingsFragment : Fragment() {
                 }
             ),
             HomeSetting(
-                R.string.install_game_content,
-                R.string.install_game_content_description,
+                HomeSettingStringUtils.ResId(R.string.install_game_content),
+                HomeSettingStringUtils.ResId(R.string.install_game_content_description),
                 R.drawable.ic_install,
                 { mainActivity.ciaFileInstaller.launch(true) }
             ),
             HomeSetting(
-                R.string.multiplayer,
-                R.string.multiplayer_description,
+                HomeSettingStringUtils.ResId(R.string.multiplayer),
+                HomeSettingStringUtils.ResId(R.string.multiplayer_description),
                 R.drawable.ic_network,
                 { mainActivity.displayMultiplayerDialog() }
             ),
             HomeSetting(
-                R.string.share_log,
-                R.string.share_log_description,
+                HomeSettingStringUtils.ResId(R.string.share_log),
+                HomeSettingStringUtils.ResId(R.string.share_log_description),
                 R.drawable.ic_share,
                 { shareLog() }
             ),
             HomeSetting(
-                R.string.gpu_driver_manager,
-                R.string.install_gpu_driver_description,
+                HomeSettingStringUtils.ResId(R.string.gpu_driver_manager),
+                HomeSettingStringUtils.ResId(R.string.install_gpu_driver_description),
                 R.drawable.ic_build,
                 {
                     binding.root.findNavController()
@@ -165,19 +166,19 @@ class HomeSettingsFragment : Fragment() {
                 driverViewModel.selectedDriverMetadata
             ),
             HomeSetting(
-                R.string.select_borked3ds_user_folder,
-                R.string.select_borked3ds_user_folder_home_description,
+                HomeSettingStringUtils.ResId(R.string.select_borked3ds_user_folder),
+                HomeSettingStringUtils.ResId(R.string.select_borked3ds_user_folder_home_description),
                 R.drawable.ic_home,
                 { mainActivity?.openBorked3DSDirectory?.launch(null) },
                 details = homeViewModel.userDir
             ),
             HomeSetting(
-                R.string.search_location,
-                String.format(
+                HomeSettingStringUtils.ResId(R.string.search_location),
+                HomeSettingStringUtils.Text(String.format(
                     requireContext().getString(R.string.search_locations_count),
                     if(locations.isEmpty()) "No" else locations.size.toString(),
                     if(locations.size > 1) "s" else ""
-                ),
+                )),
                 R.drawable.ic_add,
                 {
                     exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
@@ -186,14 +187,14 @@ class HomeSettingsFragment : Fragment() {
                 }
             ),
             HomeSetting(
-                R.string.preferences_theme,
-                R.string.theme_and_color_description,
+                HomeSettingStringUtils.ResId(R.string.preferences_theme),
+                HomeSettingStringUtils.ResId(R.string.theme_and_color_description),
                 R.drawable.ic_palette,
                 { SettingsActivity.launch(requireContext(), Settings.SECTION_THEME, "") }
             ),
             HomeSetting(
-                R.string.about,
-                R.string.about_description,
+                HomeSettingStringUtils.ResId(R.string.about),
+                HomeSettingStringUtils.ResId(R.string.about_description),
                 R.drawable.ic_info_outline,
                 {
                     exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
