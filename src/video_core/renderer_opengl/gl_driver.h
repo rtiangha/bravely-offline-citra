@@ -100,6 +100,11 @@ public:
         return arb_get_texture_sub_image;
     }
 
+    /// Returns true if the implementation supports ARB_shader_image_load_store
+    bool HasArbShaderImageLoadStore() const {
+        return arb_shader_image_load_store;
+    }
+
     /// Returns true if the implementation supports shader-defined clipping planes
     bool HasClipCullDistance() const {
         return clip_cull_distance;
@@ -152,6 +157,7 @@ private:
     bool arb_buffer_storage{};
     bool arb_clear_texture{};
     bool arb_get_texture_sub_image{};
+    bool arb_shader_image_load_store{};
     bool clip_cull_distance{};
     bool ext_texture_compression_s3tc{};
     bool arb_texture_compression_bptc{};

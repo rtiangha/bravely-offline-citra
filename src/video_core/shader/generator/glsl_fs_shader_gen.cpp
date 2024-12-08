@@ -1201,6 +1201,9 @@ void FragmentModule::DefineExtensions() {
     if (profile.has_separable_shaders) {
         out += "#extension GL_ARB_separate_shader_objects : enable\n";
     }
+    if (profile.has_gl_arb_shader_image_load_store) {
+        out += "#extension GL_ARB_shader_image_load_store : enable\n";
+    }
     if (config.framebuffer.shadow_rendering) {
         use_fragment_shader_interlock = true;
         if (profile.has_fragment_shader_interlock) {

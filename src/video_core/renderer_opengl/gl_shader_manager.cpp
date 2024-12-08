@@ -280,6 +280,7 @@ public:
             .has_logic_op = !driver.IsOpenGLES(),
             .has_gl_ext_framebuffer_fetch = driver.HasExtFramebufferFetch(),
             .has_gl_arm_framebuffer_fetch = driver.HasArmShaderFramebufferFetch(),
+            .has_gl_arb_shader_image_load_store = driver.HasArbShaderImageLoadStore(),
             .has_gl_nv_fragment_shader_interlock = driver.HasNvFragmentShaderInterlock(),
             .has_gl_intel_fragment_shader_ordering = driver.HasIntelFragmentShaderOrdering(),
             // TODO: This extension requires GLSL 450 / OpenGL 4.5 context.

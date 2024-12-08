@@ -28,7 +28,10 @@ GLuint LoadShader(std::string_view source, GLenum type) {
 #endif // defined(GL_EXT_clip_cull_distance)
 )";
     } else {
-        preamble = "#version 430 core\n";
+        preamble = "#version 430 core\n"
+                   "#if defined(GL_ARB_shader_image_load_store)\n"
+                   "#extension GL_ARB_shader_image_load_store : enable\n"
+                   "#endif //defined(GL_ARB_shader_image_load_store)\n";
     }
 
     std::string_view debug_type;
