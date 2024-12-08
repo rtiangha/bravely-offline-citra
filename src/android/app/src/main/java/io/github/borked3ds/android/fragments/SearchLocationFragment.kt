@@ -1,5 +1,5 @@
 
-package io.github.borked3ds.fragments
+package io.github.borked3ds.android.fragments
 
 import android.content.Intent
 import android.os.Bundle
