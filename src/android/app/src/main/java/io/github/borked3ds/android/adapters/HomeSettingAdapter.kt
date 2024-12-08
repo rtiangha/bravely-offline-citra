@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.github.borked3ds.android.databinding.CardHomeOptionBinding
 import io.github.borked3ds.android.fragments.MessageDialogFragment
 import io.github.borked3ds.android.model.HomeSetting
+import io.github.borked3ds.android.utils.HomeSettingStringUtils
 import kotlinx.coroutines.launch
 
 class HomeSettingAdapter(
@@ -64,8 +65,14 @@ class HomeSettingAdapter(
         fun bind(option: HomeSetting) {
             this.option = option
 
-            binding.optionTitle.text = activity.resources.getString(option.titleId)
-            binding.optionDescription.text = activity.resources.getString(option.descriptionId)
+            binding.optionTitle.text = when (val title = option.title) {
+                is HomeSettingStringUtils.Text -> title.value
+                is HomeSettingStringUtils.ResId -> activity.resources.getString(title.id)
+            }
+            binding.optionDescription.text = when (val desc = option.description) {
+                is HomeSettingStringUtils.Text -> desc.value
+                is HomeSettingStringUtils.ResId -> activity.resources.getString(desc.id)
+            }
             binding.optionIcon.setImageDrawable(
                 ResourcesCompat.getDrawable(
                     activity.resources,
