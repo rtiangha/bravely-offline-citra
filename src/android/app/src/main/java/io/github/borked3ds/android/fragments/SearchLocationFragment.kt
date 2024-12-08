@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
-import dagger.hilt.android.AndroidEntryPoint
 import io.github.borked3ds.android.R
 import io.github.borked3ds.android.adapters.CustomListItem
 import io.github.borked3ds.android.adapters.SearchLocationViewItem
@@ -29,12 +28,10 @@ import io.github.borked3ds.android.adapters.SpacingItemDecoration
 import io.github.borked3ds.android.databinding.FragmentSearchLocationBinding
 import io.github.borked3ds.android.utils.SearchLocationHelper
 import io.github.borked3ds.android.utils.SearchLocationResult
-import io.github.borked3ds.android.utils.serializable
 
 /**
  * This fragment is used to manage the selected search locations to use.
  */
-@AndroidEntryPoint
 class SearchLocationFragment : Fragment() {
     private var _binding: FragmentSearchLocationBinding? = null
     private val binding get() = _binding!!
