@@ -118,6 +118,6 @@ object GameHelper {
     }
 
     private fun MutableList<Game>.containsGame(game: Game): Boolean {
-        return this.any { it.filePath == game.filePath }
+        return this.any { it.path == game.path }
     }
 }
