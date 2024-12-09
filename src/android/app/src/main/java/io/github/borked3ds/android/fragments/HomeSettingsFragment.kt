@@ -179,7 +179,7 @@ class HomeSettingsFragment : Fragment() {
                     if(locations.isEmpty()) "No" else locations.size.toString(),
                     if(locations.size > 1) "s" else ""
                 )),
-                R.drawable.ic_add,
+                R.drawable.ic_folder,
                 {
                     exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
                     parentFragmentManager.primaryNavigationFragment?.findNavController()
