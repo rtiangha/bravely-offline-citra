@@ -142,10 +142,10 @@ class SearchLocationFragment : Fragment() {
             mlpAppBar.rightMargin = rightInsets
             binding.toolbar.layoutParams = mlpAppBar
 
-            val mlpScrollAbout = binding.locationsList.layoutParams as MarginLayoutParams
-            mlpScrollAbout.leftMargin = leftInsets
-            mlpScrollAbout.rightMargin = rightInsets
-            binding.locationsList.layoutParams = mlpScrollAbout
+            val mlpScroll = binding.locationsList.layoutParams as MarginLayoutParams
+            mlpScroll.leftMargin = leftInsets
+            mlpScroll.rightMargin = rightInsets
+            binding.locationsList.layoutParams = mlpScroll
 
             val mlpFab = binding.addLocationButton.layoutParams as MarginLayoutParams
             val fabPadding = requireActivity().resources.getDimensionPixelSize(R.dimen.spacing_large)
