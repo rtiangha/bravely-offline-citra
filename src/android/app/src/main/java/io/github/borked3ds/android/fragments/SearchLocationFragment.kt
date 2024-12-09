@@ -112,6 +112,7 @@ class SearchLocationFragment : Fragment() {
                         Snackbar.LENGTH_LONG
                     ).setAction(R.string.undo) {
                         adapter?.run { addItemAt(position, this@apply) }
+                        adapter?.updateItems(items)
                     }.addCallback(object : Snackbar.Callback() {
                         override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                             if (event != DISMISS_EVENT_ACTION) {
@@ -142,10 +143,12 @@ class SearchLocationFragment : Fragment() {
             mlpAppBar.rightMargin = rightInsets
             binding.toolbar.layoutParams = mlpAppBar
 
-            val mlpScroll = binding.locationsList.layoutParams as MarginLayoutParams
-            mlpScroll.leftMargin = leftInsets
-            mlpScroll.rightMargin = rightInsets
-            binding.locationsList.layoutParams = mlpScroll
+            binding.locationsList.updatePadding(
+                left = leftInsets,
+                right = rightInsets,
+                bottom = barInsets.bottom +
+                        requireActivity().resources.getDimensionPixelSize(R.dimen.spacing_fab_list)
+            )
 
             val mlpFab = binding.addLocationButton.layoutParams as MarginLayoutParams
             val fabPadding = requireActivity().resources.getDimensionPixelSize(R.dimen.spacing_large)
@@ -153,9 +156,6 @@ class SearchLocationFragment : Fragment() {
             mlpFab.bottomMargin = barInsets.bottom + fabPadding
             mlpFab.rightMargin = rightInsets + fabPadding
             binding.addLocationButton.layoutParams = mlpFab
-
-            binding.root.updatePadding(bottom = barInsets.bottom)
-
             windowInsets
         }
 
