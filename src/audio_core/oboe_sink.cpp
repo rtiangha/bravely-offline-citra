@@ -55,7 +55,7 @@ public:
                           ->setFormatConversionAllowed(true)
                           ->setSampleRate(mSampleRate)
                           ->setSampleRateConversionQuality(oboe::SampleRateConversionQuality::High)
-                          ->setChannelCount(2)
+                          ->setChannelCount(oboe::ChannelCount::Stereo)
                           ->setCallback(this)
                           ->openStream(mStream);
         if (result != oboe::Result::OK) {
