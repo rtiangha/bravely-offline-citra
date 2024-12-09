@@ -112,12 +112,12 @@ class SearchLocationFragment : Fragment() {
                         Snackbar.LENGTH_LONG
                     ).setAction(R.string.undo) {
                         adapter?.run { addItemAt(position, this@apply) }
-                        populateAdapter()
+                        adapter?.updateItems(items)
                     }.addCallback(object : Snackbar.Callback() {
                         override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                             if (event != DISMISS_EVENT_ACTION) {
                                 SearchLocationHelper.deleteLocation(requireContext(), uri!!)
-                                populateAdapter()
+                                adapter?.updateItems(items)
                             }
                         }
                     }).show()
@@ -156,6 +156,11 @@ class SearchLocationFragment : Fragment() {
             mlpFab.bottomMargin = barInsets.bottom + fabPadding
             mlpFab.rightMargin = rightInsets + fabPadding
             binding.addLocationButton.layoutParams = mlpFab
+
+            binding.locationsList.post {
+                binding.locationsList.invalidate()
+                binding.locationsList.requestLayout()
+            }
             windowInsets
         }
 
