@@ -97,6 +97,7 @@ class SearchLocationFragment : Fragment() {
         }
 
         populateAdapter()
+        setInsets()
     }
 
     private fun populateAdapter() {
@@ -115,6 +116,7 @@ class SearchLocationFragment : Fragment() {
                         override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                             if (event != DISMISS_EVENT_ACTION) {
                                 SearchLocationHelper.deleteLocation(requireContext(), uri!!)
+                                adapter?.updateItems(items)
                             }
                         }
                     }).show()
