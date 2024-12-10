@@ -112,12 +112,12 @@ class SearchLocationFragment : Fragment() {
                         Snackbar.LENGTH_LONG
                     ).setAction(R.string.undo) {
                         adapter?.run { addItemAt(position, this@apply) }
-                        adapter?.updateItems(items)
+                        populateAdapter()
                     }.addCallback(object : Snackbar.Callback() {
                         override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                             if (event != DISMISS_EVENT_ACTION) {
                                 SearchLocationHelper.deleteLocation(requireContext(), uri!!)
-                                adapter?.updateItems(items)
+                                populateAdapter()
                             }
                         }
                     }).show()
@@ -126,6 +126,7 @@ class SearchLocationFragment : Fragment() {
         }
 
         adapter.updateItems(items)
+        adapter.notifyDataSetChanged()
     }
 
     private fun setInsets() =
