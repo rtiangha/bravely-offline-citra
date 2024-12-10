@@ -83,9 +83,6 @@
     <!-- Game Grid Screen-->
     <string name="grid_menu_core_settings">Innstillinger</string>
 
-    <!-- Add Directory Screen-->
-    <string name="select_game_folder">Velg Spill Mappe</string>
-
     <!-- Preferences Screen -->
     <string name="preferences_settings">Innstillinger </string>
     <string name="preferences_general">Generelt</string>

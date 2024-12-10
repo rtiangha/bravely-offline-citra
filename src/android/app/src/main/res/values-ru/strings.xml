@@ -23,8 +23,6 @@
     <string name="custom_driver_not_supported">Кастомные драйверы не поддерживаются</string>
     <string name="custom_driver_not_supported_description">Загрузка кастомных драйверов для данного устройства в настоящее время не поддерживается.\nПроверьте данную опцию позднее, т.к. поддержка может появиться в будущем.</string>
     <string name="share_log_not_found">Лог-файл не найден</string>
-    <string name="select_games_folder">Выбор папки с играми</string>
-    <string name="select_games_folder_description">Позволяет Borked3DS формировать список игр</string>
     <string name="about">О приложении</string>
     <string name="borked3ds_description">Эмулятор 3DS с открытым исходным кодом</string>
     <string name="about_description">Версия сборки, разработчики и другое</string>

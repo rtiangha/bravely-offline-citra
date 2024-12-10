@@ -55,9 +55,6 @@
     <!-- Game Grid Screen-->
     <string name="grid_menu_core_settings">Asetukset</string>
 
-    <!-- Add Directory Screen-->
-    <string name="select_game_folder">Valitse pelikansio</string>
-
     <!-- Preferences Screen -->
     <string name="preferences_settings">Asetukset</string>
     <string name="preferences_general">Yleinen</string>

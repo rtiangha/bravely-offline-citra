@@ -23,8 +23,6 @@
     <string name="custom_driver_not_supported">Pilotes personnalisés non supporté</string>
     <string name="custom_driver_not_supported_description">Le chargement des pilotes personnalisés ne sont pas actuellement pris en charge pour ce périphérique. Vérifiez à nouveau cette option à l\'avenir pour voir si la prise en charge a été ajoutée !</string>
     <string name="share_log_not_found">Aucun fichier log trouvé</string>
-    <string name="select_games_folder">Sélectionner le dossier des jeux</string>
-    <string name="select_games_folder_description">Permet à Borked3DS de remplir la liste des jeux</string>
     <string name="about">À propos</string>
     <string name="borked3ds_description">Un émulateur 3DS open-source</string>
     <string name="about_description">Numéro de build, crédits et plus encore</string>

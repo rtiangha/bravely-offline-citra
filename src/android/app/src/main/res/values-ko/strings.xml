@@ -85,9 +85,6 @@
     <!-- Game Grid Screen-->
     <string name="grid_menu_core_settings">설정</string>
 
-    <!-- Add Directory Screen-->
-    <string name="select_game_folder">게임 폴더 선택</string>
-
     <!-- Preferences Screen -->
     <string name="preferences_settings">설정</string>
     <string name="preferences_general">일반</string>
