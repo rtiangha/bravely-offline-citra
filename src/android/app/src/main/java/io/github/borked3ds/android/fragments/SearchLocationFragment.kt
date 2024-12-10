@@ -31,6 +31,7 @@ import io.github.borked3ds.android.databinding.FragmentSearchLocationBinding
 import io.github.borked3ds.android.utils.SearchLocationHelper
 import io.github.borked3ds.android.utils.SearchLocationResult
 import io.github.borked3ds.android.viewmodel.HomeViewModel
+import io.github.borked3ds.android.viewmodel.GamesViewModel
 
 /**
  * This fragment is used to manage the selected search locations to use.
@@ -41,6 +42,7 @@ class SearchLocationFragment : Fragment() {
 
     private val adapter = SelectableAdapter(0)
     private val homeViewModel: HomeViewModel by activityViewModels()
+    private val gamesViewModel: GamesViewModel by activityViewModels()
 
     private val documentPicker =
         registerForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
@@ -53,7 +55,10 @@ class SearchLocationFragment : Fragment() {
                 val result = SearchLocationHelper.addLocation(requireContext(), it)
                 Snackbar.make(binding.root, resolveActionResultString(result), Snackbar.LENGTH_LONG)
                     .show()
-                if (result == SearchLocationResult.Success) populateAdapter()
+                if (result == SearchLocationResult.Success) {
+                    populateAdapter()
+                    gamesViewModel.reloadGames(false)
+                }
             }
         }
 
@@ -118,6 +123,7 @@ class SearchLocationFragment : Fragment() {
                             if (event != DISMISS_EVENT_ACTION) {
                                 SearchLocationHelper.deleteLocation(requireContext(), uri!!)
                                 populateAdapter()
+                                gamesViewModel.reloadGames(false)
                             }
                         }
                     }).show()
