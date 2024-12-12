@@ -21,10 +21,16 @@ open class MultiTypeAdapter : RecyclerView.Adapter<CustomViewHolder<ViewBinding>
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<CustomListItem<ViewBinding>>() {
-            override fun areItemsTheSame(oldItem: CustomListItem<ViewBinding>, newItem: CustomListItem<ViewBinding>) =
+            override fun areItemsTheSame(
+                oldItem: CustomListItem<ViewBinding>,
+                newItem: CustomListItem<ViewBinding>
+            ) =
                 oldItem.isSameItem(newItem)
 
-            override fun areContentsTheSame(oldItem: CustomListItem<ViewBinding>, newItem: CustomListItem<ViewBinding>) =
+            override fun areContentsTheSame(
+                oldItem: CustomListItem<ViewBinding>,
+                newItem: CustomListItem<ViewBinding>
+            ) =
                 oldItem.isSameContent(newItem)
         }
     }
@@ -38,7 +44,10 @@ open class MultiTypeAdapter : RecyclerView.Adapter<CustomViewHolder<ViewBinding>
 
     var searchQuery: String = ""
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder<ViewBinding> {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): CustomViewHolder<ViewBinding> {
         val bindingFactory = bindingTypeMap.filterValues { it == viewType }.keys.single()
         return CustomViewHolder(bindingFactory.createBinding(parent))
     }
@@ -87,7 +96,10 @@ open class MultiTypeAdapter : RecyclerView.Adapter<CustomViewHolder<ViewBinding>
         private fun getSortedMatches(): List<ItemScore> {
             return completeItemList.mapNotNull { item ->
                 val itemKey = item.getFilterKey().lowercase(Locale.getDefault())
-                val similarity = (jaroWinkler.similarity(searchQuery, itemKey) + cosine.similarity(searchQuery, itemKey)) / 2
+                val similarity = (jaroWinkler.similarity(searchQuery, itemKey) + cosine.similarity(
+                    searchQuery,
+                    itemKey
+                )) / 2
                 if (similarity > 0) ItemScore(similarity, item) else null
             }.sortedByDescending { it.score }
         }

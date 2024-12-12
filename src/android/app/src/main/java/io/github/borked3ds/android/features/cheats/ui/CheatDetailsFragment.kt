@@ -86,7 +86,7 @@ class CheatDetailsFragment : Fragment() {
     }
 
     private fun onDeleteClicked() {
-        val name = binding.editNameInput.text.toString()
+        binding.editNameInput.text.toString()
         MaterialAlertDialogBuilder(requireContext())
             .setMessage(getString(R.string.cheats_delete_confirmation))
             .setPositiveButton(

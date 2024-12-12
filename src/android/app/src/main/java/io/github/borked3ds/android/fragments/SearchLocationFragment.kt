@@ -1,4 +1,3 @@
-
 package io.github.borked3ds.android.fragments
 
 import android.content.Intent
@@ -155,7 +154,8 @@ class SearchLocationFragment : Fragment() {
             )
 
             val mlpFab = binding.addLocationButton.layoutParams as MarginLayoutParams
-            val fabPadding = requireActivity().resources.getDimensionPixelSize(R.dimen.spacing_large)
+            val fabPadding =
+                requireActivity().resources.getDimensionPixelSize(R.dimen.spacing_large)
             mlpFab.leftMargin = leftInsets + fabPadding
             mlpFab.bottomMargin = barInsets.bottom + fabPadding
             mlpFab.rightMargin = rightInsets + fabPadding

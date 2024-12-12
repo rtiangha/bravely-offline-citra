@@ -97,7 +97,7 @@
         android:name="io.github.borked3ds.android.fragments.DriverManagerFragment"
         android:label="DriverManagerFragment" />
 
-    <fragment 
+    <fragment
         android:id="@+id/searchLocationFragment"
         android:name="io.github.borked3ds.android.fragments.SearchLocationFragment"
         android:label="SearchLocationFragment" />

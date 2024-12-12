@@ -136,7 +136,7 @@ class MotionBottomSheetDialogFragment : BottomSheetDialogFragment() {
             previousValues.clear()
         }
         prevDeviceId = input.id
-        val firstEvent = previousValues.isEmpty()
+        val firstEvent = previousValues.isEmpty
 
         var numMovedAxis = 0
         var axisMoveValue = 0.0f

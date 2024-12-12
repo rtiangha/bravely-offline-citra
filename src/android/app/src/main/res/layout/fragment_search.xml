@@ -88,13 +88,13 @@
                     android:id="@+id/search_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:autofillHints="name"
                     android:background="@android:color/transparent"
                     android:hint="@string/home_search_games"
                     android:imeOptions="flagNoFullscreen"
+                    android:importantForAutofill="auto"
                     android:inputType="text"
-                    android:maxLines="1"
-                    android:autofillHints="name"
-                    android:importantForAutofill="auto"/>
+                    android:maxLines="1" />
 
             </LinearLayout>
 

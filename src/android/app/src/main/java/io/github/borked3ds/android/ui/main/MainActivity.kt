@@ -169,9 +169,10 @@ class MainActivity : AppCompatActivity(), ThemeProvider {
         setInsets()
     }
 
-    private fun detectAudioDevices() { 
-        val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        val audioDevices: Array<AudioDeviceInfo> = audioManager.getDevices(AudioManager.GET_DEVICES_ALL)
+    private fun detectAudioDevices() {
+        val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
+        val audioDevices: Array<AudioDeviceInfo> =
+            audioManager.getDevices(AudioManager.GET_DEVICES_ALL)
 
         for (deviceInfo in audioDevices) {
             val deviceName = deviceInfo.productName

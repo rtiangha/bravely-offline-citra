@@ -1,4 +1,3 @@
-
 package io.github.borked3ds.android.adapters
 
 import android.annotation.SuppressLint
@@ -8,20 +7,21 @@ import androidx.recyclerview.widget.RecyclerView
 import io.github.borked3ds.android.databinding.SearchLocationItemBinding
 
 object SearchLocationBindingFactory : BindingFactory {
-    override fun createBinding(parent : ViewGroup) = SearchLocationItemBinding.inflate(parent.getInflater(), parent, false)
+    override fun createBinding(parent: ViewGroup) =
+        SearchLocationItemBinding.inflate(parent.getInflater(), parent, false)
 }
 
 open class SearchLocationViewItem(
-    var uri : Uri?,
-    var onDelete : ((position : Int) -> Unit)? = null
+    var uri: Uri?,
+    var onDelete: ((position: Int) -> Unit)? = null
 ) : SelectableCustomListItem<SearchLocationItemBinding>() {
-    private var holder : CustomViewHolder<SearchLocationItemBinding>? = null
+    private var holder: CustomViewHolder<SearchLocationItemBinding>? = null
     private val adapterPosition get() = holder?.adapterPosition ?: RecyclerView.NO_POSITION
 
     override fun getBindingFactory() = SearchLocationBindingFactory
 
     @SuppressLint("SetTextI18n")
-    override fun bind(holder : CustomViewHolder<SearchLocationItemBinding>, position : Int) {
+    override fun bind(holder: CustomViewHolder<SearchLocationItemBinding>, position: Int) {
         this.holder = holder
         val binding = holder.binding
 
@@ -36,12 +36,13 @@ open class SearchLocationViewItem(
                     return@setOnClickListener
                 selectableAdapter?.removeItemAt(pos)
 
-                onDelete.invoke(pos);
+                onDelete.invoke(pos)
             }
         } ?: run {
             binding.deleteButton.visibility = ViewGroup.GONE
         }
     }
 
-    override fun isSameItem(other : CustomListItem<SearchLocationItemBinding>) : Boolean = getFilterKey() == other.getFilterKey()
+    override fun isSameItem(other: CustomListItem<SearchLocationItemBinding>): Boolean =
+        getFilterKey() == other.getFilterKey()
 }

@@ -1,4 +1,3 @@
-
 package io.github.borked3ds.android.utils
 
 import android.content.Context
@@ -14,7 +13,8 @@ interface SearchLocationHelper {
          * @return A list of URIs of selected search locations
          */
         fun getSearchLocations(context: Context): List<Uri> {
-            val preferences = PreferenceManager.getDefaultSharedPreferences(Borked3DSApplication.appContext)
+            val preferences =
+                PreferenceManager.getDefaultSharedPreferences(Borked3DSApplication.appContext)
             val locations = preferences.getString(GameHelper.KEY_GAME_PATH, "").orEmpty().split("|")
             val urisList = mutableListOf<Uri>()
 
@@ -33,7 +33,8 @@ interface SearchLocationHelper {
          */
         fun addLocation(context: Context, uri: Uri): SearchLocationResult {
             val locations = getSearchLocations(context)
-            val preferences = PreferenceManager.getDefaultSharedPreferences(Borked3DSApplication.appContext)
+            val preferences =
+                PreferenceManager.getDefaultSharedPreferences(Borked3DSApplication.appContext)
 
             if (locations.contains(uri)) {
                 return SearchLocationResult.AlreadyAdded
@@ -58,7 +59,8 @@ interface SearchLocationHelper {
          */
         fun deleteLocation(context: Context, uri: Uri): SearchLocationResult {
             val locations = getSearchLocations(context)
-            val preferences = PreferenceManager.getDefaultSharedPreferences(Borked3DSApplication.appContext)
+            val preferences =
+                PreferenceManager.getDefaultSharedPreferences(Borked3DSApplication.appContext)
 
             val newValue = locations.filterNot { it.toString() == uri.toString() }
                 .joinToString(separator = "|") { it.toString() }

@@ -475,7 +475,10 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         currentOrientationIndex = (currentOrientationIndex + 1) % orientations.size
         activity.requestedOrientation = orientations[currentOrientationIndex]
         IntSetting.ORIENTATION_OPTION.int = activity.requestedOrientation
-        settingsViewModel.settings.saveSetting(IntSetting.ORIENTATION_OPTION, SettingsFile.FILE_NAME_CONFIG)
+        settingsViewModel.settings.saveSetting(
+            IntSetting.ORIENTATION_OPTION,
+            SettingsFile.FILE_NAME_CONFIG
+        )
     }
 
     fun isDrawerOpen(): Boolean {
@@ -1033,7 +1036,13 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
             slider.addOnChangeListener(
                 Slider.OnChangeListener { slider: Slider, progress: Float, _: Boolean ->
                     if (textValue.text.toString() != (slider.value + 50).toInt().toString()) {
-                        textValue.setText(String.format(Locale.ROOT, "%d", (slider.value + 50).toInt()))
+                        textValue.setText(
+                            String.format(
+                                Locale.ROOT,
+                                "%d",
+                                (slider.value + 50).toInt()
+                            )
+                        )
                         textValue.setSelection(textValue.length())
                         setControlScale(slider.value.toInt(), target)
                     }

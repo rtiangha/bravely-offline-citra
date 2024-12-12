@@ -39,7 +39,7 @@ class Settings {
     }
 
     val isEmpty: Boolean
-        get() = sections.isEmpty()
+        get() = sections.isEmpty
 
     fun loadSettings(view: SettingsActivityView? = null) {
         sections = SettingsSectionMap()

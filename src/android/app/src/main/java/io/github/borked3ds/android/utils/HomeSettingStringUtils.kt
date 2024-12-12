@@ -1,4 +1,3 @@
-
 package io.github.borked3ds.android.utils
 
 sealed class HomeSettingStringUtils {

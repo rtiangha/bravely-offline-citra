@@ -185,11 +185,13 @@ class HomeSettingsFragment : Fragment() {
                 { true },
                 0,
                 0,
-                MutableStateFlow<String>(String.format(
-                    requireContext().getString(R.string.search_locations_count),
-                    if(locations.isEmpty()) "No" else locations.size.toString(),
-                    if(locations.size > 1) "s" else ""
-                ))
+                MutableStateFlow<String>(
+                    String.format(
+                        requireContext().getString(R.string.search_locations_count),
+                        if (locations.isEmpty()) "No" else locations.size.toString(),
+                        if (locations.size > 1) "s" else ""
+                    )
+                )
             ),
             HomeSetting(
                 HomeSettingStringUtils.ResId(R.string.preferences_theme),
