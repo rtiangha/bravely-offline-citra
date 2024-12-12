@@ -47,6 +47,7 @@ import io.github.borked3ds.android.utils.PermissionsHandler
 import io.github.borked3ds.android.utils.HomeSettingStringUtils
 import io.github.borked3ds.android.viewmodel.DriverViewModel
 import io.github.borked3ds.android.viewmodel.HomeViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 
 class HomeSettingsFragment : Fragment() {
     private var _binding: FragmentHomeSettingsBinding? = null
@@ -174,17 +175,21 @@ class HomeSettingsFragment : Fragment() {
             ),
             HomeSetting(
                 HomeSettingStringUtils.ResId(R.string.search_location),
-                HomeSettingStringUtils.Text(String.format(
-                    requireContext().getString(R.string.search_locations_count),
-                    if(locations.isEmpty()) "No" else locations.size.toString(),
-                    if(locations.size > 1) "s" else ""
-                )),
+                HomeSettingStringUtils.ResId(R.string.search_location_description),
                 R.drawable.ic_folder,
                 {
                     exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
                     parentFragmentManager.primaryNavigationFragment?.findNavController()
                         ?.navigate(R.id.action_homeSettingsFragment_to_searchLocationFragment)
-                }
+                },
+                { true },
+                0,
+                0,
+                MutableStateFlow<String>(String.format(
+                    requireContext().getString(R.string.search_locations_count),
+                    if(locations.isEmpty()) "No" else locations.size.toString(),
+                    if(locations.size > 1) "s" else ""
+                ))
             ),
             HomeSetting(
                 HomeSettingStringUtils.ResId(R.string.preferences_theme),
