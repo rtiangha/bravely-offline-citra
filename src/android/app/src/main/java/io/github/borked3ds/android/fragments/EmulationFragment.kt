@@ -5,13 +5,12 @@
 
 package io.github.borked3ds.android.fragments
 
-import android.app.Activity
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
-import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -59,7 +58,6 @@ import io.github.borked3ds.android.display.PortraitScreenLayout
 import io.github.borked3ds.android.display.ScreenAdjustmentUtil
 import io.github.borked3ds.android.display.ScreenLayout
 import io.github.borked3ds.android.features.settings.model.IntSetting
-import io.github.borked3ds.android.features.settings.model.Settings
 import io.github.borked3ds.android.features.settings.model.SettingsViewModel
 import io.github.borked3ds.android.features.settings.ui.SettingsActivity
 import io.github.borked3ds.android.features.settings.utils.SettingsFile

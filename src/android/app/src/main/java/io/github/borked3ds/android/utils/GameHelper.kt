@@ -13,7 +13,6 @@ import io.github.borked3ds.android.NativeLibrary
 import io.github.borked3ds.android.model.CheapDocument
 import io.github.borked3ds.android.model.Game
 import io.github.borked3ds.android.model.GameInfo
-import io.github.borked3ds.android.utils.SearchLocationHelper
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.IOException

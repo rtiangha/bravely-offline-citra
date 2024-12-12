@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import java.util.*
 import info.debatty.java.stringsimilarity.Cosine
 import info.debatty.java.stringsimilarity.JaroWinkler
+import java.util.*
 
 typealias OnFilterCompleteListener = () -> Unit
 

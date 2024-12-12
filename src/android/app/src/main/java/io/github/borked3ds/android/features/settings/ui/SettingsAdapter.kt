@@ -70,7 +70,6 @@ import io.github.borked3ds.android.utils.SystemSaveGame
 import java.lang.IllegalStateException
 import java.lang.NumberFormatException
 import java.text.SimpleDateFormat
-import java.util.Locale
 import kotlin.math.roundToInt
 
 class SettingsAdapter(

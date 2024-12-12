@@ -43,8 +43,8 @@ import io.github.borked3ds.android.model.StepState
 import io.github.borked3ds.android.ui.main.MainActivity
 import io.github.borked3ds.android.utils.Borked3DSDirectoryHelper
 import io.github.borked3ds.android.utils.GameHelper
-import io.github.borked3ds.android.utils.SearchLocationHelper
 import io.github.borked3ds.android.utils.PermissionsHandler
+import io.github.borked3ds.android.utils.SearchLocationHelper
 import io.github.borked3ds.android.utils.ViewUtils
 import io.github.borked3ds.android.viewmodel.GamesViewModel
 import io.github.borked3ds.android.viewmodel.HomeViewModel

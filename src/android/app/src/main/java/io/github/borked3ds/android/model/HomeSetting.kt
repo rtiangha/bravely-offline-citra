@@ -5,9 +5,9 @@
 
 package io.github.borked3ds.android.model
 
+import io.github.borked3ds.android.utils.HomeSettingStringUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import io.github.borked3ds.android.utils.HomeSettingStringUtils
 
 data class HomeSetting(
     val title: HomeSettingStringUtils,

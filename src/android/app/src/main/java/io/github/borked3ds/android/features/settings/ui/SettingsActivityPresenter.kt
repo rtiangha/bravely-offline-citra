@@ -14,7 +14,6 @@ import io.github.borked3ds.android.utils.DirectoryInitialization
 import io.github.borked3ds.android.utils.FileUtil
 import io.github.borked3ds.android.utils.Log
 import io.github.borked3ds.android.utils.PermissionsHandler
-import io.github.borked3ds.android.utils.PermissionsHandler.hasWriteAccess
 import io.github.borked3ds.android.utils.SystemSaveGame
 
 class SettingsActivityPresenter(private val activityView: SettingsActivityView) {

@@ -3,7 +3,6 @@ package io.github.borked3ds.android.adapters
 
 import android.graphics.Rect
 import android.view.View
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class SpacingItemDecoration(private val padding : Int) : RecyclerView.ItemDecoration() {
