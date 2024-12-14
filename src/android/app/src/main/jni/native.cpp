@@ -1033,4 +1033,19 @@ JNIEXPORT jboolean JNICALL Java_io_github_borked3ds_android_utils_NetPlayManager
         NetPlayIsModerator();
 }
 
+void JNICALL Java_io_github_borked3ds_android_NativeLibrary_toggleTurboSpeed(
+    [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jobject obj, jboolean enabled) {
+    Settings::values.turbo_speed = enabled ? true : false;
+}
+
+jint JNICALL Java_io_github_borked3ds_android_NativeLibrary_getTurboSpeedSlider(
+    [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jobject obj) {
+    return static_cast<jint>(Settings::values.turbo_speed);
+}
+
+void JNICALL Java_io_github_borked3ds_android_NativeLibrary_setTurboSpeedSlider(
+    [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jobject obj, jint value) {
+    Settings::values.turbo_speed = value;
+}
+
 } // extern "C"

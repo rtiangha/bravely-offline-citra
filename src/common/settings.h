@@ -517,7 +517,8 @@ struct Values {
     SwitchableSetting<bool> use_vsync_new{true, "use_vsync_new"};
     Setting<bool> use_shader_jit{true, "use_shader_jit"};
     SwitchableSetting<u32, true> resolution_factor{1, 0, 10, "resolution_factor"};
-    SwitchableSetting<u16, true> frame_limit{100, 0, 1000, "frame_limit"};
+    SwitchableSetting<double, true> frame_limit{100, 0, 1000, "frame_limit"};
+    SwitchableSetting<int, true> turbo_speed{200, 0, 1000, "turbo_speed"};
     SwitchableSetting<OptimizeSpirv> optimize_spirv_output{OptimizeSpirv::Disabled,
                                                            "optimize_spirv_output"};
     SwitchableSetting<bool> spirv_output_validation{false, "spirv_output_validation"};

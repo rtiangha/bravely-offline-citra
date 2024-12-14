@@ -139,6 +139,7 @@ class Settings {
         const val HOTKEY_CYCLE_LAYOUT = "hotkey_toggle_layout"
         const val HOTKEY_CLOSE_GAME = "hotkey_close_game"
         const val HOTKEY_PAUSE_OR_RESUME = "hotkey_pause_or_resume_game"
+        const val HOTKEY_TURBO_SPEED = "hotkey_turbo_speed"
         const val HOTKEY_QUICKSAVE = "hotkey_quickload"
         const val HOTKEY_QUICKlOAD = "hotkey_quickpause"
 
@@ -205,6 +206,7 @@ class Settings {
             HOTKEY_CYCLE_LAYOUT,
             HOTKEY_CLOSE_GAME,
             HOTKEY_PAUSE_OR_RESUME,
+            HOTKEY_TURBO_SPEED,
             HOTKEY_QUICKSAVE,
             HOTKEY_QUICKlOAD
         )
@@ -213,8 +215,9 @@ class Settings {
             R.string.emulation_cycle_landscape_layouts,
             R.string.emulation_close_game,
             R.string.emulation_toggle_pause,
+            R.string.emulation_toggle_turbo_speed,
             R.string.emulation_quicksave,
-            R.string.emulation_quickload,
+            R.string.emulation_quickload
         )
 
         const val PREF_FIRST_APP_LAUNCH = "FirstApplicationLaunch"

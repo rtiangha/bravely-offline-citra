@@ -136,6 +136,7 @@ class InputBindingSetting(
                 Settings.HOTKEY_CYCLE_LAYOUT -> Hotkey.CYCLE_LAYOUT.button
                 Settings.HOTKEY_CLOSE_GAME -> Hotkey.CLOSE_GAME.button
                 Settings.HOTKEY_PAUSE_OR_RESUME -> Hotkey.PAUSE_OR_RESUME.button
+                Settings.HOTKEY_TURBO_SPEED -> Hotkey.TURBO_SPEED.button
                 Settings.HOTKEY_QUICKSAVE -> Hotkey.QUICKSAVE.button
                 Settings.HOTKEY_QUICKlOAD -> Hotkey.QUICKLOAD.button
                 else -> -1

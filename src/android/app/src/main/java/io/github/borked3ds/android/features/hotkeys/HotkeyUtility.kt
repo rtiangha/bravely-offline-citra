@@ -13,8 +13,9 @@ import io.github.borked3ds.android.display.ScreenAdjustmentUtil
 import io.github.borked3ds.android.utils.EmulationLifecycleUtil
 
 class HotkeyUtility(
+    private val context: Context,
     private val screenAdjustmentUtil: ScreenAdjustmentUtil,
-    private val context: Context
+    private val hotkeyFunctions: HotkeyFunctions
 ) {
 
     val hotkeyButtons = Hotkey.entries.map { it.button }
@@ -26,6 +27,7 @@ class HotkeyUtility(
                 Hotkey.CYCLE_LAYOUT.button -> screenAdjustmentUtil.cycleLayouts()
                 Hotkey.CLOSE_GAME.button -> EmulationLifecycleUtil.closeGame()
                 Hotkey.PAUSE_OR_RESUME.button -> EmulationLifecycleUtil.pauseOrResume()
+                Hotkey.TURBO_SPEED.button -> hotkeyFunctions.setTurboSpeed(!hotkeyFunctions.isTurboSpeedEnabled )
                 Hotkey.QUICKSAVE.button -> {
                     NativeLibrary.saveState(NativeLibrary.QUICKSAVE_SLOT)
                     Toast.makeText(

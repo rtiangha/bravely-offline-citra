@@ -59,6 +59,7 @@ enum class IntSetting(
     FRAME_SKIP("frame_skip", Settings.SECTION_RENDERER, 0),
     DELAY_RENDER_THREAD_US("delay_game_render_thread_us", Settings.SECTION_RENDERER, 0),
     ORIENTATION_OPTION("screen_orientation", Settings.SECTION_LAYOUT, 2),
+    TURBO_SPEED("turbo_speed", Settings.SECTION_CORE, 200),
     PERF_OVERLAY_POSITION("perf_overlay_position", Settings.SECTION_LAYOUT, 0);
 
     override var int: Int = defaultValue
@@ -81,7 +82,8 @@ enum class IntSetting(
             EMULATED_REGION,
             INIT_CLOCK,
             GRAPHICS_API,
-            AUDIO_INPUT_TYPE
+            AUDIO_INPUT_TYPE,
+            FRAME_LIMIT
         )
 
         fun from(key: String): IntSetting? = IntSetting.entries.firstOrNull { it.key == key }

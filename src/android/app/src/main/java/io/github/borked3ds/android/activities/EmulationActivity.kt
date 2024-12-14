@@ -36,6 +36,7 @@ import io.github.borked3ds.android.dialogs.NetPlayDialog
 import io.github.borked3ds.android.dialogs.TweaksDialog
 import io.github.borked3ds.android.display.ScreenAdjustmentUtil
 import io.github.borked3ds.android.features.hotkeys.HotkeyUtility
+import io.github.borked3ds.android.features.hotkeys.HotkeyFunctions
 import io.github.borked3ds.android.features.settings.model.BooleanSetting
 import io.github.borked3ds.android.features.settings.model.IntSetting
 import io.github.borked3ds.android.features.settings.model.SettingsViewModel
@@ -58,6 +59,7 @@ class EmulationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEmulationBinding
     private lateinit var screenAdjustmentUtil: ScreenAdjustmentUtil
+    private lateinit var hotkeyFunctions: HotkeyFunctions
     private lateinit var hotkeyUtility: HotkeyUtility
 
     private val emulationFragment: EmulationFragment
@@ -86,7 +88,8 @@ class EmulationActivity : AppCompatActivity() {
 
         binding = ActivityEmulationBinding.inflate(layoutInflater)
         screenAdjustmentUtil = ScreenAdjustmentUtil(this, windowManager, settingsViewModel.settings)
-        hotkeyUtility = HotkeyUtility(screenAdjustmentUtil, this)
+        hotkeyFunctions = HotkeyFunctions(settingsViewModel.settings)
+        hotkeyUtility = HotkeyUtility(this, screenAdjustmentUtil, hotkeyFunctions)
         setContentView(binding.root)
 
         val navHostFragment =
@@ -160,6 +163,7 @@ class EmulationActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         NativeLibrary.enableAdrenoTurboMode(false)
+        hotkeyFunctions.resetTurboSpeed()
         EmulationLifecycleUtil.clear()
         isEmulationRunning = false
         instance = null

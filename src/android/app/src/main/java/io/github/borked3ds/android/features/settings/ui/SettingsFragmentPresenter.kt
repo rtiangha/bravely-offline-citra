@@ -256,6 +256,18 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                 )
             )
             add(
+                SliderSetting(
+                    IntSetting.TURBO_SPEED,
+                    R.string.turbo_speed,
+                    R.string.turbo_speed_description,
+                    100,
+                    400,
+                    "%",
+                    IntSetting.TURBO_SPEED.key,
+                    IntSetting.TURBO_SPEED.defaultValue.toFloat()
+                )
+            )
+            add(
                 SwitchSetting(
                     BooleanSetting.HIDE_IMAGES,
                     R.string.hide_images,
