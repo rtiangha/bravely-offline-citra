@@ -154,7 +154,7 @@
     <string name="button_r" translatable="false">R</string>
     <string name="button_zl" translatable="false">ZL</string>
     <string name="button_zr" translatable="false">ZR</string>
-    <string name="input_message_analog_only">This control must be bound to a gamepad analog stick or D-pad axis!</string>
+    <string name="input_message_analog_only">This control must be bound to a gamepad analog stick or Directional Pad axis!</string>
     <string name="input_message_button_only">This control must be bound to a gamepad button!</string>
     <string name="controller_quick_config">Quick Configure (Experimental)</string>
     <string name="controller_quick_config_description">Use a wizard to automatically map controller buttons.</string>
