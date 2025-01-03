@@ -12,9 +12,9 @@ import io.github.borked3ds.android.features.settings.model.Settings
 import io.github.borked3ds.android.features.settings.utils.SettingsFile
 
 
-class HotkeyFunctions (
+class HotkeyFunctions(
     private val settings: Settings
-)  {
+) {
     private var normalSpeed = IntSetting.FRAME_LIMIT.int
     var isTurboSpeedEnabled = false
 
@@ -40,18 +40,21 @@ class HotkeyFunctions (
         NativeLibrary.reloadSettings()
 
         val context = Borked3DSApplication.appContext
-        Toast.makeText(context
-            , "Changed Emulation Speed to: ${IntSetting.FRAME_LIMIT.int}%", Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            context,
+            "Changed Emulation Speed to: ${IntSetting.FRAME_LIMIT.int}%",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     fun resetTurboSpeed() {
         if (isTurboSpeedEnabled) {
             isTurboSpeedEnabled = false
             NativeLibrary.toggleTurboSpeed(false)
-        IntSetting.FRAME_LIMIT.int = normalSpeed
+            IntSetting.FRAME_LIMIT.int = normalSpeed
 
-        settings.saveSetting(IntSetting.FRAME_LIMIT, SettingsFile.FILE_NAME_CONFIG)
-        NativeLibrary.reloadSettings()
+            settings.saveSetting(IntSetting.FRAME_LIMIT, SettingsFile.FILE_NAME_CONFIG)
+            NativeLibrary.reloadSettings()
         }
     }
 }

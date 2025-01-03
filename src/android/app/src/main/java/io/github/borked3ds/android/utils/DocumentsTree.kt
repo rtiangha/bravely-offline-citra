@@ -123,7 +123,8 @@ class DocumentsTree {
             // Create directory if it doesn't exist and creation is enabled
             if (child == null && createIfNotExists) {
                 try {
-                    val createdDir = FileUtil.createDir(current.uri.toString(), component) ?: return null
+                    val createdDir =
+                        FileUtil.createDir(current.uri.toString(), component) ?: return null
                     child = DocumentsNode(createdDir, true).apply {
                         parent = current
                     }

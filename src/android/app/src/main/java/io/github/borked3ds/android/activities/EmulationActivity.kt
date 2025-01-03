@@ -35,8 +35,8 @@ import io.github.borked3ds.android.databinding.ActivityEmulationBinding
 import io.github.borked3ds.android.dialogs.NetPlayDialog
 import io.github.borked3ds.android.dialogs.TweaksDialog
 import io.github.borked3ds.android.display.ScreenAdjustmentUtil
-import io.github.borked3ds.android.features.hotkeys.HotkeyUtility
 import io.github.borked3ds.android.features.hotkeys.HotkeyFunctions
+import io.github.borked3ds.android.features.hotkeys.HotkeyUtility
 import io.github.borked3ds.android.features.settings.model.BooleanSetting
 import io.github.borked3ds.android.features.settings.model.IntSetting
 import io.github.borked3ds.android.features.settings.model.SettingsViewModel

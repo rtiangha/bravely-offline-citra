@@ -3,7 +3,7 @@
     <item
         android:id="@+id/game_context_open_app"
         android:title="@string/game_context_open_app" />
-     <item
+    <item
         android:id="@+id/game_context_open_save_dir"
         android:title="@string/game_context_open_save_dir" />
     <item

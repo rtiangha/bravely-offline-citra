@@ -58,7 +58,9 @@ sealed class GameListItem {
 class GameAdapter(
     private val activity: AppCompatActivity,
     private val layoutInflater: LayoutInflater
-) : ListAdapter<GameListItem, RecyclerView.ViewHolder>(AsyncDifferConfig.Builder(DiffCallback()).build()),
+) : ListAdapter<GameListItem, RecyclerView.ViewHolder>(
+    AsyncDifferConfig.Builder(DiffCallback()).build()
+),
     View.OnClickListener, View.OnLongClickListener {
 
     private val gameView = 0
@@ -80,10 +82,12 @@ class GameAdapter(
                 binding.cardGame.setOnLongClickListener(this)
                 GameViewHolder(binding)
             }
+
             favoriteGameView -> {
                 val view = layoutInflater.inflate(R.layout.list_item_separator, parent, false)
                 SeparatorViewHolder(view)
             }
+
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -451,7 +455,7 @@ class GameAdapter(
         holder: GameViewHolder,
         view: View
     ) {
-        val bottomSheetView = inflater.inflate(R.layout.dialog_about_game, null)
+        val bottomSheetView = layoutInflater.inflate(R.layout.dialog_about_game, null)
 
         val game_id = String.format("%016X", game.titleId)
         val game_filename = game.filename
@@ -518,7 +522,8 @@ class GameAdapter(
                     notifyItemChanged(position)
                 }
 
-                val sortedGames = currentList.filterIsInstance<GameListItem.GameItem>().map { it.game }
+                val sortedGames =
+                    currentList.filterIsInstance<GameListItem.GameItem>().map { it.game }
                 submitGameList(sortedGames)
                 bottomSheetDialog.dismiss()
             }
@@ -553,6 +558,7 @@ class GameAdapter(
                     val newGame = (newItem as GameListItem.GameItem)
                     oldItem.game.titleId == newGame.game.titleId
                 }
+
                 GameListItem.Separator -> true
             }
         }
@@ -563,12 +569,14 @@ class GameAdapter(
     }
 
     private val gameComparator = compareBy<Game> { game ->
-        val preferences = PreferenceManager.getDefaultSharedPreferences(Borked3DSApplication.appContext)
+        val preferences =
+            PreferenceManager.getDefaultSharedPreferences(Borked3DSApplication.appContext)
         !preferences.getBoolean("favorite_${game.titleId}", false) // Favorites first
     }.thenBy { it.title.lowercase() } // Then alphabetically
 
     fun submitGameList(games: List<Game>) {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(Borked3DSApplication.appContext)
+        val preferences =
+            PreferenceManager.getDefaultSharedPreferences(Borked3DSApplication.appContext)
         val sortedGames = games.sortedWith(gameComparator)
 
         val items = mutableListOf<GameListItem>()
@@ -585,7 +593,7 @@ class GameAdapter(
         if (hasFavorites && hasNonFavorites) {
             val separatorIndex = items.indexOfFirst {
                 it is GameListItem.GameItem &&
-                !preferences.getBoolean("favorite_${it.game.titleId}", false)
+                        !preferences.getBoolean("favorite_${it.game.titleId}", false)
             }
             items.add(separatorIndex, GameListItem.Separator)
         }
