@@ -9,6 +9,7 @@
 #include <span>
 #include "common/bit_field.h"
 #include "common/common_funcs.h"
+#include "core/file_sys/file_backend.h"
 #include "core/hle/kernel/event.h"
 #include "core/hle/service/fs/archive.h"
 #include "core/hle/service/service.h"

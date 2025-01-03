@@ -15,6 +15,7 @@
 #include "common/common_types.h"
 #include "common/swap.h"
 #include "core/file_sys/delay_generator.h"
+#include "core/file_sys/file_backend.h"
 #include "core/hle/result.h"
 
 namespace FileSys {

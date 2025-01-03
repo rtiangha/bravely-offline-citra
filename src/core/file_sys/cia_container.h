@@ -11,6 +11,7 @@
 #include <string>
 #include "common/common_types.h"
 #include "common/swap.h"
+#include "core/file_sys/file_backend.h"
 #include "core/file_sys/ticket.h"
 #include "core/file_sys/title_metadata.h"
 
