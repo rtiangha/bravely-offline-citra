@@ -5,7 +5,7 @@
 
 #include <string>
 #include <vector>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "audio_core/audio_types.h"
 #include "audio_core/sdl2_sink.h"
 #include "common/assert.h"

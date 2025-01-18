@@ -8,7 +8,7 @@
 #include <sstream>
 #include <type_traits>
 #include <INIReader.h>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "borked3ds/config.h"
 #include "borked3ds/default_ini.h"
 #include "common/file_util.h"

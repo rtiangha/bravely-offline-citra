@@ -127,7 +127,7 @@ __declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
 #endif
 
 #ifdef HAVE_SDL2
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #endif
 
 constexpr int default_mouse_timeout = 2500;

@@ -7,8 +7,8 @@
 #include <cstdlib>
 #include <string>
 #define SDL_MAIN_HANDLED
-#include <SDL.h>
-#include <SDL_rect.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_rect.h>
 #include "borked3ds/emu_window/emu_window_sdl2_sw.h"
 #include "common/scm_rev.h"
 #include "common/settings.h"
