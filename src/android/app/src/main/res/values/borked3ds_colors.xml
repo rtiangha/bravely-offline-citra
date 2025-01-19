@@ -222,6 +222,7 @@
     <color name="borked3ds_surfaceTint_gray">#9E9E9E</color>
 
     <!-- Common Colors Across All Themes -->
+    <color name="borked3ds_transparent_black_50">#80000000</color>
     <color name="borked3ds_outlineVariant">#C6C5D0</color>
     <color name="borked3ds_error">#BA1A1A</color>
     <color name="borked3ds_errorContainer">#FFDAD6</color>

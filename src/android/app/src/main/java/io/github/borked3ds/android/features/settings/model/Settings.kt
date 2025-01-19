@@ -100,6 +100,7 @@ class Settings {
     }
 
     companion object {
+        const val SECTION_STATS_OVERLAY = "Stats Overlay"
         const val SECTION_CORE = "Core"
         const val SECTION_SYSTEM = "System"
         const val SECTION_CAMERA = "Camera"

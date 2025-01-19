@@ -251,6 +251,7 @@
     <color name="borked3ds_surfaceTint_gray">#B7B7B7</color>
 
     <!-- Common Colors Across All Themes -->
+    <color name="borked3ds_transparent_black_50">#80000000</color>
     <color name="borked3ds_inversePrimary">#FFFFFF
     </color>   <!-- Unused color but Search crashes without this -->
     <color name="borked3ds_outlineVariant">#C6C5D0</color>

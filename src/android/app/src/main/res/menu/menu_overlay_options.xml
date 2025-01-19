@@ -7,9 +7,9 @@
         android:title="@string/emulation_show_overlay" />
 
     <item
-        android:id="@+id/menu_show_fps"
+        android:id="@+id/menu_show_perf_overlay"
         android:checkable="true"
-        android:title="@string/emulation_show_fps" />
+        android:title="@string/emulation_show_perf_overlay" />
 
     <item
         android:id="@+id/menu_haptic_feedback"

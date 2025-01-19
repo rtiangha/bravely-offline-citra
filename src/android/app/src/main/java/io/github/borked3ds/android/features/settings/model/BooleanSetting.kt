@@ -55,6 +55,12 @@ enum class BooleanSetting(
     RECORD_FRAME_TIMES("record_frame_times", Settings.SECTION_DEBUG, false),
     DUMP_COMMAND_BUFFERS("dump_command_buffers", Settings.SECTION_DEBUG, false),
     SWAP_SCREEN("swap_screen", Settings.SECTION_LAYOUT, false),
+    SHOW_FPS("show_fps", Settings.SECTION_LAYOUT, true),
+    SHOW_SPEED("show_speed", Settings.SECTION_LAYOUT, false),
+    SHOW_APP_RAM_USAGE("show_app_ram_usage", Settings.SECTION_LAYOUT, false),
+    SHOW_SYSTEM_RAM_USAGE("show_system_ram_usage", Settings.SECTION_LAYOUT, false),
+    SHOW_BAT_TEMPERATURE("show_bat_temperature", Settings.SECTION_LAYOUT, false),
+    OVERLAY_BACKGROUND("overlay_background", Settings.SECTION_LAYOUT, false),
     CUSTOM_LAYOUT("custom_layout", Settings.SECTION_LAYOUT, false);
 
     override var boolean: Boolean = defaultValue

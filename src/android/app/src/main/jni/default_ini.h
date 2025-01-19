@@ -321,6 +321,15 @@ custom_bottom_height =
 # 9: Portrait (Flipped)
 screen_orientation =
 
+# Position of the performance overlay
+# 0: Top Left
+# 1: Center Top
+# 2: Top Right
+# 3: Bottom Left
+# 4: Center Bottom
+# 5: Bottom Right
+perf_overlay_position =
+
 # Layout for the portrait mode
 # 0 (default): Top and bottom screens at top, full width
 # 1: Custom Layout

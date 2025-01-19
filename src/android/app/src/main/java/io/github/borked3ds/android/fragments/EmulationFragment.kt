@@ -7,11 +7,15 @@ package io.github.borked3ds.android.fragments
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.ActivityManager
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.net.Uri
+import android.os.BatteryManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -19,6 +23,7 @@ import android.os.SystemClock
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Choreographer
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.Surface
@@ -29,10 +34,8 @@ import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.Insets
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
 import androidx.fragment.app.Fragment
@@ -57,6 +60,7 @@ import io.github.borked3ds.android.databinding.FragmentEmulationBinding
 import io.github.borked3ds.android.display.PortraitScreenLayout
 import io.github.borked3ds.android.display.ScreenAdjustmentUtil
 import io.github.borked3ds.android.display.ScreenLayout
+import io.github.borked3ds.android.features.settings.model.BooleanSetting
 import io.github.borked3ds.android.features.settings.model.IntSetting
 import io.github.borked3ds.android.features.settings.model.SettingsViewModel
 import io.github.borked3ds.android.features.settings.ui.SettingsActivity
@@ -193,8 +197,11 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
             binding.surfaceInputOverlay.setIsInEditMode(false)
         }
 
-        // Show/hide the "Show FPS" overlay
-        updateShowFpsOverlay()
+        // Show/hide the "Stats" overlay
+        updateshowPerfStatsOvelrayOverlay()
+
+        val position = IntSetting.PERF_OVERLAY_POSITION.int
+        updatePerfStatsPosition(position)
 
         binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         binding.drawerLayout.addDrawerListener(object : DrawerListener {
@@ -461,8 +468,6 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
                 }
             }
         }
-
-        setInsets()
     }
 
     private fun getCurrentOrientationIndex(): Int {
@@ -498,6 +503,16 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         Choreographer.getInstance().postFrameCallback(this)
         if (NativeLibrary.isRunning()) {
             NativeLibrary.unPauseEmulation()
+            binding.inGameMenu.menu.findItem(R.id.menu_emulation_pause)?.let { menuItem ->
+                menuItem.title = resources.getString(R.string.pause_emulation)
+                menuItem.icon = ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_pause,
+                    requireContext().theme
+                )
+            }
+            val position = IntSetting.PERF_OVERLAY_POSITION.int
+            updatePerfStatsPosition(position)
             return
         }
 
@@ -678,7 +693,8 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
 
         popupMenu.menu.apply {
             findItem(R.id.menu_show_overlay).isChecked = EmulationMenuSettings.showOverlay
-            findItem(R.id.menu_show_fps).isChecked = EmulationMenuSettings.showFps
+            findItem(R.id.menu_show_perf_overlay).isChecked =
+                EmulationMenuSettings.showPerfStatsOvelray
             findItem(R.id.menu_haptic_feedback).isChecked = EmulationMenuSettings.hapticFeedback
             findItem(R.id.menu_emulation_joystick_rel_center).isChecked =
                 EmulationMenuSettings.joystickRelCenter
@@ -694,15 +710,16 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
                     true
                 }
 
-                R.id.menu_show_fps -> {
-                    EmulationMenuSettings.showFps = !EmulationMenuSettings.showFps
-                    updateShowFpsOverlay()
+                R.id.menu_show_perf_overlay -> {
+                    EmulationMenuSettings.showPerfStatsOvelray =
+                        !EmulationMenuSettings.showPerfStatsOvelray
+                    updateshowPerfStatsOvelrayOverlay()
                     true
                 }
 
                 R.id.menu_haptic_feedback -> {
                     EmulationMenuSettings.hapticFeedback = !EmulationMenuSettings.hapticFeedback
-                    updateShowFpsOverlay()
+                    updateshowPerfStatsOvelrayOverlay()
                     true
                 }
 
@@ -1190,34 +1207,127 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         binding.surfaceInputOverlay.resetButtonPlacement()
     }
 
-    fun updateShowFpsOverlay() {
-        if (EmulationMenuSettings.showFps) {
-            val fps = 1
-            val speed = 3
+    fun updateshowPerfStatsOvelrayOverlay() {
+        if (EmulationMenuSettings.showPerfStatsOvelray) {
+            val FPS = 1
+            val SPEED = 3
             perfStatsUpdater = Runnable {
+                val sb = StringBuilder()
                 val perfStats = NativeLibrary.getPerfStats()
-                val ramUsage =
-                    File("/proc/self/statm").readLines()[0].split(' ')[1].toLong() * 4096 / 1000000
-                val ramUsageText = "RAM USAGE: $ramUsage MB"
-                if (perfStats[fps] > 0) {
-                    binding.showFpsText.text = String.format(
-                        Locale.ROOT,
-                        "FPS: %d Speed: %d%%\n%s",
-                        (perfStats[fps] + 0.5).toInt(),
-                        (perfStats[speed] * 100.0 + 0.5).toInt(),
-                        ramUsageText
-                    )
+                if (perfStats[FPS] > 0) {
+                    if (BooleanSetting.SHOW_FPS.boolean) {
+                        sb.append(String.format("FPS: %d", (perfStats[FPS] + 0.5).toInt()))
+                    }
+
+                    if (BooleanSetting.SHOW_SPEED.boolean) {
+                        if (sb.isNotEmpty()) sb.append(" | ")
+                        sb.append(
+                            String.format(
+                                "Speed: %d%%",
+                                (perfStats[SPEED] * 100.0 + 0.5).toInt()
+                            )
+                        )
+                    }
+
+                    if (BooleanSetting.SHOW_APP_RAM_USAGE.boolean) {
+                        if (sb.isNotEmpty()) sb.append(" | ")
+                        val appRamUsage =
+                            File("/proc/self/statm").readLines()[0].split(' ')[1].toLong() * 4096 / 1000000
+                        sb.append("Process RAM: $appRamUsage MB")
+                    }
+
+                    if (BooleanSetting.SHOW_SYSTEM_RAM_USAGE.boolean) {
+                        if (sb.isNotEmpty()) sb.append(" | ")
+                        context?.let { ctx ->
+                            val activityManager =
+                                ctx.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+                            val memInfo = ActivityManager.MemoryInfo()
+                            activityManager.getMemoryInfo(memInfo)
+                            val usedRamMB = (memInfo.totalMem - memInfo.availMem) / 1048576L
+                            sb.append("RAM: $usedRamMB MB")
+                        }
+                    }
+
+                    if (BooleanSetting.SHOW_BAT_TEMPERATURE.boolean) {
+                        if (sb.isNotEmpty()) sb.append(" | ")
+                        val batteryTemp = getBatteryTemperature()
+                        val tempF = celsiusToFahrenheit(batteryTemp)
+                        sb.append(String.format("%.1f°C/%.1f°F", batteryTemp, tempF))
+                    }
+
+                    if (BooleanSetting.OVERLAY_BACKGROUND.boolean) {
+                        binding.showPerfOverlayText.setBackgroundResource(R.color.borked3ds_transparent_black_50)
+                    } else {
+                        binding.showPerfOverlayText.setBackgroundResource(0)
+                    }
+
+                    binding.showPerfOverlayText.text = sb.toString()
                 }
-                perfStatsUpdateHandler.postDelayed(perfStatsUpdater!!, 800)
+                perfStatsUpdateHandler.postDelayed(perfStatsUpdater!!, 3000)
             }
             perfStatsUpdateHandler.post(perfStatsUpdater!!)
-            binding.showFpsText.visibility = View.VISIBLE
+
+            binding.showPerfOverlayText.visibility = View.VISIBLE
         } else {
             if (perfStatsUpdater != null) {
                 perfStatsUpdateHandler.removeCallbacks(perfStatsUpdater!!)
             }
-            binding.showFpsText.visibility = View.GONE
+            binding.showPerfOverlayText.visibility = View.GONE
         }
+    }
+
+    private fun updatePerfStatsPosition(position: Int) {
+        val params = binding.showPerfOverlayText.layoutParams as CoordinatorLayout.LayoutParams
+        when (position) {
+            0 -> {
+                params.gravity = (Gravity.TOP or Gravity.START)
+                params.setMargins(resources.getDimensionPixelSize(R.dimen.spacing_large), 0, 0, 0)
+            }
+
+            1 -> {
+                params.gravity = (Gravity.TOP or Gravity.CENTER_HORIZONTAL)
+            }
+
+            2 -> {
+                params.gravity = (Gravity.TOP or Gravity.END)
+                params.setMargins(0, 0, resources.getDimensionPixelSize(R.dimen.spacing_large), 0)
+            }
+
+            3 -> {
+                params.gravity = (Gravity.BOTTOM or Gravity.START)
+                params.setMargins(resources.getDimensionPixelSize(R.dimen.spacing_large), 0, 0, 0)
+            }
+
+            4 -> {
+                params.gravity = (Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL)
+            }
+
+            5 -> {
+                params.gravity = (Gravity.BOTTOM or Gravity.END)
+                params.setMargins(0, 0, resources.getDimensionPixelSize(R.dimen.spacing_large), 0)
+            }
+        }
+
+        binding.showPerfOverlayText.layoutParams = params
+    }
+
+    private fun getBatteryTemperature(): Float {
+        try {
+            val batteryIntent =
+                requireContext().registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+            // Temperature in tenths of a degree Celsius
+            val temperature = batteryIntent?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0) ?: 0
+            // Convert to degrees Celsius
+            return temperature / 10.0f
+        } catch (e: Exception) {
+            Log.error("[EmulationFragment] Failed to get battery temperature: ${e.message}")
+            return 0.0f
+        }
+    }
+
+
+    private fun celsiusToFahrenheit(celsius: Float): Float {
+        return (celsius * 9 / 5) + 32
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
@@ -1237,42 +1347,6 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
     override fun doFrame(frameTimeNanos: Long) {
         Choreographer.getInstance().postFrameCallback(this)
         NativeLibrary.doFrame()
-    }
-
-    private fun setInsets() {
-        ViewCompat.setOnApplyWindowInsetsListener(
-            binding.inGameMenu
-        ) { v: View, windowInsets: WindowInsetsCompat ->
-            val cutInsets: Insets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout())
-            var left = 0
-            var right = 0
-            if (v.layoutDirection == View.LAYOUT_DIRECTION_LTR) {
-                left = cutInsets.left
-            } else {
-                right = cutInsets.right
-            }
-
-            v.setPadding(left, cutInsets.top, right, 0)
-
-            // Ensure FPS text doesn't get cut off by rounded display corners
-            val sidePadding = resources.getDimensionPixelSize(R.dimen.spacing_large)
-            if (cutInsets.left == 0) {
-                binding.showFpsText.setPadding(
-                    sidePadding,
-                    cutInsets.top,
-                    cutInsets.right,
-                    cutInsets.bottom
-                )
-            } else {
-                binding.showFpsText.setPadding(
-                    cutInsets.left,
-                    cutInsets.top,
-                    cutInsets.right,
-                    cutInsets.bottom
-                )
-            }
-            windowInsets
-        }
     }
 
     private class EmulationState(private val gamePath: String) {

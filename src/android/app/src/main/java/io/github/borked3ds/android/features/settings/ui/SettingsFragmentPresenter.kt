@@ -41,6 +41,7 @@ import io.github.borked3ds.android.features.settings.model.view.SwitchSetting
 import io.github.borked3ds.android.features.settings.utils.SettingsFile
 import io.github.borked3ds.android.fragments.ResetSettingsDialogFragment
 import io.github.borked3ds.android.utils.BirthdayMonth
+import io.github.borked3ds.android.utils.EmulationMenuSettings
 import io.github.borked3ds.android.utils.GpuDriverHelper
 import io.github.borked3ds.android.utils.Log
 import io.github.borked3ds.android.utils.SystemSaveGame
@@ -98,6 +99,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             Settings.SECTION_AUDIO -> addAudioSettings(sl)
             Settings.SECTION_DEBUG -> addDebugSettings(sl)
             Settings.SECTION_THEME -> addThemeSettings(sl)
+            Settings.SECTION_STATS_OVERLAY -> addStatsOverlaySettings(sl)
             Settings.SECTION_CUSTOM_LANDSCAPE -> addCustomLandscapeSettings(sl)
             Settings.SECTION_CUSTOM_PORTRAIT -> addCustomPortraitSettings(sl)
             else -> {
@@ -1257,6 +1259,14 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(HeaderSetting(R.string.custom_layout))
             add(
                 SubmenuSetting(
+                    R.string.stats_overlay_options,
+                    R.string.stats_overlay_options_description,
+                    R.drawable.ic_frames,
+                    Settings.SECTION_STATS_OVERLAY
+                )
+            )
+            add(
+                SubmenuSetting(
                     R.string.emulation_landscape_custom_layout,
                     R.string.emulation_landscape_custom_layout_description,
                     R.drawable.ic_fit_screen,
@@ -1619,6 +1629,108 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     R.array.audioInputTypeValues,
                     IntSetting.AUDIO_INPUT_TYPE.key,
                     IntSetting.AUDIO_INPUT_TYPE.defaultValue
+                )
+            )
+        }
+    }
+
+    private fun addStatsOverlaySettings(sl: ArrayList<SettingsItem>) {
+        settingsActivity.setToolbarTitle(settingsActivity.getString(R.string.stats_overlay_options))
+        sl.apply {
+
+            add(HeaderSetting(R.string.stats_overlay_customization))
+
+            add(
+                SwitchSetting(
+                    object : AbstractBooleanSetting {
+                        override val key = "EmulationMenuSettings_showPerfStatsOvelray"
+                        override val section = Settings.SECTION_LAYOUT
+                        override val defaultValue = false
+                        override var boolean: Boolean
+                            get() = EmulationMenuSettings.showPerfStatsOvelray
+                            set(value) {
+                                EmulationMenuSettings.showPerfStatsOvelray = value
+                            }
+                        override val isRuntimeEditable = true
+                        override val valueAsString: String get() = boolean.toString()
+                    },
+                    R.string.enable_stats_overlay_,
+                    0,
+                    "EmulationMenuSettings_showPerfStatsOvelray",
+                    false
+                )
+            )
+
+            add(
+                SwitchSetting(
+                    BooleanSetting.OVERLAY_BACKGROUND,
+                    R.string.overlay_background,
+                    R.string.overlay_background_description,
+                    "overlay_background",
+                    false
+                )
+            )
+
+            add(
+                SingleChoiceSetting(
+                    IntSetting.PERF_OVERLAY_POSITION,
+                    R.string.overlay_position,
+                    R.string.overlay_position_description,
+                    R.array.statsPosition,
+                    R.array.statsPositionValues,
+                )
+            )
+
+
+            add(HeaderSetting(R.string.stats_overlay_items))
+
+            add(
+                SwitchSetting(
+                    BooleanSetting.SHOW_FPS,
+                    R.string.show_fps,
+                    R.string.show_fps_description,
+                    "show_fps",
+                    true
+                )
+            )
+
+            add(
+                SwitchSetting(
+                    BooleanSetting.SHOW_SPEED,
+                    R.string.show_speed,
+                    R.string.show_speed_description,
+                    "show_speed",
+                    false
+                )
+            )
+
+            add(
+                SwitchSetting(
+                    BooleanSetting.SHOW_APP_RAM_USAGE,
+                    R.string.show_app_ram_usage,
+                    R.string.show_app_ram_usage_description,
+                    "show_app_ram_usage",
+                    false
+                )
+            )
+
+            add(
+                SwitchSetting(
+                    BooleanSetting.SHOW_SYSTEM_RAM_USAGE,
+                    R.string.show_system_ram_usage,
+                    R.string.show_system_ram_usage_description,
+                    "show_system_ram_usage",
+                    false
+                )
+            )
+
+            add(
+                SwitchSetting(
+                    BooleanSetting.SHOW_BAT_TEMPERATURE,
+                    R.string.show_bat_temperature,
+                    R.string.show_bat_temperature_description,
+                    "show_bat_temperature",
+                    false
                 )
             )
         }

@@ -58,7 +58,8 @@ enum class IntSetting(
     OPTIMIZE_SPIRV("optimize_spirv_output", Settings.SECTION_RENDERER, 0),
     FRAME_SKIP("frame_skip", Settings.SECTION_RENDERER, 0),
     DELAY_RENDER_THREAD_US("delay_game_render_thread_us", Settings.SECTION_RENDERER, 0),
-    ORIENTATION_OPTION("screen_orientation", Settings.SECTION_LAYOUT, 2);
+    ORIENTATION_OPTION("screen_orientation", Settings.SECTION_LAYOUT, 2),
+    PERF_OVERLAY_POSITION("perf_overlay_position", Settings.SECTION_LAYOUT, 0);
 
     override var int: Int = defaultValue
 

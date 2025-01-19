@@ -5,7 +5,6 @@
 
 package io.github.borked3ds.android.ui.main
 
-import android.content.Context
 import android.content.Intent
 import android.media.AudioDeviceInfo
 import android.media.AudioManager
