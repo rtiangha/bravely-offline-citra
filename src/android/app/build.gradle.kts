@@ -3,9 +3,9 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-import android.databinding.tool.ext.capitalizeUS
 import de.undercouch.gradle.tasks.download.Download
 import java.io.File
+import org.gradle.api.tasks.Copy
 
 plugins {
     id("com.android.application")
@@ -30,7 +30,7 @@ val downloadedJniLibsPath = "${project.layout.buildDirectory.get().asFile}/downl
 android {
     namespace = "io.github.borked3ds.android"
 
-    compileSdkVersion = "android-35"
+    compileSdk = 35
     ndkVersion = "27.2.12479018"
 
     compileOptions {
@@ -153,10 +153,10 @@ android {
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
             signingConfig = signingConfigs.getByName("debug")
-            isMinifyEnabled = true
+            isMinifyEnabled = true 
             isShrinkResources = true
-            isDebuggable = true
-            isJniDebuggable = true
+            isDebuggable = false
+            isJniDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android.txt"),
                 "proguard-rules.pro"
@@ -294,21 +294,18 @@ fun runGitCommand(command: ProcessBuilder): String? {
 
 android.applicationVariants.configureEach {
     val variant = this
-    val capitalizedName = variant.name.capitalizeUS()
+    val capitalizedName = variant.name.replaceFirstChar { it.uppercase() }
 
-    val copyTask = tasks.register("copyBundle${capitalizedName}") {
-        doLast {
-            project.copy {
-                from(variant.outputs.first().outputFile.parentFile)
-                include("*.apk")
-                into(layout.buildDirectory.dir("bundle"))
-            }
-            project.copy {
-                from(layout.buildDirectory.dir("outputs/bundle/${variant.name}"))
-                include("*.aab")
-                into(layout.buildDirectory.dir("bundle"))
-            }
+    val copyTask = tasks.register<Copy>("copyBundle${capitalizedName}") {
+        // Define the copy specs at configuration time
+        from(variant.outputs.first().outputFile.parentFile) {
+            include("*.apk")
         }
+        from(layout.buildDirectory.dir("outputs/bundle/${variant.name}")) {
+            include("*.aab")
+        }
+        into(layout.buildDirectory.dir("bundle"))
     }
+    
     tasks.named("bundle${capitalizedName}").configure { finalizedBy(copyTask) }
 }

@@ -11,13 +11,14 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "2.1.0"
 }
 
-tasks.register("clean").configure {
+tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }
 
 buildscript {
     repositories {
         google()
+        mavenCentral()
     }
     dependencies {
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.8.5")
