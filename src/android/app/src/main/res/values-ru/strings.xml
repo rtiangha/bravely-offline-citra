@@ -50,9 +50,9 @@
     <string name="licenses_description">Проекты, которые сделали возможным Borked3DS для Android</string>
     <string name="build">Сборка</string>
     <string name="licenses">Лицензии</string>
-    <string name="support_link">https://discord.gg/FAXfZV9</string>
-    <string name="website_link">https://borked3ds-emu.org/</string>
-    <string name="github_link">https://github.com/borked3ds-emu</string>
+    <string name="support_link">>https://github.com/Borked3DS/Borked3DS/discussions</string>
+    <string name="website_link">https://borked3ds.github.iio</string>
+    <string name="github_link">https://github.com/Borked3DS/Borked3DS</string>
 
     <!-- Setup strings -->
     <string name="welcome">Добро пожаловать!</string>

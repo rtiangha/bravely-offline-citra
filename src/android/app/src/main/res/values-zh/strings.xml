@@ -52,9 +52,9 @@
     <string name="licenses_description">Borked3DS 安卓版的诞生离不开这些项目</string>
     <string name="build">构建版本</string>
     <string name="licenses">许可证</string>
-    <string name="support_link">https://discord.gg/FAXfZV9</string>
-    <string name="website_link">https://borked3ds-emu.org/</string>
-    <string name="github_link">https://github.com/borked3ds-emu</string>
+    <string name="support_link">>https://github.com/Borked3DS/Borked3DS/discussions</string>
+    <string name="website_link">https://borked3ds.github.io/</string>
+    <string name="github_link">https://github.com/Borked3DS/Borked3DS</string>
 
     <!-- Setup strings -->
     <string name="welcome">欢迎！</string>
