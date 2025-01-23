@@ -3,9 +3,6 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-#ifdef ARCHITECTURE_ARM64
-#include <arm_neon.h>
-#endif
 #include "common/alignment.h"
 #include "core/memory.h"
 #include "video_core/pica/pica_core.h"
@@ -15,18 +12,82 @@ namespace VideoCore {
 
 using Pica::f24;
 
-static Common::Vec4f ColorRGBA8(const u32 color) {
-    const auto rgba =
-        Common::Vec4u{color >> 0 & 0xFF, color >> 8 & 0xFF, color >> 16 & 0xFF, color >> 24 & 0xFF};
-    return rgba / 255.0f;
-}
-
-static Common::Vec3f LightColor(const Pica::LightingRegs::LightColor& color) {
-    return Common::Vec3u{color.r, color.g, color.b} / 255.0f;
+RasterizerAccelerated::RasterizerAccelerated(Memory::MemorySystem& memory_, Pica::PicaCore& pica_)
+    : memory{memory_}, pica{pica_}, regs{pica.regs.internal} {
+    fs_uniform_block_data.lighting_lut_dirty.fill(true);
 }
 
 RasterizerAccelerated::HardwareVertex::HardwareVertex(const Pica::OutputVertex& v,
                                                       bool flip_quaternion) {
+#if defined(ARCHITECTURE_ARM64) && defined(__ARM_NEON)
+    // Load position
+    const float32x4_t pos = {v.pos.x.ToFloat32(), v.pos.y.ToFloat32(), v.pos.z.ToFloat32(),
+                             v.pos.w.ToFloat32()};
+    vst1q_f32(&position[0], pos);
+
+    // Load color
+    const float32x4_t col = {v.color.x.ToFloat32(), v.color.y.ToFloat32(), v.color.z.ToFloat32(),
+                             v.color.w.ToFloat32()};
+    vst1q_f32(&color[0], col);
+
+    // Load texture coordinates
+    const float32x2_t tc0 = {v.tc0.x.ToFloat32(), v.tc0.y.ToFloat32()};
+    const float32x2_t tc1 = {v.tc1.x.ToFloat32(), v.tc1.y.ToFloat32()};
+    const float32x2_t tc2 = {v.tc2.x.ToFloat32(), v.tc2.y.ToFloat32()};
+    vst1_f32(&tex_coord0[0], tc0);
+    vst1_f32(&tex_coord1[0], tc1);
+    vst1_f32(&tex_coord2[0], tc2);
+    tex_coord0_w = v.tc0_w.ToFloat32();
+
+    // Load quaternion
+    float32x4_t quat = {v.quat.x.ToFloat32(), v.quat.y.ToFloat32(), v.quat.z.ToFloat32(),
+                        v.quat.w.ToFloat32()};
+    if (flip_quaternion) {
+        quat = vnegq_f32(quat);
+    }
+    vst1q_f32(&normquat[0], quat);
+
+    // Load view
+    const float32x4_t view_vec = {v.view.x.ToFloat32(), v.view.y.ToFloat32(), v.view.z.ToFloat32(),
+                                  0.0f};
+    vst1q_f32(&view[0], view_vec);
+
+#elif defined(ARCHITECTURE_X64) && defined(__SSE3__)
+    // Load position
+    __m128 pos = _mm_set_ps(v.pos.w.ToFloat32(), v.pos.z.ToFloat32(), v.pos.y.ToFloat32(),
+                            v.pos.x.ToFloat32());
+    _mm_store_ps(&position[0], pos);
+
+    // Load color
+    __m128 col = _mm_set_ps(v.color.w.ToFloat32(), v.color.z.ToFloat32(), v.color.y.ToFloat32(),
+                            v.color.x.ToFloat32());
+    _mm_store_ps(&color[0], col);
+
+    // Load texture coordinates
+    __m128 tc0_1 = _mm_set_ps(v.tc1.y.ToFloat32(), v.tc1.x.ToFloat32(), v.tc0.y.ToFloat32(),
+                              v.tc0.x.ToFloat32());
+    _mm_storel_pi((__m64*)&tex_coord0[0], tc0_1);
+    _mm_storeh_pi((__m64*)&tex_coord1[0], tc0_1);
+
+    __m128 tc2_w = _mm_set_ps(0.0f, v.tc0_w.ToFloat32(), v.tc2.y.ToFloat32(), v.tc2.x.ToFloat32());
+    _mm_storel_pi((__m64*)&tex_coord2[0], tc2_w);
+    tex_coord0_w = v.tc0_w.ToFloat32();
+
+    // Load quaternion
+    __m128 quat = _mm_set_ps(v.quat.w.ToFloat32(), v.quat.z.ToFloat32(), v.quat.y.ToFloat32(),
+                             v.quat.x.ToFloat32());
+    if (flip_quaternion) {
+        quat = _mm_xor_ps(quat, _mm_set1_ps(-0.0f));
+    }
+    _mm_store_ps(&normquat[0], quat);
+
+    // Load view
+    __m128 view_vec =
+        _mm_set_ps(0.0f, v.view.z.ToFloat32(), v.view.y.ToFloat32(), v.view.x.ToFloat32());
+    _mm_store_ps(&view[0], view_vec);
+
+#else
+    // Scalar fallback
     position[0] = v.pos.x.ToFloat32();
     position[1] = v.pos.y.ToFloat32();
     position[2] = v.pos.z.ToFloat32();
@@ -53,44 +114,6 @@ RasterizerAccelerated::HardwareVertex::HardwareVertex(const Pica::OutputVertex& 
     if (flip_quaternion) {
         normquat = -normquat;
     }
-}
-
-RasterizerAccelerated::RasterizerAccelerated(Memory::MemorySystem& memory_, Pica::PicaCore& pica_)
-    : memory{memory_}, pica{pica_}, regs{pica.regs.internal} {
-    fs_uniform_block_data.lighting_lut_dirty.fill(true);
-}
-
-/**
- * This is a helper function to resolve an issue when interpolating opposite quaternions. See below
- * for a detailed description of this issue (yuriks):
- *
- * For any rotation, there are two quaternions Q, and -Q, that represent the same rotation. If you
- * interpolate two quaternions that are opposite, instead of going from one rotation to another
- * using the shortest path, you'll go around the longest path. You can test if two quaternions are
- * opposite by checking if Dot(Q1, Q2) < 0. In that case, you can flip either of them, therefore
- * making Dot(Q1, -Q2) positive.
- *
- * This solution corrects this issue per-vertex before passing the quaternions to OpenGL. This is
- * correct for most cases but can still rotate around the long way sometimes. An implementation
- * which did `lerp(lerp(Q1, Q2), Q3)` (with proper weighting), applying the dot product check
- * between each step would work for those cases at the cost of being more complex to implement.
- *
- * Fortunately however, the 3DS hardware happens to also use this exact same logic to work around
- * these issues, making this basic implementation actually more accurate to the hardware.
- */
-static bool AreQuaternionsOpposite(Common::Vec4<f24> qa, Common::Vec4<f24> qb) {
-#ifdef ARCHITECTURE_ARM64
-    const float32_t a[4] = {qa.x.ToFloat32(), qa.y.ToFloat32(), qa.z.ToFloat32(), qa.w.ToFloat32()};
-    const float32_t b[4] = {qb.x.ToFloat32(), qb.y.ToFloat32(), qb.z.ToFloat32(), qb.w.ToFloat32()};
-    const float32x4_t aa = vld1q_f32(a);
-    const float32x4_t bb = vld1q_f32(b);
-    const float32x4_t mm = vmulq_f32(aa, bb);
-    const float32x2_t s2 = vadd_f32(vget_high_f32(mm), vget_low_f32(mm));
-    return (vget_lane_f32(vpadd_f32(s2, s2), 0) < 0.f);
-#else
-    Common::Vec4f a{qa.x.ToFloat32(), qa.y.ToFloat32(), qa.z.ToFloat32(), qa.w.ToFloat32()};
-    Common::Vec4f b{qb.x.ToFloat32(), qb.y.ToFloat32(), qb.z.ToFloat32(), qb.w.ToFloat32()};
-    return (Common::Dot(a, b) < 0.f);
 #endif
 }
 
