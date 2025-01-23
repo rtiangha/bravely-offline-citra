@@ -19,7 +19,7 @@ RasterizerAccelerated::RasterizerAccelerated(Memory::MemorySystem& memory_, Pica
 
 RasterizerAccelerated::HardwareVertex::HardwareVertex(const Pica::OutputVertex& v,
                                                       bool flip_quaternion) {
-#if defined(ARCHITECTURE_ARM64) && defined(__ARM_NEON)
+#if defined(__aarch64__) && defined(__ARM_NEON)
     // Load position
     const float32x4_t pos = {v.pos.x.ToFloat32(), v.pos.y.ToFloat32(), v.pos.z.ToFloat32(),
                              v.pos.w.ToFloat32()};
@@ -52,7 +52,7 @@ RasterizerAccelerated::HardwareVertex::HardwareVertex(const Pica::OutputVertex& 
                                   0.0f};
     vst1q_f32(&view[0], view_vec);
 
-#elif defined(ARCHITECTURE_X64) && defined(__SSE3__)
+#elif defined(__x86_64__) && defined(__SSE3__)
     // Load position
     __m128 pos = _mm_set_ps(v.pos.w.ToFloat32(), v.pos.z.ToFloat32(), v.pos.y.ToFloat32(),
                             v.pos.x.ToFloat32());

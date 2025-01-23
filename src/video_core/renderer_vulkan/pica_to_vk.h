@@ -9,6 +9,13 @@
 #include "video_core/pica/regs_internal.h"
 #include "video_core/renderer_vulkan/vk_common.h"
 
+// SIMD includes
+#if defined(__aarch64__) && defined(__ARM_NEON)
+#include <arm_neon.h>
+#elif defined(__x86_64__)
+#include <immintrin.h>
+#endif
+
 namespace PicaToVK {
 
 using TextureFilter = Pica::TexturingRegs::TextureConfig::TextureFilter;
@@ -204,10 +211,29 @@ inline vk::FrontFace FrontFace(Pica::RasterizerRegs::CullMode mode) {
     return vk::FrontFace::eClockwise;
 }
 
-inline Common::Vec4f ColorRGBA8(const u32 color) {
-    const auto rgba =
-        Common::Vec4u{color >> 0 & 0xFF, color >> 8 & 0xFF, color >> 16 & 0xFF, color >> 24 & 0xFF};
-    return rgba / 255.0f;
+/// SIMD optimized color conversion
+[[maybe_unused]] static inline Common::Vec4f ColorRGBA8(const u32 color) {
+#if defined(__aarch64__) && defined(__ARM_NEON)
+    const uint32x4_t rgba = {color & 0xFF, (color >> 8) & 0xFF, (color >> 16) & 0xFF,
+                             (color >> 24) & 0xFF};
+    const float32x4_t converted = vcvtq_f32_u32(rgba);
+    const float32x4_t result = vdivq_f32(converted, vdupq_n_f32(255.0f));
+    return Common::Vec4f{vgetq_lane_f32(result, 0), vgetq_lane_f32(result, 1),
+                         vgetq_lane_f32(result, 2), vgetq_lane_f32(result, 3)};
+#elif defined(__x86_64__) && defined(__SSE3__)
+    const __m128i rgba = _mm_set_epi32(color >> 24, color >> 16, color >> 8, color);
+    const __m128i mask = _mm_set1_epi32(0xFF);
+    const __m128i masked = _mm_and_si128(rgba, mask);
+    const __m128 converted = _mm_cvtepi32_ps(masked);
+    const __m128 result = _mm_div_ps(converted, _mm_set1_ps(255.0f));
+    float temp[4];
+    _mm_store_ps(temp, result);
+    return Common::Vec4f{temp[0], temp[1], temp[2], temp[3]};
+#else
+    return Common::Vec4f{static_cast<float>(color & 0xFF) / 255.0f,
+                         static_cast<float>((color >> 8) & 0xFF) / 255.0f,
+                         static_cast<float>((color >> 16) & 0xFF) / 255.0f,
+                         static_cast<float>((color >> 24) & 0xFF) / 255.0f};
+#endif
 }
-
 } // namespace PicaToVK

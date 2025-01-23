@@ -13,9 +13,9 @@
 #include "video_core/shader/generator/shader_uniforms.h"
 
 // SIMD includes
-#if defined(ARCHITECTURE_ARM64) && defined(__ARM_NEON)
+#if defined(__aarch64__) && defined(__ARM_NEON)
 #include <arm_neon.h>
-#elif defined(ARCHITECTURE_X64)
+#elif defined(__x86_64__)
 #include <immintrin.h>
 #endif
 
@@ -52,14 +52,14 @@ protected:
 
     /// SIMD optimized color conversion
     [[maybe_unused]] static inline Common::Vec4f ColorRGBA8(const u32 color) {
-#if defined(ARCHITECTURE_ARM64) && defined(__ARM_NEON)
+#if defined(__aarch64__) && defined(__ARM_NEON)
         const uint32x4_t rgba = {color & 0xFF, (color >> 8) & 0xFF, (color >> 16) & 0xFF,
                                  (color >> 24) & 0xFF};
         const float32x4_t converted = vcvtq_f32_u32(rgba);
         const float32x4_t result = vdivq_f32(converted, vdupq_n_f32(255.0f));
         return Common::Vec4f{vgetq_lane_f32(result, 0), vgetq_lane_f32(result, 1),
                              vgetq_lane_f32(result, 2), vgetq_lane_f32(result, 3)};
-#elif defined(ARCHITECTURE_X64) && defined(__SSE3__)
+#elif defined(__x86_64__) && defined(__SSE3__)
         const __m128i rgba = _mm_set_epi32(color >> 24, color >> 16, color >> 8, color);
         const __m128i mask = _mm_set1_epi32(0xFF);
         const __m128i masked = _mm_and_si128(rgba, mask);
@@ -79,13 +79,13 @@ protected:
     /// SIMD optimized light color conversion
     [[maybe_unused]] static inline Common::Vec3f LightColor(
         const Pica::LightingRegs::LightColor& color) {
-#if defined(ARCHITECTURE_ARM64) && defined(__ARM_NEON)
+#if defined(__aarch64__) && defined(__ARM_NEON)
         const uint32x4_t rgb = {color.r, color.g, color.b, 0};
         const float32x4_t converted = vcvtq_f32_u32(rgb);
         const float32x4_t result = vdivq_f32(converted, vdupq_n_f32(255.0f));
         return Common::Vec3f{vgetq_lane_f32(result, 0), vgetq_lane_f32(result, 1),
                              vgetq_lane_f32(result, 2)};
-#elif defined(ARCHITECTURE_X64) && defined(__SSE3__)
+#elif defined(__x86_64__) && defined(__SSE3__)
         const __m128i rgb = _mm_set_epi32(0, color.b, color.g, color.r);
         const __m128 converted = _mm_cvtepi32_ps(rgb);
         const __m128 result = _mm_div_ps(converted, _mm_set1_ps(255.0f));
@@ -119,7 +119,7 @@ protected:
     /// SIMD optimized quaternion comparison
     [[maybe_unused]] static inline bool AreQuaternionsOpposite(Common::Vec4<f24> qa,
                                                                Common::Vec4<f24> qb) {
-#if defined(ARCHITECTURE_ARM64) && defined(__ARM_NEON)
+#if defined(__aarch64__) && defined(__ARM_NEON)
         const float32x4_t a = {qa.x.ToFloat32(), qa.y.ToFloat32(), qa.z.ToFloat32(),
                                qa.w.ToFloat32()};
         const float32x4_t b = {qb.x.ToFloat32(), qb.y.ToFloat32(), qb.z.ToFloat32(),
@@ -128,7 +128,7 @@ protected:
         const float32x2_t sum = vadd_f32(vget_low_f32(prod), vget_high_f32(prod));
         const float32x2_t dot = vpadd_f32(sum, sum);
         return vget_lane_f32(dot, 0) < 0.0f;
-#elif defined(ARCHITECTURE_X64) && defined(__SSE3__)
+#elif defined(__x86_64__) && defined(__SSE3__)
         const __m128 a =
             _mm_set_ps(qa.w.ToFloat32(), qa.z.ToFloat32(), qa.y.ToFloat32(), qa.x.ToFloat32());
         const __m128 b =
