@@ -511,8 +511,10 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
                     requireContext().theme
                 )
             }
+
             val position = IntSetting.PERF_OVERLAY_POSITION.int
             updatePerfStatsPosition(position)
+
             return
         }
 
