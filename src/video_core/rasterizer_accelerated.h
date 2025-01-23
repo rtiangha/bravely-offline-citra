@@ -5,10 +5,19 @@
 
 #pragma once
 
+#include <array>
+#include <vector>
 #include "common/vector_math.h"
 #include "video_core/rasterizer_interface.h"
 #include "video_core/shader/generator/pica_fs_config.h"
 #include "video_core/shader/generator/shader_uniforms.h"
+
+// SIMD includes
+#if defined(ARCHITECTURE_ARM64) && defined(__ARM_NEON)
+#include <arm_neon.h>
+#elif defined(ARCHITECTURE_X64)
+#include <immintrin.h>
+#endif
 
 namespace Memory {
 class MemorySystem;
@@ -19,6 +28,8 @@ class PicaCore;
 }
 
 namespace VideoCore {
+
+using Pica::f24;
 
 class RasterizerAccelerated : public RasterizerInterface {
 public:
@@ -39,6 +50,101 @@ protected:
     /// Notifies that a fixed function PICA register changed to the video backend
     virtual void NotifyFixedFunctionPicaRegisterChanged(u32 id) = 0;
 
+    /// SIMD optimized color conversion
+    [[maybe_unused]] static inline Common::Vec4f ColorRGBA8(const u32 color) {
+#if defined(ARCHITECTURE_ARM64) && defined(__ARM_NEON)
+        const uint32x4_t rgba = {color & 0xFF, (color >> 8) & 0xFF, (color >> 16) & 0xFF,
+                                 (color >> 24) & 0xFF};
+        const float32x4_t converted = vcvtq_f32_u32(rgba);
+        const float32x4_t result = vdivq_f32(converted, vdupq_n_f32(255.0f));
+        return Common::Vec4f{vgetq_lane_f32(result, 0), vgetq_lane_f32(result, 1),
+                             vgetq_lane_f32(result, 2), vgetq_lane_f32(result, 3)};
+#elif defined(ARCHITECTURE_X64) && defined(__SSE3__)
+        const __m128i rgba = _mm_set_epi32(color >> 24, color >> 16, color >> 8, color);
+        const __m128i mask = _mm_set1_epi32(0xFF);
+        const __m128i masked = _mm_and_si128(rgba, mask);
+        const __m128 converted = _mm_cvtepi32_ps(masked);
+        const __m128 result = _mm_div_ps(converted, _mm_set1_ps(255.0f));
+        float temp[4];
+        _mm_store_ps(temp, result);
+        return Common::Vec4f{temp[0], temp[1], temp[2], temp[3]};
+#else
+        return Common::Vec4f{static_cast<float>(color & 0xFF) / 255.0f,
+                             static_cast<float>((color >> 8) & 0xFF) / 255.0f,
+                             static_cast<float>((color >> 16) & 0xFF) / 255.0f,
+                             static_cast<float>((color >> 24) & 0xFF) / 255.0f};
+#endif
+    }
+
+    /// SIMD optimized light color conversion
+    [[maybe_unused]] static inline Common::Vec3f LightColor(
+        const Pica::LightingRegs::LightColor& color) {
+#if defined(ARCHITECTURE_ARM64) && defined(__ARM_NEON)
+        const uint32x4_t rgb = {color.r, color.g, color.b, 0};
+        const float32x4_t converted = vcvtq_f32_u32(rgb);
+        const float32x4_t result = vdivq_f32(converted, vdupq_n_f32(255.0f));
+        return Common::Vec3f{vgetq_lane_f32(result, 0), vgetq_lane_f32(result, 1),
+                             vgetq_lane_f32(result, 2)};
+#elif defined(ARCHITECTURE_X64) && defined(__SSE3__)
+        const __m128i rgb = _mm_set_epi32(0, color.b, color.g, color.r);
+        const __m128 converted = _mm_cvtepi32_ps(rgb);
+        const __m128 result = _mm_div_ps(converted, _mm_set1_ps(255.0f));
+        float temp[4];
+        _mm_store_ps(temp, result);
+        return Common::Vec3f{temp[0], temp[1], temp[2]};
+#else
+        return Common::Vec3u{color.r, color.g, color.b} / 255.0f;
+#endif
+    }
+
+    /**
+     * This is a helper function to resolve an issue when interpolating opposite quaternions. See
+     * below for a detailed description of this issue (yuriks):
+     *
+     * For any rotation, there are two quaternions Q, and -Q, that represent the same rotation. If
+     * you interpolate two quaternions that are opposite, instead of going from one rotation to
+     * another using the shortest path, you'll go around the longest path. You can test if two
+     * quaternions are opposite by checking if Dot(Q1, Q2) < 0. In that case, you can flip either of
+     * them, therefore making Dot(Q1, -Q2) positive.
+     *
+     * This solution corrects this issue per-vertex before passing the quaternions to OpenGL. This
+     * is correct for most cases but can still rotate around the long way sometimes. An
+     * implementation which did `lerp(lerp(Q1, Q2), Q3)` (with proper weighting), applying the dot
+     * product check between each step would work for those cases at the cost of being more complex
+     * to implement.
+     *
+     * Fortunately however, the 3DS hardware happens to also use this exact same logic to work
+     * around these issues, making this basic implementation actually more accurate to the hardware.
+     */
+    /// SIMD optimized quaternion comparison
+    [[maybe_unused]] static inline bool AreQuaternionsOpposite(Common::Vec4<f24> qa,
+                                                               Common::Vec4<f24> qb) {
+#if defined(ARCHITECTURE_ARM64) && defined(__ARM_NEON)
+        const float32x4_t a = {qa.x.ToFloat32(), qa.y.ToFloat32(), qa.z.ToFloat32(),
+                               qa.w.ToFloat32()};
+        const float32x4_t b = {qb.x.ToFloat32(), qb.y.ToFloat32(), qb.z.ToFloat32(),
+                               qb.w.ToFloat32()};
+        const float32x4_t prod = vmulq_f32(a, b);
+        const float32x2_t sum = vadd_f32(vget_low_f32(prod), vget_high_f32(prod));
+        const float32x2_t dot = vpadd_f32(sum, sum);
+        return vget_lane_f32(dot, 0) < 0.0f;
+#elif defined(ARCHITECTURE_X64) && defined(__SSE3__)
+        const __m128 a =
+            _mm_set_ps(qa.w.ToFloat32(), qa.z.ToFloat32(), qa.y.ToFloat32(), qa.x.ToFloat32());
+        const __m128 b =
+            _mm_set_ps(qb.w.ToFloat32(), qb.z.ToFloat32(), qb.y.ToFloat32(), qb.x.ToFloat32());
+        const __m128 prod = _mm_mul_ps(a, b);
+        const __m128 sum = _mm_hadd_ps(prod, prod);
+        const __m128 dot = _mm_hadd_ps(sum, sum);
+        return _mm_cvtss_f32(dot) < 0.0f;
+#else
+        Common::Vec4f a{qa.x.ToFloat32(), qa.y.ToFloat32(), qa.z.ToFloat32(), qa.w.ToFloat32()};
+        Common::Vec4f b{qb.x.ToFloat32(), qb.y.ToFloat32(), qb.z.ToFloat32(), qb.w.ToFloat32()};
+        return (Common::Dot(a, b) < 0.0f);
+#endif
+    }
+
+    // Sync functions
     /// Syncs the depth scale to match the PICA register
     void SyncDepthScale();
 
@@ -108,13 +214,13 @@ protected:
 
 protected:
     /// Structure that keeps tracks of the vertex shader uniform state
-    struct VSUniformBlockData {
+    struct alignas(16) VSUniformBlockData {
         Pica::Shader::Generator::VSUniformData data{};
         bool dirty = true;
     };
 
     /// Structure that keeps tracks of the fragment shader uniform state
-    struct FSUniformBlockData {
+    struct alignas(16) FSUniformBlockData {
         Pica::Shader::Generator::FSUniformData data{};
         std::array<bool, Pica::LightingRegs::NumLightingSampler> lighting_lut_dirty{};
         bool lighting_lut_dirty_any = true;
@@ -128,7 +234,7 @@ protected:
     };
 
     /// Structure that the hardware rendered vertices are composed of
-    struct HardwareVertex {
+    struct alignas(16) HardwareVertex {
         HardwareVertex() = default;
         HardwareVertex(const Pica::OutputVertex& v, bool flip_quaternion);
 
@@ -160,8 +266,8 @@ protected:
     Pica::Shader::UserConfig user_config{};
     bool shader_dirty = true;
 
-    VSUniformBlockData vs_uniform_block_data{};
-    FSUniformBlockData fs_uniform_block_data{};
+    alignas(16) VSUniformBlockData vs_uniform_block_data{};
+    alignas(16) FSUniformBlockData fs_uniform_block_data{};
     using LightLUT = std::array<Common::Vec2f, 256>;
     std::array<LightLUT, Pica::LightingRegs::NumLightingSampler> lighting_lut_data{};
     std::array<Common::Vec2f, 128> fog_lut_data{};
