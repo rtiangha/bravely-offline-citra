@@ -6,8 +6,8 @@
 #include <cstdlib>
 #include <memory>
 #include <string>
-#include <SDL.h>
-#include <SDL_syswm.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_syswm.h>
 #include <fmt/format.h>
 #include "borked3ds/emu_window/emu_window_sdl2_vk.h"
 #include "common/logging/log.h"

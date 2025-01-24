@@ -180,19 +180,21 @@ if (BUNDLE_TARGET_EXECUTE)
             set(extra_linuxdeploy_args --plugin qt)
         endif()
 
-        message(STATUS "Creating AppDir for executable ${executable_path}")
-        execute_process(COMMAND ${CMAKE_COMMAND} -E env
-            ${extra_linuxdeploy_env}
-            "${linuxdeploy_executable}"
-            ${extra_linuxdeploy_args}
-            --plugin checkrt
-            --executable "${executable_path}"
-            --icon-file "${source_path}/dist/borked3ds.svg"
-            --desktop-file "${source_path}/dist/${executable_name}.desktop"
-            --appdir "${appdir_path}"
-            RESULT_VARIABLE linuxdeploy_appdir_result)
-        if (NOT linuxdeploy_appdir_result EQUAL "0")
-            message(FATAL_ERROR "linuxdeploy failed to create AppDir: ${linuxdeploy_appdir_result}")
+        if (NOT ${executable_name} STREQUAL "libSDL3")
+            message(STATUS "Creating AppDir for executable ${executable_path}")
+            execute_process(COMMAND ${CMAKE_COMMAND} -E env
+                ${extra_linuxdeploy_env}
+                "${linuxdeploy_executable}"
+                ${extra_linuxdeploy_args}
+                --plugin checkrt
+                --executable "${executable_path}"
+                --icon-file "${source_path}/dist/borked3ds.svg"
+                --desktop-file "${source_path}/dist/${executable_name}.desktop"
+                --appdir "${appdir_path}"
+                RESULT_VARIABLE linuxdeploy_appdir_result)
+            if (NOT linuxdeploy_appdir_result EQUAL "0")
+                message(FATAL_ERROR "linuxdeploy failed to create AppDir: ${linuxdeploy_appdir_result}")
+            endif()
         endif()
 
         if (enable_qt)
@@ -211,16 +213,18 @@ if (BUNDLE_TARGET_EXECUTE)
             file(WRITE "${qt_hook_file}" "${qt_hook_contents}")
         endif()
 
-        message(STATUS "Creating AppImage for executable ${executable_path}")
-        execute_process(COMMAND ${CMAKE_COMMAND} -E env
-            "OUTPUT=${bundle_dir}/${executable_name}.AppImage"
-            "${linuxdeploy_executable}"
-            --output appimage
-            --appdir "${appdir_path}"
-            RESULT_VARIABLE linuxdeploy_appimage_result)
-        if (NOT linuxdeploy_appimage_result EQUAL "0")
-            message(FATAL_ERROR "linuxdeploy failed to create AppImage: ${linuxdeploy_appimage_result}")
+        if (NOT ${executable_name} STREQUAL "libSDL3")
+            message(STATUS "Creating AppImage for executable ${executable_path}")
+            execute_process(COMMAND ${CMAKE_COMMAND} -E env
+                "OUTPUT=${bundle_dir}/${executable_name}.AppImage"
+                "${linuxdeploy_executable}"
+                --output appimage
+                --appdir "${appdir_path}"
+                RESULT_VARIABLE linuxdeploy_appimage_result)
+            if (NOT linuxdeploy_appimage_result EQUAL "0")
+                message(FATAL_ERROR "linuxdeploy failed to create AppImage: ${linuxdeploy_appimage_result}")
         endif()
+     endif()
     endfunction()
 
     function(bundle_standalone executable_path original_executable_path bundle_library_paths)
@@ -435,6 +439,9 @@ else()
 
     # Adds a target to the bundle target, packing in required libraries.
     function(bundle_target target_name)
+        if (ENABLE_SDL2)
+            bundle_target_internal("SDL3-shared" OFF)
+        endif()
         bundle_target_internal("${target_name}" OFF)
     endfunction()
 

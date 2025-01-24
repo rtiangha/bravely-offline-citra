@@ -110,3 +110,6 @@
 [submodule "Vulkan-ValidationLayers"]
     path = externals/Vulkan-ValidationLayers
     url = https://github.com/KhronosGroup/Vulkan-ValidationLayers.git
+[submodule "externals/sdl2/sdl2-compat"]
+    path = externals/sdl2/sdl2-compat
+    url = https://github.com/libsdl-org/sdl2-compat.git

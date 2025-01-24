@@ -46,7 +46,7 @@ target_link_libraries(borked3ds PRIVATE inih)
 if (MSVC)
     target_link_libraries(borked3ds PRIVATE getopt)
 endif()
-target_link_libraries(borked3ds PRIVATE ${PLATFORM_LIBRARIES} SDL2::SDL2 Threads::Threads)
+target_link_libraries(borked3ds PRIVATE ${PLATFORM_LIBRARIES} SDL2::SDL2 SDL3-shared Threads::Threads)
 
 if (ENABLE_OPENGL)
     target_link_libraries(borked3ds PRIVATE glad)

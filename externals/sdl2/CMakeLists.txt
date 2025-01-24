@@ -1,5 +1,9 @@
-# Configure static library build
-set(SDL_SHARED OFF CACHE BOOL "")
+# Define paths to existing SDL3 and SDL2-compat directories
+set(SDL3_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/SDL" CACHE PATH "Path to SDL3 source directory")
+set(SDL2_COMPAT_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/sdl2-compat" CACHE PATH "Path to SDL2-compat source directory")
+
+# Configure both static and shared library builds
+set(SDL_SHARED ON CACHE BOOL "")
 set(SDL_STATIC ON CACHE BOOL "")
 
 # Subsystems
@@ -26,3 +30,4 @@ set(SDL_WAYLAND_SHARED ON CACHE BOOL "")
 set(SDL_WAYLAND_QT_TOUCH ON CACHE BOOL "")
 
 add_subdirectory(SDL)
+add_subdirectory(sdl2-compat)
