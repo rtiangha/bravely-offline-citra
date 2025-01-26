@@ -159,34 +159,47 @@ std::vector<u8> GenerateInternalKey(const HW::AES::NfcSecret& secret, const Hash
     static constexpr std::size_t FULL_SEED_LENGTH = 0x10;
     const std::size_t seed_part1_len = FULL_SEED_LENGTH - secret.seed.size();
     const std::size_t string_size = secret.phrase.size();
-    std::vector<u8> output(string_size + seed_part1_len);
+
+    // Calculate total size needed
+    const std::size_t total_size = string_size + seed_part1_len + secret.seed.size() +
+                                   seed.uid_1.size() + 1 + seed.uid_2.size() + 1 +
+                                   sizeof(seed.keygen_salt);
+
+    // Pre-allocate the vector
+    std::vector<u8> output;
+    output.reserve(total_size);
 
     // Copy whole type string
+    output.resize(string_size + seed_part1_len);
     memccpy(output.data(), secret.phrase.data(), '\0', string_size);
 
     // Append (FULL_SEED_LENGTH - secret.seed.size()) from the input seed
     memcpy(output.data() + string_size, &seed, seed_part1_len);
 
     // Append all bytes from secret.seed
-    output.insert(output.end(), secret.seed.begin(), secret.seed.end());
+    std::copy(secret.seed.begin(), secret.seed.end(), std::back_inserter(output));
 
-    output.insert(output.end(), seed.uid_1.begin(), seed.uid_1.end());
-    output.emplace_back(seed.nintendo_id_1);
-    output.insert(output.end(), seed.uid_2.begin(), seed.uid_2.end());
-    output.emplace_back(seed.nintendo_id_2);
+    // Append UID and Nintendo ID data
+    std::copy(seed.uid_1.begin(), seed.uid_1.end(), std::back_inserter(output));
+    output.push_back(seed.nintendo_id_1);
+    std::copy(seed.uid_2.begin(), seed.uid_2.end(), std::back_inserter(output));
+    output.push_back(seed.nintendo_id_2);
 
+    // Handle keygen salt decryption
     HW::AES::SelectDlpNfcKeyYIndex(HW::AES::DlpNfcKeyY::Nfc);
     auto nfc_key = HW::AES::GetNormalKey(HW::AES::KeySlotID::DLPNFCDataKey);
     auto nfc_iv = HW::AES::GetNfcIv();
 
-    // Decrypt the keygen salt using the NFC key and IV.
+    // Decrypt the keygen salt
     CryptoPP::CTR_Mode<CryptoPP::AES>::Decryption d;
     d.SetKeyWithIV(nfc_key.data(), nfc_key.size(), nfc_iv.data(), nfc_iv.size());
     std::array<u8, sizeof(seed.keygen_salt)> decrypted_salt{};
     d.ProcessData(reinterpret_cast<unsigned char*>(decrypted_salt.data()),
                   reinterpret_cast<const unsigned char*>(seed.keygen_salt.data()),
                   seed.keygen_salt.size());
-    output.insert(output.end(), decrypted_salt.begin(), decrypted_salt.end());
+
+    // Append decrypted salt
+    std::copy(decrypted_salt.begin(), decrypted_salt.end(), std::back_inserter(output));
 
     return output;
 }
