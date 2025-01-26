@@ -6,8 +6,9 @@
 #pragma once
 
 #include <array>
+#include <map>
 #include <shared_mutex>
-#include "vector"
+#include <vector>
 
 #include <boost/serialization/array.hpp>
 #include <boost/serialization/base_object.hpp>
@@ -20,6 +21,20 @@
 #include "network/artic_base/artic_base_client.h"
 
 namespace FileSys {
+struct ArticCacheVectorCompare {
+    bool operator()(const std::vector<u8>& lhs, const std::vector<u8>& rhs) const {
+        if (lhs.size() != rhs.size()) {
+            return lhs.size() < rhs.size();
+        }
+        for (size_t i = 0; i < lhs.size(); ++i) {
+            if (lhs[i] != rhs[i]) {
+                return lhs[i] < rhs[i];
+            }
+        }
+        return false;
+    }
+};
+
 class ArticCache {
 public:
     ArticCache() = default;
@@ -134,8 +149,8 @@ public:
 
     virtual void EnsureCacheCreated() {
         if (file_caches == nullptr) {
-            file_caches =
-                std::make_unique<std::map<std::vector<u8>, std::shared_ptr<ArticCache>>>();
+            file_caches = std::make_unique<
+                std::map<std::vector<u8>, std::shared_ptr<ArticCache>, ArticCacheVectorCompare>>();
         }
     }
 
@@ -145,7 +160,8 @@ protected:
     friend class boost::serialization::access;
 
 private:
-    std::unique_ptr<std::map<std::vector<u8>, std::shared_ptr<ArticCache>>> file_caches = nullptr;
+    std::unique_ptr<std::map<std::vector<u8>, std::shared_ptr<ArticCache>, ArticCacheVectorCompare>>
+        file_caches = nullptr;
     std::shared_ptr<Network::ArticBase::Client> client;
 };
 
