@@ -273,7 +273,7 @@ void JitShader::Compile_SwizzleSrc(Instruction instr, u32 src_num, SourceRegiste
         movaps(dest, xword[src_ptr + src_offset_disp]);
     }
 
-    SwizzlePattern swiz = {(*swizzle_data)[operand_desc_id]};
+    SwizzlePattern swiz((*swizzle_data)[operand_desc_id]);
 
     // Generate instructions for source register swizzling as needed
     u8 sel = swiz.GetRawSelector(src_num);
@@ -937,7 +937,7 @@ void JitShader::Compile_NextInstr() {
 
     L(instruction_labels[program_counter]);
 
-    Instruction instr = {(*program_code)[program_counter++]};
+    Instruction instr = ((*program_code)[program_counter++]);
 
     OpCode::Id opcode = instr.opcode.Value();
     auto instr_func = instr_table[static_cast<u32>(opcode)];
