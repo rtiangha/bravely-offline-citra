@@ -119,8 +119,8 @@ static void RunInterpreter(const ShaderSetup& setup, ShaderUnit& state,
         bool is_break = false;
         const u32 old_program_counter = program_counter;
 
-        const Instruction instr = {program_code[program_counter]};
-        const SwizzlePattern swizzle = {swizzle_data[instr.common.operand_desc_id]};
+        const Instruction instr(program_code[program_counter]);
+        const SwizzlePattern swizzle(swizzle_data[instr.common.operand_desc_id]);
 
         Record<DebugDataRecord::CUR_INSTR>(debug_data, iteration, program_counter);
         if (iteration > 0)

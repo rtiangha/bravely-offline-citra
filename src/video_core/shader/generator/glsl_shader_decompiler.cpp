@@ -133,7 +133,7 @@ private:
             return exit_method;
 
         for (u32 offset = begin; offset != end && offset != PROGRAM_END; ++offset) {
-            const Instruction instr = {program_code[offset]};
+            const Instruction instr(program_code[offset]);
             switch (instr.opcode.Value()) {
             case OpCode::Id::END: {
                 return exit_method = ExitMethod::AlwaysEnd;
@@ -433,7 +433,7 @@ private:
             instr.opcode.Value().GetInfo().type == OpCode::Type::MultiplyAdd
                 ? instr.mad.operand_desc_id
                 : instr.common.operand_desc_id;
-        const SwizzlePattern swizzle = {swizzle_data[swizzle_offset]};
+        const SwizzlePattern swizzle(swizzle_data[swizzle_offset]);
 
         shader.AddLine("// {}: {}", offset, instr.opcode.Value().GetInfo().name);
 
