@@ -22,7 +22,8 @@ cmake .. -G Ninja \
     -DCMAKE_EXE_LINKER_FLAGS="-fuse-ld=mold -lstdc++" \
     -DCMAKE_SHARED_LINKER_FLAGS="-fuse-ld=mold -lstdc++" \
     "${EXTRA_CMAKE_FLAGS[@]}" \
-    -DENABLE_TESTS=OFF \
+    -DENABLE_LTO=ON \
+    -DENABLE_TESTS=ON \
     -DENABLE_QT_TRANSLATION=ON \
     -DUSE_SYSTEM_BOOST=OFF \
     -DUSE_SYSTEM_CATCH2=OFF \

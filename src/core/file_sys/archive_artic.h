@@ -3,6 +3,8 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
+#include <map>
+#include <memory>
 #include "atomic"
 
 #include <boost/serialization/unique_ptr.hpp>

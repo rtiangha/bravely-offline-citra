@@ -209,17 +209,25 @@ void DumpShader(const std::string& filename, const ShaderRegs& config, const Sha
 
     std::vector<nihstro::ConstantInfo> constant_table;
     for (unsigned i = 0; i < setup.uniforms.b.size(); ++i) {
-        nihstro::ConstantInfo constant;
-        std::memset(&constant, 0, sizeof(constant));
-        constant.type = nihstro::ConstantInfo::Bool;
+        nihstro::ConstantInfo constant{};
+        constant.full_first_word = 0;
+        constant.value_hex[0] = 0;
+        constant.value_hex[1] = 0;
+        constant.value_hex[2] = 0;
+        constant.value_hex[3] = 0;
+        constant.type = nihstro::ConstantInfo::Type::Bool;
         constant.regid = i;
         constant.b = setup.uniforms.b[i];
         constant_table.emplace_back(constant);
     }
     for (unsigned i = 0; i < setup.uniforms.i.size(); ++i) {
-        nihstro::ConstantInfo constant;
-        std::memset(&constant, 0, sizeof(constant));
-        constant.type = nihstro::ConstantInfo::Int;
+        nihstro::ConstantInfo constant{};
+        constant.full_first_word = 0;
+        constant.value_hex[0] = 0;
+        constant.value_hex[1] = 0;
+        constant.value_hex[2] = 0;
+        constant.value_hex[3] = 0;
+        constant.type = nihstro::ConstantInfo::Type::Int;
         constant.regid = i;
         constant.i.x = setup.uniforms.i[i].x;
         constant.i.y = setup.uniforms.i[i].y;
@@ -228,9 +236,13 @@ void DumpShader(const std::string& filename, const ShaderRegs& config, const Sha
         constant_table.emplace_back(constant);
     }
     for (unsigned i = 0; i < sizeof(setup.uniforms.f) / sizeof(setup.uniforms.f[0]); ++i) {
-        nihstro::ConstantInfo constant;
-        std::memset(&constant, 0, sizeof(constant));
-        constant.type = nihstro::ConstantInfo::Float;
+        nihstro::ConstantInfo constant{};
+        constant.full_first_word = 0;
+        constant.value_hex[0] = 0;
+        constant.value_hex[1] = 0;
+        constant.value_hex[2] = 0;
+        constant.value_hex[3] = 0;
+        constant.type = nihstro::ConstantInfo::Type::Float;
         constant.regid = i;
         constant.f.x = nihstro::to_float24(setup.uniforms.f[i].x.ToFloat32());
         constant.f.y = nihstro::to_float24(setup.uniforms.f[i].y.ToFloat32());
