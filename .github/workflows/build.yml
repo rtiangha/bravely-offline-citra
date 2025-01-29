@@ -67,7 +67,7 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          aqtversion: '==3.1.*'
+          aqtversion: '==3.2.*'
           version: '6.8.1'
           host: 'linux'
           target: 'desktop'
@@ -133,7 +133,7 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          aqtversion: '==3.1.*'
+          aqtversion: '==3.2.*'
           version: '6.8.1'
           host: 'linux'
           target: 'desktop'
@@ -199,7 +199,7 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          aqtversion: '==3.1.*'
+          aqtversion: '==3.2.*'
           version: '6.8.1'
           host: 'linux'
           target: 'desktop'
@@ -257,7 +257,7 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
-          aqtversion: '==3.1.*'
+          aqtversion: '==3.2.*'
           version: '6.8.1'
           host: 'linux'
           target: 'desktop'
