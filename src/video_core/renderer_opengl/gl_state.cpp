@@ -12,11 +12,12 @@ namespace OpenGL {
 OpenGLState OpenGLState::cur_state;
 
 OpenGLState::OpenGLState() {
+    // These all match default OpenGL values
     cull.enabled = false;
     cull.mode = GL_BACK;
     cull.front_face = GL_CCW;
 
-    depth.test_enabled = GL_TRUE;
+    depth.test_enabled = false;
     depth.test_func = GL_LESS;
     depth.write_mask = GL_TRUE;
 
